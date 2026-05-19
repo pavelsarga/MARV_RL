@@ -1,0 +1,76 @@
+# Optuna Stage 2: Optimization + Physics parameters
+# Reward and GAE params are frozen from Stage 1 best trial.
+#
+# Usage:
+#   1. After stage 1 completes, find the best trial:
+#        python -c "
+#        import optuna
+#        study = optuna.load_study(study_name='ftr_v3_stage1_rewards', storage=...)
+#        print(study.best_trial.params)
+#        "
+#   2. Paste the best params into frozen_params below.
+#   3. Run: slurm/optuna_ftr.sbatch  with  -o configs/optuna_ftr_stage2_optim.yaml
+
+study_name: "ftr_v3_stage2_optim"
+directions:
+  - maximize
+metrics_to_optimize:
+  - "eval/success_rate"
+num_trials: 100
+gpu: 0
+
+# --- Frozen from Stage 1 best trial ---
+# Replace these with actual values from study.best_trial.params
+frozen_params:
+  env_cfg_overrides.goal_reached_reward: 14.0
+  env_cfg_overrides.failed_reward: -14.0
+  env_cfg_overrides.shaping_coef: 27.28
+  env_cfg_overrides.step_penalty: -0.327
+  env_cfg_overrides.joint_vel_variance_coef: 0.8
+  env_cfg_overrides.joint_angle_variance_coef: null
+  env_cfg_overrides.roll_rate_coef: 0.8
+  env_cfg_overrides.pitch_rate_coef: 0.8
+  env_cfg_overrides.roll_coef: 0.2
+  env_cfg_overrides.pitch_coef: 0.2
+  gae_opts.gamma: 0.999
+  gae_opts.lmbda: 0.95
+
+optuna_keys:
+  # --- Learning rates ---
+  - "policy_opts.actor_optimizer_opts.lr"
+  - "policy_opts.value_optimizer_opts.lr"
+  # --- PPO ---
+  - "ppo_opts.entropy_coef"
+  - "ppo_opts.clip_epsilon"
+  # --- Physics ---
+  - "solver_position_iterations"
+  - "solver_velocity_iterations"
+  - "max_depenetration_velocity"
+  - "sim_dt"
+
+optuna_types:
+  - log_float   # actor lr
+  - log_float   # value lr
+  - log_float   # entropy_coef
+  - float       # clip_epsilon
+  - int         # solver_position_iterations
+  - int         # solver_velocity_iterations
+  - log_float   # max_depenetration_velocity
+  - categorical # sim_dt
+
+optuna_values:
+  - [0.00005, 0.002]    # actor lr
+  - [0.0001, 0.005]     # value lr
+  - [0.001, 0.1]        # entropy_coef
+  - [0.1, 0.4]          # clip_epsilon
+  - [4, 32]             # solver_position_iterations
+  - [1, 8]              # solver_velocity_iterations
+  - [0.01, 1.0]         # max_depenetration_velocity
+  - [0.01, 0.005, 0.0025, 0.002]  # sim_dt: 100/200/400/500 Hz
+
+train_config_overrides:
+  use_wandb: true
+  use_tensorboard: false
+  eval_repeats_after_training: 10
+  total_frames: 5242880
+  num_robots: 128

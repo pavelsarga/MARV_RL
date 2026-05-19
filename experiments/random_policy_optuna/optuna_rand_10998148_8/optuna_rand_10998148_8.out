@@ -1,0 +1,202 @@
+########################################################################
+Job array ID : 10998148
+Array task   : 8
+Job ID       : 10998669
+Node         : g01
+Submit host  : login4.rci.cvut.cz
+Restart count: 0
+########################################################################
+Wed May 13 16:33:52 2026       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 550.54.14              Driver Version: 550.54.14      CUDA Version: 12.4     |
+|-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA A100-SXM4-40GB          On  |   00000000:81:00.0 Off |                    0 |
+| N/A   27C    P0             57W /  400W |       0MiB /  40960MiB |      0%      Default |
+|                                         |                        |             Disabled |
++-----------------------------------------+------------------------+----------------------+
+                                                                                         
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI        PID   Type   Process name                              GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|  No running processes found                                                             |
++-----------------------------------------------------------------------------------------+
+GPU is clean.
+Copying Omniverse cache to node-local /tmp/omni_cache_10998148_8 ...
+Using SQLite database: sqlite:////ws/optuna/rand_policy_optuna.db
+SQLite file: /home/sargapav/robot_rodeo_gym_ws/optuna/rand_policy_optuna.db
+Executing:
+apptainer exec --nv     --bind /home/sargapav/robot_rodeo_gym_ws:/ws     --bind /tmp/omni_cache_10998148_8:/home/sargapav/.cache/ov     --env OMNI_KIT_ACCEPT_EULA=Y     --env REQUESTS_CA_BUNDLE=/etc/ssl/certs/ca-certificates.crt     --env SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt     /home/sargapav/robot_rodeo_gym_ws/containers/isaaclab_optuna.sif     conda run -n isaaclab --no-capture-output     env PYTHONPATH=/ws/src/FTR-benchmark:/ws/src/flipper_training     python /ws/src/flipper_training/flipper_training/experiments/ppo/optuna_eval_rand.py     --config  /home/sargapav/robot_rodeo_gym_ws/configs/rand_policy_eval.yaml     --optuna_config /home/sargapav/robot_rodeo_gym_ws/configs/optuna_rand_policy.yaml     --headless 
+------------------------------------------------------------------------
+[Warning] [omni.isaac.kit.simulation_app] Modules: ['omni.kit_app'] were loaded before SimulationApp was started and might not be loaded correctly.
+[Warning] [omni.isaac.kit.simulation_app] Please check to make sure no extra omniverse or pxr modules are imported before the call to SimulationApp(...)
+[Info] [carb] Logging to file: /opt/conda/envs/isaaclab/lib/python3.10/site-packages/omni/logs/Kit/Isaac-Sim/4.2/kit_20260513_163404.log
+2026-05-13 14:34:04 [0ms] [Warning] [omni.kit.app.plugin] No crash reporter present, dumps uploading isn't available.
+2026-05-13 14:34:04 [4ms] [Warning] [omni.ext.plugin] [ext: containers] Extensions config 'extension.toml' doesn't exist '/home/sargapav/robot_rodeo_gym_ws/containers' or '/home/sargapav/robot_rodeo_gym_ws/containers/config'
+2026-05-13 14:34:04 [4ms] [Warning] [omni.ext.plugin] [ext: src] Extensions config 'extension.toml' doesn't exist '/home/sargapav/robot_rodeo_gym_ws/src' or '/home/sargapav/robot_rodeo_gym_ws/src/config'
+2026-05-13 14:34:04 [4ms] [Warning] [omni.ext.plugin] [ext: configs] Extensions config 'extension.toml' doesn't exist '/home/sargapav/robot_rodeo_gym_ws/configs' or '/home/sargapav/robot_rodeo_gym_ws/configs/config'
+2026-05-13 14:34:04 [4ms] [Warning] [omni.ext.plugin] [ext: FTR-Benchmark] Extensions config 'extension.toml' doesn't exist '/home/sargapav/robot_rodeo_gym_ws/FTR-Benchmark' or '/home/sargapav/robot_rodeo_gym_ws/FTR-Benchmark/config'
+2026-05-13 14:34:04 [4ms] [Warning] [omni.ext.plugin] [ext: secrets] Extensions config 'extension.toml' doesn't exist '/home/sargapav/robot_rodeo_gym_ws/secrets' or '/home/sargapav/robot_rodeo_gym_ws/secrets/config'
+2026-05-13 14:34:04 [4ms] [Warning] [omni.ext.plugin] [ext: runs] Extensions config 'extension.toml' doesn't exist '/home/sargapav/robot_rodeo_gym_ws/runs' or '/home/sargapav/robot_rodeo_gym_ws/runs/config'
+2026-05-13 14:34:04 [4ms] [Warning] [omni.ext.plugin] [ext: scripts] Extensions config 'extension.toml' doesn't exist '/home/sargapav/robot_rodeo_gym_ws/scripts' or '/home/sargapav/robot_rodeo_gym_ws/scripts/config'
+2026-05-13 14:34:04 [4ms] [Warning] [omni.ext.plugin] [ext: logs] Extensions config 'extension.toml' doesn't exist '/home/sargapav/robot_rodeo_gym_ws/logs' or '/home/sargapav/robot_rodeo_gym_ws/logs/config'
+2026-05-13 14:34:04 [4ms] [Warning] [omni.ext.plugin] [ext: slurm] Extensions config 'extension.toml' doesn't exist '/home/sargapav/robot_rodeo_gym_ws/slurm' or '/home/sargapav/robot_rodeo_gym_ws/slurm/config'
+2026-05-13 14:34:04 [5ms] [Warning] [omni.ext.plugin] [ext: reports] Extensions config 'extension.toml' doesn't exist '/home/sargapav/robot_rodeo_gym_ws/reports' or '/home/sargapav/robot_rodeo_gym_ws/reports/config'
+2026-05-13 14:34:04 [5ms] [Warning] [omni.ext.plugin] [ext: wandb] Extensions config 'extension.toml' doesn't exist '/home/sargapav/robot_rodeo_gym_ws/wandb' or '/home/sargapav/robot_rodeo_gym_ws/wandb/config'
+2026-05-13 14:34:04 [5ms] [Warning] [omni.ext.plugin] [ext: optuna] Extensions config 'extension.toml' doesn't exist '/home/sargapav/robot_rodeo_gym_ws/optuna' or '/home/sargapav/robot_rodeo_gym_ws/optuna/config'
+[0.197s] [ext: omni.kit.async_engine-0.0.1] startup
+[0.439s] [ext: omni.stats-1.0.1] startup
+[0.444s] [ext: omni.client-1.2.0] startup
+[0.561s] [ext: omni.gpu_foundation.shadercache.vulkan-1.0.0] startup
+[0.570s] [ext: omni.assets.plugins-0.0.0] startup
+[0.580s] [ext: omni.gpu_foundation-0.0.0] startup
+[0.681s] [ext: omni.kit.pipapi-0.0.0] startup
+[0.683s] [ext: omni.materialx.libs-1.0.4] startup
+[0.703s] [ext: omni.kit.pip_archive-0.0.0] startup
+[0.704s] [ext: omni.usd.config-1.0.4] startup
+[0.713s] [ext: omni.gpucompute.plugins-0.0.0] startup
+[0.715s] [ext: omni.usd.libs-1.0.1] startup
+[1.042s] [ext: omni.kit.telemetry-0.5.0] startup
+[1.073s] [ext: omni.usd.schema.semantics-0.0.0] startup
+[1.239s] [ext: omni.usd.schema.audio-0.0.0] startup
+[1.261s] [ext: omni.usd.schema.physx-106.1.9] startup
+[1.328s] [ext: carb.audio-0.1.0] startup
+[1.342s] [ext: omni.kvdb-106.1.9] startup
+[1.347s] [ext: omni.timeline-1.0.10] startup
+[1.351s] [ext: omni.kit.actions.core-1.0.0] startup
+[1.355s] [ext: omni.kit.audiodeviceenum-1.0.1] startup
+[1.359s] [ext: omni.localcache-106.1.9] startup
+[1.362s] [ext: omni.usd_resolver-1.0.0] startup
+[1.369s] [ext: omni.kit.commands-1.4.9] startup
+[1.376s] [ext: omni.graph.exec-0.9.4] startup
+[1.377s] [ext: omni.usd.core-1.4.1] startup
+[1.386s] [ext: omni.kit.usd_undo-0.1.8] startup
+[1.387s] [ext: omni.kit.exec.core-0.13.4] startup
+[1.392s] [ext: omni.convexdecomposition-106.1.9] startup
+[1.399s] [ext: omni.usd-1.12.2] startup
+[1.452s] [ext: omni.usdphysics-106.1.9] startup
+[1.455s] [ext: omni.physx.foundation-106.1.9] startup
+[1.464s] [ext: omni.kit.usd.layers-2.1.36] startup
+[1.478s] [ext: omni.physx.cooking-106.1.9] startup
+[1.490s] [ext: omni.blobkey-1.1.2] startup
+[1.493s] [ext: omni.datastore-0.0.0] startup
+[1.535s] [ext: omni.ujitso.default-1.0.0] startup
+[1.541s] [ext: omni.hsscclient-1.1.1] startup
+[1.550s] [ext: omni.kit.primitive.mesh-1.0.17] startup
+[1.555s] [ext: usdrt.scenegraph-7.5.0] startup
+[1.638s] [ext: omni.warp.core-1.2.1] startup
+[1.886s] [ext: omni.physx-106.1.9] startup
+[1.922s] [ext: omni.kit.stage_template.core-1.1.22] startup
+[1.923s] [ext: omni.physx.stageupdate-106.1.9] startup
+[1.928s] [ext: omni.kit.stage_templates-1.2.5] startup
+[1.930s] [ext: omni.physics.tensors-106.1.9] startup
+[1.939s] [ext: omni.isaac.version-1.1.0] startup
+[1.940s] [ext: omni.physx.tensors-106.1.9] startup
+[2.406s] [ext: omni.isaac.nucleus-0.3.1] startup
+[2.408s] [ext: omni.kit.loop-isaac-1.2.0] startup
+[2.410s] [ext: omni.isaac.core-3.19.5] startup
+2026-05-13 14:34:08 [3,421ms] [Warning] [omni.platforminfo.plugin] failed to open the default display.  Can't verify X Server version.
+2026-05-13 14:34:08 [3,422ms] [Warning] [omni.platforminfo.plugin] failed to load XRAndR.
+[4.825s] [ext: omni.physx.fabric-106.1.9] startup
+[4.836s] [ext: omni.isaac.kit-1.13.2] startup
+[4.836s] [ext: omni.isaac.cloner-0.8.1] startup
+[4.838s] [ext: isaaclab.python.headless-1.2.0] startup
+[4.839s] Simulation App Starting
+2026-05-13 14:34:09 [4,823ms] [Warning] [gpu.foundation.plugin] [ShaderCache]: Creating driver shaderCache directory failed: /opt/conda/envs/isaaclab/lib/python3.10/site-packages/omni/cache/nv_shadercache
+
+|---------------------------------------------------------------------------------------------|
+| Driver Version: 0             | Graphics API: Vulkan
+|=============================================================================================|
+| GPU | Name                             | Active | LDA | GPU Memory | Vendor-ID | LUID       |
+|     |                                  |        |     |            | Device-ID | UUID       |
+|     |                                  |        |     |            | Bus-ID    |            |
+|=============================================================================================|
+| OS: 13 (trixie) debian, Version: 13.00.0, Kernel: 4.18.0-513.9.1.el8_9.x86_64
+| Processor: AMD EPYC 7543 32-Core Processor | Cores: 64 | Logical: 128
+|---------------------------------------------------------------------------------------------|
+| Total Memory (MB): 1031894 | Free Memory: 903555
+| Total Page/Swap (MB): 0 | Free Page/Swap: 0
+|---------------------------------------------------------------------------------------------|
+2026-05-13 14:34:10 [5,270ms] [Warning] [omni.physx.foundation.plugin] PhysXFoundation: Couldn't get driver version, failed to getDeviceInfo
+2026-05-13 14:34:10 [5,270ms] [Warning] [omni.physx.foundation.plugin] PhysXFoundation: Unable to get IGpuFoundation, GpuDevices or Graphics!
+2026-05-13 14:34:10 [5,270ms] [Warning] [carb.cudainterop.plugin] CUDA_VISIBLE_DEVICES environment variable is set.
+2026-05-13 14:34:10 [5,270ms] [Warning] [carb.cudainterop.plugin] Note CUDA device enumeration and Omniverse device enumeration are different.
+2026-05-13 14:34:10 [5,270ms] [Warning] [carb.cudainterop.plugin] Setting CUDA_VISIBLE_DEVICES can lead to undesired behavior or crashes.
+[6.115s] app ready
+[INFO][AppLauncher]: Loading experience file: /opt/IsaacLab/source/extensions/omni.isaac.lab/omni/isaac/lab/app/../../../../../../apps/isaaclab.python.headless.kit
+Starting kit application with the following args:  ['/opt/conda/envs/isaaclab/lib/python3.10/site-packages/isaacsim/exts/omni.isaac.kit/omni/isaac/kit/simulation_app.py', '/opt/IsaacLab/source/extensions/omni.isaac.lab/omni/isaac/lab/app/../../../../../../apps/isaaclab.python.headless.kit', '--/app/tokens/exe-path=/opt/conda/envs/isaaclab/lib/python3.10/site-packages/omni', '--/persistent/app/viewport/displayOptions=3094', '--/rtx/materialDb/syncLoads=True', '--/rtx/hydra/materialSyncLoads=True', '--/omni.kit.plugin/syncUsdLoads=True', '--/app/renderer/resolution/width=1280', '--/app/renderer/resolution/height=720', '--/app/window/width=1440', '--/app/window/height=900', '--/renderer/multiGpu/enabled=True', '--/app/fastShutdown=True', '--ext-folder', '/opt/conda/envs/isaaclab/lib/python3.10/site-packages/isaacsim/exts', '--ext-folder', '/opt/conda/envs/isaaclab/lib/python3.10/site-packages/isaacsim/apps', '--/renderer/activeGpu=0', '--/physics/cudaDevice=0', '--portable', '--no-window', '--/app/window/hideUi=True']
+Passing the following args to the base kit application:  ['--config', '/home/sargapav/robot_rodeo_gym_ws/configs/rand_policy_eval.yaml', '--optuna_config', '/home/sargapav/robot_rodeo_gym_ws/configs/optuna_rand_policy.yaml', '--headless']
+/ws
+Warp 1.2.1 initialized:
+   CUDA Toolkit 11.8, Driver 12.4
+   Devices:
+     "cpu"      : "CPU"
+     "cuda:0"   : "NVIDIA A100-SXM4-40GB" (39 GiB, sm_80, mempool enabled)
+   Kernel cache:
+     /home/sargapav/.cache/warp/1.2.1
+2026-05-13 16:34:17,577 [optuna_eval_rand][[92mINFO[00m]: Search space: 4 parameters over 80 total trials. (optuna_eval_rand.py:340)
+2026-05-13 16:34:17,577 [optuna_eval_rand][[92mINFO[00m]: Optimising:   ['eval/success_rate']  (['maximize']) (optuna_eval_rand.py:341)
+[6.279s] Simulation App Startup Complete
+2026-05-13 14:34:15 [10,935ms] [Warning] [pxr.Semantics] pxr.Semantics is deprecated - please use Semantics instead
+2026-05-13 14:34:17 [12,623ms] [Warning] [omni.isaac.lab.envs.direct_rl_env] Seed not set for the environment. The environment creation may not be deterministic.
+2026-05-13 14:34:20 [15,507ms] [Warning] [omni.physx.plugin] The rigid body at /World/envs/env_0/pumbaa_wheel/pumbaa_wheel/chassis_link has a possibly invalid inertia tensor of {1.0, 1.0, 1.0} and a negative mass, small sphere approximated inertia was used. Either specify correct values in the mass properties, or add collider(s) to any shape(s) that you wish to automatically compute mass properties for.
+2026-05-13 14:34:20 [15,507ms] [Warning] [omni.physx.plugin] The rigid body at /World/envs/env_0/pumbaa_wheel/pumbaa_wheel/front_left_flipper_link has a possibly invalid inertia tensor of {1.0, 1.0, 1.0} and a negative mass, small sphere approximated inertia was used. Either specify correct values in the mass properties, or add collider(s) to any shape(s) that you wish to automatically compute mass properties for.
+2026-05-13 14:34:20 [15,507ms] [Warning] [omni.physx.plugin] The rigid body at /World/envs/env_0/pumbaa_wheel/pumbaa_wheel/front_right_flipper_link has a possibly invalid inertia tensor of {1.0, 1.0, 1.0} and a negative mass, small sphere approximated inertia was used. Either specify correct values in the mass properties, or add collider(s) to any shape(s) that you wish to automatically compute mass properties for.
+2026-05-13 14:34:20 [15,507ms] [Warning] [omni.physx.plugin] The rigid body at /World/envs/env_0/pumbaa_wheel/pumbaa_wheel/rear_left_flipper_link has a possibly invalid inertia tensor of {1.0, 1.0, 1.0} and a negative mass, small sphere approximated inertia was used. Either specify correct values in the mass properties, or add collider(s) to any shape(s) that you wish to automatically compute mass properties for.
+2026-05-13 14:34:20 [15,507ms] [Warning] [omni.physx.plugin] The rigid body at /World/envs/env_0/pumbaa_wheel/pumbaa_wheel/rear_right_flipper_link has a possibly invalid inertia tensor of {1.0, 1.0, 1.0} and a negative mass, small sphere approximated inertia was used. Either specify correct values in the mass properties, or add collider(s) to any shape(s) that you wish to automatically compute mass properties for.
+2026-05-13 14:34:28 [23,750ms] [Warning] [omni.isaac.lab.assets.articulation.articulation] Not all actuators are configured! Total number of actuated joints not equal to number of joints available: 24 != 40.
+[INFO]: Base environment:
+	Environment device    : cuda:0
+	Environment seed      : None
+	Physics step-size     : 0.005
+	Rendering step-size   : 0.025
+	Environment step-size : 0.025
+[INFO]: Time taken for scene creation : 0.718294 seconds
+[INFO]: Scene manager:  <class InteractiveScene>
+	Number of environments: 1024
+	Environment spacing   : 0.0
+	Source prim name      : /World/envs/env_0
+	Global prim paths     : ['/World/terrain']
+	Replicate physics     : True
+[INFO]: Starting the simulation. This may take a few seconds. Please wait...
+[INFO]: Time taken for simulation start : 11.159384 seconds
+[INFO]: Completed setting up the environment...
+2026-05-13 16:34:30,047 [optuna_eval_rand][[92mINFO[00m]: Study 'rand_policy_optuna_v1' — 7 complete trials (8 total), targeting 80. Running 1 trial. (optuna_eval_rand.py:271)
+2026-05-13 16:34:30,202 [optuna_eval_rand][[92mINFO[00m]: Trial 8 — sampled parameters: (optuna_eval_rand.py:160)
+2026-05-13 16:34:30,202 [optuna_eval_rand][[92mINFO[00m]:   policy_opts.linear_speed = 0.6831628429267168 (optuna_eval_rand.py:162)
+2026-05-13 16:34:30,202 [optuna_eval_rand][[92mINFO[00m]:   policy_opts.sync_flippers = True (optuna_eval_rand.py:162)
+2026-05-13 16:34:30,202 [optuna_eval_rand][[92mINFO[00m]:   policy_opts.amp_min = 0.5280506689891489 (optuna_eval_rand.py:162)
+2026-05-13 16:34:30,202 [optuna_eval_rand][[92mINFO[00m]:   policy_opts.amp_max = 0.5280506689891489 (optuna_eval_rand.py:162)
+2026-05-13 16:34:30,202 [optuna_eval_rand][[92mINFO[00m]:   policy_opts.freq_min = 0.016847435259984705 (optuna_eval_rand.py:162)
+2026-05-13 16:34:30,202 [optuna_eval_rand][[92mINFO[00m]:   policy_opts.freq_max = 0.016847435259984705 (optuna_eval_rand.py:162)
+2026-05-13 14:37:00 [175,367ms] [Warning] [ftr_envs.tasks.crossing.ftr_env] Sanitized 2/1024 envs (pos_max=86.1 lin_vel_max=10.1 ang_vel_max=0.1): env_ids=[800, 960]
+2026-05-13 14:37:01 [176,192ms] [Warning] [ftr_envs.tasks.crossing.ftr_env] Sanitized 2/1024 envs (pos_max=86.1 lin_vel_max=10.1 ang_vel_max=0.1): env_ids=[814, 974]
+2026-05-13 14:37:01 [177,017ms] [Warning] [ftr_envs.tasks.crossing.ftr_env] Sanitized 2/1024 envs (pos_max=86.2 lin_vel_max=10.1 ang_vel_max=0.1): env_ids=[801, 961]
+2026-05-13 14:37:02 [177,832ms] [Warning] [ftr_envs.tasks.crossing.ftr_env] Sanitized 6/1024 envs (pos_max=86.3 lin_vel_max=10.1 ang_vel_max=0.2): env_ids=[784, 813, 816, 944, 973, 976]
+2026-05-13 14:37:03 [178,245ms] [Warning] [ftr_envs.tasks.crossing.ftr_env] Sanitized 3/1024 envs (pos_max=86.2 lin_vel_max=10.1 ang_vel_max=0.1): env_ids=[802, 830, 962]
+2026-05-13 14:37:03 [178,657ms] [Warning] [ftr_envs.tasks.crossing.ftr_env] Sanitized 5/1024 envs (pos_max=86.2 lin_vel_max=10.1 ang_vel_max=0.2): env_ids=[798, 812, 958, 972, 990]
+2026-05-13 14:37:04 [179,071ms] [Warning] [ftr_envs.tasks.crossing.ftr_env] Sanitized 6/1024 envs (pos_max=86.2 lin_vel_max=10.1 ang_vel_max=0.3): env_ids=[785, 803, 817, 945, 963, 977]
+2026-05-13 14:37:04 [179,495ms] [Warning] [ftr_envs.tasks.crossing.ftr_env] Sanitized 6/1024 envs (pos_max=86.3 lin_vel_max=10.1 ang_vel_max=0.1): env_ids=[768, 811, 832, 928, 971, 992]
+2026-05-13 14:37:04 [179,922ms] [Warning] [ftr_envs.tasks.crossing.ftr_env] Sanitized 6/1024 envs (pos_max=86.3 lin_vel_max=10.1 ang_vel_max=0.3): env_ids=[797, 804, 829, 957, 964, 989]
+2026-05-13 14:37:05 [180,352ms] [Warning] [ftr_envs.tasks.crossing.ftr_env] Sanitized 11/1024 envs (pos_max=86.3 lin_vel_max=10.1 ang_vel_max=0.3): env_ids=[782, 786, 810, 818, 846, 848, 942, 946, 970, 978, 1006]
+2026-05-13 14:37:05 [180,782ms] [Warning] [ftr_envs.tasks.crossing.ftr_env] Sanitized 7/1024 envs (pos_max=86.3 lin_vel_max=10.1 ang_vel_max=0.3): env_ids=[769, 796, 833, 912, 956, 993, 1008]
+2026-05-13 14:37:06 [181,208ms] [Warning] [ftr_envs.tasks.crossing.ftr_env] Sanitized 10/1024 envs (pos_max=86.3 lin_vel_max=10.1 ang_vel_max=0.2): env_ids=[787, 819, 828, 862, 896, 926, 929, 979, 988, 1022]
+2026-05-13 14:37:06 [181,625ms] [Warning] [ftr_envs.tasks.crossing.ftr_env] Sanitized 8/1024 envs (pos_max=86.3 lin_vel_max=10.1 ang_vel_max=0.2): env_ids=[781, 845, 864, 880, 941, 947, 987, 1005]
+2026-05-13 14:37:07 [182,039ms] [Warning] [ftr_envs.tasks.crossing.ftr_env] Sanitized 16/1024 envs (pos_max=86.2 lin_vel_max=10.1 ang_vel_max=0.2): env_ids=[770, 788, 795, 820, 827, 834, 849, 878, 910, 913, 930, 948, 955, 980, 994, 1009]
+2026-05-13 14:37:07 [182,453ms] [Warning] [ftr_envs.tasks.crossing.ftr_env] Sanitized 11/1024 envs (pos_max=86.2 lin_vel_max=10.1 ang_vel_max=0.3): env_ids=[780, 794, 826, 844, 861, 894, 940, 954, 986, 1004, 1021]
+2026-05-13 14:37:07 [182,866ms] [Warning] [ftr_envs.tasks.crossing.ftr_env] Sanitized 12/1024 envs (pos_max=86.3 lin_vel_max=10.1 ang_vel_max=0.2): env_ids=[789, 793, 835, 865, 881, 897, 925, 931, 949, 950, 995, 1010]
+2026-05-13 14:37:08 [183,285ms] [Warning] [ftr_envs.tasks.crossing.ftr_env] Sanitized 15/1024 envs (pos_max=86.3 lin_vel_max=10.1 ang_vel_max=0.3): env_ids=[771, 779, 790, 791, 792, 843, 850, 877, 909, 914, 939, 951, 952, 953, 1003]
+2026-05-13 14:37:08 [183,708ms] [Warning] [ftr_envs.tasks.crossing.ftr_env] Sanitized 10/1024 envs (pos_max=86.3 lin_vel_max=10.1 ang_vel_max=0.3): env_ids=[772, 836, 860, 866, 893, 898, 924, 932, 996, 1020]
+2026-05-13 14:37:09 [184,130ms] [Warning] [ftr_envs.tasks.crossing.ftr_env] Sanitized 9/1024 envs (pos_max=86.2 lin_vel_max=10.1 ang_vel_max=0.3): env_ids=[778, 842, 851, 882, 915, 933, 938, 1002, 1011]
+2026-05-13 14:37:09 [184,548ms] [Warning] [ftr_envs.tasks.crossing.ftr_env] Sanitized 16/1024 envs (pos_max=86.3 lin_vel_max=10.1 ang_vel_max=0.3): env_ids=[773, 777, 837, 838, 841, 859, 876, 892, 908, 923, 934, 937, 997, 998, 1001, 1019]
+2026-05-13 14:37:09 [184,980ms] [Warning] [ftr_envs.tasks.crossing.ftr_env] Sanitized 17/1024 envs (pos_max=86.3 lin_vel_max=10.1 ang_vel_m2026-05-13 17:17:01,257 [optuna_eval_rand][[92mINFO[00m]: Trial 8 done — {'eval/success_rate': 0.21877991436114538} (optuna_eval_rand.py:219)
+2026-05-13 17:17:01,683 [optuna_eval_rand][[92mINFO[00m]: Best trial so far: #3  values=[0.24629646075029496]  params={'policy_opts.linear_speed': 0.9551582037892684, '_amp': 2.3308687358894757, '_freq': 0.10522940456782462, 'policy_opts.sync_flippers': True} (optuna_eval_rand.py:290)
+########################################################################
+Task 8 finished with exit status: 0
+########################################################################
+Cleaning up node-local cache...

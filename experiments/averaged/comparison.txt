@@ -1,0 +1,82 @@
+A: /home/robot/workspaces/robot_rodeo_gym_ws/logs/optuna_ftr_10972867/optuna_ftr_10972867_160/weights/policy_final.pth
+B: /home/robot/workspaces/robot_rodeo_gym_ws/logs/train_ftr_11001809/attempt_0/weights/policy_final.pth
+   64 tensors          64 tensors
+
+Layer                                                                  shapeA      normA     normB     Δnorm      maxΔ  cos_sim
+------------------------------------------------------------------------------------------------------------------------
+  …ule.0.module.encoders.FtrFlatObservation.cnn.encoder.0.bias            (16,)     0.1925    0.6092    0.4950    0.2179  0.69592
+  …e.0.module.encoders.FtrFlatObservation.cnn.encoder.0.weight    (16, 1, 3, 3)     4.8177    5.1741    1.0668    0.2892  0.97972
+  …ule.0.module.encoders.FtrFlatObservation.cnn.encoder.2.bias            (32,)     0.1460    0.3097    0.2815    0.1125  0.42040
+  …e.0.module.encoders.FtrFlatObservation.cnn.encoder.2.weight   (32, 16, 3, 3)     9.2805   12.1675    7.0033    0.4556  0.81973
+  …ule.0.module.encoders.FtrFlatObservation.cnn.encoder.4.bias            (64,)     0.2031    0.4481    0.3377    0.1209  0.70318
+  …e.0.module.encoders.FtrFlatObservation.cnn.encoder.4.weight   (64, 32, 4, 2)    14.0415   20.4929   16.2697    0.5497  0.61237
+  …ule.0.module.encoders.FtrFlatObservation.cnn.encoder.8.bias           (128,)     0.2199    0.3992    0.4074    0.0901  0.23762
+  …e.0.module.encoders.FtrFlatObservation.cnn.encoder.8.weight       (128, 256)    19.2148   27.2823   20.3287    0.5061  0.66792
+  ….module.0.module.encoders.FtrFlatObservation.mlp.mlp.0.bias           (256,)     0.5919    1.1579    1.2466    0.3336  0.10002
+  …odule.0.module.encoders.FtrFlatObservation.mlp.mlp.0.weight       (256, 149)    20.8549   30.0151   25.0423    0.6442  0.56610
+  ….module.0.module.encoders.FtrFlatObservation.mlp.mlp.1.bias           (256,)     0.6841    1.8168    1.7702    0.3057  0.25559
+  …odule.0.module.encoders.FtrFlatObservation.mlp.mlp.1.weight           (256,)    18.8036   26.2026    8.0196    1.2690  0.99029
+  …module.0.module.encoders.FtrFlatObservation.mlp.mlp.10.bias           (128,)     0.7691    1.4117    1.2382    0.2849  0.48404
+  …dule.0.module.encoders.FtrFlatObservation.mlp.mlp.10.weight           (128,)    14.6107   21.7445    7.3756    1.2266  0.99448
+  ….module.0.module.encoders.FtrFlatObservation.mlp.mlp.3.bias           (256,)     0.5705    1.3349    1.3661    0.2433  0.15839
+  …odule.0.module.encoders.FtrFlatObservation.mlp.mlp.3.weight       (256, 256)    26.0951   37.6257   29.8280    0.5062  0.61463
+  ….module.0.module.encoders.FtrFlatObservation.mlp.mlp.4.bias           (256,)     0.7455    1.7678    1.7579    0.3341  0.22405
+  …odule.0.module.encoders.FtrFlatObservation.mlp.mlp.4.weight           (256,)    19.4170   29.1252   10.3982    1.4487  0.98773
+  ….module.0.module.encoders.FtrFlatObservation.mlp.mlp.6.bias           (256,)     0.6099    1.1784    1.2285    0.2184  0.17493
+  …odule.0.module.encoders.FtrFlatObservation.mlp.mlp.6.weight       (256, 256)    26.0632   37.5139   29.6704    0.6133  0.61686
+  ….module.0.module.encoders.FtrFlatObservation.mlp.mlp.7.bias           (256,)     0.8429    1.6840    1.7151    0.2605  0.21302
+  …odule.0.module.encoders.FtrFlatObservation.mlp.mlp.7.weight           (256,)    19.7058   29.7869   10.6230    1.3024  0.99044
+  ….module.0.module.encoders.FtrFlatObservation.mlp.mlp.9.bias           (128,)     0.5490    1.0078    0.8990    0.2064  0.45990
+  …odule.0.module.encoders.FtrFlatObservation.mlp.mlp.9.weight       (128, 256)    18.3854   26.3771   19.9571    0.4831  0.65521
+  module.0.module.0.module.1.module.0.mlp.0.bias                         (128,)     0.7784    1.6375    1.4102    0.5138  0.50945
+  module.0.module.0.module.1.module.0.mlp.0.weight                   (128, 128)    18.3984   24.5998   15.4124    0.4852  0.78006
+  module.0.module.0.module.1.module.0.mlp.2.bias                         (128,)     0.8389    2.3163    1.8898    0.5975  0.64273
+  module.0.module.0.module.1.module.0.mlp.2.weight                   (128, 128)    17.8428   22.8160   14.4713    0.5273  0.77317
+  module.0.module.0.module.1.module.0.mlp.4.bias                          (12,)     0.1628    0.7191    0.5711    0.4356  0.92855
+  module.0.module.0.module.1.module.0.mlp.4.weight                    (12, 128)     1.6548    2.0499    2.3064    0.1828  0.23893
+  …ule.0.module.encoders.FtrFlatObservation.cnn.encoder.0.bias            (16,)     0.6145    0.8314    0.9467    0.6819  0.16885
+  …e.0.module.encoders.FtrFlatObservation.cnn.encoder.0.weight    (16, 1, 3, 3)     1.6051    0.6176    1.2830    0.3734  0.66161
+  …ule.0.module.encoders.FtrFlatObservation.cnn.encoder.2.bias            (32,)     0.8940    0.7077    0.8608    0.3671  0.44175
+  …e.0.module.encoders.FtrFlatObservation.cnn.encoder.2.weight   (32, 16, 3, 3)     9.2895   13.8981   15.3422    1.5200  0.17067
+  …ule.0.module.encoders.FtrFlatObservation.cnn.encoder.4.bias            (64,)     0.9481    1.0575    1.2893    0.3937  0.17704
+  …e.0.module.encoders.FtrFlatObservation.cnn.encoder.4.weight   (64, 32, 4, 2)    21.1645   49.0185   51.3186    4.2096  0.10465
+  …ule.0.module.encoders.FtrFlatObservation.cnn.encoder.8.bias           (128,)     1.3634    1.7680    1.6833    0.5472  0.44620
+  …e.0.module.encoders.FtrFlatObservation.cnn.encoder.8.weight       (128, 256)    26.3417   60.1593   62.4221    3.2982  0.13142
+  ….module.0.module.encoders.FtrFlatObservation.mlp.mlp.0.bias           (256,)     2.8218    6.5853    6.5964    0.9584  0.21031
+  …odule.0.module.encoders.FtrFlatObservation.mlp.mlp.0.weight       (256, 149)    28.2697   65.9314   66.0037    5.2231  0.21183
+  ….module.0.module.encoders.FtrFlatObservation.mlp.mlp.1.bias           (256,)     2.2086    5.8209    5.7140    1.2737  0.23767
+  …odule.0.module.encoders.FtrFlatObservation.mlp.mlp.1.weight           (256,)    22.5831   37.6179   20.0506    3.9278  0.89642
+  …module.0.module.encoders.FtrFlatObservation.mlp.mlp.10.bias           (128,)     1.2173    3.3984    3.5092    0.8418  0.08666
+  …dule.0.module.encoders.FtrFlatObservation.mlp.mlp.10.weight           (128,)    23.1834   53.4335   31.5675    5.2132  0.96713
+  ….module.0.module.encoders.FtrFlatObservation.mlp.mlp.3.bias           (256,)     1.5940    4.5751    4.8371    0.7485  0.00512
+  …odule.0.module.encoders.FtrFlatObservation.mlp.mlp.3.weight       (256, 256)    38.5389   93.3771   96.5921    2.1704  0.12150
+  ….module.0.module.encoders.FtrFlatObservation.mlp.mlp.4.bias           (256,)     1.8138    5.9760    6.2409    0.9663  0.00249
+  …odule.0.module.encoders.FtrFlatObservation.mlp.mlp.4.weight           (256,)    30.5337   62.2939   36.1301    7.3744  0.92201
+  ….module.0.module.encoders.FtrFlatObservation.mlp.mlp.6.bias           (256,)     1.5346    3.7394    3.9226    0.8363  0.08288
+  …odule.0.module.encoders.FtrFlatObservation.mlp.mlp.6.weight       (256, 256)    38.5529   93.4709   95.8702    2.3348  0.14320
+  ….module.0.module.encoders.FtrFlatObservation.mlp.mlp.7.bias           (256,)     1.8153    5.6320    5.7781    1.1870  0.07962
+  …odule.0.module.encoders.FtrFlatObservation.mlp.mlp.7.weight           (256,)    34.0429   85.4391   55.0705    7.7041  0.93275
+  ….module.0.module.encoders.FtrFlatObservation.mlp.mlp.9.bias           (128,)     0.8852    1.9800    2.1366    0.6908  0.03958
+  …odule.0.module.encoders.FtrFlatObservation.mlp.mlp.9.weight       (128, 256)    26.1589   61.5576   61.9125    1.9326  0.19887
+  module.1.module.1.module.mlp.0.bias                                    (256,)     1.0442    2.4736    2.6427    0.4935  0.04354
+  module.1.module.1.module.mlp.0.weight                              (256, 128)    25.5681   59.6278   60.8156    1.6883  0.16748
+  module.1.module.1.module.mlp.1.bias                                    (256,)     1.4273    4.4332    4.4133    0.9286  0.17487
+  module.1.module.1.module.mlp.1.weight                                  (256,)    24.9649   73.6741   51.5926    8.5379  0.92138
+  module.1.module.1.module.mlp.3.bias                                    (256,)     0.9847    2.0046    1.9854    0.4428  0.26502
+  module.1.module.1.module.mlp.3.weight                              (256, 256)    29.4097   71.2149   67.7983    1.3918  0.31987
+  module.1.module.1.module.mlp.4.bias                                    (256,)     3.3737    7.3245    6.6823    1.3025  0.41231
+  module.1.module.1.module.mlp.4.weight                                  (256,)    22.4423   72.9991   55.0353    7.2985  0.85567
+  module.1.module.1.module.mlp.6.bias                                      (1,)     0.2722    0.2027    0.0695    0.0695  1.00000
+  module.1.module.1.module.mlp.6.weight                                (1, 256)    21.3984   23.0963    6.3424    1.3300  0.96222
+------------------------------------------------------------------------------------------------------------------------
+
+Summary over 64 shared tensors (652,301 params):
+  RMS weight change (per element) : 0.297839
+  Mean cosine similarity          : 0.469657
+  Layers with cos_sim < 0.99      : 60
+  Layers with cos_sim < 0.90      : 52
+  Layers with cos_sim < 0.50      : 36
+  Layers with cos_sim < 0.30      : 29
+  Layers with cos_sim < 0.20      : 20
+  Layers with cos_sim < 0.10      : 7
+  Max relative Δ (norm(Δ)/norm(A)): 3.5083

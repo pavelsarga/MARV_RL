@@ -1,0 +1,52 @@
+# Optuna hyperparameter search for the random policy baseline.
+#
+# Objective: maximise eval/success_rate on Ftr-Crossing-Direct-v0 (cur_mixed terrain)
+# by searching over RandomPolicyConfig parameters (speed, flipper amplitude/frequency, sync).
+#
+# Each trial runs eval_repeats independent rollouts and returns the mean success rate.
+# No training — each SLURM task takes ~10–30 min depending on num_robots and max_steps.
+#
+# Database: separate from the PPO Optuna DB (optuna/rand_policy_optuna.db).
+#
+# Submit:
+#   sbatch --array=0-79%8 slurm/optuna_rand.sbatch
+#   # or for a quick test:
+#   sbatch --array=0-4%4 slurm/optuna_rand.sbatch
+
+study_name: "rand_policy_optuna_v1"
+db_url: "sqlite:////ws/optuna/rand_policy_optuna.db"
+
+directions:
+  - maximize
+metrics_to_optimize:
+  - "eval/success_rate"
+
+num_trials: 80
+gpu: 0
+eval_repeats: 5   # rollouts averaged per trial — reduces noise from stochastic terrain
+
+# -----------------------------------------------------------------------
+# Search space — 4 parameters
+#
+# amp and freq are single values applied to both min and max (fixed per-robot
+# rather than a sampled range), so TPE finds one optimal setting rather than
+# an optimal diversity window.  The objective copies amp → amp_min/amp_max
+# and freq → freq_min/freq_max before merging into the config.
+# -----------------------------------------------------------------------
+optuna_keys:
+  - "policy_opts.linear_speed"
+  - "_amp"          # alias: objective writes → policy_opts.amp_min and amp_max
+  - "_freq"         # alias: objective writes → policy_opts.freq_min and freq_max
+  - "policy_opts.sync_flippers"
+
+optuna_types:
+  - float       # linear_speed  (m/s, fixed for all robots)
+  - float       # amp           (rad/step flipper velocity amplitude)
+  - log_float   # freq          (rad/step sinusoid frequency)
+  - bool        # sync_flippers (true = FL=FR and RL=RR; false = 4 independent)
+
+optuna_values:
+  - [0.1, 1.0]        # linear_speed  (m/s)
+  - [0.1, 4.0]        # amp           (rad/step)
+  - [0.001, 0.6]      # freq          (rad/step, ~1 cycle per 6283 – 21 steps)
+  - [true, false]     # sync_flippers

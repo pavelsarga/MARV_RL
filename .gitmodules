@@ -1,0 +1,6 @@
+[submodule "src/flipper_training"]
+	path = src/flipper_training
+	url = git@github.com:pavelsarga/flipper_training.git
+[submodule "src/FTR-Benchmark"]
+	path = src/FTR-Benchmark
+	url = git@github.com:pavelsarga/FTR-Benchmark.git

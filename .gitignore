@@ -1,0 +1,51 @@
+# Build directories
+build/
+install/
+log/
+
+# logs and runs (e.g. from wandb)
+logs/
+
+secrets/
+wandb/
+reports/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+.eggs/
+dist/
+*.egg
+
+# C++
+*.o
+*.a
+*.lib
+*.dll
+*.dylib
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# ROS2
+*.log
+COLCON_IGNORE
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+*.npz
+

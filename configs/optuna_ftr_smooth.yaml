@@ -1,0 +1,150 @@
+# Optuna hyperparameter search for FTR-Crossing — smooth traversal objective.
+#
+# Objective: scalarised single score = 0.65 * success_rate - 0.35 * shock_p99_normalised
+#   success_rate         — from pop_termination_info(), averaged over eval_repeats_after_training
+#   shock_p99_normalised — sigmoid(accel_p99 / shock_scale); uses the 99th-percentile of
+#                          per-step mean acceleration to capture the worst shock events.
+#                          0 = smooth, 1 = saturated peaks.
+#
+# Single-objective study (metric_weights collapses metrics_to_optimize into one score),
+# so MedianPruner and study.best_trial work normally.
+#
+# Search space: 26 parameters
+#   Reward (5):         goal/fail bonuses, shaping, step penalty, action bonus
+#   Flipper reward (3): flipper action bonus, lin_action_ratio, joint_ang_from_flat
+#   Stability (6):      joint angle variance, roll/pitch angle + rate penalties, clearance
+#   Shock (1):          shock_coef
+#   PPO/GAE (5):        entropy, gamma, lambda, clip_epsilon, max_grad_norm
+#   Architecture (4):   actor/value num_hidden + hidden_dim (categorical)
+#   Learning rates (2): actor lr, value lr (log scale)
+
+study_name: "ftr_optuna_smooth_v2"
+directions:
+  - maximize
+metrics_to_optimize:
+  - "eval/success_rate"
+  - "eval/shock_p99_normalised"
+metric_weights:
+  - 0.65    # success_rate: higher is better
+  - -0.35   # shock_p99_normalised: lower is better (negative weight → subtracted from score)
+
+num_trials: 300
+gpu: 0
+
+# -----------------------------------------------------------------------
+# Search space
+# -----------------------------------------------------------------------
+optuna_keys:
+  # ── Reward structure ──────────────────────────────────────────────────
+  - "env_cfg_overrides.goal_reached_reward"
+  - "env_cfg_overrides.failed_reward"
+  - "env_cfg_overrides.shaping_coef"
+  - "env_cfg_overrides.step_penalty"
+  - "env_cfg_overrides.action_bonus_coef"
+  # ── Flipper action & ratio ────────────────────────────────────────────
+  - "env_cfg_overrides.flipper_action_bonus_coef"
+  - "env_cfg_overrides.lin_action_ratio"
+  - "env_cfg_overrides.joint_ang_from_flat_coef"
+  # ── Stability penalties ───────────────────────────────────────────────
+  - "env_cfg_overrides.joint_angle_variance_coef"
+  - "env_cfg_overrides.roll_coef"
+  - "env_cfg_overrides.roll_rate_coef"
+  - "env_cfg_overrides.pitch_coef"
+  - "env_cfg_overrides.pitch_rate_coef"
+  - "env_cfg_overrides.clearance_coef"
+  # ── Shock penalty ────────────────────────────────────────────────────
+  - "env_cfg_overrides.shock_coef"
+  # ── PPO / GAE ─────────────────────────────────────────────────────────
+  - "ppo_opts.entropy_coef"
+  - "ppo_opts.clip_epsilon"
+  - "gae_opts.gamma"
+  - "gae_opts.lmbda"
+  - "max_grad_norm"
+  # ── Network architecture (categorical) ───────────────────────────────
+  - "policy_opts.actor_mlp_opts.num_hidden"
+  - "policy_opts.actor_mlp_opts.hidden_dim"
+  - "policy_opts.value_mlp_opts.num_hidden"
+  - "policy_opts.value_mlp_opts.hidden_dim"
+  - "ftr_obs_encoder_opts.num_hidden"
+  # ── Learning rates ────────────────────────────────────────────────────
+  - "policy_opts.actor_optimizer_opts.lr"
+  - "policy_opts.value_optimizer_opts.lr"
+
+optuna_types:
+  # Reward structure
+  - float       # goal_reached_reward
+  - float       # failed_reward
+  - float       # shaping_coef
+  - float       # step_penalty
+  - float       # action_bonus_coef
+  # Flipper action & ratio
+  - float       # flipper_action_bonus_coef (0 = disabled)
+  - float       # lin_action_ratio
+  - float       # joint_ang_from_flat_coef (0 = disabled)
+  # Stability
+  - float       # joint_angle_variance_coef (0 = disabled)
+  - float       # roll_coef (0 = disabled)
+  - float       # roll_rate_coef (0 = disabled)
+  - float       # pitch_coef (0 = disabled)
+  - float       # pitch_rate_coef (0 = disabled)
+  - float       # clearance_coef (0 = disabled)
+  # Shock
+  - log_float   # shock_coef
+  # PPO / GAE
+  - log_float   # entropy_coef
+  - float       # clip_epsilon
+  - float       # gae gamma (also controls shaping_gamma via resolver)
+  - float       # gae lmbda
+  - log_float   # max_grad_norm
+  # Architecture
+  - categorical # actor num_hidden
+  - categorical # actor hidden_dim
+  - categorical # value num_hidden
+  - categorical # value hidden_dim
+  - categorical # ftr_obs_encoder num_hidden
+  # Learning rates
+  - log_float   # actor lr
+  - log_float   # value lr
+
+optuna_values:
+  # Reward structure
+  - [20.0, 500.0]      # goal_reached_reward
+  - [-100.0, -5.0]     # failed_reward
+  - [10.0, 200.0]      # shaping_coef
+  - [-1, -0.05]      # step_penalty
+  - [0.0, 20.0]        # action_bonus_coef (0 = disabled)
+  # Flipper action & ratio
+  - [0.0, 10.0]        # flipper_action_bonus_coef (0 = disabled)
+  - [0.1, 0.9]         # lin_action_ratio
+  - [0.0, 1.0]         # joint_ang_from_flat_coef (0 = disabled)
+  # Stability
+  - [0.0, 0.5]         # joint_angle_variance_coef
+  - [0.0, 5.0]         # roll_coef
+  - [0.0, 5.0]         # roll_rate_coef
+  - [0.0, 5.0]         # pitch_coef
+  - [0.0, 5.0]         # pitch_rate_coef
+  - [0.0, 1.0]         # clearance_coef
+  # Shock
+  - [0.01, 20.0]        # shock_coef
+  # PPO / GAE
+  - [0.005, 0.1]       # entropy_coef
+  - [0.1, 0.4]         # clip_epsilon
+  - [0.99, 0.9999]     # gae gamma
+  - [0.9, 0.999]       # gae lmbda
+  - [0.3, 2.0]         # max_grad_norm
+  # Architecture
+  - [2, 3]          # actor num_hidden
+  - [64, 128, 256]     # actor hidden_dim
+  - [2, 3]          # value num_hidden
+  - [64, 128, 256]     # value hidden_dim
+  - [2, 3]          # ftr_obs_encoder num_hidden
+  # Learning rates
+  - [0.00005, 0.01]    # actor lr
+  - [0.0001, 0.05]     # value lr
+
+train_config_overrides:
+  use_wandb: true
+  use_tensorboard: false
+  eval_repeats_after_training: 15
+  total_frames: ${mul:5242880,2}    # ~10M frames per trial
+  num_robots: 1024

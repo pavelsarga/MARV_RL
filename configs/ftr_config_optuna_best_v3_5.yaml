@@ -1,0 +1,98 @@
+name: ftr_ppo_crossing
+comment: 'Best Optuna trial (v3 study, trial #89). Trained with
+  128 envs, 5M frames.'
+use_wandb: true
+use_tensorboard: false
+seed: 42
+device: cuda:0
+training_dtype: ${dtype:float32}
+num_robots: 128
+task: Ftr-Crossing-Direct-v0
+terrain: cur_mixed
+total_frames: 5242880
+time_steps_per_batch: 128
+epochs_per_batch: 2
+frames_per_sub_batch: 4096
+eval_and_save_every: 5
+save_weights_every: 20
+eval_repeats_after_training: 10
+max_grad_norm: 0.697298401413678
+clip_grad_norm_p: 2
+optimizer: ${cls:torch.optim.AdamW}
+optimizer_opts: {}
+scheduler: ${cls:torch.optim.lr_scheduler.LinearLR}
+scheduler_opts:
+  start_factor: 1.0
+  end_factor: 0.243222963382337
+  total_iters: ${intdiv:${total_frames},${mul:${time_steps_per_batch},${num_robots}}}
+gae_opts:
+  gamma: 0.9987429401128942
+  lmbda: 0.9512296746273096
+  average_gae: false
+  skip_existing: false
+ppo_opts:
+  clip_epsilon: 0.32655584154893996
+  entropy_bonus: true
+  entropy_coef: 0.03503850005015567
+  critic_coef: 1.0
+  loss_critic_type: smooth_l1
+  normalize_advantage: true
+  separate_losses: false
+data_collector_opts:
+  split_trajs: false
+  compile_policy: false
+  exploration_type: RANDOM
+policy_config: ${cls:flipper_training.policies.mlp_policy.MLPPolicyConfig}
+policy_opts:
+  share_encoder: false
+  apply_baselines_init: true
+  actor_mlp_opts:
+    num_hidden: 3
+    hidden_dim: 128
+    layernorm: false
+  value_mlp_opts:
+    num_hidden: 2
+    hidden_dim: 256
+    layernorm: true
+  actor_optimizer_opts:
+    lr: 6.691778718587089e-05
+    weight_decay: 0.0001
+  value_optimizer_opts:
+    lr: 0.00057939636234175
+    weight_decay: 0.0001
+ftr_obs_encoder_opts:
+  num_hidden: 2
+  hidden_dim: 128
+  output_dim: 256
+  layernorm: true
+vecnorm_opts:
+  decay: 0.99
+  eps: 0.0001
+vecnorm_on_reward: true
+extra_env_transforms: []
+policy_weights_path: null
+vecnorm_weights_path: null
+robot_max_linear_velocity: 10.0
+robot_max_angular_velocity: 720.0
+physx_gpu_heap_capacity: 2147483648
+physx_gpu_temp_buffer_capacity: 1073741824
+physx_gpu_max_num_partitions: 8
+env_cfg_overrides:
+  goal_reached_reward: 24.799934658797323
+  failed_reward: -17.919202338863848
+  shaping_coef: 49.48185121095986
+  shaping_gamma: ${gae_opts.gamma}
+  step_penalty: -0.05226334419470913
+  joint_vel_variance_coef: 3.0788041524417293
+  joint_angle_variance_coef: 1.496643261845991
+  roll_coef: 0.4335032017407962
+  roll_rate_coef: 0.380723363151645
+  pitch_coef: 1.6316750571066005
+  pitch_rate_coef: 0.5960439722170989
+  flipper_pos_max_deg: 90.0
+  shock_coef: -0.1   # negative = penalty                                                                                                                                         
+  shock_scale: 20.0  # m/s² at which sigmoid reaches ~0.88; lower = more sensitive
+solver_position_iterations: 6
+solver_velocity_iterations: 1
+max_depenetration_velocity: 0.12354395702544713
+sim_dt: 0.005

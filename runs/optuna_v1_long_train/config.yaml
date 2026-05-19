@@ -1,0 +1,95 @@
+name: ftr_ppo_crossing_potential
+comment: 'Best Optuna trial (v1 study, trial #100, 41.4% success rate). Trained with
+  128 envs, 5M frames, pre-physics-fix. Physics limits updated to post-fix values
+  (max_angular_velocity, etc.). Full training: 512 envs, 8× frames.
+
+  '
+use_wandb: true
+use_tensorboard: false
+seed: 42
+device: cuda
+training_dtype: ${dtype:float32}
+num_robots: 512
+task: Ftr-Crossing-Direct-v0
+terrain: cur_mixed
+total_frames: ${mul:5242880,8}
+time_steps_per_batch: 128
+epochs_per_batch: 2
+frames_per_sub_batch: 4096
+eval_and_save_every: 5
+max_eval_steps: 1000
+eval_repeats_after_training: 20
+max_grad_norm: 0.697298401413678
+clip_grad_norm_p: 2
+optimizer: ${cls:torch.optim.AdamW}
+optimizer_opts: {}
+scheduler: ${cls:torch.optim.lr_scheduler.LinearLR}
+scheduler_opts:
+  start_factor: 1.0
+  end_factor: 0.243222963382337
+  total_iters: ${intdiv:${total_frames},${mul:${time_steps_per_batch},${num_robots}}}
+gae_opts:
+  gamma: 0.995
+  lmbda: 0.9017438339478305
+  average_gae: false
+  skip_existing: false
+ppo_opts:
+  clip_epsilon: 0.2963991532684525
+  entropy_bonus: true
+  entropy_coef: 0.03503850005015567
+  critic_coef: 1.0
+  loss_critic_type: smooth_l1
+  normalize_advantage: true
+  separate_losses: true
+data_collector_opts:
+  split_trajs: false
+  compile_policy: false
+  exploration_type: RANDOM
+policy_config: ${cls:flipper_training.policies.mlp_policy.MLPPolicyConfig}
+policy_opts:
+  share_encoder: false
+  apply_baselines_init: true
+  actor_mlp_opts:
+    num_hidden: 2
+    hidden_dim: 64
+    layernorm: false
+  value_mlp_opts:
+    num_hidden: 2
+    hidden_dim: 64
+    layernorm: true
+  actor_optimizer_opts:
+    lr: 9.70253968458502e-05
+    weight_decay: 0.0001
+  value_optimizer_opts:
+    lr: 0.00057939636234175
+    weight_decay: 0.0001
+ftr_obs_encoder_opts:
+  num_hidden: 2
+  hidden_dim: 128
+  output_dim: 256
+  layernorm: true
+vecnorm_opts:
+  decay: 0.99
+  eps: 0.0001
+vecnorm_on_reward: true
+extra_env_transforms: []
+policy_weights_path: null
+vecnorm_weights_path: null
+robot_max_linear_velocity: 10.0
+robot_max_angular_velocity: 720.0
+physx_gpu_heap_capacity: 2147483648
+physx_gpu_temp_buffer_capacity: 536870912
+physx_gpu_max_num_partitions: 8
+env_cfg_overrides:
+  potential_goal_reached_reward: 12.025947844125055
+  potential_failed_reward: -4.669740092748014
+  potential_coef: 26.87546785399381
+  potential_gamma: ${gae_opts.gamma}
+  potential_step_penalty: -0.20136560257768404
+  potential_joint_vel_variance_coef: 2.9015106858027684
+  potential_joint_angle_variance_coef: null
+  potential_roll_coef: 0.2
+  potential_roll_rate_coef: 1.7648582276619234
+  potential_pitch_coef: 0.2
+  potential_pitch_rate_coef: 1.3195076246495727
+  flipper_pos_max_deg: 90.0

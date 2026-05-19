@@ -1,0 +1,765 @@
+WARNING: Environment variable WANDB_PROJECT already has value [flipper_training_v2], will not forward new value [optuna_ftr_smooth_v2] from parent process environment
+INFO:    underlay of /usr/bin/nvidia-smi required more than 50 (375) bind mounts
+2026-05-13 17:55:59 [968ms] [Error] [omni.ext.plugin] Could not load the dynamic library from /opt/conda/envs/isaaclab/lib/python3.10/site-packages/isaacsim/extscache/omni.usd.libs-1.0.1+10a4b5c0.lx64.r.cp310/bin/libMaterialXRenderHw.so. Error: libXt.so.6: cannot open shared object file: No such file or directory (note that this may be caused by a dependent library)
+2026-05-13 17:55:59 [972ms] [Error] [omni.ext.plugin] Could not load the dynamic library from /opt/conda/envs/isaaclab/lib/python3.10/site-packages/isaacsim/extscache/omni.usd.libs-1.0.1+10a4b5c0.lx64.r.cp310/bin/libMaterialXRenderGlsl.so. Error: libXt.so.6: cannot open shared object file: No such file or directory (note that this may be caused by a dependent library)
+2026-05-13 17:55:59 [975ms] [Error] [omni.ext.plugin] Could not load the dynamic library from /opt/conda/envs/isaaclab/lib/python3.10/site-packages/isaacsim/extscache/omni.usd.libs-1.0.1+10a4b5c0.lx64.r.cp310/bin/libusdBakeMtlx.so. Error: libXt.so.6: cannot open shared object file: No such file or directory (note that this may be caused by a dependent library)
+2026-05-13 17:56:00 [1,727ms] [Error] [omni.datastore] Failed to acquire exclusive lock to data store (64>=64)
+2026-05-13 17:56:00 [1,727ms] [Error] [omni.datastore] Failed to create local file data store at '/opt/conda/envs/isaaclab/lib/python3.10/site-packages/omni/cache/Kit/106.1/10a4b5c0/PhysXLocalMeshCache/LocalDS0'
+2026-05-13 17:56:00 [1,995ms] [Error] [omni.kit.stage_templates.new_stage] Failed to create directory /opt/conda/envs/isaaclab/lib/python3.10/site-packages/omni/data/documents/Kit/apps/Isaac-Sim/scripts/new_stage
+2026-05-13 17:56:03 [5,261ms] [Error] [omni.kit.app.plugin] failed to open file '/opt/conda/envs/isaaclab/lib/python3.10/site-packages/omni/data/Kit/Isaac-Sim/4.2/user.config.json' - unable to save the dictionary
+2026-05-13 17:56:04 [5,913ms] [Error] [gpu.foundation.plugin] No device could be created. Some known system issues:
+- The driver is not installed properly and requires a clean re-install.
+- Your GPUs do not support RayTracing: DXR or Vulkan ray_tracing, or hardware is excluded due to performance.
+- The driver cannot enumerate any GPU: driver, display, TCC mode or a docker issue. For Vulkan, test it with Vulkaninfo tool from Vulkan SDK, instead of nvidia-smi.
+- For Ubuntu, it requires server-xorg-core 1.20.7+ and a display to work without --no-window.
+- For Linux dockers, the setup is not complete. Install the latest driver, xServer and NVIDIA container runtime.
+
+2026-05-13 17:56:04 [5,915ms] [Error] [gpu.foundation.plugin] Invalid getDeviceInfo parameters.
+2026-05-13 17:56:05 [6,668ms] [Error] [omni.kvdb.plugin] Unexpected key-value database error
+2026-05-13 17:56:05 [6,697ms] [Error] [omni.kit.app.plugin] failed to open file '/opt/conda/envs/isaaclab/lib/python3.10/site-packages/omni/data/Kit/Isaac-Sim/4.2/user.config.json' - unable to save the dictionary
+/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torchrl/data/replay_buffers/samplers.py:34: UserWarning: Failed to import torchrl C++ binaries. Some modules (eg, prioritized replay buffers) may not work with your installation. This is likely due to a discrepancy between your package version and the PyTorch version. Make sure both are compatible. Usually, torchrl majors follow the pytorch majors within a few days around the release. For instance, TorchRL 0.5 requires PyTorch 2.4.0, and TorchRL 0.6 requires PyTorch 2.5.0.
+  warnings.warn(EXTENSION_WARNING)
+/opt/conda/envs/isaaclab/lib/python3.10/site-packages/wandb/sdk/internal/internal_api.py:13: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import parse_version
+2026-05-13 17:56:12 [13,904ms] [Error] [omni.kit.app.plugin] failed to open file '/opt/conda/envs/isaaclab/lib/python3.10/site-packages/omni/data/Kit/Isaac-Sim/4.2/user.config.json' - unable to save the dictionary
+2026-05-13 17:56:26 [28,067ms] [Error] [omni.kvdb.plugin] Unexpected key-value database error
+2026-05-13 17:56:26 [28,079ms] [Error] [omni.kit.app.plugin] failed to open file '/opt/conda/envs/isaaclab/lib/python3.10/site-packages/omni/data/Kit/Isaac-Sim/4.2/user.config.json' - unable to save the dictionary
+wandb: Currently logged in as: sargapav (marv_flipper_training). Use `wandb login --relogin` to force relogin
+/opt/conda/envs/isaaclab/lib/python3.10/site-packages/wandb/sdk/internal/internal_api.py:13: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import parse_version
+wandb: wandb version 0.26.1 is available!  To upgrade, please run:
+wandb:  $ pip install wandb --upgrade
+wandb: Tracking run with wandb version 0.12.21
+wandb: Run data is saved locally in /ws/logs/wandb/wandb/run-20260513_195627-15b9869ccf8d6e0fe8d604768e07e3e3ebc81995bb147a7d4d78fc707ce40a95
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run train_ftr_10999209_attempt_0
+wandb: ⭐️ View project at https://wandb.ai/marv_flipper_training/flipper_training_v2
+wandb: 🚀 View run at https://wandb.ai/marv_flipper_training/flipper_training_v2/runs/15b9869ccf8d6e0fe8d604768e07e3e3ebc81995bb147a7d4d78fc707ce40a95
+/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torchrl/envs/transforms/transforms.py:6557: FutureWarning: The VecNorm class is to be deprecated in favor of `torchrl.envs.VecNormV2` and will be replaced by that class in v0.10. You can adapt to these changes by using the `new_api` argument or importing the `VecNormV2` class from `torchrl.envs`.
+  warnings.warn(
+/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torchrl/envs/transforms/transforms.py:6648: FutureWarning: This class is to be deprecated in favor of :class:`~torchrl.envs.VecNormV2`.
+  warnings.warn(
+FTR PPO Training:   0% 0/62914560 [00:00<?, ?frames/s]FTR PPO Training:   0% 131072/62914560 [01:11<9:34:34, 1821.15frames/s]FTR PPO Training:   0% 131072/62914560 [01:31<9:34:34, 1821.15frames/s]FTR PPO Training:   0% 262144/62914560 [02:22<9:25:21, 1846.96frames/s]FTR PPO Training:   0% 262144/62914560 [02:41<9:25:21, 1846.96frames/s]FTR PPO Training:   1% 393216/62914560 [03:29<9:11:10, 1890.52frames/s]FTR PPO Training:   1% 393216/62914560 [03:41<9:11:10, 1890.52frames/s]FTR PPO Training:   1% 524288/62914560 [04:38<9:09:30, 1892.30frames/s]FTR PPO Training:   1% 524288/62914560 [04:51<9:09:30, 1892.30frames/s]FTR PPO Training:   1% 655360/62914560 [05:47<9:05:22, 1902.63frames/s]FTR PPO Training:   1% 655360/62914560 [06:01<9:05:22, 1902.63frames/s]FTR PPO Training:   1% 786432/62914560 [06:55<9:03:38, 1904.67frames/s]FTR PPO Training:   1% 786432/62914560 [07:11<9:03:38, 1904.67frames/s]FTR PPO Training:   1% 917504/62914560 [08:04<9:01:22, 1908.66frames/s]FTR PPO Training:   1% 917504/62914560 [08:21<9:01:22, 1908.66frames/s]FTR PPO Training:   2% 1048576/62914560 [09:12<8:59:50, 1909.98frames/s]FTR PPO Training:   2% 1048576/62914560 [09:31<8:59:50, 1909.98frames/s]FTR PPO Training:   2% 1179648/62914560 [10:21<8:58:42, 1909.98frames/s]FTR PPO Training:   2% 1179648/62914560 [10:31<8:58:42, 1909.98frames/s]FTR PPO Training:   2% 1310720/62914560 [11:29<8:57:25, 1910.45frames/s]FTR PPO Training:   2% 1310720/62914560 [11:41<8:57:25, 1910.45frames/s]FTR PPO Training:   2% 1441792/62914560 [12:38<8:55:51, 1911.99frames/s]FTR PPO Training:   2% 1441792/62914560 [12:51<8:55:51, 1911.99frames/s]FTR PPO Training:   2% 1572864/62914560 [20:22<24:34:29, 693.37frames/s]FTR PPO Training:   2% 1572864/62914560 [20:41<24:34:29, 693.37frames/s]FTR PPO Training:   3% 1703936/62914560 [21:31<19:47:24, 859.17frames/s]FTR PPO Training:   3% 1703936/62914560 [21:41<19:47:24, 859.17frames/s]FTR PPO Training:   3% 1835008/62914560 [22:41<16:30:38, 1027.60frames/s]FTR PPO Training:   3% 1835008/62914560 [22:51<16:30:38, 1027.60frames/s]FTR PPO Training:   3% 1966080/62914560 [23:49<14:10:04, 1194.97frames/s]FTR PPO Training:   3% 1966080/62914560 [24:01<14:10:04, 1194.97frames/s]FTR PPO Training:   3% 2097152/62914560 [24:59<12:34:49, 1342.87frames/s]FTR PPO Training:   3% 2097152/62914560 [25:11<12:34:49, 1342.87frames/s]FTR PPO Training:   4% 2228224/62914560 [26:08<11:28:21, 1469.36frames/s]FTR PPO Training:   4% 2228224/62914560 [26:21<11:28:21, 1469.36frames/s]FTR PPO Training:   4% 2359296/62914560 [27:18<10:43:01, 1569.52frames/s]FTR PPO Training:   4% 2359296/62914560 [27:31<10:43:01, 1569.52frames/s]FTR PPO Training:   4% 2490368/62914560 [28:28<10:09:42, 1651.71frames/s]FTR PPO Training:   4% 2490368/62914560 [28:41<10:09:42, 1651.71frames/s]FTR PPO Training:   4% 2621440/62914560 [29:37<9:45:14, 1717.06frames/s] FTR PPO Training:   4% 2621440/62914560 [29:51<9:45:14, 1717.06frames/s]FTR PPO Training:   4% 2752512/62914560 [30:48<9:30:06, 1758.77frames/s]FTR PPO Training:   4% 2752512/62914560 [31:01<9:30:06, 1758.77frames/s]FTR PPO Training:   5% 2883584/62914560 [37:27<21:52:42, 762.18frames/s]FTR PPO Training:   5% 2883584/62914560 [37:41<21:52:42, 762.18frames/s]FTR PPO Training:   5% 3014656/62914560 [38:37<17:56:10, 927.67frames/s]FTR PPO Training:   5% 3014656/62914560 [38:51<17:56:10, 927.67frames/s]FTR PPO Training:   5% 3145728/62914560 [39:46<15:10:06, 1094.53frames/s]FTR PPO Training:   5% 3145728/62914560 [40:01<15:10:06, 1094.53frames/s]FTR PPO Training:   5% 3276800/62914560 [40:57<13:17:04, 1247.00frames/s]FTR PPO Training:   5% 3276800/62914560 [41:11<13:17:04, 1247.00frames/s]FTR PPO Training:   5% 3407872/62914560 [42:07<11:55:41, 1385.77frames/s]FTR PPO Training:   5% 3407872/62914560 [42:21<11:55:41, 1385.77frames/s]FTR PPO Training:   6% 3538944/62914560 [43:18<11:00:24, 1498.47frames/s]FTR PPO Training:   6% 3538944/62914560 [43:31<11:00:24, 1498.47frames/s]FTR PPO Training:   6% 3670016/62914560 [44:28<10:20:16, 1591.89frames/s]FTR PPO Training:   6% 3670016/62914560 [44:41<10:20:16, 1591.89frames/s]FTR PPO Training:   6% 3801088/62914560 [45:39<9:52:58, 1661.52frames/s] FTR PPO Training:   6% 3801088/62914560 [45:52<9:52:58, 1661.52frames/s]FTR PPO Training:   6% 3932160/62914560 [46:50<9:34:24, 1711.41frames/s]FTR PPO Training:   6% 3932160/62914560 [47:02<9:34:24, 1711.41frames/s]FTR PPO Training:   6% 4063232/62914560 [48:01<9:18:49, 1755.21frames/s]FTR PPO Training:   6% 4063232/62914560 [48:12<9:18:49, 1755.21frames/s]FTR PPO Training:   7% 4194304/62914560 [54:09<20:16:15, 804.66frames/s]FTR PPO Training:   7% 4194304/62914560 [54:22<20:16:15, 804.66frames/s]FTR PPO Training:   7% 4325376/62914560 [55:20<16:47:18, 969.40frames/s]FTR PPO Training:   7% 4325376/62914560 [55:32<16:47:18, 969.40frames/s]FTR PPO Training:   7% 4456448/62914560 [56:31<14:21:04, 1131.49frames/s]FTR PPO Training:   7% 4456448/62914560 [56:42<14:21:04, 1131.49frames/s]FTR PPO Training:   7% 4587520/62914560 [57:40<12:36:08, 1285.63frames/s]FTR PPO Training:   7% 4587520/62914560 [57:52<12:36:08, 1285.63frames/s]FTR PPO Training:   8% 4718592/62914560 [58:52<11:28:29, 1408.79frames/s]FTR PPO Training:   8% 4718592/62914560 [59:12<11:28:29, 1408.79frames/s]FTR PPO Training:   8% 4849664/62914560 [1:00:02<10:35:11, 1523.56frames/s]FTR PPO Training:   8% 4849664/62914560 [1:00:22<10:35:11, 1523.56frames/s]FTR PPO Training:   8% 4980736/62914560 [1:01:14<10:01:33, 1605.11frames/s]FTR PPO Training:   8% 4980736/62914560 [1:01:32<10:01:33, 1605.11frames/s]FTR PPO Training:   8% 5111808/62914560 [1:02:24<9:35:01, 1675.36frames/s] FTR PPO Training:   8% 5111808/62914560 [1:02:42<9:35:01, 1675.36frames/s]FTR PPO Training:   8% 5242880/62914560 [1:03:35<9:19:04, 1719.27frames/s]FTR PPO Training:   8% 5242880/62914560 [1:03:52<9:19:04, 1719.27frames/s]FTR PPO Training:   9% 5373952/62914560 [1:04:47<9:07:36, 1751.29frames/s]FTR PPO Training:   9% 5373952/62914560 [1:05:02<9:07:36, 1751.29frames/s]FTR PPO Training:   9% 5505024/62914560 [1:11:06<20:13:02, 788.78frames/s]FTR PPO Training:   9% 5505024/62914560 [1:11:22<20:13:02, 788.78frames/s]FTR PPO Training:   9% 5636096/62914560 [1:12:18<16:43:55, 950.91frames/s]FTR PPO Training:   9% 5636096/62914560 [1:12:32<16:43:55, 950.91frames/s]FTR PPO Training:   9% 5767168/62914560 [1:13:30<14:18:02, 1110.03frames/s]FTR PPO Training:   9% 5767168/62914560 [1:13:42<14:18:02, 1110.03frames/s]FTR PPO Training:   9% 5898240/62914560 [1:14:41<12:33:29, 1261.14frames/s]FTR PPO Training:   9% 5898240/62914560 [1:14:52<12:33:29, 1261.14frames/s]FTR PPO Training:  10% 6029312/62914560 [1:15:53<11:22:40, 1388.77frames/s]FTR PPO Training:  10% 6029312/62914560 [1:16:12<11:22:40, 1388.77frames/s]FTR PPO Training:  10% 6160384/62914560 [1:17:03<10:28:39, 1504.65frames/s]FTR PPO Training:  10% 6160384/62914560 [1:17:22<10:28:39, 1504.65frames/s]FTR PPO Training:  10% 6291456/62914560 [1:18:15<9:54:29, 1587.42frames/s] FTR PPO Training:  10% 6291456/62914560 [1:18:32<9:54:29, 1587.42frames/s]FTR PPO Training:  10% 6422528/62914560 [1:19:26<9:28:40, 1655.69frames/s]FTR PPO Training:  10% 6422528/62914560 [1:19:42<9:28:40, 1655.69frames/s]FTR PPO Training:  10% 6553600/62914560 [1:20:39<9:13:41, 1696.51frames/s]FTR PPO Training:  10% 6553600/62914560 [1:20:52<9:13:41, 1696.51frames/s]FTR PPO Training:  11% 6684672/62914560 [1:21:51<9:01:06, 1731.93frames/s]FTR PPO Training:  11% 6684672/62914560 [1:22:02<9:01:06, 1731.93frames/s]FTR PPO Training:  11% 6815744/62914560 [1:28:25<20:21:27, 765.47frames/s]FTR PPO Training:  11% 6815744/62914560 [1:28:42<20:21:27, 765.47frames/s]FTR PPO Training:  11% 6946816/62914560 [1:29:36<16:43:20, 929.68frames/s]FTR PPO Training:  11% 6946816/62914560 [1:29:52<16:43:20, 929.68frames/s]FTR PPO Training:  11% 7077888/62914560 [1:30:48<14:15:10, 1088.21frames/s]FTR PPO Training:  11% 7077888/62914560 [1:31:02<14:15:10, 1088.21frames/s]FTR PPO Training:  11% 7208960/62914560 [1:31:59<12:27:59, 1241.22frames/s]FTR PPO Training:  11% 7208960/62914560 [1:32:12<12:27:59, 1241.22frames/s]FTR PPO Training:  12% 7340032/62914560 [1:33:12<11:17:17, 1367.55frames/s]FTR PPO Training:  12% 7340032/62914560 [1:33:32<11:17:17, 1367.55frames/s]FTR PPO Training:  12% 7471104/62914560 [1:34:23<10:22:33, 1484.29frames/s]FTR PPO Training:  12% 7471104/62914560 [1:34:42<10:22:33, 1484.29frames/s]FTR PPO Training:  12% 7602176/62914560 [1:35:36<9:48:25, 1566.70frames/s] FTR PPO Training:  12% 7602176/62914560 [1:35:52<9:48:25, 1566.70frames/s]FTR PPO Training:  12% 7733248/62914560 [1:36:47<9:20:06, 1641.99frames/s]FTR PPO Training:  12% 7733248/62914560 [1:37:02<9:20:06, 1641.99frames/s]FTR PPO Training:  12% 7864320/62914560 [1:38:01<9:06:14, 1679.68frames/s]FTR PPO Training:  12% 7864320/62914560 [1:38:12<9:06:14, 1679.68frames/s]FTR PPO Training:  13% 7995392/62914560 [1:39:14<8:55:06, 1710.54frames/s]FTR PPO Training:  13% 7995392/62914560 [1:39:32<8:55:06, 1710.54frames/s]FTR PPO Training:  13% 8126464/62914560 [1:45:51<20:03:17, 758.87frames/s]FTR PPO Training:  13% 8126464/62914560 [1:46:02<20:03:17, 758.87frames/s]FTR PPO Training:  13% 8257536/62914560 [1:47:02<16:29:33, 920.57frames/s]FTR PPO Training:  13% 8257536/62914560 [1:47:22<16:29:33, 920.57frames/s]FTR PPO Training:  13% 8388608/62914560 [1:48:17<14:05:33, 1074.76frames/s]FTR PPO Training:  13% 8388608/62914560 [1:48:32<14:05:33, 1074.76frames/s]FTR PPO Training:  14% 8519680/62914560 [1:49:28<12:18:49, 1227.05frames/s]FTR PPO Training:  14% 8519680/62914560 [1:49:42<12:18:49, 1227.05frames/s]FTR PPO Training:  14% 8650752/62914560 [1:50:42<11:09:36, 1350.62frames/s]FTR PPO Training:  14% 8650752/62914560 [1:51:02<11:09:36, 1350.62frames/s]FTR PPO Training:  14% 8781824/62914560 [1:51:56<10:19:11, 1457.09frames/s]FTR PPO Training:  14% 8781824/62914560 [1:52:12<10:19:11, 1457.09frames/s]FTR PPO Training:  14% 8912896/62914560 [1:53:07<9:39:15, 1553.77frames/s] FTR PPO Training:  14% 8912896/62914560 [1:53:22<9:39:15, 1553.77frames/s]FTR PPO Training:  14% 9043968/62914560 [1:54:21<9:15:42, 1615.68frames/s]FTR PPO Training:  14% 9043968/62914560 [1:54:32<9:15:42, 1615.68frames/s]FTR PPO Training:  15% 9175040/62914560 [1:55:33<8:55:26, 1672.77frames/s]FTR PPO Training:  15% 9175040/62914560 [1:55:52<8:55:26, 1672.77frames/s]FTR PPO Training:  15% 9306112/62914560 [1:56:47<8:46:42, 1696.32frames/s]FTR PPO Training:  15% 9306112/62914560 [1:57:02<8:46:42, 1696.32frames/s]FTR PPO Training:  15% 9437184/62914560 [2:03:02<18:52:06, 787.29frames/s]FTR PPO Training:  15% 9437184/62914560 [2:03:12<18:52:06, 787.29frames/s]FTR PPO Training:  15% 9568256/62914560 [2:04:14<15:36:52, 949.01frames/s]FTR PPO Training:  15% 9568256/62914560 [2:04:32<15:36:52, 949.01frames/s]FTR PPO Training:  15% 9699328/62914560 [2:05:29<13:26:40, 1099.48frames/s]FTR PPO Training:  15% 9699328/62914560 [2:05:42<13:26:40, 1099.48frames/s]FTR PPO Training:  16% 9830400/62914560 [2:06:42<11:49:58, 1246.15frames/s]FTR PPO Training:  16% 9830400/62914560 [2:06:52<11:49:58, 1246.15frames/s]FTR PPO Training:  16% 9961472/62914560 [2:07:57<10:48:37, 1360.64frames/s]FTR PPO Training:  16% 9961472/62914560 [2:08:12<10:48:37, 1360.64frames/s]FTR PPO Training:  16% 10092544/62914560 [2:09:10<9:59:04, 1469.55frames/s]FTR PPO Training:  16% 10092544/62914560 [2:09:22<9:59:04, 1469.55frames/s]FTR PPO Training:  16% 10223616/62914560 [2:10:25<9:28:54, 1543.64frames/s]FTR PPO Training:  16% 10223616/62914560 [2:10:42<9:28:54, 1543.64frames/s]FTR PPO Training:  16% 10354688/62914560 [2:11:39<9:06:05, 1604.10frames/s]FTR PPO Training:  16% 10354688/62914560 [2:11:52<9:06:05, 1604.10frames/s]FTR PPO Training:  17% 10485760/62914560 [2:12:52<8:46:34, 1659.44frames/s]FTR PPO Training:  17% 10485760/62914560 [2:13:02<8:46:34, 1659.44frames/s]FTR PPO Training:  17% 10616832/62914560 [2:14:07<8:37:41, 1683.66frames/s]FTR PPO Training:  17% 10616832/62914560 [2:14:22<8:37:41, 1683.66frames/s]FTR PPO Training:  17% 10747904/62914560 [2:19:48<17:20:59, 835.20frames/s]FTR PPO Training:  17% 10747904/62914560 [2:20:02<17:20:59, 835.20frames/s]FTR PPO Training:  17% 10878976/62914560 [2:21:05<14:38:24, 987.30frames/s]FTR PPO Training:  17% 10878976/62914560 [2:21:22<14:38:24, 987.30frames/s]FTR PPO Training:  18% 11010048/62914560 [2:22:18<12:38:25, 1140.61frames/s]FTR PPO Training:  18% 11010048/62914560 [2:22:32<12:38:25, 1140.61frames/s]FTR PPO Training:  18% 11141120/62914560 [2:23:36<11:23:14, 1262.92frames/s]FTR PPO Training:  18% 11141120/62914560 [2:23:53<11:23:14, 1262.92frames/s]FTR PPO Training:  18% 11272192/62914560 [2:24:49<10:21:58, 1383.85frames/s]FTR PPO Training:  18% 11272192/62914560 [2:25:03<10:21:58, 1383.85frames/s]FTR PPO Training:  18% 11403264/62914560 [2:26:05<9:44:11, 1469.59frames/s] FTR PPO Training:  18% 11403264/62914560 [2:26:23<9:44:11, 1469.59frames/s]FTR PPO Training:  18% 11534336/62914560 [2:27:21<9:15:08, 1542.56frames/s]FTR PPO Training:  18% 11534336/62914560 [2:27:33<9:15:08, 1542.56frames/s]FTR PPO Training:  19% 11665408/62914560 [2:28:33<8:49:54, 1611.90frames/s]FTR PPO Training:  19% 11665408/62914560 [2:28:53<8:49:54, 1611.90frames/s]FTR PPO Training:  19% 11796480/62914560 [2:29:49<8:38:02, 1644.58frames/s]FTR PPO Training:  19% 11796480/62914560 [2:30:03<8:38:02, 1644.58frames/s]FTR PPO Training:  19% 11927552/62914560 [2:31:02<8:23:33, 1687.58frames/s]FTR PPO Training:  19% 11927552/62914560 [2:31:13<8:23:33, 1687.58frames/s]FTR PPO Training:  19% 12058624/62914560 [2:37:56<19:13:25, 734.85frames/s]FTR PPO Training:  19% 12058624/62914560 [2:38:13<19:13:25, 734.85frames/s]FTR PPO Training:  19% 12189696/62914560 [2:39:12<15:53:58, 886.20frames/s]FTR PPO Training:  19% 12189696/62914560 [2:39:23<15:53:58, 886.20frames/s]FTR PPO Training:  20% 12320768/62914560 [2:40:30<13:35:10, 1034.42frames/s]FTR PPO Training:  20% 12320768/62914560 [2:40:43<13:35:10, 1034.42frames/s]FTR PPO Training:  20% 12451840/62914560 [2:41:44<11:51:50, 1181.50frames/s]FTR PPO Training:  20% 12451840/62914560 [2:42:03<11:51:50, 1181.50frames/s]FTR PPO Training:  20% 12582912/62914560 [2:43:01<10:45:47, 1298.95frames/s]FTR PPO Training:  20% 12582912/62914560 [2:43:13<10:45:47, 1298.95frames/s]FTR PPO Training:  20% 12713984/62914560 [2:44:14<9:50:41, 1416.42frames/s] FTR PPO Training:  20% 12713984/62914560 [2:44:33<9:50:41, 1416.42frames/s]FTR PPO Training:  20% 12845056/62914560 [2:45:30<9:17:42, 1496.27frames/s]FTR PPO Training:  20% 12845056/62914560 [2:45:43<9:17:42, 1496.27frames/s]FTR PPO Training:  21% 12976128/62914560 [2:46:43<8:48:25, 1575.06frames/s]FTR PPO Training:  21% 12976128/62914560 [2:47:03<8:48:25, 1575.06frames/s]FTR PPO Training:  21% 13107200/62914560 [2:48:01<8:35:35, 1610.04frames/s]FTR PPO Training:  21% 13107200/62914560 [2:48:13<8:35:35, 1610.04frames/s]FTR PPO Training:  21% 13238272/62914560 [2:49:19<8:28:00, 1629.76frames/s]FTR PPO Training:  21% 13238272/62914560 [2:49:33<8:28:00, 1629.76frames/s]FTR PPO Training:  21% 13369344/62914560 [2:56:20<19:10:35, 717.68frames/s]FTR PPO Training:  21% 13369344/62914560 [2:56:33<19:10:35, 717.68frames/s]FTR PPO Training:  21% 13500416/62914560 [2:57:34<15:43:46, 872.63frames/s]FTR PPO Training:  21% 13500416/62914560 [2:57:53<15:43:46, 872.63frames/s]FTR PPO Training:  22% 13631488/62914560 [2:58:52<13:25:05, 1020.24frames/s]FTR PPO Training:  22% 13631488/62914560 [2:59:03<13:25:05, 1020.24frames/s]FTR PPO Training:  22% 13762560/62914560 [3:00:07<11:42:29, 1166.14frames/s]FTR PPO Training:  22% 13762560/62914560 [3:00:23<11:42:29, 1166.14frames/s]FTR PPO Training:  22% 13893632/62914560 [3:01:25<10:36:23, 1283.83frames/s]FTR PPO Training:  22% 13893632/62914560 [3:01:43<10:36:23, 1283.83frames/s]FTR PPO Training:  22% 14024704/62914560 [3:02:42<9:47:31, 1386.87frames/s] FTR PPO Training:  22% 14024704/62914560 [3:02:53<9:47:31, 1386.87frames/s]FTR PPO Training:  22% 14155776/62914560 [3:03:56<9:08:44, 1480.91frames/s]FTR PPO Training:  22% 14155776/62914560 [3:04:13<9:08:44, 1480.91frames/s]FTR PPO Training:  23% 14286848/62914560 [3:05:15<8:48:03, 1534.81frames/s]FTR PPO Training:  23% 14286848/62914560 [3:05:33<8:48:03, 1534.81frames/s]FTR PPO Training:  23% 14417920/62914560 [3:06:30<8:27:33, 1592.50frames/s]FTR PPO Training:  23% 14417920/62914560 [3:06:43<8:27:33, 1592.50frames/s]FTR PPO Training:  23% 14548992/62914560 [3:07:48<8:18:07, 1618.28frames/s]FTR PPO Training:  23% 14548992/62914560 [3:08:03<8:18:07, 1618.28frames/s]FTR PPO Training:  23% 14680064/62914560 [3:15:13<19:27:14, 688.73frames/s]FTR PPO Training:  23% 14680064/62914560 [3:15:23<19:27:14, 688.73frames/s]FTR PPO Training:  24% 14811136/62914560 [3:16:29<15:53:34, 840.75frames/s]FTR PPO Training:  24% 14811136/62914560 [3:16:43<15:53:34, 840.75frames/s]FTR PPO Training:  24% 14942208/62914560 [3:17:48<13:30:15, 986.78frames/s]FTR PPO Training:  24% 14942208/62914560 [3:18:03<13:30:15, 986.78frames/s]FTR PPO Training:  24% 15073280/62914560 [3:19:03<11:43:10, 1133.93frames/s]FTR PPO Training:  24% 15073280/62914560 [3:19:13<11:43:10, 1133.93frames/s]FTR PPO Training:  24% 15204352/62914560 [3:20:22<10:34:23, 1253.45frames/s]FTR PPO Training:  24% 15204352/62914560 [3:20:33<10:34:23, 1253.45frames/s]FTR PPO Training:  24% 15335424/62914560 [3:21:40<9:44:13, 1357.32frames/s] FTR PPO Training:  24% 15335424/62914560 [3:21:53<9:44:13, 1357.32frames/s]FTR PPO Training:  25% 15466496/62914560 [3:22:54<9:01:35, 1460.14frames/s]FTR PPO Training:  25% 15466496/62914560 [3:23:13<9:01:35, 1460.14frames/s]FTR PPO Training:  25% 15597568/62914560 [3:24:14<8:42:39, 1508.85frames/s]FTR PPO Training:  25% 15597568/62914560 [3:24:33<8:42:39, 1508.85frames/s]FTR PPO Training:  25% 15728640/62914560 [3:25:31<8:24:12, 1559.73frames/s]FTR PPO Training:  25% 15728640/62914560 [3:25:43<8:24:12, 1559.73frames/s]FTR PPO Training:  25% 15859712/62914560 [3:26:51<8:15:49, 1581.71frames/s]FTR PPO Training:  25% 15859712/62914560 [3:27:03<8:15:49, 1581.71frames/s]FTR PPO Training:  25% 15990784/62914560 [3:34:21<19:10:55, 679.51frames/s]FTR PPO Training:  25% 15990784/62914560 [3:34:33<19:10:55, 679.51frames/s]FTR PPO Training:  26% 16121856/62914560 [3:35:37<15:39:32, 830.06frames/s]FTR PPO Training:  26% 16121856/62914560 [3:35:53<15:39:32, 830.06frames/s]FTR PPO Training:  26% 16252928/62914560 [3:36:57<13:18:38, 973.76frames/s]FTR PPO Training:  26% 16252928/62914560 [3:37:13<13:18:38, 973.76frames/s]FTR PPO Training:  26% 16384000/62914560 [3:38:13<11:31:56, 1120.76frames/s]FTR PPO Training:  26% 16384000/62914560 [3:38:23<11:31:56, 1120.76frames/s]FTR PPO Training:  26% 16515072/62914560 [3:39:32<10:22:05, 1243.12frames/s]FTR PPO Training:  26% 16515072/62914560 [3:39:43<10:22:05, 1243.12frames/s]FTR PPO Training:  26% 16646144/62914560 [3:40:51<9:34:32, 1342.19frames/s] FTR PPO Training:  26% 16646144/62914560 [3:41:03<9:34:32, 1342.19frames/s]FTR PPO Training:  27% 16777216/62914560 [3:42:06<8:52:40, 1443.59frames/s]FTR PPO Training:  27% 16777216/62914560 [3:42:23<8:52:40, 1443.59frames/s]FTR PPO Training:  27% 16908288/62914560 [3:43:25<8:30:53, 1500.84frames/s]FTR PPO Training:  27% 16908288/62914560 [3:43:43<8:30:53, 1500.84frames/s]FTR PPO Training:  27% 17039360/62914560 [3:44:41<8:08:57, 1563.71frames/s]FTR PPO Training:  27% 17039360/62914560 [3:44:53<8:08:57, 1563.71frames/s]FTR PPO Training:  27% 17170432/62914560 [3:46:02<8:02:25, 1580.33frames/s]FTR PPO Training:  27% 17170432/62914560 [3:46:13<8:02:25, 1580.33frames/s]FTR PPO Training:  28% 17301504/62914560 [3:53:24<18:26:49, 686.84frames/s]FTR PPO Training:  28% 17301504/62914560 [3:53:43<18:26:49, 686.84frames/s]FTR PPO Training:  28% 17432576/62914560 [3:54:44<15:11:35, 831.55frames/s]FTR PPO Training:  28% 17432576/62914560 [3:55:03<15:11:35, 831.55frames/s]FTR PPO Training:  28% 17563648/62914560 [3:56:00<12:46:39, 985.90frames/s]FTR PPO Training:  28% 17563648/62914560 [3:56:13<12:46:39, 985.90frames/s]FTR PPO Training:  28% 17694720/62914560 [3:57:21<11:14:34, 1117.25frames/s]FTR PPO Training:  28% 17694720/62914560 [3:57:33<11:14:34, 1117.25frames/s]FTR PPO Training:  28% 17825792/62914560 [3:58:41<10:09:09, 1233.63frames/s]FTR PPO Training:  28% 17825792/62914560 [3:58:53<10:09:09, 1233.63frames/s]FTR PPO Training:  29% 17956864/62914560 [3:59:57<9:14:35, 1351.09frames/s] FTR PPO Training:  29% 17956864/62914560 [4:00:13<9:14:35, 1351.09frames/s]FTR PPO Training:  29% 18087936/62914560 [4:01:17<8:44:11, 1425.27frames/s]FTR PPO Training:  29% 18087936/62914560 [4:01:33<8:44:11, 1425.27frames/s]FTR PPO Training:  29% 18219008/62914560 [4:02:33<8:15:15, 1504.13frames/s]FTR PPO Training:  29% 18219008/62914560 [4:02:43<8:15:15, 1504.13frames/s]FTR PPO Training:  29% 18350080/62914560 [4:03:54<8:04:12, 1533.92frames/s]FTR PPO Training:  29% 18350080/62914560 [4:04:13<8:04:12, 1533.92frames/s]FTR PPO Training:  29% 18481152/62914560 [4:05:11<7:47:50, 1582.89frames/s]FTR PPO Training:  29% 18481152/62914560 [4:05:23<7:47:50, 1582.89frames/s]FTR PPO Training:  30% 18612224/62914560 [4:12:47<18:17:25, 672.82frames/s]FTR PPO Training:  30% 18612224/62914560 [4:13:03<18:17:25, 672.82frames/s]FTR PPO Training:  30% 18743296/62914560 [4:14:08<15:01:46, 816.37frames/s]FTR PPO Training:  30% 18743296/62914560 [4:14:23<15:01:46, 816.37frames/s]FTR PPO Training:  30% 18874368/62914560 [4:15:24<12:37:59, 968.34frames/s]FTR PPO Training:  30% 18874368/62914560 [4:15:43<12:37:59, 968.34frames/s]FTR PPO Training:  30% 19005440/62914560 [4:16:45<11:05:15, 1100.05frames/s]FTR PPO Training:  30% 19005440/62914560 [4:17:03<11:05:15, 1100.05frames/s]FTR PPO Training:  30% 19136512/62914560 [4:18:01<9:49:52, 1236.91frames/s] FTR PPO Training:  30% 19136512/62914560 [4:18:13<9:49:52, 1236.91frames/s]FTR PPO Training:  31% 19267584/62914560 [4:19:23<9:09:15, 1324.43frames/s]FTR PPO Training:  31% 19267584/62914560 [4:19:33<9:09:15, 1324.43frames/s]FTR PPO Training:  31% 19398656/62914560 [4:20:45<8:38:38, 1398.38frames/s]FTR PPO Training:  31% 19398656/62914560 [4:21:03<8:38:38, 1398.38frames/s]FTR PPO Training:  31% 19529728/62914560 [4:22:01<8:08:47, 1479.32frames/s]FTR PPO Training:  31% 19529728/62914560 [4:22:13<8:08:47, 1479.32frames/s]FTR PPO Training:  31% 19660800/62914560 [4:23:23<7:55:59, 1514.53frames/s]FTR PPO Training:  31% 19660800/62914560 [4:23:33<7:55:59, 1514.53frames/s]FTR PPO Training:  31% 19791872/62914560 [4:24:40<7:38:45, 1566.65frames/s]FTR PPO Training:  31% 19791872/62914560 [4:24:53<7:38:45, 1566.65frames/s]FTR PPO Training:  32% 19922944/62914560 [4:32:23<17:58:44, 664.22frames/s]FTR PPO Training:  32% 19922944/62914560 [4:32:34<17:58:44, 664.22frames/s]FTR PPO Training:  32% 20054016/62914560 [4:33:46<14:48:45, 803.76frames/s]FTR PPO Training:  32% 20054016/62914560 [4:34:04<14:48:45, 803.76frames/s]FTR PPO Training:  32% 20185088/62914560 [4:35:03<12:26:21, 954.18frames/s]FTR PPO Training:  32% 20185088/62914560 [4:35:14<12:26:21, 954.18frames/s]FTR PPO Training:  32% 20316160/62914560 [4:36:26<10:56:02, 1082.22frames/s]FTR PPO Training:  32% 20316160/62914560 [4:36:44<10:56:02, 1082.22frames/s]FTR PPO Training:  32% 20447232/62914560 [4:37:44<9:43:12, 1213.62frames/s] FTR PPO Training:  32% 20447232/62914560 [4:38:04<9:43:12, 1213.62frames/s]FTR PPO Training:  33% 20578304/62914560 [4:39:06<8:59:43, 1307.32frames/s]FTR PPO Training:  33% 20578304/62914560 [4:39:24<8:59:43, 1307.32frames/s]FTR PPO Training:  33% 20709376/62914560 [4:40:22<8:19:46, 1407.47frames/s]FTR PPO Training:  33% 20709376/62914560 [4:40:34<8:19:46, 1407.47frames/s]FTR PPO Training:  33% 20840448/62914560 [4:41:45<8:01:13, 1457.20frames/s]FTR PPO Training:  33% 20840448/62914560 [4:42:04<8:01:13, 1457.20frames/s]FTR PPO Training:  33% 20971520/62914560 [4:43:02<7:39:36, 1520.97frames/s]FTR PPO Training:  33% 20971520/62914560 [4:43:14<7:39:36, 1520.97frames/s]FTR PPO Training:  34% 21102592/62914560 [4:44:25<7:32:53, 1538.71frames/s]FTR PPO Training:  34% 21102592/62914560 [4:44:44<7:32:53, 1538.71frames/s]FTR PPO Training:  34% 21233664/62914560 [4:52:17<17:46:17, 651.49frames/s]FTR PPO Training:  34% 21233664/62914560 [4:52:34<17:46:17, 651.49frames/s]FTR PPO Training:  34% 21364736/62914560 [4:53:41<14:37:49, 788.88frames/s]FTR PPO Training:  34% 21364736/62914560 [4:53:54<14:37:49, 788.88frames/s]FTR PPO Training:  34% 21495808/62914560 [4:54:59<12:15:01, 939.18frames/s]FTR PPO Training:  34% 21495808/62914560 [4:55:14<12:15:01, 939.18frames/s]FTR PPO Training:  34% 21626880/62914560 [4:56:22<10:43:45, 1068.93frames/s]FTR PPO Training:  34% 21626880/62914560 [4:56:34<10:43:45, 1068.93frames/s]FTR PPO Training:  35% 21757952/62914560 [4:57:41<9:32:32, 1198.08frames/s] FTR PPO Training:  35% 21757952/62914560 [4:57:54<9:32:32, 1198.08frames/s]FTR PPO Training:  35% 21889024/62914560 [4:59:04<8:50:31, 1288.85frames/s]FTR PPO Training:  35% 21889024/62914560 [4:59:24<8:50:31, 1288.85frames/s]FTR PPO Training:  35% 22020096/62914560 [5:00:22<8:10:56, 1388.28frames/s]FTR PPO Training:  35% 22020096/62914560 [5:00:34<8:10:56, 1388.28frames/s]FTR PPO Training:  35% 22151168/62914560 [5:01:46<7:53:21, 1435.28frames/s]FTR PPO Training:  35% 22151168/62914560 [5:02:04<7:53:21, 1435.28frames/s]FTR PPO Training:  35% 22282240/62914560 [5:03:09<7:38:59, 1475.43frames/s]FTR PPO Training:  35% 22282240/62914560 [5:03:24<7:38:59, 1475.43frames/s]FTR PPO Training:  36% 22413312/62914560 [5:04:27<7:21:00, 1530.64frames/s]FTR PPO Training:  36% 22413312/62914560 [5:04:44<7:21:00, 1530.64frames/s]FTR PPO Training:  36% 22544384/62914560 [5:12:09<16:58:33, 660.57frames/s]FTR PPO Training:  36% 22544384/62914560 [5:12:24<16:58:33, 660.57frames/s]FTR PPO Training:  36% 22675456/62914560 [5:13:27<13:50:19, 807.69frames/s]FTR PPO Training:  36% 22675456/62914560 [5:13:44<13:50:19, 807.69frames/s]FTR PPO Training:  36% 22806528/62914560 [5:14:51<11:47:58, 944.21frames/s]FTR PPO Training:  36% 22806528/62914560 [5:15:04<11:47:58, 944.21frames/s]FTR PPO Training:  36% 22937600/62914560 [5:16:09<10:13:53, 1085.33frames/s]FTR PPO Training:  36% 22937600/62914560 [5:16:24<10:13:53, 1085.33frames/s]FTR PPO Training:  37% 23068672/62914560 [5:17:35<9:17:57, 1190.22frames/s] FTR PPO Training:  37% 23068672/62914560 [5:17:54<9:17:57, 1190.22frames/s]FTR PPO Training:  37% 23199744/62914560 [5:18:53<8:28:12, 1302.45frames/s]FTR PPO Training:  37% 23199744/62914560 [5:19:04<8:28:12, 1302.45frames/s]FTR PPO Training:  37% 23330816/62914560 [5:20:18<8:02:21, 1367.73frames/s]FTR PPO Training:  37% 23330816/62914560 [5:20:34<8:02:21, 1367.73frames/s]FTR PPO Training:  37% 23461888/62914560 [5:21:36<7:34:54, 1445.46frames/s]FTR PPO Training:  37% 23461888/62914560 [5:21:54<7:34:54, 1445.46frames/s]FTR PPO Training:  38% 23592960/62914560 [5:23:01<7:24:28, 1474.49frames/s]FTR PPO Training:  38% 23592960/62914560 [5:23:14<7:24:28, 1474.49frames/s]FTR PPO Training:  38% 23724032/62914560 [5:24:26<7:17:37, 1492.55frames/s]FTR PPO Training:  38% 23724032/62914560 [5:24:44<7:17:37, 1492.55frames/s]FTR PPO Training:  38% 23855104/62914560 [5:32:18<16:48:07, 645.74frames/s]FTR PPO Training:  38% 23855104/62914560 [5:32:34<16:48:07, 645.74frames/s]FTR PPO Training:  38% 23986176/62914560 [5:33:46<13:53:24, 778.50frames/s]FTR PPO Training:  38% 23986176/62914560 [5:34:04<13:53:24, 778.50frames/s]FTR PPO Training:  38% 24117248/62914560 [5:35:05<11:39:05, 924.94frames/s]FTR PPO Training:  38% 24117248/62914560 [5:35:24<11:39:05, 924.94frames/s]FTR PPO Training:  39% 24248320/62914560 [5:36:30<10:13:19, 1050.72frames/s]FTR PPO Training:  39% 24248320/62914560 [5:36:44<10:13:19, 1050.72frames/s]FTR PPO Training:  39% 24379392/62914560 [5:37:50<9:05:01, 1178.39frames/s] FTR PPO Training:  39% 24379392/62914560 [5:38:04<9:05:01, 1178.39frames/s]FTR PPO Training:  39% 24510464/62914560 [5:39:15<8:24:54, 1267.71frames/s]FTR PPO Training:  39% 24510464/62914560 [5:39:34<8:24:54, 1267.71frames/s]FTR PPO Training:  39% 24641536/62914560 [5:40:41<7:56:57, 1337.39frames/s]FTR PPO Training:  39% 24641536/62914560 [5:40:54<7:56:57, 1337.39frames/s]FTR PPO Training:  39% 24772608/62914560 [5:42:00<7:27:53, 1419.33frames/s]FTR PPO Training:  39% 24772608/62914560 [5:42:14<7:27:53, 1419.33frames/s]FTR PPO Training:  40% 24903680/62914560 [5:43:27<7:18:42, 1444.06frames/s]FTR PPO Training:  40% 24903680/62914560 [5:43:44<7:18:42, 1444.06frames/s]FTR PPO Training:  40% 25034752/62914560 [5:44:47<7:01:29, 1497.83frames/s]FTR PPO Training:  40% 25034752/62914560 [5:45:04<7:01:29, 1497.83frames/s]FTR PPO Training:  40% 25165824/62914560 [5:52:38<16:12:26, 646.97frames/s]FTR PPO Training:  40% 25165824/62914560 [5:52:54<16:12:26, 646.97frames/s]FTR PPO Training:  40% 25296896/62914560 [5:53:57<13:12:02, 791.57frames/s]FTR PPO Training:  40% 25296896/62914560 [5:54:14<13:12:02, 791.57frames/s]FTR PPO Training:  40% 25427968/62914560 [5:55:23<11:15:44, 924.59frames/s]FTR PPO Training:  40% 25427968/62914560 [5:55:34<11:15:44, 924.59frames/s]FTR PPO Training:  41% 25559040/62914560 [5:56:43<9:44:46, 1064.67frames/s]FTR PPO Training:  41% 25559040/62914560 [5:56:54<9:44:46, 1064.67frames/s]FTR PPO Training:  41% 25690112/62914560 [5:58:10<8:50:54, 1168.56frames/s]FTR PPO Training:  41% 25690112/62914560 [5:58:24<8:50:54, 1168.56frames/s]FTR PPO Training:  41% 25821184/62914560 [5:59:29<8:03:28, 1278.72frames/s]FTR PPO Training:  41% 25821184/62914560 [5:59:44<8:03:28, 1278.72frames/s]FTR PPO Training:  41% 25952256/62914560 [6:00:55<7:38:29, 1343.62frames/s]FTR PPO Training:  41% 25952256/62914560 [6:01:14<7:38:29, 1343.62frames/s]FTR PPO Training:  41% 26083328/62914560 [6:02:15<7:11:13, 1423.50frames/s]FTR PPO Training:  41% 26083328/62914560 [6:02:34<7:11:13, 1423.50frames/s]FTR PPO Training:  42% 26214400/62914560 [6:03:41<7:01:07, 1452.48frames/s]FTR PPO Training:  42% 26214400/62914560 [6:03:54<7:01:07, 1452.48frames/s]FTR PPO Training:  42% 26345472/62914560 [6:05:07<6:54:15, 1471.30frames/s]FTR PPO Training:  42% 26345472/62914560 [6:05:24<6:54:15, 1471.30frames/s]FTR PPO Training:  42% 26476544/62914560 [6:14:55<18:26:41, 548.75frames/s]FTR PPO Training:  42% 26476544/62914560 [6:15:14<18:26:41, 548.75frames/s]FTR PPO Training:  42% 26607616/62914560 [6:16:22<14:52:03, 678.33frames/s]FTR PPO Training:  42% 26607616/62914560 [6:16:34<14:52:03, 678.33frames/s]FTR PPO Training:  42% 26738688/62914560 [6:17:43<12:14:00, 821.43frames/s]FTR PPO Training:  42% 26738688/62914560 [6:17:54<12:14:00, 821.43frames/s]FTR PPO Training:  43% 26869760/62914560 [6:19:10<10:31:34, 951.19frames/s]FTR PPO Training:  43% 26869760/62914560 [6:19:24<10:31:34, 951.19frames/s]FTR PPO Training:  43% 27000832/62914560 [6:20:30<9:10:16, 1087.75frames/s]FTR PPO Training:  43% 27000832/62914560 [6:20:44<9:10:16, 1087.75frames/s]FTR PPO Training:  43% 27131904/62914560 [6:21:58<8:22:48, 1186.10frames/s]FTR PPO Training:  43% 27131904/62914560 [6:22:14<8:22:48, 1186.10frames/s]FTR PPO Training:  43% 27262976/62914560 [6:23:26<7:50:51, 1261.92frames/s]FTR PPO Training:  43% 27262976/62914560 [6:23:44<7:50:51, 1261.92frames/s]FTR PPO Training:  44% 27394048/62914560 [6:24:47<7:17:35, 1352.89frames/s]FTR PPO Training:  44% 27394048/62914560 [6:25:04<7:17:35, 1352.89frames/s]FTR PPO Training:  44% 27525120/62914560 [6:26:15<7:04:17, 1390.16frames/s]FTR PPO Training:  44% 27525120/62914560 [6:26:34<7:04:17, 1390.16frames/s]FTR PPO Training:  44% 27656192/62914560 [6:27:37<6:46:16, 1446.40frames/s]FTR PPO Training:  44% 27656192/62914560 [6:27:54<6:46:16, 1446.40frames/s]FTR PPO Training:  44% 27787264/62914560 [6:37:13<17:35:22, 554.74frames/s]FTR PPO Training:  44% 27787264/62914560 [6:37:24<17:35:22, 554.74frames/s]FTR PPO Training:  44% 27918336/62914560 [6:38:35<14:05:30, 689.85frames/s]FTR PPO Training:  44% 27918336/62914560 [6:38:54<14:05:30, 689.85frames/s]FTR PPO Training:  45% 28049408/62914560 [6:40:04<11:48:35, 820.06frames/s]FTR PPO Training:  45% 28049408/62914560 [6:40:24<11:48:35, 820.06frames/s]FTR PPO Training:  45% 28180480/62914560 [6:41:25<10:01:17, 962.77frames/s]FTR PPO Training:  45% 28180480/62914560 [6:41:44<10:01:17, 962.77frames/s]FTR PPO Training:  45% 28311552/62914560 [6:42:53<8:55:13, 1077.51frames/s]FTR PPO Training:  45% 28311552/62914560 [6:43:04<8:55:13, 1077.51frames/s]FTR PPO Training:  45% 28442624/62914560 [6:44:22<8:09:50, 1172.89frames/s]FTR PPO Training:  45% 28442624/62914560 [6:44:34<8:09:50, 1172.89frames/s]FTR PPO Training:  45% 28573696/62914560 [6:45:42<7:27:07, 1280.06frames/s]FTR PPO Training:  45% 28573696/62914560 [6:45:54<7:27:07, 1280.06frames/s]FTR PPO Training:  46% 28704768/62914560 [6:47:11<7:07:12, 1334.63frames/s]FTR PPO Training:  46% 28704768/62914560 [6:47:24<7:07:12, 1334.63frames/s]FTR PPO Training:  46% 28835840/62914560 [6:48:32<6:43:38, 1407.16frames/s]FTR PPO Training:  46% 28835840/62914560 [6:48:44<6:43:38, 1407.16frames/s]FTR PPO Training:  46% 28966912/62914560 [6:50:02<6:37:25, 1423.66frames/s]FTR PPO Training:  46% 28966912/62914560 [6:50:14<6:37:25, 1423.66frames/s]FTR PPO Training:  46% 29097984/62914560 [6:58:08<15:04:58, 622.79frames/s]FTR PPO Training:  46% 29097984/62914560 [6:58:24<15:04:58, 622.79frames/s]FTR PPO Training:  46% 29229056/62914560 [6:59:37<12:24:55, 753.66frames/s]FTR PPO Training:  46% 29229056/62914560 [6:59:54<12:24:55, 753.66frames/s]FTR PPO Training:  47% 29360128/62914560 [7:01:06<10:33:31, 882.75frames/s]FTR PPO Training:  47% 29360128/62914560 [7:01:24<10:33:31, 882.75frames/s]FTR PPO Training:  47% 29491200/62914560 [7:02:29<9:07:16, 1017.86frames/s]FTR PPO Training:  47% 29491200/62914560 [7:02:44<9:07:16, 1017.86frames/s]FTR PPO Training:  47% 29622272/62914560 [7:04:00<8:17:15, 1115.84frames/s]FTR PPO Training:  47% 29622272/62914560 [7:04:15<8:17:15, 1115.84frames/s]FTR PPO Training:  47% 29753344/62914560 [7:05:22<7:30:23, 1227.15frames/s]FTR PPO Training:  47% 29753344/62914560 [7:05:35<7:30:23, 1227.15frames/s]FTR PPO Training:  48% 29884416/62914560 [7:06:52<7:06:57, 1289.37frames/s]FTR PPO Training:  48% 29884416/62914560 [7:07:05<7:06:57, 1289.37frames/s]FTR PPO Training:  48% 30015488/62914560 [7:08:14<6:41:12, 1366.66frames/s]FTR PPO Training:  48% 30015488/62914560 [7:08:25<6:41:12, 1366.66frames/s]FTR PPO Training:  48% 30146560/62914560 [7:09:44<6:31:49, 1393.83frames/s]FTR PPO Training:  48% 30146560/62914560 [7:09:55<6:31:49, 1393.83frames/s]FTR PPO Training:  48% 30277632/62914560 [7:11:06<6:15:31, 1448.50frames/s]FTR PPO Training:  48% 30277632/62914560 [7:11:25<6:15:31, 1448.50frames/s]FTR PPO Training:  48% 30408704/62914560 [7:19:28<14:44:47, 612.30frames/s]FTR PPO Training:  48% 30408704/62914560 [7:19:45<14:44:47, 612.30frames/s]FTR PPO Training:  49% 30539776/62914560 [7:20:59<12:08:53, 740.28frames/s]FTR PPO Training:  49% 30539776/62914560 [7:21:15<12:08:53, 740.28frames/s]FTR PPO Training:  49% 30670848/62914560 [7:22:21<10:09:08, 882.22frames/s]FTR PPO Training:  49% 30670848/62914560 [7:22:35<10:09:08, 882.22frames/s]FTR PPO Training:  49% 30801920/62914560 [7:23:52<8:55:37, 999.24frames/s] FTR PPO Training:  49% 30801920/62914560 [7:24:05<8:55:37, 999.24frames/s]FTR PPO Training:  49% 30932992/62914560 [7:25:15<7:54:39, 1122.97frames/s]FTR PPO Training:  49% 30932992/62914560 [7:25:35<7:54:39, 1122.97frames/s]FTR PPO Training:  49% 31064064/62914560 [7:26:46<7:22:17, 1200.22frames/s]FTR PPO Training:  49% 31064064/62914560 [7:27:05<7:22:17, 1200.22frames/s]FTR PPO Training:  50% 31195136/62914560 [7:28:09<6:48:51, 1292.99frames/s]FTR PPO Training:  50% 31195136/62914560 [7:28:25<6:48:51, 1292.99frames/s]FTR PPO Training:  50% 31326208/62914560 [7:29:41<6:35:08, 1332.38frames/s]FTR PPO Training:  50% 31326208/62914560 [7:29:55<6:35:08, 1332.38frames/s]FTR PPO Training:  50% 31457280/62914560 [7:31:04<6:15:06, 1397.67frames/s]FTR PPO Training:  50% 31457280/62914560 [7:31:15<6:15:06, 1397.67frames/s]FTR PPO Training:  50% 31588352/62914560 [7:32:35<6:10:46, 1408.11frames/s]FTR PPO Training:  50% 31588352/62914560 [7:32:55<6:10:46, 1408.11frames/s]FTR PPO Training:  50% 31719424/62914560 [7:41:13<14:34:12, 594.73frames/s]FTR PPO Training:  50% 31719424/62914560 [7:41:25<14:34:12, 594.73frames/s]FTR PPO Training:  51% 31850496/62914560 [7:42:36<11:47:32, 731.73frames/s]FTR PPO Training:  51% 31850496/62914560 [7:42:55<11:47:32, 731.73frames/s]FTR PPO Training:  51% 31981568/62914560 [7:44:07<10:00:37, 858.35frames/s]FTR PPO Training:  51% 31981568/62914560 [7:44:25<10:00:37, 858.35frames/s]FTR PPO Training:  51% 32112640/62914560 [7:45:38<8:46:06, 975.78frames/s] FTR PPO Training:  51% 32112640/62914560 [7:45:55<8:46:06, 975.78frames/s]FTR PPO Training:  51% 32243712/62914560 [7:47:01<7:43:51, 1102.01frames/s]FTR PPO Training:  51% 32243712/62914560 [7:47:15<7:43:51, 1102.01frames/s]FTR PPO Training:  51% 32374784/62914560 [7:48:33<7:10:15, 1183.00frames/s]FTR PPO Training:  51% 32374784/62914560 [7:48:45<7:10:15, 1183.00frames/s]FTR PPO Training:  52% 32505856/62914560 [7:49:56<6:35:53, 1280.17frames/s]FTR PPO Training:  52% 32505856/62914560 [7:50:15<6:35:53, 1280.17frames/s]FTR PPO Training:  52% 32636928/62914560 [7:51:28<6:21:53, 1321.38frames/s]FTR PPO Training:  52% 32636928/62914560 [7:51:45<6:21:53, 1321.38frames/s]FTR PPO Training:  52% 32768000/62914560 [7:52:53<6:03:58, 1380.43frames/s]FTR PPO Training:  52% 32768000/62914560 [7:53:05<6:03:58, 1380.43frames/s]FTR PPO Training:  52% 32899072/62914560 [7:54:24<5:58:46, 1394.36frames/s]FTR PPO Training:  52% 32899072/62914560 [7:54:35<5:58:46, 1394.36frames/s]FTR PPO Training:  52% 33030144/62914560 [8:02:35<13:29:55, 614.96frames/s]FTR PPO Training:  52% 33030144/62914560 [8:02:55<13:29:55, 614.96frames/s]FTR PPO Training:  53% 33161216/62914560 [8:03:59<10:58:43, 752.80frames/s]FTR PPO Training:  53% 33161216/62914560 [8:04:15<10:58:43, 752.80frames/s]FTR PPO Training:  53% 33292288/62914560 [8:05:30<9:22:31, 877.66frames/s] FTR PPO Training:  53% 33292288/62914560 [8:05:45<9:22:31, 877.66frames/s]FTR PPO Training:  53% 33423360/62914560 [8:07:02<8:15:29, 991.99frames/s]FTR PPO Training:  53% 33423360/62914560 [8:07:15<8:15:29, 991.99frames/s]FTR PPO Training:  53% 33554432/62914560 [8:08:27<7:20:26, 1110.99frames/s]FTR PPO Training:  53% 33554432/62914560 [8:08:45<7:20:26, 1110.99frames/s]FTR PPO Training:  54% 33685504/62914560 [8:09:59<6:50:04, 1187.98frames/s]FTR PPO Training:  54% 33685504/62914560 [8:10:15<6:50:04, 1187.98frames/s]FTR PPO Training:  54% 33816576/62914560 [8:11:23<6:18:40, 1280.72frames/s]FTR PPO Training:  54% 33816576/62914560 [8:11:35<6:18:40, 1280.72frames/s]FTR PPO Training:  54% 33947648/62914560 [8:12:55<6:05:38, 1320.40frames/s]FTR PPO Training:  54% 33947648/62914560 [8:13:15<6:05:38, 1320.40frames/s]FTR PPO Training:  54% 34078720/62914560 [8:14:19<5:47:24, 1383.40frames/s]FTR PPO Training:  54% 34078720/62914560 [8:14:35<5:47:24, 1383.40frames/s]FTR PPO Training:  54% 34209792/62914560 [8:15:53<5:44:07, 1390.26frames/s]FTR PPO Training:  54% 34209792/62914560 [8:16:05<5:44:07, 1390.26frames/s]FTR PPO Training:  55% 34340864/62914560 [8:24:22<13:14:29, 599.42frames/s]FTR PPO Training:  55% 34340864/62914560 [8:24:35<13:14:29, 599.42frames/s]FTR PPO Training:  55% 34471936/62914560 [8:25:55<10:55:15, 723.44frames/s]FTR PPO Training:  55% 34471936/62914560 [8:26:15<10:55:15, 723.44frames/s]FTR PPO Training:  55% 34603008/62914560 [8:27:29<9:17:44, 846.01frames/s] FTR PPO Training:  55% 34603008/62914560 [8:27:45<9:17:44, 846.01frames/s]FTR PPO Training:  55% 34734080/62914560 [8:28:54<8:00:01, 978.44frames/s]FTR PPO Training:  55% 34734080/62914560 [8:29:05<8:00:01, 978.44frames/s]FTR PPO Training:  55% 34865152/62914560 [8:30:28<7:15:33, 1073.31frames/s]FTR PPO Training:  55% 34865152/62914560 [8:30:45<7:15:33, 1073.31frames/s]FTR PPO Training:  56% 34996224/62914560 [8:31:53<6:33:39, 1182.01frames/s]FTR PPO Training:  56% 34996224/62914560 [8:32:05<6:33:39, 1182.01frames/s]FTR PPO Training:  56% 35127296/62914560 [8:33:27<6:13:49, 1238.89frames/s]FTR PPO Training:  56% 35127296/62914560 [8:33:45<6:13:49, 1238.89frames/s]FTR PPO Training:  56% 35258368/62914560 [8:34:52<5:49:31, 1318.78frames/s]FTR PPO Training:  56% 35258368/62914560 [8:35:05<5:49:31, 1318.78frames/s]FTR PPO Training:  56% 35389440/62914560 [8:36:26<5:42:40, 1338.71frames/s]FTR PPO Training:  56% 35389440/62914560 [8:36:45<5:42:40, 1338.71frames/s]FTR PPO Training:  56% 35520512/62914560 [8:37:51<5:27:12, 1395.37frames/s]FTR PPO Training:  56% 35520512/62914560 [8:38:05<5:27:12, 1395.37frames/s]FTR PPO Training:  57% 35651584/62914560 [8:46:32<12:49:53, 590.19frames/s]FTR PPO Training:  57% 35651584/62914560 [8:46:45<12:49:53, 590.19frames/s]FTR PPO Training:  57% 35782656/62914560 [8:48:06<10:33:34, 713.73frames/s]FTR PPO Training:  57% 35782656/62914560 [8:48:25<10:33:34, 713.73frames/s]FTR PPO Training:  57% 35913728/62914560 [8:49:30<8:48:17, 851.82frames/s] FTR PPO Training:  57% 35913728/62914560 [8:49:45<8:48:17, 851.82frames/s]FTR PPO Training:  57% 36044800/62914560 [8:51:04<7:44:24, 964.31frames/s]FTR PPO Training:  57% 36044800/62914560 [8:51:15<7:44:24, 964.31frames/s]FTR PPO Training:  57% 36175872/62914560 [8:52:30<6:50:43, 1085.00frames/s]FTR PPO Training:  57% 36175872/62914560 [8:52:45<6:50:43, 1085.00frames/s]FTR PPO Training:  58% 36306944/62914560 [8:54:04<6:21:22, 1162.80frames/s]FTR PPO Training:  58% 36306944/62914560 [8:54:15<6:21:22, 1162.80frames/s]FTR PPO Training:  58% 36438016/62914560 [8:55:29<5:51:48, 1254.29frames/s]FTR PPO Training:  58% 36438016/62914560 [8:55:45<5:51:48, 1254.29frames/s]FTR PPO Training:  58% 36569088/62914560 [8:57:05<5:41:57, 1284.06frames/s]FTR PPO Training:  58% 36569088/62914560 [8:57:25<5:41:57, 1284.06frames/s]FTR PPO Training:  58% 36700160/62914560 [8:58:30<5:22:54, 1353.03frames/s]FTR PPO Training:  58% 36700160/62914560 [8:58:45<5:22:54, 1353.03frames/s]FTR PPO Training:  59% 36831232/62914560 [9:00:05<5:18:59, 1362.79frames/s]FTR PPO Training:  59% 36831232/62914560 [9:00:15<5:18:59, 1362.79frames/s]FTR PPO Training:  59% 36962304/62914560 [9:08:38<12:10:53, 591.79frames/s]FTR PPO Training:  59% 36962304/62914560 [9:08:55<12:10:53, 591.79frames/s]FTR PPO Training:  59% 37093376/62914560 [9:10:12<10:01:29, 715.48frames/s]FTR PPO Training:  59% 37093376/62914560 [9:10:25<10:01:29, 715.48frames/s]FTR PPO Training:  59% 37224448/62914560 [9:11:47<8:31:25, 837.20frames/s] FTR PPO Training:  59% 37224448/62914560 [9:12:05<8:31:25, 837.20frames/s]FTR PPO Training:  59% 37355520/62914560 [9:13:12<7:19:14, 969.82frames/s]FTR PPO Training:  59% 37355520/62914560 [9:13:25<7:19:14, 969.82frames/s]FTR PPO Training:  60% 37486592/62914560 [9:14:47<6:38:14, 1064.20frames/s]FTR PPO Training:  60% 37486592/62914560 [9:15:05<6:38:14, 1064.20frames/s]FTR PPO Training:  60% 37617664/62914560 [9:16:12<5:58:50, 1174.92frames/s]FTR PPO Training:  60% 37617664/62914560 [9:16:25<5:58:50, 1174.92frames/s]FTR PPO Training:  60% 37748736/62914560 [9:17:48<5:42:05, 1226.09frames/s]FTR PPO Training:  60% 37748736/62914560 [9:18:05<5:42:05, 1226.09frames/s]FTR PPO Training:  60% 37879808/62914560 [9:19:14<5:20:52, 1300.31frames/s]FTR PPO Training:  60% 37879808/62914560 [9:19:25<5:20:52, 1300.31frames/s]FTR PPO Training:  60% 38010880/62914560 [9:20:51<5:15:35, 1315.16frames/s]FTR PPO Training:  60% 38010880/62914560 [9:21:05<5:15:35, 1315.16frames/s]FTR PPO Training:  61% 38141952/62914560 [9:22:28<5:10:58, 1327.71frames/s]FTR PPO Training:  61% 38141952/62914560 [9:22:45<5:10:58, 1327.71frames/s]FTR PPO Training:  61% 38273024/62914560 [9:31:08<11:45:42, 581.96frames/s]FTR PPO Training:  61% 38273024/62914560 [9:31:25<11:45:42, 581.96frames/s]FTR PPO Training:  61% 38404096/62914560 [9:32:44<9:40:52, 703.27frames/s] FTR PPO Training:  61% 38404096/62914560 [9:32:55<9:40:52, 703.27frames/s]FTR PPO Training:  61% 38535168/62914560 [9:34:09<8:03:30, 840.36frames/s]FTR PPO Training:  61% 38535168/62914560 [9:34:25<8:03:30, 840.36frames/s]FTR PPO Training:  61% 38666240/62914560 [9:35:45<7:05:27, 949.87frames/s]FTR PPO Training:  61% 38666240/62914560 [9:35:55<7:05:27, 949.87frames/s]FTR PPO Training:  62% 38797312/62914560 [9:37:12<6:16:08, 1068.65frames/s]FTR PPO Training:  62% 38797312/62914560 [9:37:25<6:16:08, 1068.65frames/s]FTR PPO Training:  62% 38928384/62914560 [9:38:48<5:49:56, 1142.40frames/s]FTR PPO Training:  62% 38928384/62914560 [9:39:05<5:49:56, 1142.40frames/s]FTR PPO Training:  62% 39059456/62914560 [9:40:14<5:21:41, 1235.91frames/s]FTR PPO Training:  62% 39059456/62914560 [9:40:25<5:21:41, 1235.91frames/s]FTR PPO Training:  62% 39190528/62914560 [9:41:50<5:11:00, 1271.37frames/s]FTR PPO Training:  62% 39190528/62914560 [9:42:05<5:11:00, 1271.37frames/s]FTR PPO Training:  62% 39321600/62914560 [9:43:17<4:54:49, 1333.72frames/s]FTR PPO Training:  62% 39321600/62914560 [9:43:35<4:54:49, 1333.72frames/s]FTR PPO Training:  63% 39452672/62914560 [9:44:54<4:51:49, 1339.97frames/s]FTR PPO Training:  63% 39452672/62914560 [9:45:05<4:51:49, 1339.97frames/s]FTR PPO Training:  63% 39583744/62914560 [9:53:34<11:06:03, 583.80frames/s]FTR PPO Training:  63% 39583744/62914560 [9:53:45<11:06:03, 583.80frames/s]FTR PPO Training:  63% 39714816/62914560 [9:55:11<9:09:12, 704.04frames/s] FTR PPO Training:  63% 39714816/62914560 [9:55:25<9:09:12, 704.04frames/s]FTR PPO Training:  63% 39845888/62914560 [9:56:37<7:37:59, 839.50frames/s]FTR PPO Training:  63% 39845888/62914560 [9:56:55<7:37:59, 839.50frames/s]FTR PPO Training:  64% 39976960/62914560 [9:58:13<6:43:23, 947.70frames/s]FTR PPO Training:  64% 39976960/62914560 [9:58:25<6:43:23, 947.70frames/s]FTR PPO Training:  64% 40108032/62914560 [9:59:41<5:56:47, 1065.35frames/s]FTR PPO Training:  64% 40108032/62914560 [9:59:55<5:56:47, 1065.35frames/s]FTR PPO Training:  64% 40239104/62914560 [10:01:17<5:31:33, 1139.85frames/s]FTR PPO Training:  64% 40239104/62914560 [10:01:35<5:31:33, 1139.85frames/s]FTR PPO Training:  64% 40370176/62914560 [10:02:54<5:14:28, 1194.82frames/s]FTR PPO Training:  64% 40370176/62914560 [10:03:05<5:14:28, 1194.82frames/s]FTR PPO Training:  64% 40501248/62914560 [10:04:21<4:53:17, 1273.63frames/s]FTR PPO Training:  64% 40501248/62914560 [10:04:35<4:53:17, 1273.63frames/s]FTR PPO Training:  65% 40632320/62914560 [10:05:59<4:47:17, 1292.68frames/s]FTR PPO Training:  65% 40632320/62914560 [10:06:15<4:47:17, 1292.68frames/s]FTR PPO Training:  65% 40763392/62914560 [10:07:27<4:33:46, 1348.54frames/s]FTR PPO Training:  65% 40763392/62914560 [10:07:45<4:33:46, 1348.54frames/s]FTR PPO Training:  65% 40894464/62914560 [10:16:26<10:43:50, 570.02frames/s]FTR PPO Training:  65% 40894464/62914560 [10:16:46<10:43:50, 570.02frames/s]FTR PPO Training:  65% 41025536/62914560 [10:17:53<8:39:57, 701.63frames/s] FTR PPO Training:  65% 41025536/62914560 [10:18:06<8:39:57, 701.63frames/s]FTR PPO Training:  65% 41156608/62914560 [10:19:30<7:22:48, 818.94frames/s]FTR PPO Training:  65% 41156608/62914560 [10:19:46<7:22:48, 818.94frames/s]FTR PPO Training:  66% 41287680/62914560 [10:20:58<6:20:22, 947.62frames/s]FTR PPO Training:  66% 41287680/62914560 [10:21:16<6:20:22, 947.62frames/s]FTR PPO Training:  66% 41418752/62914560 [10:22:36<5:45:37, 1036.55frames/s]FTR PPO Training:  66% 41418752/62914560 [10:22:56<5:45:37, 1036.55frames/s]FTR PPO Training:  66% 41549824/62914560 [10:24:04<5:12:07, 1140.84frames/s]FTR PPO Training:  66% 41549824/62914560 [10:24:16<5:12:07, 1140.84frames/s]FTR PPO Training:  66% 41680896/62914560 [10:25:43<4:56:41, 1192.80frames/s]FTR PPO Training:  66% 41680896/62914560 [10:25:56<4:56:41, 1192.80frames/s]FTR PPO Training:  66% 41811968/62914560 [10:27:22<4:46:19, 1228.34frames/s]FTR PPO Training:  66% 41811968/62914560 [10:27:36<4:46:19, 1228.34frames/s]FTR PPO Training:  67% 41943040/62914560 [10:28:50<4:29:26, 1297.20frames/s]FTR PPO Training:  67% 41943040/62914560 [10:29:06<4:29:26, 1297.20frames/s]FTR PPO Training:  67% 42074112/62914560 [10:30:29<4:26:24, 1303.77frames/s]FTR PPO Training:  67% 42074112/62914560 [10:30:46<4:26:24, 1303.77frames/s]FTR PPO Training:  67% 42205184/62914560 [10:39:24<10:07:38, 568.03frames/s]FTR PPO Training:  67% 42205184/62914560 [10:39:36<10:07:38, 568.03frames/s]FTR PPO Training:  67% 42336256/62914560 [10:41:03<8:20:16, 685.56frames/s] FTR PPO Training:  67% 42336256/62914560 [10:41:16<8:20:16, 685.56frames/s]FTR PPO Training:  68% 42467328/62914560 [10:42:30<6:56:21, 818.50frames/s]FTR PPO Training:  68% 42467328/62914560 [10:42:46<6:56:21, 818.50frames/s]FTR PPO Training:  68% 42598400/62914560 [10:44:09<6:05:58, 925.22frames/s]FTR PPO Training:  68% 42598400/62914560 [10:44:26<6:05:58, 925.22frames/s]FTR PPO Training:  68% 42729472/62914560 [10:45:38<5:23:35, 1039.64frames/s]FTR PPO Training:  68% 42729472/62914560 [10:45:56<5:23:35, 1039.64frames/s]FTR PPO Training:  68% 42860544/62914560 [10:47:18<5:01:05, 1110.04frames/s]FTR PPO Training:  68% 42860544/62914560 [10:47:36<5:01:05, 1110.04frames/s]FTR PPO Training:  68% 42991616/62914560 [10:48:46<4:35:58, 1203.21frames/s]FTR PPO Training:  68% 42991616/62914560 [10:48:56<4:35:58, 1203.21frames/s]FTR PPO Training:  69% 43122688/62914560 [10:50:26<4:27:32, 1232.92frames/s]FTR PPO Training:  69% 43122688/62914560 [10:50:36<4:27:32, 1232.92frames/s]FTR PPO Training:  69% 43253760/62914560 [10:51:54<4:12:30, 1297.73frames/s]FTR PPO Training:  69% 43253760/62914560 [10:52:06<4:12:30, 1297.73frames/s]FTR PPO Training:  69% 43384832/62914560 [10:53:34<4:09:46, 1303.18frames/s]FTR PPO Training:  69% 43384832/62914560 [10:53:46<4:09:46, 1303.18frames/s]FTR PPO Training:  69% 43515904/62914560 [11:02:33<9:32:38, 564.60frames/s] FTR PPO Training:  69% 43515904/62914560 [11:02:46<9:32:38, 564.60frames/s]FTR PPO Training:  69% 43646976/62914560 [11:04:13<7:51:50, 680.57frames/s]FTR PPO Training:  69% 43646976/62914560 [11:04:26<7:51:50, 680.57frames/s]FTR PPO Training:  70% 43778048/62914560 [11:05:42<6:33:04, 811.42frames/s]FTR PPO Training:  70% 43778048/62914560 [11:05:56<6:33:04, 811.42frames/s]FTR PPO Training:  70% 43909120/62914560 [11:07:23<5:46:00, 915.45frames/s]FTR PPO Training:  70% 43909120/62914560 [11:07:36<5:46:00, 915.45frames/s]FTR PPO Training:  70% 44040192/62914560 [11:08:52<5:05:02, 1031.25frames/s]FTR PPO Training:  70% 44040192/62914560 [11:09:06<5:05:02, 1031.25frames/s]FTR PPO Training:  70% 44171264/62914560 [11:10:32<4:43:33, 1101.67frames/s]FTR PPO Training:  70% 44171264/62914560 [11:10:46<4:43:33, 1101.67frames/s]FTR PPO Training:  70% 44302336/62914560 [11:12:13<4:28:15, 1156.34frames/s]FTR PPO Training:  70% 44302336/62914560 [11:12:26<4:28:15, 1156.34frames/s]FTR PPO Training:  71% 44433408/62914560 [11:13:42<4:09:36, 1234.00frames/s]FTR PPO Training:  71% 44433408/62914560 [11:13:56<4:09:36, 1234.00frames/s]FTR PPO Training:  71% 44564480/62914560 [11:15:25<4:05:17, 1246.84frames/s]FTR PPO Training:  71% 44564480/62914560 [11:15:36<4:05:17, 1246.84frames/s]FTR PPO Training:  71% 44695552/62914560 [11:16:54<3:52:37, 1305.32frames/s]FTR PPO Training:  71% 44695552/62914560 [11:17:06<3:52:37, 1305.32frames/s]FTR PPO Training:  71% 44826624/62914560 [11:25:55<8:54:37, 563.88frames/s] FTR PPO Training:  71% 44826624/62914560 [11:26:06<8:54:37, 563.88frames/s]FTR PPO Training:  71% 44957696/62914560 [11:27:36<7:20:50, 678.88frames/s]FTR PPO Training:  71% 44957696/62914560 [11:27:46<7:20:50, 678.88frames/s]FTR PPO Training:  72% 45088768/62914560 [11:29:05<6:06:47, 809.99frames/s]FTR PPO Training:  72% 45088768/62914560 [11:29:16<6:06:47, 809.99frames/s]FTR PPO Training:  72% 45219840/62914560 [11:30:46<5:23:00, 913.00frames/s]FTR PPO Training:  72% 45219840/62914560 [11:30:56<5:23:00, 913.00frames/s]FTR PPO Training:  72% 45350912/62914560 [11:32:28<4:53:09, 998.51frames/s]FTR PPO Training:  72% 45350912/62914560 [11:32:46<4:53:09, 998.51frames/s]FTR PPO Training:  72% 45481984/62914560 [11:33:57<4:22:36, 1106.38frames/s]FTR PPO Training:  72% 45481984/62914560 [11:34:16<4:22:36, 1106.38frames/s]FTR PPO Training:  72% 45613056/62914560 [11:35:38<4:09:03, 1157.77frames/s]FTR PPO Training:  72% 45613056/62914560 [11:35:56<4:09:03, 1157.77frames/s]FTR PPO Training:  73% 45744128/62914560 [11:37:08<3:51:54, 1234.01frames/s]FTR PPO Training:  73% 45744128/62914560 [11:37:26<3:51:54, 1234.01frames/s]FTR PPO Training:  73% 45875200/62914560 [11:38:50<3:47:24, 1248.81frames/s]FTR PPO Training:  73% 45875200/62914560 [11:39:06<3:47:24, 1248.81frames/s]FTR PPO Training:  73% 46006272/62914560 [11:40:20<3:36:10, 1303.61frames/s]FTR PPO Training:  73% 46006272/62914560 [11:40:37<3:36:10, 1303.61frames/s]FTR PPO Training:  73% 46137344/62914560 [11:49:31<8:22:27, 556.50frames/s] FTR PPO Training:  73% 46137344/62914560 [11:49:47<8:22:27, 556.50frames/s]FTR PPO Training:  74% 46268416/62914560 [11:51:13<6:53:44, 670.55frames/s]FTR PPO Training:  74% 46268416/62914560 [11:51:27<6:53:44, 670.55frames/s]FTR PPO Training:  74% 46399488/62914560 [11:52:54<5:51:26, 783.20frames/s]FTR PPO Training:  74% 46399488/62914560 [11:53:07<5:51:26, 783.20frames/s]FTR PPO Training:  74% 46530560/62914560 [11:54:25<5:00:44, 907.96frames/s]FTR PPO Training:  74% 46530560/62914560 [11:54:37<5:00:44, 907.96frames/s]FTR PPO Training:  74% 46661632/62914560 [11:56:09<4:33:02, 992.11frames/s]FTR PPO Training:  74% 46661632/62914560 [11:56:27<4:33:02, 992.11frames/s]FTR PPO Training:  74% 46792704/62914560 [11:57:39<4:05:02, 1096.54frames/s]FTR PPO Training:  74% 46792704/62914560 [11:57:57<4:05:02, 1096.54frames/s]FTR PPO Training:  75% 46923776/62914560 [11:59:21<3:52:27, 1146.48frames/s]FTR PPO Training:  75% 46923776/62914560 [11:59:37<3:52:27, 1146.48frames/s]FTR PPO Training:  75% 47054848/62914560 [12:00:51<3:35:56, 1224.03frames/s]FTR PPO Training:  75% 47054848/62914560 [12:01:07<3:35:56, 1224.03frames/s]FTR PPO Training:  75% 47185920/62914560 [12:02:34<3:31:36, 1238.78frames/s]FTR PPO Training:  75% 47185920/62914560 [12:02:47<3:31:36, 1238.78frames/s]FTR PPO Training:  75% 47316992/62914560 [12:04:18<3:28:36, 1246.12frames/s]FTR PPO Training:  75% 47316992/62914560 [12:04:37<3:28:36, 1246.12frames/s]FTR PPO Training:  75% 47448064/62914560 [12:13:36<7:54:09, 543.64frames/s] FTR PPO Training:  75% 47448064/62914560 [12:13:47<7:54:09, 543.64frames/s]FTR PPO Training:  76% 47579136/62914560 [12:15:19<6:29:13, 656.65frames/s]FTR PPO Training:  76% 47579136/62914560 [12:15:37<6:29:13, 656.65frames/s]FTR PPO Training:  76% 47710208/62914560 [12:16:50<5:22:57, 784.63frames/s]FTR PPO Training:  76% 47710208/62914560 [12:17:07<5:22:57, 784.63frames/s]FTR PPO Training:  76% 47841280/62914560 [12:18:33<4:43:34, 885.90frames/s]FTR PPO Training:  76% 47841280/62914560 [12:18:47<4:43:34, 885.90frames/s]FTR PPO Training:  76% 47972352/62914560 [12:20:05<4:09:09, 999.49frames/s]FTR PPO Training:  76% 47972352/62914560 [12:20:17<4:09:09, 999.49frames/s]FTR PPO Training:  76% 48103424/62914560 [12:21:47<3:50:20, 1071.69frames/s]FTR PPO Training:  76% 48103424/62914560 [12:21:57<3:50:20, 1071.69frames/s]FTR PPO Training:  77% 48234496/62914560 [12:23:17<3:30:38, 1161.54frames/s]FTR PPO Training:  77% 48234496/62914560 [12:23:37<3:30:38, 1161.54frames/s]FTR PPO Training:  77% 48365568/62914560 [12:25:01<3:23:22, 1192.29frames/s]FTR PPO Training:  77% 48365568/62914560 [12:25:17<3:23:22, 1192.29frames/s]FTR PPO Training:  77% 48496640/62914560 [12:26:33<3:11:46, 1253.02frames/s]FTR PPO Training:  77% 48496640/62914560 [12:26:47<3:11:46, 1253.02frames/s]FTR PPO Training:  77% 48627712/62914560 [12:28:17<3:09:43, 1255.03frames/s]FTR PPO Training:  77% 48627712/62914560 [12:28:27<3:09:43, 1255.03frames/s]FTR PPO Training:  78% 48758784/62914560 [12:37:31<7:10:37, 547.87frames/s] FTR PPO Training:  78% 48758784/62914560 [12:37:47<7:10:37, 547.87frames/s]FTR PPO Training:  78% 48889856/62914560 [12:39:13<5:53:25, 661.38frames/s]FTR PPO Training:  78% 48889856/62914560 [12:39:27<5:53:25, 661.38frames/s]FTR PPO Training:  78% 49020928/62914560 [12:40:44<4:53:14, 789.67frames/s]FTR PPO Training:  78% 49020928/62914560 [12:40:57<4:53:14, 789.67frames/s]FTR PPO Training:  78% 49152000/62914560 [12:42:27<4:17:26, 891.00frames/s]FTR PPO Training:  78% 49152000/62914560 [12:42:37<4:17:26, 891.00frames/s]FTR PPO Training:  78% 49283072/62914560 [12:43:59<3:46:27, 1003.25frames/s]FTR PPO Training:  78% 49283072/62914560 [12:44:17<3:46:27, 1003.25frames/s]FTR PPO Training:  79% 49414144/62914560 [12:45:43<3:30:20, 1069.69frames/s]FTR PPO Training:  79% 49414144/62914560 [12:45:57<3:30:20, 1069.69frames/s]FTR PPO Training:  79% 49545216/62914560 [12:47:15<3:12:52, 1155.29frames/s]FTR PPO Training:  79% 49545216/62914560 [12:47:27<3:12:52, 1155.29frames/s]FTR PPO Training:  79% 49676288/62914560 [12:49:01<3:07:20, 1177.73frames/s]FTR PPO Training:  79% 49676288/62914560 [12:49:17<3:07:20, 1177.73frames/s]FTR PPO Training:  79% 49807360/62914560 [12:50:47<3:02:34, 1196.53frames/s]FTR PPO Training:  79% 49807360/62914560 [12:50:57<3:02:34, 1196.53frames/s]FTR PPO Training:  79% 49938432/62914560 [12:52:18<2:51:55, 1257.98frames/s]FTR PPO Training:  79% 49938432/62914560 [12:52:37<2:51:55, 1257.98frames/s]FTR PPO Training:  80% 50069504/62914560 [13:01:34<6:31:20, 547.05frames/s] FTR PPO Training:  80% 50069504/62914560 [13:01:47<6:31:20, 547.05frames/s]FTR PPO Training:  80% 50200576/62914560 [13:03:06<5:15:46, 671.05frames/s]FTR PPO Training:  80% 50200576/62914560 [13:03:17<5:15:46, 671.05frames/s]FTR PPO Training:  80% 50331648/62914560 [13:04:51<4:29:02, 779.51frames/s]FTR PPO Training:  80% 50331648/62914560 [13:05:07<4:29:02, 779.51frames/s]FTR PPO Training:  80% 50462720/62914560 [13:06:37<3:56:47, 876.44frames/s]FTR PPO Training:  80% 50462720/62914560 [13:06:47<3:56:47, 876.44frames/s]FTR PPO Training:  80% 50593792/62914560 [13:08:10<3:27:57, 987.47frames/s]FTR PPO Training:  80% 50593792/62914560 [13:08:27<3:27:57, 987.47frames/s]FTR PPO Training:  81% 50724864/62914560 [13:09:56<3:12:58, 1052.80frames/s]FTR PPO Training:  81% 50724864/62914560 [13:10:07<3:12:58, 1052.80frames/s]FTR PPO Training:  81% 50855936/62914560 [13:11:28<2:55:55, 1142.42frames/s]FTR PPO Training:  81% 50855936/62914560 [13:11:47<2:55:55, 1142.42frames/s]FTR PPO Training:  81% 50987008/62914560 [13:13:13<2:49:59, 1169.43frames/s]FTR PPO Training:  81% 50987008/62914560 [13:13:27<2:49:59, 1169.43frames/s]FTR PPO Training:  81% 51118080/62914560 [13:14:48<2:40:07, 1227.89frames/s]FTR PPO Training:  81% 51118080/62914560 [13:15:07<2:40:07, 1227.89frames/s]FTR PPO Training:  81% 51249152/62914560 [13:16:33<2:37:41, 1232.91frames/s]FTR PPO Training:  81% 51249152/62914560 [13:16:47<2:37:41, 1232.91frames/s]FTR PPO Training:  82% 51380224/62914560 [13:25:54<5:55:51, 540.21frames/s] FTR PPO Training:  82% 51380224/62914560 [13:26:07<5:55:51, 540.21frames/s]FTR PPO Training:  82% 51511296/62914560 [13:27:26<4:46:33, 663.22frames/s]FTR PPO Training:  82% 51511296/62914560 [13:27:37<4:46:33, 663.22frames/s]FTR PPO Training:  82% 51642368/62914560 [13:29:12<4:03:53, 770.28frames/s]FTR PPO Training:  82% 51642368/62914560 [13:29:27<4:03:53, 770.28frames/s]FTR PPO Training:  82% 51773440/62914560 [13:30:46<3:28:28, 890.70frames/s]FTR PPO Training:  82% 51773440/62914560 [13:30:57<3:28:28, 890.70frames/s]FTR PPO Training:  82% 51904512/62914560 [13:32:34<3:09:30, 968.27frames/s]FTR PPO Training:  82% 51904512/62914560 [13:32:47<3:09:30, 968.27frames/s]FTR PPO Training:  83% 52035584/62914560 [13:34:20<2:55:06, 1035.46frames/s]FTR PPO Training:  83% 52035584/62914560 [13:34:37<2:55:06, 1035.46frames/s]FTR PPO Training:  83% 52166656/62914560 [13:35:53<2:39:24, 1123.73frames/s]FTR PPO Training:  83% 52166656/62914560 [13:36:07<2:39:24, 1123.73frames/s]FTR PPO Training:  83% 52297728/62914560 [13:37:41<2:33:40, 1151.41frames/s]FTR PPO Training:  83% 52297728/62914560 [13:37:57<2:33:40, 1151.41frames/s]FTR PPO Training:  83% 52428800/62914560 [13:39:15<2:23:54, 1214.35frames/s]FTR PPO Training:  83% 52428800/62914560 [13:39:27<2:23:54, 1214.35frames/s]FTR PPO Training:  84% 52559872/62914560 [13:41:03<2:22:16, 1212.95frames/s]FTR PPO Training:  84% 52559872/62914560 [13:41:17<2:22:16, 1212.95frames/s]FTR PPO Training:  84% 52690944/62914560 [13:50:15<5:13:24, 543.68frames/s] FTR PPO Training:  84% 52690944/62914560 [13:50:27<5:13:24, 543.68frames/s]FTR PPO Training:  84% 52822016/62914560 [13:52:03<4:18:20, 651.10frames/s]FTR PPO Training:  84% 52822016/62914560 [13:52:17<4:18:20, 651.10frames/s]FTR PPO Training:  84% 52953088/62914560 [13:53:52<3:40:02, 754.52frames/s]FTR PPO Training:  84% 52953088/62914560 [13:54:07<3:40:02, 754.52frames/s]FTR PPO Training:  84% 53084160/62914560 [13:55:26<3:07:08, 875.47frames/s]FTR PPO Training:  84% 53084160/62914560 [13:55:37<3:07:08, 875.47frames/s]FTR PPO Training:  85% 53215232/62914560 [13:57:17<2:50:05, 950.40frames/s]FTR PPO Training:  85% 53215232/62914560 [13:57:27<2:50:05, 950.40frames/s]FTR PPO Training:  85% 53346304/62914560 [13:58:50<2:31:41, 1051.34frames/s]FTR PPO Training:  85% 53346304/62914560 [13:59:07<2:31:41, 1051.34frames/s]FTR PPO Training:  85% 53477376/62914560 [14:00:38<2:23:20, 1097.25frames/s]FTR PPO Training:  85% 53477376/62914560 [14:00:57<2:23:20, 1097.25frames/s]FTR PPO Training:  85% 53608448/62914560 [14:02:13<2:12:53, 1167.09frames/s]FTR PPO Training:  85% 53608448/62914560 [14:02:27<2:12:53, 1167.09frames/s]FTR PPO Training:  85% 53739520/62914560 [14:04:03<2:10:12, 1174.40frames/s]FTR PPO Training:  85% 53739520/62914560 [14:04:17<2:10:12, 1174.40frames/s]FTR PPO Training:  86% 53870592/62914560 [14:05:38<2:02:42, 1228.45frames/s]FTR PPO Training:  86% 53870592/62914560 [14:05:57<2:02:42, 1228.45frames/s]FTR PPO Training:  86% 54001664/62914560 [14:15:07<4:37:47, 534.75frames/s] FTR PPO Training:  86% 54001664/62914560 [14:15:17<4:37:47, 534.75frames/s]FTR PPO Training:  86% 54132736/62914560 [14:16:41<3:43:12, 655.72frames/s]FTR PPO Training:  86% 54132736/62914560 [14:16:57<3:43:12, 655.72frames/s]FTR PPO Training:  86% 54263808/62914560 [14:18:30<3:09:49, 759.57frames/s]FTR PPO Training:  86% 54263808/62914560 [14:18:48<3:09:49, 759.57frames/s]FTR PPO Training:  86% 54394880/62914560 [14:20:05<2:41:43, 878.04frames/s]FTR PPO Training:  86% 54394880/62914560 [14:20:18<2:41:43, 878.04frames/s]FTR PPO Training:  87% 54525952/62914560 [14:21:55<2:26:40, 953.25frames/s]FTR PPO Training:  87% 54525952/62914560 [14:22:08<2:26:40, 953.25frames/s]FTR PPO Training:  87% 54657024/62914560 [14:23:44<2:15:26, 1016.15frames/s]FTR PPO Training:  87% 54657024/62914560 [14:23:58<2:15:26, 1016.15frames/s]FTR PPO Training:  87% 54788096/62914560 [14:25:18<2:02:37, 1104.55frames/s]FTR PPO Training:  87% 54788096/62914560 [14:25:38<2:02:37, 1104.55frames/s]FTR PPO Training:  87% 54919168/62914560 [14:27:07<1:57:33, 1133.57frames/s]FTR PPO Training:  87% 54919168/62914560 [14:27:18<1:57:33, 1133.57frames/s]FTR PPO Training:  88% 55050240/62914560 [14:28:42<1:49:30, 1196.97frames/s]FTR PPO Training:  88% 55050240/62914560 [14:28:58<1:49:30, 1196.97frames/s]FTR PPO Training:  88% 55181312/62914560 [14:30:31<1:47:26, 1199.52frames/s]FTR PPO Training:  88% 55181312/62914560 [14:30:48<1:47:26, 1199.52frames/s]FTR PPO Training:  88% 55312384/62914560 [14:39:55<3:57:30, 533.46frames/s] FTR PPO Training:  88% 55312384/62914560 [14:40:08<3:57:30, 533.46frames/s]FTR PPO Training:  88% 55443456/62914560 [14:41:43<3:14:17, 640.88frames/s]FTR PPO Training:  88% 55443456/62914560 [14:41:58<3:14:17, 640.88frames/s]FTR PPO Training:  88% 55574528/62914560 [14:43:32<2:44:03, 745.69frames/s]FTR PPO Training:  88% 55574528/62914560 [14:43:48<2:44:03, 745.69frames/s]FTR PPO Training:  89% 55705600/62914560 [14:45:08<2:19:05, 863.83frames/s]FTR PPO Training:  89% 55705600/62914560 [14:45:28<2:19:05, 863.83frames/s]FTR PPO Training:  89% 55836672/62914560 [14:46:59<2:05:36, 939.20frames/s]FTR PPO Training:  89% 55836672/62914560 [14:47:18<2:05:36, 939.20frames/s]FTR PPO Training:  89% 55967744/62914560 [14:48:34<1:51:34, 1037.67frames/s]FTR PPO Training:  89% 55967744/62914560 [14:48:48<1:51:34, 1037.67frames/s]FTR PPO Training:  89% 56098816/62914560 [14:50:25<1:45:20, 1078.38frames/s]FTR PPO Training:  89% 56098816/62914560 [14:50:38<1:45:20, 1078.38frames/s]FTR PPO Training:  89% 56229888/62914560 [14:52:00<1:36:43, 1151.91frames/s]FTR PPO Training:  89% 56229888/62914560 [14:52:18<1:36:43, 1151.91frames/s]FTR PPO Training:  90% 56360960/62914560 [14:53:51<1:34:04, 1161.14frames/s]FTR PPO Training:  90% 56360960/62914560 [14:54:08<1:34:04, 1161.14frames/s]FTR PPO Training:  90% 56492032/62914560 [14:55:26<1:27:49, 1218.82frames/s]FTR PPO Training:  90% 56492032/62914560 [14:55:38<1:27:49, 1218.82frames/s]FTR PPO Training:  90% 56623104/62914560 [15:05:39<3:27:19, 505.77frames/s] FTR PPO Training:  90% 56623104/62914560 [15:05:58<3:27:19, 505.77frames/s]FTR PPO Training:  90% 56754176/62914560 [15:07:28<2:47:43, 612.14frames/s]FTR PPO Training:  90% 56754176/62914560 [15:07:48<2:47:43, 612.14frames/s]FTR PPO Training:  90% 56885248/62914560 [15:09:04<2:16:56, 733.80frames/s]FTR PPO Training:  90% 56885248/62914560 [15:09:18<2:16:56, 733.80frames/s]FTR PPO Training:  91% 57016320/62914560 [15:10:55<1:58:41, 828.28frames/s]FTR PPO Training:  91% 57016320/62914560 [15:11:08<1:58:41, 828.28frames/s]FTR PPO Training:  91% 57147392/62914560 [15:12:32<1:42:34, 937.09frames/s]FTR PPO Training:  91% 57147392/62914560 [15:12:48<1:42:34, 937.09frames/s]FTR PPO Training:  91% 57278464/62914560 [15:14:22<1:33:57, 999.77frames/s]FTR PPO Training:  91% 57278464/62914560 [15:14:38<1:33:57, 999.77frames/s]FTR PPO Training:  91% 57409536/62914560 [15:15:58<1:24:15, 1088.88frames/s]FTR PPO Training:  91% 57409536/62914560 [15:16:08<1:24:15, 1088.88frames/s]FTR PPO Training:  91% 57540608/62914560 [15:17:48<1:20:10, 1117.22frames/s]FTR PPO Training:  91% 57540608/62914560 [15:18:08<1:20:10, 1117.22frames/s]FTR PPO Training:  92% 57671680/62914560 [15:19:25<1:14:16, 1176.57frames/s]FTR PPO Training:  92% 57671680/62914560 [15:19:38<1:14:16, 1176.57frames/s]FTR PPO Training:  92% 57802752/62914560 [15:21:16<1:12:13, 1179.53frames/s]FTR PPO Training:  92% 57802752/62914560 [15:21:28<1:12:13, 1179.53frames/s]FTR PPO Training:  92% 57933824/62914560 [15:31:10<2:42:04, 512.17frames/s] FTR PPO Training:  92% 57933824/62914560 [15:31:28<2:42:04, 512.17frames/s]FTR PPO Training:  92% 58064896/62914560 [15:33:00<2:10:57, 617.23frames/s]FTR PPO Training:  92% 58064896/62914560 [15:33:18<2:10:57, 617.23frames/s]FTR PPO Training:  92% 58195968/62914560 [15:34:37<1:46:32, 738.14frames/s]FTR PPO Training:  92% 58195968/62914560 [15:34:48<1:46:32, 738.14frames/s]FTR PPO Training:  93% 58327040/62914560 [15:36:29<1:32:13, 829.07frames/s]FTR PPO Training:  93% 58327040/62914560 [15:36:48<1:32:13, 829.07frames/s]FTR PPO Training:  93% 58458112/62914560 [15:38:07<1:19:16, 936.89frames/s]FTR PPO Training:  93% 58458112/62914560 [15:38:18<1:19:16, 936.89frames/s]FTR PPO Training:  93% 58589184/62914560 [15:40:00<1:12:33, 993.51frames/s]FTR PPO Training:  93% 58589184/62914560 [15:40:18<1:12:33, 993.51frames/s]FTR PPO Training:  93% 58720256/62914560 [15:41:36<1:04:39, 1081.14frames/s]FTR PPO Training:  93% 58720256/62914560 [15:41:48<1:04:39, 1081.14frames/s]FTR PPO Training:  94% 58851328/62914560 [15:43:29<1:01:13, 1105.96frames/s]FTR PPO Training:  94% 58851328/62914560 [15:43:48<1:01:13, 1105.96frames/s]FTR PPO Training:  94% 58982400/62914560 [15:45:21<58:17, 1124.40frames/s]  FTR PPO Training:  94% 58982400/62914560 [15:45:38<58:17, 1124.40frames/s]FTR PPO Training:  94% 59113472/62914560 [15:46:57<53:28, 1184.58frames/s]FTR PPO Training:  94% 59113472/62914560 [15:47:08<53:28, 1184.58frames/s]FTR PPO Training:  94% 59244544/62914560 [15:57:33<2:05:06, 488.92frames/s]FTR PPO Training:  94% 59244544/62914560 [15:57:48<2:05:06, 488.92frames/s]FTR PPO Training:  94% 59375616/62914560 [15:59:25<1:39:32, 592.54frames/s]FTR PPO Training:  94% 59375616/62914560 [15:59:38<1:39:32, 592.54frames/s]FTR PPO Training:  95% 59506688/62914560 [16:01:02<1:19:43, 712.47frames/s]FTR PPO Training:  95% 59506688/62914560 [16:01:18<1:19:43, 712.47frames/s]FTR PPO Training:  95% 59637760/62914560 [16:02:54<1:07:37, 807.69frames/s]FTR PPO Training:  95% 59637760/62914560 [16:03:08<1:07:37, 807.69frames/s]FTR PPO Training:  95% 59768832/62914560 [16:04:32<57:18, 914.93frames/s]  FTR PPO Training:  95% 59768832/62914560 [16:04:48<57:18, 914.93frames/s]FTR PPO Training:  95% 59899904/62914560 [16:06:25<51:20, 978.61frames/s]FTR PPO Training:  95% 59899904/62914560 [16:06:38<51:20, 978.61frames/s]FTR PPO Training:  95% 60030976/62914560 [16:08:02<45:04, 1066.18frames/s]FTR PPO Training:  95% 60030976/62914560 [16:08:18<45:04, 1066.18frames/s]FTR PPO Training:  96% 60162048/62914560 [16:09:55<42:02, 1091.04frames/s]FTR PPO Training:  96% 60162048/62914560 [16:10:08<42:02, 1091.04frames/s]FTR PPO Training:  96% 60293120/62914560 [16:11:50<39:28, 1106.87frames/s]FTR PPO Training:  96% 60293120/62914560 [16:12:08<39:28, 1106.87frames/s]FTR PPO Training:  96% 60424192/62914560 [16:13:28<35:35, 1166.44frames/s]FTR PPO Training:  96% 60424192/62914560 [16:13:38<35:35, 1166.44frames/s]FTR PPO Training:  96% 60555264/62914560 [16:23:32<1:17:56, 504.55frames/s]FTR PPO Training:  96% 60555264/62914560 [16:23:48<1:17:56, 504.55frames/s]FTR PPO Training:  96% 60686336/62914560 [16:25:25<1:01:08, 607.41frames/s]FTR PPO Training:  96% 60686336/62914560 [16:25:38<1:01:08, 607.41frames/s]FTR PPO Training:  97% 60817408/62914560 [16:27:02<48:00, 728.05frames/s]  FTR PPO Training:  97% 60817408/62914560 [16:27:18<48:00, 728.05frames/s]FTR PPO Training:  97% 60948480/62914560 [16:28:55<40:01, 818.65frames/s]FTR PPO Training:  97% 60948480/62914560 [16:29:08<40:01, 818.65frames/s]FTR PPO Training:  97% 61079552/62914560 [16:30:34<33:03, 925.09frames/s]FTR PPO Training:  97% 61079552/62914560 [16:30:48<33:03, 925.09frames/s]FTR PPO Training:  97% 61210624/62914560 [16:32:28<28:53, 982.68frames/s]FTR PPO Training:  97% 61210624/62914560 [16:32:38<28:53, 982.68frames/s]FTR PPO Training:  98% 61341696/62914560 [16:34:05<24:30, 1069.51frames/s]FTR PPO Training:  98% 61341696/62914560 [16:34:18<24:30, 1069.51frames/s]FTR PPO Training:  98% 61472768/62914560 [16:36:00<22:02, 1090.33frames/s]FTR PPO Training:  98% 61472768/62914560 [16:36:18<22:02, 1090.33frames/s]FTR PPO Training:  98% 61603840/62914560 [16:37:39<18:59, 1150.65frames/s]FTR PPO Training:  98% 61603840/62914560 [16:37:58<18:59, 1150.65frames/s]FTR PPO Training:  98% 61734912/62914560 [16:39:33<17:04, 1151.12frames/s]FTR PPO Training:  98% 61734912/62914560 [16:39:48<17:04, 1151.12frames/s]FTR PPO Training:  98% 61865984/62914560 [16:49:44<35:05, 498.07frames/s] FTR PPO Training:  98% 61865984/62914560 [16:49:58<35:05, 498.07frames/s]FTR PPO Training:  99% 61997056/62914560 [16:51:40<25:31, 599.16frames/s]FTR PPO Training:  99% 61997056/62914560 [16:51:58<25:31, 599.16frames/s]FTR PPO Training:  99% 62128128/62914560 [16:53:17<18:14, 718.71frames/s]FTR PPO Training:  99% 62128128/62914560 [16:53:28<18:14, 718.71frames/s]FTR PPO Training:  99% 62259200/62914560 [16:55:12<13:30, 808.93frames/s]FTR PPO Training:  99% 62259200/62914560 [16:55:28<13:30, 808.93frames/s]FTR PPO Training:  99% 62390272/62914560 [16:56:52<09:33, 913.46frames/s]FTR PPO Training:  99% 62390272/62914560 [16:57:08<09:33, 913.46frames/s]FTR PPO Training:  99% 62521344/62914560 [16:58:46<06:44, 973.30frames/s]FTR PPO Training:  99% 62521344/62914560 [16:58:58<06:44, 973.30frames/s]FTR PPO Training: 100% 62652416/62914560 [17:00:25<04:07, 1058.16frames/s]FTR PPO Training: 100% 62652416/62914560 [17:00:38<04:07, 1058.16frames/s]FTR PPO Training: 100% 62783488/62914560 [17:02:20<02:01, 1079.30frames/s]FTR PPO Training: 100% 62783488/62914560 [17:02:38<02:01, 1079.30frames/s]FTR PPO Training: 100% 62914560/62914560 [17:04:16<00:00, 1094.28frames/s]                                                                          2026-05-14 11:09:40 [62,021,422ms] [Error] [ftr_ppo_train] Training failed: Failed while executing module '0'. Scroll up for more info.
+RuntimeError: TensorDictModule failed with operation
+    EncoderCombiner(
+      (encoders): ModuleDict(
+        (FtrFlatObservation): FtrFlipperStyleEncoder(
+          (cnn): HeightmapEncoder(
+            (encoder): Sequential(
+              (0): Conv2d(1, 16, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1))
+              (1): ReLU(inplace=True)
+              (2): Conv2d(16, 32, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1))
+              (3): ReLU(inplace=True)
+              (4): Conv2d(32, 32, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1))
+              (5): ReLU(inplace=True)
+              (6): AdaptiveAvgPool2d(output_size=(2, 2))
+              (7): Flatten(start_dim=1, end_dim=-1)
+              (8): Linear(in_features=128, out_features=64, bias=True)
+              (9): Identity()
+            )
+          )
+          (state_encoder): MLP(
+            (mlp): Sequential(
+              (0): Linear(in_features=15, out_features=64, bias=True)
+              (1): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+              (2): Tanh()
+              (3): Linear(in_features=64, out_features=64, bias=True)
+              (4): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+              (5): Tanh()
+              (6): Linear(in_features=64, out_features=64, bias=True)
+              (7): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+              (8): Tanh()
+            )
+          )
+        )
+      )
+    )
+    in_keys=['FtrFlatObservation']
+    out_keys=['y_actor'].
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/tensordict/nn/sequence.py", line 624, in forward
+    tensordict_exec = self._run_module(
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/tensordict/nn/sequence.py", line 570, in _run_module
+    tensordict = module(tensordict, **kwargs)
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1553, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1562, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/tensordict/nn/common.py", line 328, in wrapper
+    return func(_self, tensordict, *args, **kwargs)
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/tensordict/nn/utils.py", line 373, in wrapper
+    result = func(_self, tensordict, *args, **kwargs)
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/tensordict/nn/common.py", line 1239, in forward
+    raise err from RuntimeError(
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/tensordict/nn/common.py", line 1211, in forward
+    raise err
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/tensordict/nn/common.py", line 1195, in forward
+    tensors_out = self._call_module(tensors, **kwargs)
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/tensordict/nn/common.py", line 1154, in _call_module
+    out = self.module(*tensors, **kwargs)
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1553, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1562, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/ws/src/flipper_training/flipper_training/policies/__init__.py", line 36, in forward
+    y_enc = encoder(kwargs[key])
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1553, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1562, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/ws/src/flipper_training/flipper_training/observations/ftr_flat_obs.py", line 86, in forward
+    return torch.cat([self.cnn(hm), self.state_encoder(state)], dim=-1)
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1553, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1562, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/ws/src/flipper_training/flipper_training/observations/heightmap.py", line 61, in forward
+    y_ter = self.encoder(hm)
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1553, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1562, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torch/nn/modules/container.py", line 219, in forward
+    input = module(input)
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1553, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1562, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torch/nn/modules/conv.py", line 458, in forward
+    return self._conv_forward(input, self.weight, self.bias)
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torch/nn/modules/conv.py", line 454, in _conv_forward
+    return F.conv2d(input, weight, bias, self.stride,
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 64.00 MiB. GPU 0 has a total capacity of 39.38 GiB of which 40.12 MiB is free. Including non-PyTorch memory, this process has 39.30 GiB memory in use. Of the allocated memory 18.71 GiB is allocated by PyTorch, and 10.76 GiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/tensordict/nn/sequence.py", line 624, in forward
+    tensordict_exec = self._run_module(
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/tensordict/nn/sequence.py", line 570, in _run_module
+    tensordict = module(tensordict, **kwargs)
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1553, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1562, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/tensordict/nn/common.py", line 328, in wrapper
+    return func(_self, tensordict, *args, **kwargs)
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/tensordict/nn/utils.py", line 373, in wrapper
+    result = func(_self, tensordict, *args, **kwargs)
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/tensordict/nn/sequence.py", line 629, in forward
+    raise RuntimeError(
+RuntimeError: Failed while executing module '0'. Scroll up for more info.
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/ws/src/flipper_training/flipper_training/experiments/ppo/train_ftr.py", line 580, in train
+    post_log = self._post_training_evaluation()
+  File "/ws/src/flipper_training/flipper_training/experiments/ppo/train_ftr.py", line 884, in _post_training_evaluation
+    avg = self._get_eval_rollout_results()
+  File "/ws/src/flipper_training/flipper_training/experiments/ppo/train_ftr.py", line 856, in _get_eval_rollout_results
+    eval_rollout = self.env.rollout(
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torchrl/envs/common.py", line 3307, in rollout
+    tensordicts = self._rollout_stop_early(
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torchrl/envs/common.py", line 3441, in _rollout_stop_early
+    tensordict.update(policy(tensordict))
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1553, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1562, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/tensordict/nn/common.py", line 328, in wrapper
+    return func(_self, tensordict, *args, **kwargs)
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/tensordict/nn/utils.py", line 373, in wrapper
+    result = func(_self, tensordict, *args, **kwargs)
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/tensordict/nn/probabilistic.py", line 1338, in forward
+    tensordict_exec = self.get_dist_params(tensordict_exec, **kwargs)
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/tensordict/nn/probabilistic.py", line 1089, in get_dist_params
+    return tds(tensordict, tensordict_out, **kwargs)
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1553, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1562, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/tensordict/nn/common.py", line 328, in wrapper
+    return func(_self, tensordict, *args, **kwargs)
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/tensordict/nn/utils.py", line 373, in wrapper
+    result = func(_self, tensordict, *args, **kwargs)
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/tensordict/nn/sequence.py", line 629, in forward
+    raise RuntimeError(
+RuntimeError: Failed while executing module '0'. Scroll up for more info.
+wandb: Waiting for W&B process to finish... (success).
+wandb: - 21.360 MB of 21.360 MB uploaded (0.000 MB deduped)wandb: \ 21.360 MB of 21.360 MB uploaded (0.000 MB deduped)wandb: | 21.360 MB of 21.417 MB uploaded (0.000 MB deduped)wandb: / 21.360 MB of 21.417 MB uploaded (0.000 MB deduped)wandb: - 21.360 MB of 21.417 MB uploaded (0.000 MB deduped)wandb: \ 21.397 MB of 21.417 MB uploaded (0.000 MB deduped)wandb: | 21.417 MB of 21.417 MB uploaded (0.000 MB deduped)wandb: / 21.417 MB of 21.417 MB uploaded (0.000 MB deduped)wandb: - 21.417 MB of 21.417 MB uploaded (0.000 MB deduped)wandb: \ 21.417 MB of 21.417 MB uploaded (0.000 MB deduped)wandb: | 21.417 MB of 21.417 MB uploaded (0.000 MB deduped)wandb: / 21.417 MB of 21.417 MB uploaded (0.000 MB deduped)wandb: - 21.417 MB of 21.417 MB uploaded (0.000 MB deduped)wandb:                                                                                
+wandb: 
+wandb: Run history:
+wandb:                      action/flipper_fl_mean ▃▁▁▁▁▃▁▁▂▃▃▂▃▃▄▄▄▄▄▅▅▄▅▅█▆▅▆▆▆▅▆▇▆▇▆▅▆█▆
+wandb:                       action/flipper_fl_std █▇▆▅▄▄▃▂▃▃▂▃▁▁▁▁▃▂▂▃▂▃▂▂▆▄▄▃▂█▃▃▂▃▇▆▅▄▄▄
+wandb:                      action/flipper_fr_mean ▄▆▆▆▅▄▆▄▄▄▄▄▃▃▃▃▃▃▅▅▄▅▃▃▇▅▆▅▄█▅▅▃▄▆▆▆▃▁▄
+wandb:                       action/flipper_fr_std █▇▆▅▅▅▄▃▃▃▃▃▂▂▁▂▂▂▂▂▁▂▁▁▅▃▃▃▂▆▂▃▃▃▆▄▃▃▃▃
+wandb:                      action/flipper_rl_mean ▇█▇▂▄▄▃▄▅▅▅▁▇▆▅▅▁▄▅▄▅▄▂▄▃▅▇▅▃▃▅▅▃▃▂▅▆▄▅▇
+wandb:                       action/flipper_rl_std █▇▇▅▄▄▃▃▃▃▃▂▂▂▂▂▁▂▂▂▁▂▂▁▅▂▃▃▂▅▂▂▂▂▆▄▅▃▃▄
+wandb:                      action/flipper_rr_mean ▇█▄▆▄▄▂▃▃▃▃▂▄▄▄▄▁▄▄▄▆▄▄▄▃▄▅▃▂▃▄▅▂▃▃▅▅▄▁▅
+wandb:                       action/flipper_rr_std █▇▆▅▅▄▄▃▃▂▂▂▂▂▁▃▂▂▂▃▂▂▁▁▅▃▃▃▂▆▃▃▂▃▆▄▄▄▃▄
+wandb:                               action/v_mean ▂▂▂▁▃▄▃▂▃▄▅▅▅▅▅▅▅▄▄▆▅▅▅▆█▇▆▇▇▇▆▆▇▇▆▇▆▇▇▆
+wandb:                                action/v_std █▇▆▅▅▄▄▃▃▃▃▃▁▁▁▁▂▁▁▂▂▂▂▁▄▂▃▃▂▆▃▃▃▃▇▄▄▃▃▃
+wandb:                               action/w_mean ▇███▅▅▆▇▆▃▂▂▃▂▂▂▁▃▄▅▆▅▂▂▇▄▅▅▄█▄▄▂▃▅▇█▄▃▆
+wandb:                                action/w_std █▇▇▆▅▄▄▃▃▃▂▂▁▁▁▂▂▁▁▁▁▂▁▁▄▂▃▃▂▆▃▃▃▃▆▄▄▃▃▃
+wandb:                            clearance/height ▃▂▁█▆▆▃▇█▇▆▄██▆▅▂██▆▇█▆▆▂█▇▆▆▂█▆▆▆▃▇▇▅▆▇
+wandb:                        clearance/height_max ▆▃▄█▅▅▅▅▅▄▅▅▅▅▄▅▂▅▅▄▅▅▄▁▅▅▅▄▅▅▅▄▄▄▅▅▄▄▄▅
+wandb:                        clearance/height_min ▅▄▅▅▇▆▆▆▆▇▅▇▆▆▆▆▆▅▆▇▁▆█▇▆▆▄▇▆▆▆▆█▆▆▅▆▇█▆
+wandb:                            collected_frames ▁▁▁▂▂▂▂▂▂▃▃▃▃▃▃▄▄▄▄▄▅▅▅▅▅▅▆▆▆▆▆▇▇▇▇▇▇███
+wandb:                          env/explosion_rate ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                            env/failure_rate ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                            env/success_rate ▁▁▃▄▃▂▆▆▇▅▁▅██▁▅▁█▁▁▃█▅██▅██▁▁▁▇▆█▅▁▁███
+wandb:                      explosion/pct_exploded ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                 explosion/post_ang_vel_high ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                  explosion/post_ang_vel_nan ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                 explosion/post_lin_vel_high ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                  explosion/post_lin_vel_nan ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                   explosion/post_orient_nan ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                      explosion/post_pos_nan ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                      explosion/post_pos_out ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                  explosion/pre_ang_vel_high ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                  explosion/pre_lin_vel_high ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                   explosion/pre_lin_vel_nan ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                       explosion/pre_obs_nan ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                       explosion/pre_pos_nan ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                       explosion/pre_pos_out ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                        failure/out_of_range ▁▁▁▁▁▁▁▁▁▁▃▁▁▁▂▁▁▁▁▁▁▁▁▁▁▁▃▁▁▁▁▃▁▃▁█▁▁▁▁
+wandb:                            failure/rollover ▁▁▁▂▅▁▁█▁▁▁▁▁▁▂▂▁▁▁▁▁▁▁▁▁▁▂▁▁▁▁▁▁▁▁▂▁▁▁▁
+wandb:                          failure/shock_high ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb: grad_contrib/legacy_joint_angle_var_penalty ▄█▁▄▅▆▆▆▆▅▆▆▅▆▅▇▆▅▆▅▃▆▅▆█▄▅▆▆▅▅▅▅▅▅▄▅▅▆▅
+wandb:   grad_contrib/legacy_joint_vel_var_penalty ▅▅▅▅▅▄▅▅▆▆▆▄▆▅▄▄▄▆▁▆▄▅▇▆▅▅▄█▄▃▄▄▇▄▃▄▄█▆▅
+wandb:      grad_contrib/legacy_pitch_rate_penalty ▆▆▅▆▇▅▆▇▆▂▆▂▅▇▄▄█▁▆▁▃▅▆▅▅▄▅▅▄▂▄▄▆▃▂▄▄▄▅▄
+wandb:       grad_contrib/legacy_roll_rate_penalty ▃▃▅▅▁█▅▅▆▃▇▄▄▆▃▅▆▃▄▂▅▄▆▄▅▃▄▅▄▃▃▃▆▂▃▃▄▅▃▄
+wandb:   grad_contrib/legacy_track_vel_var_penalty ▃▃▃▄▃█▃▃▄▃▄▂▄▃▂▄▂▄▂▄▂▃▅▃▃▃▃▅▂▁▃▃▆▃▁▂▂▅▅▃
+wandb:                        grad_contrib/shaping ▇▃▄▇▇▄█▁▇▆▃▇▁▇▂▃▆▆▆▆▃▇▃▆▆▂▇▃▆▆▁▇▃▂▆▂▆▃▂▇
+wandb:                 grad_contrib/terminal_bonus ▆▆▆▆▆▆▆▆▇▇▅▆▆▁▆▅▆▁▃▆▇▇▃▇▇▆▆▅▇███▅▆▅▆▆▆▃▅
+wandb:          rew/legacy_joint_angle_var_penalty ▁▅▂████▇███▇████▇███▇███▆▇▇▇█▇█▇██▇▇█▇██
+wandb:            rew/legacy_joint_vel_var_penalty ▁▁▁▂▇▂▃▃▃█▃▃▃▃█▃▃▃▃█▄▃█▄▂▃▃▇▃▂▃▃▇▃▂▂▂▇▃▃
+wandb:               rew/legacy_pitch_rate_penalty ▃▁▃▄▆▄▅▂▆▇▆▂▇▇█▆▃▆▇█▆▆█▇▃▆▆█▇▃▆▆█▆▄▅▆█▆▆
+wandb:                rew/legacy_roll_rate_penalty ▄▁▃▄▇▅▆▅▆█▆▆▆▆█▆▇▆▆█▆▆█▆▅▅▆▇▆▅▆▆▇▆▅▅▆▇▅▆
+wandb:            rew/legacy_track_vel_var_penalty ▁▁▂▂▇▃▄▄▄█▅▄▅▅█▅▅▅▅█▅▅█▅▃▅▅▇▅▃▅▅▇▅▃▄▄▇▄▄
+wandb:                                 rew/shaping ▇▆▆▄▆▁▇█▄▅▂▅▅▅▅▄▂▅▆▄▅▆▄▂▂▅▅▅▂▅▅▄▅▂▃▄▄▅▁▅
+wandb:                            rew/step_penalty ███▇▇▇▇▇▇▆▆▆▆▆▆▅▅▅▅▅▄▄▄▄▄▄▃▃▃▃▃▂▂▂▂▂▂▁▁▁
+wandb:                          rew/terminal_bonus ▂▂▂▂▂▂▂▁▃▃▂▂▂▂▂▂▂▂▂▃▂▄▃▂▂▂▆▃▂▂▂▇▃▂▂▁█▃▂▆
+wandb:                            rew/total_reward ▂▃▂▄█▄▅▅▅█▅▄▅▅▇▅▄▅▅▇▄▅▆▄▁▃▄▅▃▂▃▃▅▂▁▁▂▅▁▂
+wandb:                       shock/accel_magnitude ▇█▇▆▁▆▆▅▄▁▅▅▄▄▁▅▅▄▄▁▅▄▂▄▇▆▅▃▅▇▅▆▃▅▇▆▅▂▆▆
+wandb:                   shock/accel_magnitude_max ▅▆▄▃▂▃▃█▃▁▃▃▂▃▁▃▃▃▃▁▃▃▁▃▃▃▃▂▃▃▃▃▂▃▃▄▃▂▃▃
+wandb:                   shock/accel_magnitude_min ▂▅▅█▁▇▅▆▆▁▅▆▅▅▁▂▅▅▅▁▅▅▂▅▇█▆▃▆█▆▇▃▆██▇▂█▇
+wandb:                             shock/accel_p90 ▆█▇▄▆▅▄▃▂▄▃▄▁▁▂▃▄▂▁▂▃▂▂▂▇▅▃▃▃▇▃▄▄▄█▅▄▄▅▄
+wandb:                             shock/accel_p95 ▆█▇▄▆▅▄▃▂▄▃▄▁▁▂▃▄▂▁▂▂▂▃▂▇▅▃▄▃▇▃▄▅▄█▅▄▄▅▄
+wandb:                             shock/accel_p99 ▃▄▃▂▃▃▇▂▁▃▂▃▁▁▂▂█▁▁▂▂▁▂▂▄▃▂▂▂█▂▂▃▂█▃▂▃▃▂
+wandb:                      shock/shock_normalised ▆█▆▂▂▄▃▃▂▁▃▂▂▁▁▂▂▂▁▁▂▂▁▂▄▃▂▁▂▅▂▃▂▃▅▃▂▁▃▃
+wandb:                  shock/shock_normalised_max ███▇▃▇▆█▅▁▇▆▅▅▁▆▅▆▆▁▆▆▂▆▇▆▆▃▆▇▆▇▃▆▇▇▆▃▇▇
+wandb:                  shock/shock_normalised_min ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                  shock/shock_p90_normalised ▆█▇▄▆▅▄▃▂▄▃▄▁▁▂▃▄▂▁▂▃▂▂▂▇▅▃▃▃▇▃▄▅▄█▅▄▄▅▄
+wandb:                  shock/shock_p95_normalised ▆█▇▄▆▅▄▃▂▄▃▄▁▁▂▃▄▂▁▂▃▂▃▂▇▅▃▄▃▇▃▄▅▄█▅▄▄▅▄
+wandb:                  shock/shock_p99_normalised ▃▄▄▂▃▃▇▂▁▃▂▃▁▁▂▂█▁▁▂▂▁▂▂▄▃▂▃▂█▂▂▃▂█▃▂▃▃▃
+wandb:                           state/ang_vel_max ▇█▅▅▄▃▃█▃▂▃▂▂▂▃▄▂▅▄▁▄▂▁▂▃▃▃▂▂▃▃▄▂▃▃▄▃▁▃▂
+wandb:                          state/ang_vel_mean ▆█▆▅▂▅▄▅▄▁▃▅▃▃▁▄▄▃▃▁▃▃▁▃▅▄▃▂▃▅▃▄▂▃▅▅▄▂▄▄
+wandb:                           state/ang_vel_min ▁▄▄█▃▇▄▆▅▇▄▇▄▄▃▄▆▅▄▄▅▅▆▄▇▆▅▅▄▇▅▅▆▅▅▇▅▃▆▅
+wandb:                          state/ang_velocity ▆█▆▅▂▅▄▅▄▁▃▅▃▃▁▄▄▃▃▁▃▃▁▃▅▄▃▂▃▅▃▄▂▃▅▅▄▂▄▄
+wandb:                      state/ang_velocity_max ▇█▅▄▄▃▃█▃▂▃▂▂▂▃▄▂▅▄▁▄▂▁▂▃▃▃▂▂▃▃▄▂▃▃▄▃▁▃▂
+wandb:                      state/ang_velocity_min ▁▄▄█▃▇▄▆▅▇▄▇▄▄▃▄▆▅▄▄▅▅▆▄▇▆▅▅▄▇▅▅▆▅▅▇▅▃▆▅
+wandb:                         state/clearance_max ▆▃▄█▅▅▅▅▅▄▅▅▅▅▄▅▂▅▅▄▅▅▄▁▅▅▅▄▅▅▅▄▄▄▅▅▄▄▄▅
+wandb:                        state/clearance_mean ▃▂▁█▆▆▃▇█▇▆▄██▆▅▂██▆▇█▆▆▂█▇▆▆▂█▆▆▆▃▇▇▅▆▇
+wandb:                         state/clearance_min ▅▄▅▅▇▆▆▆▆▇▅▇▆▆▆▆▆▅▆▇▁▆█▇▆▆▄▇▆▆▆▆█▆▆▅▆▇█▆
+wandb:                          state/dist_to_goal ▅▃▂▁▂▁▃▃▁▄▄▆▇▇▇▇▇█▆▆▇▆▆▇▇▇▆▅▇▆▇▆▅▆▆▇▆▅▆▅
+wandb:                           state/lin_vel_max ▅▇▃▄▄▁▂█▃▂▂▁▁▂▃▂▁▂▃▁▃▃▁▁▁▄▄▂▁▁▃▃▂▃▁▃▃▁▂▄
+wandb:                          state/lin_vel_mean ██▇▆▃▄▆▇▅▁▄▆▃▄▂▃▅▃▅▂▅▅▁▃▆▆▅▂▃▇▅▄▂▄▆▆▅▂▅▅
+wandb:                           state/lin_vel_min ▂▅▅▆▄▄▄▅▄▃▃█▃▃▁▁▆▄▃▂▄▄▂▃▇▅▄▃▃▇▄▄▃▄▆▆▅▂▅▄
+wandb:                          state/lin_velocity ██▇▆▃▄▆▇▅▁▄▆▃▄▂▃▅▃▅▂▅▅▁▃▆▆▅▂▃▇▅▄▂▄▆▆▅▂▅▅
+wandb:                      state/lin_velocity_max ▅▇▃▄▄▁▂█▃▂▂▁▁▂▃▂▁▂▃▁▃▃▁▁▁▄▄▂▁▁▃▃▂▃▁▃▃▁▂▄
+wandb:                      state/lin_velocity_min ▂▅▅▆▄▄▄▅▄▃▃█▃▃▁▁▆▄▃▂▄▄▂▃▇▅▄▃▃▇▄▄▃▄▆▆▅▂▅▄
+wandb:                           state/pct_healthy ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                                 state/pitch ▁▃▃█▇█▆▇█▇█▅██▇▇▄██▇██▇█▄██▇█▄██▇█▅█▇▇█▇
+wandb:                         state/pitch_deg_max ▄▃▅▆▄▅▄█▆▂▄▁▄▂▂▇▁▆▅▁▅▅▁▁▃▅▇▁▁▁▆▇▁▃▃▆▁▁▂▁
+wandb:                        state/pitch_deg_mean ▁▁▁█▆█▅▇█▇█▄██▆▇▃██▇▇█▇█▃██▇█▃█▇▇█▄▇▇▆█▇
+wandb:                         state/pitch_deg_min ▁▁▁▁▄▁▁▃▁▄▁▃▂▁▂▁▂▁▁▄▁▁█▃▁▁▁▃▁▁▂▁▆▁▁▁▁▃▆▁
+wandb:                             state/pitch_max ▄▃▅▆▄▅▄█▆▂▄▁▄▂▂▇▁▆▅▁▅▅▁▁▃▅▇▁▁▁▆▇▁▃▃▆▁▁▂▁
+wandb:                             state/pitch_min ▁▂▄▄▅▅▅▆▆▄▃▆▃▄▄▃▆▅▅▆▃▅█▆▅▅▂▅▃▅▄▄▇▆▅▄▄▆▇▆
+wandb:                                  state/roll ▁█▆▅▅▅▅▅▅▅▅▅▅▅▅▆▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅
+wandb:                          state/roll_deg_max █▄▆▂▂▂▁▄▂▂▂▁▁▁▃▄▁▃▄▂▂▂▁▂▂▃▃▂▆▂▃▂▁▄▂▅▂▁▁▁
+wandb:                         state/roll_deg_mean █▆▅▂▁▂▁▂▁▁▁▁▁▁▁▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                          state/roll_deg_min ▂▆▄▇▃█▄▃▅▂▄▂▃▃▁▃▁▄▃▁▃▄▁▃▃▄▄▂▃▂▄▃▂▄▂▄▄▁▃▄
+wandb:                              state/roll_max █▄▄▂▂▂▁▂▂▂▂▁▁▁▂▄▁▁▃▁▂▁▁▂▂▂▃▂▆▂▃▂▁▄▂▁▂▁▁▁
+wandb:                              state/roll_min ▁▄▁▇▇▇█▃▇█▇▇█▇▅▄█▄▃▇▆▇██▆▇▆▇▇▇▅▇█▅▆▂████
+wandb:                  state/success_lin_velocity ▁▁▁▁▂▁▁▁▃▃▁▁▁▂▂▁▁▁▁▂▁▄▂▁▁▁▇▂▂▁▁█▂▁▁▁█▂▁▇
+wandb:                    torque/flipper_torque_FL ███▆▂▆▆▇▆▂▆▇▇▆▂▆▆▆▆▁▆▆▁▅▇▆▇▂▅▇▆▆▁▅▇▇▇▂▆▇
+wandb:                torque/flipper_torque_FL_max ██████████████▇████▆██▁█████████▅████▇██
+wandb:                torque/flipper_torque_FL_min ███▄▁▄▅▅▄▁▄▅▅▄▁▅▅▄▄▁▅▃▁▃▇▄▆▁▂█▄▄▁▃▆▅▅▁▅▆
+wandb:                    torque/flipper_torque_FR ███▇▂▆▆▇▅▁▅▇▆▆▁▆▇▆▆▂▇▆▁▆▇▆▇▂▅█▆▆▂▆▇▇▇▂▅▇
+wandb:                torque/flipper_torque_FR_max ████▇████▁████▆████▆██▄████▇████▆███████
+wandb:                torque/flipper_torque_FR_min █▇▆▆▁▄▄▅▃▁▃▅▃▃▁▄▅▃▄▁▅▃▁▃▅▄▄▁▃▆▄▄▁▃▆▅▄▁▃▅
+wandb:                    torque/flipper_torque_RL ███▆▂▆▆▆▅▁▄▆▄▅▁▆▇▄▅▁▅▅▁▅▇▅▅▂▄▇▅▄▁▄▆▆▆▂▄▄
+wandb:                torque/flipper_torque_RL_max █████████▃████▄████▁██▄████▇████▃████▇██
+wandb:                torque/flipper_torque_RL_min █▇█▅▁▄▄▄▄▁▃▄▂▃▂▄▅▃▃▁▃▃▁▃▆▃▃▁▂▇▃▂▁▂▆▄▄▁▂▂
+wandb:                    torque/flipper_torque_RR ███▇▂▆▆▇▆▁▄▇▆▆▁▆▇▆▅▁▇▅▁▄▇▆▅▁▃▇▅▆▂▅▇▇▇▂▆▆
+wandb:                torque/flipper_torque_RR_max █████████▁████▃████▅██▄████▆████████████
+wandb:                torque/flipper_torque_RR_min █▇▆▄▁▃▄▅▃▁▂▅▄▄▁▄▅▄▃▁▄▃▁▂▇▄▂▁▂▇▃▃▁▂▆▆▄▁▃▃
+wandb:                     train/action_bonus_coef ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:           train/mean_action_sample_log_prob ▁▂▂▂▃▃▄▅▆▅▆▅▆▆▇▇▆▆▇▆▇▇██▅▇▆▆█▄▇▇▇▆▅▆▅▆▆▆
+wandb:                        train/mean_advantage ▆▆▅▆▄▆▇▅▆▄▆▇▇▆▄▆▆▆▆▅▇▇▅▆▆▇▇▅▆▅█▇▅▇▁█▇▅▆▇
+wandb:                    train/mean_advantage_GAE ▆▆▅▆▄▆▇▅▆▄▆▇▇▆▄▆▆▆▆▅▇▇▅▆▆▇▇▅▆▅█▇▅▇▁█▇▅▆▇
+wandb:                    train/mean_clip_fraction ▁▆▃▅▂▆▃▂▃▃▃▄▃▃▅▅█▆▇▄▄▄▄▁▂▃▄▄▅▄▄▂▄▁▃▄▁▅▆▂
+wandb:                      train/mean_critic_loss ▂▂▂▁▂▁▅▂▁▂▁▂▁▁▂▂▃▂▂▃▂▂▂▁▂▁▁▂▁▅▂▁▂▁█▂▁▂▂▁
+wandb:                          train/mean_entropy █▇▇▇▆▆▅▄▃▄▄▄▃▃▂▂▄▃▂▃▂▃▂▁▅▃▃▃▁▅▂▃▂▃▄▃▄▃▃▃
+wandb:                     train/mean_entropy_loss ▁▂▂▂▃▃▄▅▆▅▅▅▆▆▇▇▅▆▇▆▇▆▇█▄▆▆▆█▄▇▆▇▆▅▆▅▆▆▆
+wandb:                        train/mean_kl_approx ▅▆▄▄▃▅▅▄▆▆▅▇▅▅▄▇█▅▆▆▄▄▅▃▅▃▅▅▇▆▃▅▆▄▃▁▆▄▆▄
+wandb:                   train/mean_objective_loss ▇▆▇▆▇▄▇▆▆▅▂█▇▄▇▄▇▅▇▂▄▄▅▄▃▅▅▆▇▅▄▇▆▅▆█▆▇▁▆
+wandb:                           train/mean_reward ▅▆▃▅▁▅█▅▅▂▅▄▇▆▂▅▃▆▆▂▇▆▂▅▁█▆▁▅▃█▆▁▅▄▇▆▁▅▆
+wandb:                      train/mean_state_value ██▇▇▇▆▆▆▆▇▇▇███▆▆▆▇▆▆▅▆▆▃▅▄▅▆▂▃▃▃▃▁▃▄▃▃▃
+wandb:                    train/policy_operator_lr ███▇▇▇▇▇▇▆▆▆▆▆▆▅▅▅▅▅▄▄▄▄▄▄▃▃▃▃▃▂▂▂▂▂▂▁▁▁
+wandb:                         train/std_advantage ▂▁▂▁▂▁▅▂▂▂▁▂▁▁▃▂▄▁▂▃▁▂▂▁▂▂▁▂▁▆▂▁▂▁█▂▁▂▁▁
+wandb:                          train/step_penalty ███▇▇▇▇▇▇▆▆▆▆▆▆▅▅▅▅▅▄▄▄▄▄▄▃▃▃▃▃▂▂▂▂▂▂▁▁▁
+wandb:                       train/total_grad_norm ▁▂▂▃▃▂▇▃▃▃▄▇▄▃▃▃▇▂▂▁▃▂▁▂█▅▂▅▁▃▂▃▁▇▅▂▂▃▂▂
+wandb:                    train/value_minus_reward ██▇▇▇▆▆▆▆▇▇▇███▆▆▆▇▆▆▅▆▆▃▅▄▅▆▂▃▃▃▃▁▃▄▃▃▃
+wandb:                     train/value_operator_lr ███▇▇▇▇▇▇▆▆▆▆▆▆▅▅▅▅▅▄▄▄▄▄▄▃▃▃▃▃▂▂▂▂▂▂▁▁▁
+wandb:   var_decomp/legacy_joint_angle_var_penalty ▂▄█▁▁▂▂▂▂▂▂▂▁▂▂▂▂▁▂▂▁▂▂▂▂▁▁▂▂▄▁▂▂▂▃▃▁▂▂▁
+wandb:     var_decomp/legacy_joint_vel_var_penalty ▄▄▂▄▃▄▂▂▄▃▄▁▅▄▂▄▃▄▅▃▃▃▃▅▅▃▃▃▄▇▂▁▄▄█▆▂▃▂▃
+wandb:        var_decomp/legacy_pitch_rate_penalty ▅▇▄▅▄▄▄▂▄▃▄▁▄▄▃▄▆▄▄▃▃▄▄▄▅▃▄▄▄█▃▃▄▄█▅▄▄▄▃
+wandb:         var_decomp/legacy_roll_rate_penalty ▆▃▄▅▂▆▄▃▃▂▄▄▃▃▂▃▄▃▄▃▃▃▃▄▄▃▂▃▃█▃▁▃▄▇▄▃▃▄▂
+wandb:     var_decomp/legacy_track_vel_var_penalty ▇█▂▆▂▅▂▁▄▂▄▁▄▃▂▃▂▃▄▂▃▃▃▃▄▄▂▃▃▅▄▂▃▄▇▆▂▂▃▃
+wandb:                          var_decomp/shaping ▅▂▅▅▄▄▇█▄▄▄█▂▄▃▃▆▄▄▃▄▄▃▄▄▄▅▃▄▃▁▆▃▄▂▆▅▃▄▅
+wandb:                   var_decomp/terminal_bonus ▁▁▁▂▂▁▁▁▂▂▂▁▂▂▁▄▁▆▃▁▂▂▅▂▁▅▂▅▅▂█▇▂▁▂▄▁▂▂▃
+wandb: 
+wandb: Run summary:
+wandb:                      action/flipper_fl_mean 0.08501
+wandb:                       action/flipper_fl_std 0.52281
+wandb:                      action/flipper_fr_mean 0.06736
+wandb:                       action/flipper_fr_std 0.5064
+wandb:                      action/flipper_rl_mean -0.024
+wandb:                       action/flipper_rl_std 0.51784
+wandb:                      action/flipper_rr_mean -0.04986
+wandb:                       action/flipper_rr_std 0.52322
+wandb:                               action/v_mean 0.03773
+wandb:                                action/v_std 0.42324
+wandb:                               action/w_mean 0.09199
+wandb:                                action/w_std 0.41553
+wandb:                            clearance/height 0.16788
+wandb:                        clearance/height_max 0.62257
+wandb:                        clearance/height_min 0.02488
+wandb:                            collected_frames 62914560
+wandb:                          env/explosion_rate 0.0
+wandb:                            env/failure_rate 0.0
+wandb:                            env/success_rate 1.0
+wandb:                      explosion/pct_exploded 0.0
+wandb:                 explosion/post_ang_vel_high 0.0
+wandb:                  explosion/post_ang_vel_nan 0.0
+wandb:                 explosion/post_lin_vel_high 0.0
+wandb:                  explosion/post_lin_vel_nan 0.0
+wandb:                   explosion/post_orient_nan 0.0
+wandb:                      explosion/post_pos_nan 0.0
+wandb:                      explosion/post_pos_out 0.0
+wandb:                  explosion/pre_ang_vel_high 0.0
+wandb:                  explosion/pre_lin_vel_high 0.0
+wandb:                   explosion/pre_lin_vel_nan 0.0
+wandb:                       explosion/pre_obs_nan 0.0
+wandb:                       explosion/pre_pos_nan 0.0
+wandb:                       explosion/pre_pos_out 0.0
+wandb:                        failure/out_of_range 0.0
+wandb:                            failure/rollover 0.0
+wandb:                          failure/shock_high 0.0
+wandb: grad_contrib/legacy_joint_angle_var_penalty -0.06113
+wandb:   grad_contrib/legacy_joint_vel_var_penalty -0.01976
+wandb:      grad_contrib/legacy_pitch_rate_penalty -0.05309
+wandb:       grad_contrib/legacy_roll_rate_penalty -0.02066
+wandb:   grad_contrib/legacy_track_vel_var_penalty 0.01567
+wandb:                        grad_contrib/shaping 0.6852
+wandb:                 grad_contrib/terminal_bonus -0.14449
+wandb:          rew/legacy_joint_angle_var_penalty -0.00777
+wandb:            rew/legacy_joint_vel_var_penalty -0.08145
+wandb:               rew/legacy_pitch_rate_penalty -0.02132
+wandb:                rew/legacy_roll_rate_penalty -0.02182
+wandb:            rew/legacy_track_vel_var_penalty -0.04595
+wandb:                                 rew/shaping 0.15008
+wandb:                            rew/step_penalty -0.32664
+wandb:                          rew/terminal_bonus 0.00395
+wandb:                            rew/total_reward -0.35093
+wandb:                       shock/accel_magnitude 4.44842
+wandb:                   shock/accel_magnitude_max 20.01256
+wandb:                   shock/accel_magnitude_min 0.22609
+wandb:                             shock/accel_p90 4.5875
+wandb:                             shock/accel_p95 4.62066
+wandb:                             shock/accel_p99 4.66192
+wandb:                      shock/shock_normalised 0.00656
+wandb:                  shock/shock_normalised_max 0.83423
+wandb:                  shock/shock_normalised_min 0.0
+wandb:                  shock/shock_p90_normalised 0.22544
+wandb:                  shock/shock_p95_normalised 0.22701
+wandb:                  shock/shock_p99_normalised 0.22896
+wandb:                           state/ang_vel_max 0.963
+wandb:                          state/ang_vel_mean 0.15581
+wandb:                           state/ang_vel_min 0.00515
+wandb:                          state/ang_velocity 0.15581
+wandb:                      state/ang_velocity_max 0.963
+wandb:                      state/ang_velocity_min 0.00515
+wandb:                         state/clearance_max 0.62257
+wandb:                        state/clearance_mean 0.16788
+wandb:                         state/clearance_min 0.02488
+wandb:                          state/dist_to_goal 4.58797
+wandb:                           state/lin_vel_max 0.95903
+wandb:                          state/lin_vel_mean 0.13774
+wandb:                           state/lin_vel_min 0.00438
+wandb:                          state/lin_velocity 0.13774
+wandb:                      state/lin_velocity_max 0.95903
+wandb:                      state/lin_velocity_min 0.00438
+wandb:                           state/pct_healthy 1.0
+wandb:                                 state/pitch 0.44077
+wandb:                         state/pitch_deg_max 28.33555
+wandb:                        state/pitch_deg_mean 25.25916
+wandb:                         state/pitch_deg_min 0.00093
+wandb:                             state/pitch_max 0.49455
+wandb:                             state/pitch_min -0.02126
+wandb:                                  state/roll 0.00088
+wandb:                          state/roll_deg_max 4.19686
+wandb:                         state/roll_deg_mean 0.11883
+wandb:                          state/roll_deg_min 5e-05
+wandb:                              state/roll_max 0.06596
+wandb:                              state/roll_min -0.04595
+wandb:                  state/success_lin_velocity 0.16365
+wandb:                    torque/flipper_torque_FL 708.49121
+wandb:                torque/flipper_torque_FL_max 1000.0
+wandb:                torque/flipper_torque_FL_min 1.76108
+wandb:                    torque/flipper_torque_FR 687.37025
+wandb:                torque/flipper_torque_FR_max 1000.0
+wandb:                torque/flipper_torque_FR_min 1.44199
+wandb:                    torque/flipper_torque_RL 498.01836
+wandb:                torque/flipper_torque_RL_max 1000.0
+wandb:                torque/flipper_torque_RL_min 0.65045
+wandb:                    torque/flipper_torque_RR 623.77618
+wandb:                torque/flipper_torque_RR_max 1000.0
+wandb:                torque/flipper_torque_RR_min 0.99723
+wandb:                     train/action_bonus_coef 0.0
+wandb:           train/mean_action_sample_log_prob -3.83083
+wandb:                        train/mean_advantage 3.17118
+wandb:                    train/mean_advantage_GAE 3.17118
+wandb:                    train/mean_clip_fraction 0.11597
+wandb:                      train/mean_critic_loss 2.26818
+wandb:                          train/mean_entropy 3.81909
+wandb:                     train/mean_entropy_loss -0.07638
+wandb:                        train/mean_kl_approx 0.00853
+wandb:                   train/mean_objective_loss -0.01465
+wandb:                           train/mean_reward 0.05125
+wandb:                      train/mean_state_value -138.77641
+wandb:                    train/policy_operator_lr 0.00039
+wandb:                         train/std_advantage 7.81953
+wandb:                          train/step_penalty -0.32698
+wandb:                       train/total_grad_norm 9.48044
+wandb:                    train/value_minus_reward -138.82766
+wandb:                     train/value_operator_lr 0.00185
+wandb:   var_decomp/legacy_joint_angle_var_penalty -0.00687
+wandb:     var_decomp/legacy_joint_vel_var_penalty 0.00021
+wandb:        var_decomp/legacy_pitch_rate_penalty -0.00387
+wandb:         var_decomp/legacy_roll_rate_penalty -0.0014
+wandb:     var_decomp/legacy_track_vel_var_penalty 0.01008
+wandb:                          var_decomp/shaping 0.09588
+wandb:                   var_decomp/terminal_bonus 0.04979
+wandb: 
+wandb: Synced train_ftr_10999209_attempt_0: https://wandb.ai/marv_flipper_training/flipper_training_v2/runs/15b9869ccf8d6e0fe8d604768e07e3e3ebc81995bb147a7d4d78fc707ce40a95
+wandb: Synced 6 W&B file(s), 0 media file(s), 0 artifact file(s) and 103 other file(s)
+wandb: Find logs at: /ws/logs/wandb/wandb/run-20260513_195627-15b9869ccf8d6e0fe8d604768e07e3e3ebc81995bb147a7d4d78fc707ce40a95/logs
+RuntimeError: TensorDictModule failed with operation
+    EncoderCombiner(
+      (encoders): ModuleDict(
+        (FtrFlatObservation): FtrFlipperStyleEncoder(
+          (cnn): HeightmapEncoder(
+            (encoder): Sequential(
+              (0): Conv2d(1, 16, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1))
+              (1): ReLU(inplace=True)
+              (2): Conv2d(16, 32, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1))
+              (3): ReLU(inplace=True)
+              (4): Conv2d(32, 32, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1))
+              (5): ReLU(inplace=True)
+              (6): AdaptiveAvgPool2d(output_size=(2, 2))
+              (7): Flatten(start_dim=1, end_dim=-1)
+              (8): Linear(in_features=128, out_features=64, bias=True)
+              (9): Identity()
+            )
+          )
+          (state_encoder): MLP(
+            (mlp): Sequential(
+              (0): Linear(in_features=15, out_features=64, bias=True)
+              (1): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+              (2): Tanh()
+              (3): Linear(in_features=64, out_features=64, bias=True)
+              (4): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+              (5): Tanh()
+              (6): Linear(in_features=64, out_features=64, bias=True)
+              (7): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+              (8): Tanh()
+            )
+          )
+        )
+      )
+    )
+    in_keys=['FtrFlatObservation']
+    out_keys=['y_actor'].
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/tensordict/nn/sequence.py", line 624, in forward
+    tensordict_exec = self._run_module(
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/tensordict/nn/sequence.py", line 570, in _run_module
+    tensordict = module(tensordict, **kwargs)
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1553, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1562, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/tensordict/nn/common.py", line 328, in wrapper
+    return func(_self, tensordict, *args, **kwargs)
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/tensordict/nn/utils.py", line 373, in wrapper
+    result = func(_self, tensordict, *args, **kwargs)
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/tensordict/nn/common.py", line 1239, in forward
+    raise err from RuntimeError(
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/tensordict/nn/common.py", line 1211, in forward
+    raise err
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/tensordict/nn/common.py", line 1195, in forward
+    tensors_out = self._call_module(tensors, **kwargs)
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/tensordict/nn/common.py", line 1154, in _call_module
+    out = self.module(*tensors, **kwargs)
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1553, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1562, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/ws/src/flipper_training/flipper_training/policies/__init__.py", line 36, in forward
+    y_enc = encoder(kwargs[key])
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1553, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1562, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/ws/src/flipper_training/flipper_training/observations/ftr_flat_obs.py", line 86, in forward
+    return torch.cat([self.cnn(hm), self.state_encoder(state)], dim=-1)
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1553, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1562, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/ws/src/flipper_training/flipper_training/observations/heightmap.py", line 61, in forward
+    y_ter = self.encoder(hm)
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1553, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1562, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torch/nn/modules/container.py", line 219, in forward
+    input = module(input)
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1553, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1562, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torch/nn/modules/conv.py", line 458, in forward
+    return self._conv_forward(input, self.weight, self.bias)
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torch/nn/modules/conv.py", line 454, in _conv_forward
+    return F.conv2d(input, weight, bias, self.stride,
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 64.00 MiB. GPU 0 has a total capacity of 39.38 GiB of which 40.12 MiB is free. Including non-PyTorch memory, this process has 39.30 GiB memory in use. Of the allocated memory 18.71 GiB is allocated by PyTorch, and 10.76 GiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/tensordict/nn/sequence.py", line 624, in forward
+    tensordict_exec = self._run_module(
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/tensordict/nn/sequence.py", line 570, in _run_module
+    tensordict = module(tensordict, **kwargs)
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1553, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1562, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/tensordict/nn/common.py", line 328, in wrapper
+    return func(_self, tensordict, *args, **kwargs)
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/tensordict/nn/utils.py", line 373, in wrapper
+    result = func(_self, tensordict, *args, **kwargs)
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/tensordict/nn/sequence.py", line 629, in forward
+    raise RuntimeError(
+RuntimeError: Failed while executing module '0'. Scroll up for more info.
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/ws/src/flipper_training/flipper_training/experiments/ppo/train_ftr.py", line 1054, in <module>
+    trainer.train()
+  File "/ws/src/flipper_training/flipper_training/experiments/ppo/train_ftr.py", line 580, in train
+    post_log = self._post_training_evaluation()
+  File "/ws/src/flipper_training/flipper_training/experiments/ppo/train_ftr.py", line 884, in _post_training_evaluation
+    avg = self._get_eval_rollout_results()
+  File "/ws/src/flipper_training/flipper_training/experiments/ppo/train_ftr.py", line 856, in _get_eval_rollout_results
+    eval_rollout = self.env.rollout(
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torchrl/envs/common.py", line 3307, in rollout
+    tensordicts = self._rollout_stop_early(
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torchrl/envs/common.py", line 3441, in _rollout_stop_early
+    tensordict.update(policy(tensordict))
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1553, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1562, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/tensordict/nn/common.py", line 328, in wrapper
+    return func(_self, tensordict, *args, **kwargs)
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/tensordict/nn/utils.py", line 373, in wrapper
+    result = func(_self, tensordict, *args, **kwargs)
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/tensordict/nn/probabilistic.py", line 1338, in forward
+    tensordict_exec = self.get_dist_params(tensordict_exec, **kwargs)
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/tensordict/nn/probabilistic.py", line 1089, in get_dist_params
+    return tds(tensordict, tensordict_out, **kwargs)
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1553, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1562, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/tensordict/nn/common.py", line 328, in wrapper
+    return func(_self, tensordict, *args, **kwargs)
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/tensordict/nn/utils.py", line 373, in wrapper
+    result = func(_self, tensordict, *args, **kwargs)
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/tensordict/nn/sequence.py", line 629, in forward
+    raise RuntimeError(
+RuntimeError: Failed while executing module '0'. Scroll up for more info.
+RuntimeError: TensorDictModule failed with operation
+    EncoderCombiner(
+      (encoders): ModuleDict(
+        (FtrFlatObservation): FtrFlipperStyleEncoder(
+          (cnn): HeightmapEncoder(
+            (encoder): Sequential(
+              (0): Conv2d(1, 16, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1))
+              (1): ReLU(inplace=True)
+              (2): Conv2d(16, 32, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1))
+              (3): ReLU(inplace=True)
+              (4): Conv2d(32, 32, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1))
+              (5): ReLU(inplace=True)
+              (6): AdaptiveAvgPool2d(output_size=(2, 2))
+              (7): Flatten(start_dim=1, end_dim=-1)
+              (8): Linear(in_features=128, out_features=64, bias=True)
+              (9): Identity()
+            )
+          )
+          (state_encoder): MLP(
+            (mlp): Sequential(
+              (0): Linear(in_features=15, out_features=64, bias=True)
+              (1): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+              (2): Tanh()
+              (3): Linear(in_features=64, out_features=64, bias=True)
+              (4): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+              (5): Tanh()
+              (6): Linear(in_features=64, out_features=64, bias=True)
+              (7): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+              (8): Tanh()
+            )
+          )
+        )
+      )
+    )
+    in_keys=['FtrFlatObservation']
+    out_keys=['y_actor'].
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/tensordict/nn/sequence.py", line 624, in forward
+    tensordict_exec = self._run_module(
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/tensordict/nn/sequence.py", line 570, in _run_module
+    tensordict = module(tensordict, **kwargs)
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1553, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1562, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/tensordict/nn/common.py", line 328, in wrapper
+    return func(_self, tensordict, *args, **kwargs)
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/tensordict/nn/utils.py", line 373, in wrapper
+    result = func(_self, tensordict, *args, **kwargs)
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/tensordict/nn/common.py", line 1239, in forward
+    raise err from RuntimeError(
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/tensordict/nn/common.py", line 1211, in forward
+    raise err
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/tensordict/nn/common.py", line 1195, in forward
+    tensors_out = self._call_module(tensors, **kwargs)
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/tensordict/nn/common.py", line 1154, in _call_module
+    out = self.module(*tensors, **kwargs)
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1553, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1562, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/ws/src/flipper_training/flipper_training/policies/__init__.py", line 36, in forward
+    y_enc = encoder(kwargs[key])
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1553, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1562, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/ws/src/flipper_training/flipper_training/observations/ftr_flat_obs.py", line 86, in forward
+    return torch.cat([self.cnn(hm), self.state_encoder(state)], dim=-1)
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1553, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1562, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/ws/src/flipper_training/flipper_training/observations/heightmap.py", line 61, in forward
+    y_ter = self.encoder(hm)
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1553, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1562, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torch/nn/modules/container.py", line 219, in forward
+    input = module(input)
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1553, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1562, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torch/nn/modules/conv.py", line 458, in forward
+    return self._conv_forward(input, self.weight, self.bias)
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torch/nn/modules/conv.py", line 454, in _conv_forward
+    return F.conv2d(input, weight, bias, self.stride,
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 64.00 MiB. GPU 0 has a total capacity of 39.38 GiB of which 40.12 MiB is free. Including non-PyTorch memory, this process has 39.30 GiB memory in use. Of the allocated memory 18.71 GiB is allocated by PyTorch, and 10.76 GiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/tensordict/nn/sequence.py", line 624, in forward
+    tensordict_exec = self._run_module(
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/tensordict/nn/sequence.py", line 570, in _run_module
+    tensordict = module(tensordict, **kwargs)
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1553, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1562, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/tensordict/nn/common.py", line 328, in wrapper
+    return func(_self, tensordict, *args, **kwargs)
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/tensordict/nn/utils.py", line 373, in wrapper
+    result = func(_self, tensordict, *args, **kwargs)
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/tensordict/nn/sequence.py", line 629, in forward
+    raise RuntimeError(
+RuntimeError: Failed while executing module '0'. Scroll up for more info.
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/ws/src/flipper_training/flipper_training/experiments/ppo/train_ftr.py", line 1054, in <module>
+    trainer.train()
+  File "/ws/src/flipper_training/flipper_training/experiments/ppo/train_ftr.py", line 580, in train
+    post_log = self._post_training_evaluation()
+  File "/ws/src/flipper_training/flipper_training/experiments/ppo/train_ftr.py", line 884, in _post_training_evaluation
+    avg = self._get_eval_rollout_results()
+  File "/ws/src/flipper_training/flipper_training/experiments/ppo/train_ftr.py", line 856, in _get_eval_rollout_results
+    eval_rollout = self.env.rollout(
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torchrl/envs/common.py", line 3307, in rollout
+    tensordicts = self._rollout_stop_early(
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torchrl/envs/common.py", line 3441, in _rollout_stop_early
+    tensordict.update(policy(tensordict))
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1553, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1562, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/tensordict/nn/common.py", line 328, in wrapper
+    return func(_self, tensordict, *args, **kwargs)
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/tensordict/nn/utils.py", line 373, in wrapper
+    result = func(_self, tensordict, *args, **kwargs)
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/tensordict/nn/probabilistic.py", line 1338, in forward
+    tensordict_exec = self.get_dist_params(tensordict_exec, **kwargs)
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/tensordict/nn/probabilistic.py", line 1089, in get_dist_params
+    return tds(tensordict, tensordict_out, **kwargs)
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1553, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1562, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/tensordict/nn/common.py", line 328, in wrapper
+    return func(_self, tensordict, *args, **kwargs)
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/tensordict/nn/utils.py", line 373, in wrapper
+    result = func(_self, tensordict, *args, **kwargs)
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/tensordict/nn/sequence.py", line 629, in forward
+    raise RuntimeError(
+RuntimeError: Failed while executing module '0'. Scroll up for more info.

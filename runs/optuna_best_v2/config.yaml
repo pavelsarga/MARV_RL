@@ -1,0 +1,104 @@
+name: ftr_ppo_crossing_potential
+comment: 'Best Optuna trial (v1 study, trial #100, 41.4% success rate). Trained with
+  128 envs, 5M frames, pre-physics-fix. Physics limits updated to post-fix values
+  (max_angular_velocity, etc.). Full training: 512 envs, 8× frames.
+
+  '
+use_wandb: true
+use_tensorboard: false
+seed: 42
+device: cuda:0
+training_dtype: ${dtype:float32}
+num_robots: 128
+task: Ftr-Crossing-Direct-v0
+terrain: cur_plum
+total_frames: 5242880
+time_steps_per_batch: 128
+epochs_per_batch: 2
+frames_per_sub_batch: 4096
+eval_and_save_every: 5
+save_weights_every: 20
+max_eval_steps: 1000
+eval_repeats_after_training: 10
+max_grad_norm: 0.697298401413678
+clip_grad_norm_p: 2
+optimizer: ${cls:torch.optim.AdamW}
+optimizer_opts: {}
+scheduler: ${cls:torch.optim.lr_scheduler.LinearLR}
+scheduler_opts:
+  start_factor: 1.0
+  end_factor: 0.243222963382337
+  total_iters: ${intdiv:${total_frames},${mul:${time_steps_per_batch},${num_robots}}}
+gae_opts:
+  gamma: 0.9926802032201342
+  lmbda: 0.9576217360002582
+  average_gae: false
+  skip_existing: false
+ppo_opts:
+  clip_epsilon: 0.1515813260724042
+  entropy_bonus: true
+  entropy_coef: 0.023611155346518756
+  critic_coef: 1.0
+  loss_critic_type: smooth_l1
+  normalize_advantage: true
+  separate_losses: true
+data_collector_opts:
+  split_trajs: false
+  compile_policy: false
+  exploration_type: RANDOM
+policy_config: ${cls:flipper_training.policies.mlp_policy.MLPPolicyConfig}
+policy_opts:
+  share_encoder: false
+  apply_baselines_init: true
+  actor_mlp_opts:
+    num_hidden: 2
+    hidden_dim: 64
+    layernorm: false
+  value_mlp_opts:
+    num_hidden: 2
+    hidden_dim: 64
+    layernorm: true
+  actor_optimizer_opts:
+    lr: 5.0511545424639974e-05
+    weight_decay: 0.0001
+  value_optimizer_opts:
+    lr: 0.001299558964272147
+    weight_decay: 0.0001
+ftr_obs_encoder_opts:
+  num_hidden: 2
+  hidden_dim: 512
+  output_dim: 256
+  layernorm: true
+vecnorm_opts:
+  decay: 0.99
+  eps: 0.0001
+vecnorm_on_reward: true
+extra_env_transforms: []
+policy_weights_path: null
+vecnorm_weights_path: null
+# Physics tuning
+bounce_threshold_velocity: 0.2         # m/s — contacts below this don't bounce (suppresses jitter)
+robot_linear_damping: 0.05             # passive linear drag — prevents numerical drift
+robot_angular_damping: 0.05            # passive angular drag — prevents flipper ringing
+robot_max_linear_velocity: 10.0        # m/s — safety clamp, catches explosions
+robot_max_angular_velocity: 720.0      # deg/s (~12.6 rad/s) — safety clamp
+physx_gpu_heap_capacity: 2147483648    # 2 GB
+physx_gpu_temp_buffer_capacity: 536870912
+physx_gpu_max_num_partitions: 8
+env_cfg_overrides:
+  goal_reached_reward: 17.58607376748066
+  failed_reward: -8.424081542741279
+  shaping_coef: 41.373417739411735
+  shaping_gamma: ${gae_opts.gamma}
+  step_penalty: -0.6209432445254928
+  joint_vel_variance_coef: 3.58374517792394
+  joint_angle_variance_coef: null
+  roll_coef: 0.2
+  roll_rate_coef: 1.57096866881601
+  pitch_coef: 0.2
+  pitch_rate_coef: 1.0281208486419158
+  flipper_pos_max_deg: 90.0
+solver_position_iterations: 6
+solver_velocity_iterations: 1
+max_depenetration_velocity: 0.12354395702544713
+sim_dt: 0.005

@@ -1,0 +1,161 @@
+name: rand_policy_eval
+comment: >
+  Random policy baseline for benchmarking trained PPO policies.
+  Drives at randomized constant linear speed with sinusoidal flipper velocities.
+  No observations are used — set linear_speed: null to randomize speed per robot,
+  or provide a fixed float (e.g. 0.8) to use the same speed for all robots.
+
+seed: 42
+device: cuda
+training_dtype: ${dtype:float32}
+
+num_robots: 1024
+
+task: Ftr-Crossing-Direct-v0
+terrain: cur_mixed
+
+# =============================================================================
+# BALLAST — required by FtrPPOConfig schema but NOT read by eval_ftr_rand.py.
+# Do not bother updating these values; they are ignored during eval.
+# Exception: gae_opts.gamma IS resolved at parse time via ${gae_opts.gamma}
+# in env_cfg_overrides.shaping_gamma below — keep it consistent if you change
+# the shaping_gamma there.
+# =============================================================================
+use_wandb: false
+use_tensorboard: false
+total_frames: ${mul:5242880,12}
+time_steps_per_batch: 128
+epochs_per_batch: 5
+frames_per_sub_batch: 4096
+eval_and_save_every: 10
+eval_repeats: 2
+eval_repeats_after_training: 20
+max_grad_norm: 0.697298401413678
+clip_grad_norm_p: 2
+optimizer: ${cls:torch.optim.AdamW}
+optimizer_opts: {}
+scheduler: ${cls:torch.optim.lr_scheduler.LinearLR}
+scheduler_opts:
+  start_factor: 1.0
+  end_factor: 0.8
+  total_iters: ${intdiv:${total_frames},${mul:${time_steps_per_batch},${num_robots}}}
+step_penalty_scheduler:
+  type: linear
+  start_factor: 0.5
+  end_factor: 1.0
+  total_iters: ${intdiv:${intdiv:${total_frames},${mul:${time_steps_per_batch},${num_robots}}},1}
+action_bonus_coef_scheduler:
+  type: linear
+  start_factor: 1.0
+  end_factor: 1.0
+  total_iters: ${intdiv:${intdiv:${total_frames},${mul:${time_steps_per_batch},${num_robots}}},1}
+gae_opts:
+  gamma: 0.9987429401128942   # used by shaping_gamma interpolation below — keep in sync
+  lmbda: 0.995122967462730965
+  average_gae: false
+  skip_existing: false
+ppo_opts:
+  clip_epsilon: 0.2
+  entropy_bonus: true
+  entropy_coef: 0.075
+  critic_coef: 1.0
+  loss_critic_type: smooth_l1
+  normalize_advantage: true
+  separate_losses: true
+data_collector_opts:
+  split_trajs: false
+  compile_policy: false
+  exploration_type: RANDOM
+extra_env_transforms: []
+# =============================================================================
+# END BALLAST
+# =============================================================================
+
+# ── Random policy — no weights needed ─────────────────────────────────────────
+policy_config: ${cls:flipper_training.policies.random_policy.RandomPolicyConfig}
+policy_opts:
+  linear_speed: null        # null → each robot gets a random speed in [linear_speed_min, linear_speed_max]
+  linear_speed_min: 0.1
+  linear_speed_max: 1.0
+  angular_speed: 0.0        # 0 = drive straight; non-zero = constant turning
+  sync_flippers: false      # true → FL=FR and RL=RR (2 sine sets); false → 4 independent
+  amp_min: 0.1              # flipper velocity amplitude bounds
+  amp_max: 4.0
+  freq_min: 0.001           # sinusoid frequency in rad/step (~1 cycle / 1257 steps)
+  freq_max: 0.6            # sinusoid frequency in rad/step (~1 cycle / 126 steps)
+  seed: 42
+
+policy_weights_path: ""
+vecnorm_weights_path: ""
+
+# ── Observation encoder opts (synced from ftr_config_A_new.yaml) ──────────────
+# The random policy ignores observations; these just configure the env adapter.
+ftr_obs_encoder_opts:
+  num_hidden: 3
+  hidden_dim: 256
+  output_dim: 128
+  layernorm: true
+
+vecnorm_opts:
+  decay: 0.99
+  eps: 0.0001
+vecnorm_on_reward: true
+
+# ── Physics safety limits (synced from ftr_config_A_new.yaml) ─────────────────
+robot_max_linear_velocity: 10.0
+robot_max_angular_velocity: 720.0
+physx_gpu_heap_capacity: 2147483648
+physx_gpu_temp_buffer_capacity: 1073741824
+physx_gpu_max_num_partitions: 8
+solver_position_iterations: 5
+solver_velocity_iterations: 1
+max_depenetration_velocity: 0.12354395702544713
+sim_dt: 0.005
+
+# Raw per-robot acceleration logging — saved to /tmp/ftr_eval_rand_<timestamp>/raw_accel.npz
+# (or pass --accel_out <path> to override). Disable with log_raw_accel: false.
+log_raw_accel: true
+log_raw_accel_interval: 50    # flush every N reward steps
+
+# ── Env config overrides (synced from ftr_config_A_new.yaml) ──────────────────
+env_cfg_overrides:
+  # ── Terminal rewards ──────────────────────────────────────────────────────
+  goal_reached_reward: 150
+  failed_reward: -35
+
+  # ── Potential-based shaping ───────────────────────────────────────────────
+  shaping_coef: 50
+  shaping_gamma: ${gae_opts.gamma}
+  step_penalty: -0.5
+
+  # ── Movement bonus ────────────────────────────────────────────────────────
+  action_bonus_coef: 3
+  lin_action_ratio: 0.4
+  flipper_action_bonus_coef: 2
+
+  timeout_penalty: null
+
+  # ── Stability penalties ───────────────────────────────────────────────────
+  joint_vel_variance_coef: null
+  joint_angle_variance_coef: 0.2
+  joint_ang_from_flat_coef: 0.2
+  flipper_contact_coef: null
+  roll_coef: 1.5
+  roll_rate_coef: null
+  pitch_coef: 2
+  pitch_rate_coef: 2.5
+  clearance_coef: 0.01
+
+  # Shock penalty: coef * clamp((accel - threshold) / scale, 0, 1).
+  # Deadzone threshold fixed at 11 m/s²; scale=10 → full penalty at 21 m/s².
+  shock_coef: 5
+  shock_scale: 10
+
+  # ── Flipper & spawn settings ──────────────────────────────────────────────
+  flipper_pos_max_deg: 90.0
+  spawn_yaw_range: 0.0
+  flipper_material_friction: 3.0
+  wheel_material_friction: 6.0
+  terrain_static_friction: 0.9
+  terrain_dynamic_friction: 0.7
+  shock_fail_limit: null

@@ -1,0 +1,74 @@
+# Optuna Stage 1: Reward shaping + GAE parameters
+# Searches the reward landscape while keeping optimization and physics params fixed.
+#
+# Usage:
+#   slurm/optuna_ftr.sbatch  with  -o configs/optuna_ftr_stage1_rewards.yaml
+#
+# After this study completes, extract best params and paste them into
+# optuna_ftr_stage2_optim.yaml under frozen_params.
+
+study_name: "ftr_v9_stage1_rewards"
+directions:
+  - maximize
+metrics_to_optimize:
+  - "eval/success_rate"
+num_trials: 150
+gpu: 0
+
+optuna_keys:
+  # --- Reward shaping ---
+  - "env_cfg_overrides.goal_reached_reward"
+  - "env_cfg_overrides.failed_reward"
+  - "env_cfg_overrides.shaping_coef"
+  - "env_cfg_overrides.step_penalty"
+  - "env_cfg_overrides.action_bonus_coef"
+  - "env_cfg_overrides.joint_vel_variance_coef"
+  - "env_cfg_overrides.joint_angle_variance_coef"
+  - "env_cfg_overrides.flipper_contact_coef"
+  - "env_cfg_overrides.roll_coef"
+  - "env_cfg_overrides.roll_rate_coef"
+  - "env_cfg_overrides.pitch_coef"
+  - "env_cfg_overrides.pitch_rate_coef"
+  - "env_cfg_overrides.clearance_coef"
+  - "env_cfg_overrides.shock_coef"
+
+
+optuna_types:
+  - float       # goal_reached_reward
+  - float       # failed_reward
+  - float       # shaping_coef
+  - float       # step_penalty
+  - float       # action_bonus_coef
+  - float       # joint_vel_variance_coef
+  - float       # joint_angle_variance_coef
+  - float       # flipper_contact_coef
+  - float       # roll_coef
+  - float       # roll_rate_coef
+  - float       # pitch_coef
+  - float       # pitch_rate_coef
+  - float       # clearance_coef
+  - float       # shock_coef
+
+optuna_values:
+  - [1.0, 40.0]         # goal_reached_reward
+  - [-20.0, -1.0]       # failed_reward
+  - [1.0, 50.0]         # shaping_coef
+  - [-1.0, -0.01]       # step_penalty
+  - [0.0, 5.0]          # action_bonus_coef
+  - [0.0, 5.0]         # joint_vel_variance_coef
+  - [0.0, 5.0]         # joint_angle_variance_coef
+  - [0.0, 0.001]         # flipper_contact_coef
+  - [0.0, 2.0]          # roll_coef
+  - [0.0, 2.0]          # roll_rate_coef
+  - [0.0, 2.0]          # pitch_coef
+  - [0.0, 2.0]          # pitch_rate_coef
+  - [-3.0, 0.0]         # clearance_coef (negative = penalty for low clearance)
+  - [0.98, 0.9999]      # gae gamma
+  - [0.92, 0.99]        # gae lmbda
+
+train_config_overrides:
+  use_wandb: true
+  use_tensorboard: false
+  eval_repeats_after_training: 10
+  total_frames: 5242880
+  num_robots: 128

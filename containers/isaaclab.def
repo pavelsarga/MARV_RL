@@ -1,0 +1,60 @@
+Bootstrap: docker
+From: continuumio/miniconda3
+
+%files
+    # Copy your local (cleaned) environment.yml into the root of the container
+    environment.yml /environment.yml
+
+%post
+    export DEBIAN_FRONTEND=noninteractive
+    
+    # 1. Install basic system dependencies required for compiling Python packages and rendering
+    apt-get update && apt-get install -y \
+        gcc \
+        g++ \
+        make \
+        cmake \
+        libgl1 \
+        libglx-mesa0 \
+        libglib2.0-0 \
+        git
+        
+    # 2. Update Conda
+    conda update -n base -c defaults conda
+
+    # 3. Create a minimal Conda environment with Python 3.10
+    conda create -n isaaclab python=3.10 pip -y
+
+    # 4. Extract the pip section from environment.yml and install via pip
+    # --extra-index-url is required for isaacsim/omni packages hosted on pypi.nvidia.com
+    # Exclude omni-isaac-lab* packages — they are not on PyPI, installed from source below
+    awk '/^  - pip:/{found=1; next} found && /^      - /{print substr($0, 9)} found && !/^      - /{found=0}' /environment.yml \
+        | grep -v '^omni-isaac-lab' \
+        | grep -v '^robomimic' \
+        > /pip_requirements.txt
+    /opt/conda/envs/isaaclab/bin/pip install --extra-index-url https://pypi.nvidia.com -r /pip_requirements.txt
+    /opt/conda/envs/isaaclab/bin/pip install optuna==4.3.0 psycopg2-binary==2.9.10 sqlalchemy==2.0.40 
+    # 5. Install packages not available on PyPI — install from source via git tags
+
+    # robomimic v0.4.0 (not on PyPI, tagged on GitHub)
+    /opt/conda/envs/isaaclab/bin/pip install git+https://github.com/ARISE-Initiative/robomimic.git@v0.4.0
+
+    # Isaac Lab v1.2.0 from source (omni-isaac-lab, omni-isaac-lab-assets, omni-isaac-lab-tasks)
+    git clone --depth 1 --branch v1.2.0 https://github.com/isaac-sim/IsaacLab.git /opt/IsaacLab
+    /opt/conda/envs/isaaclab/bin/pip install -e /opt/IsaacLab/source/extensions/omni.isaac.lab
+    /opt/conda/envs/isaaclab/bin/pip install -e /opt/IsaacLab/source/extensions/omni.isaac.lab_assets
+    /opt/conda/envs/isaaclab/bin/pip install -e /opt/IsaacLab/source/extensions/omni.isaac.lab_tasks
+
+    # 6. Clean up to reduce the final container size (.sif)
+    conda clean --all --yes
+    apt-get clean && rm -rf /var/lib/apt/lists/*
+
+%environment
+    # Add the 'isaaclab' environment to the system PATH so it runs automatically
+    export PATH="/opt/conda/envs/isaaclab/bin:$PATH"
+    # Pre-accept Isaac Sim / Omniverse EULA — avoids write to read-only SIF at runtime
+    export OMNI_KIT_ACCEPT_EULA=Y
+
+%runscript
+    # Pass any commands provided to 'singularity run' or 'singularity exec'
+    exec "$@"

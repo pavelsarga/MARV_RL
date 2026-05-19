@@ -1,0 +1,41 @@
+INFO:    underlay of /usr/bin/nvidia-cuda-mps-server required more than 50 (375) bind mounts
+2026-05-13 13:50:46 [787ms] [Error] [omni.ext.plugin] Could not load the dynamic library from /opt/conda/envs/isaaclab/lib/python3.10/site-packages/isaacsim/extscache/omni.usd.libs-1.0.1+10a4b5c0.lx64.r.cp310/bin/libMaterialXRenderHw.so. Error: libXt.so.6: cannot open shared object file: No such file or directory (note that this may be caused by a dependent library)
+2026-05-13 13:50:46 [791ms] [Error] [omni.ext.plugin] Could not load the dynamic library from /opt/conda/envs/isaaclab/lib/python3.10/site-packages/isaacsim/extscache/omni.usd.libs-1.0.1+10a4b5c0.lx64.r.cp310/bin/libMaterialXRenderGlsl.so. Error: libXt.so.6: cannot open shared object file: No such file or directory (note that this may be caused by a dependent library)
+2026-05-13 13:50:46 [792ms] [Error] [omni.ext.plugin] Could not load the dynamic library from /opt/conda/envs/isaaclab/lib/python3.10/site-packages/isaacsim/extscache/omni.usd.libs-1.0.1+10a4b5c0.lx64.r.cp310/bin/libusdBakeMtlx.so. Error: libXt.so.6: cannot open shared object file: No such file or directory (note that this may be caused by a dependent library)
+2026-05-13 13:50:46 [1,421ms] [Error] [omni.datastore] Failed to acquire exclusive lock to data store (64>=64)
+2026-05-13 13:50:46 [1,421ms] [Error] [omni.datastore] Failed to create local file data store at '/opt/conda/envs/isaaclab/lib/python3.10/site-packages/omni/cache/Kit/106.1/10a4b5c0/PhysXLocalMeshCache/LocalDS0'
+2026-05-13 13:50:47 [1,804ms] [Error] [omni.kit.stage_templates.new_stage] Failed to create directory /opt/conda/envs/isaaclab/lib/python3.10/site-packages/omni/data/documents/Kit/apps/Isaac-Sim/scripts/new_stage
+2026-05-13 13:50:49 [4,734ms] [Error] [omni.kit.app.plugin] failed to open file '/opt/conda/envs/isaaclab/lib/python3.10/site-packages/omni/data/Kit/Isaac-Sim/4.2/user.config.json' - unable to save the dictionary
+2026-05-13 13:50:50 [5,305ms] [Error] [gpu.foundation.plugin] No device could be created. Some known system issues:
+- The driver is not installed properly and requires a clean re-install.
+- Your GPUs do not support RayTracing: DXR or Vulkan ray_tracing, or hardware is excluded due to performance.
+- The driver cannot enumerate any GPU: driver, display, TCC mode or a docker issue. For Vulkan, test it with Vulkaninfo tool from Vulkan SDK, instead of nvidia-smi.
+- For Ubuntu, it requires server-xorg-core 1.20.7+ and a display to work without --no-window.
+- For Linux dockers, the setup is not complete. Install the latest driver, xServer and NVIDIA container runtime.
+
+2026-05-13 13:50:50 [5,307ms] [Error] [gpu.foundation.plugin] Invalid getDeviceInfo parameters.
+2026-05-13 13:50:51 [6,021ms] [Error] [omni.kvdb.plugin] Unexpected key-value database error
+2026-05-13 13:50:51 [6,051ms] [Error] [omni.kit.app.plugin] failed to open file '/opt/conda/envs/isaaclab/lib/python3.10/site-packages/omni/data/Kit/Isaac-Sim/4.2/user.config.json' - unable to save the dictionary
+/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torchrl/data/replay_buffers/samplers.py:34: UserWarning: Failed to import torchrl C++ binaries. Some modules (eg, prioritized replay buffers) may not work with your installation. This is likely due to a discrepancy between your package version and the PyTorch version. Make sure both are compatible. Usually, torchrl majors follow the pytorch majors within a few days around the release. For instance, TorchRL 0.5 requires PyTorch 2.4.0, and TorchRL 0.6 requires PyTorch 2.5.0.
+  warnings.warn(EXTENSION_WARNING)
+/opt/conda/envs/isaaclab/lib/python3.10/site-packages/wandb/sdk/internal/internal_api.py:13: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import parse_version
+2026-05-13 13:50:57 [12,670ms] [Error] [omni.kit.app.plugin] failed to open file '/opt/conda/envs/isaaclab/lib/python3.10/site-packages/omni/data/Kit/Isaac-Sim/4.2/user.config.json' - unable to save the dictionary
+2026-05-13 13:51:01 [16,309ms] [Error] [omni.physx.plugin] PhysX error: The application needs to increase PxGpuDynamicsMemoryConfig::foundLostAggregatePairsCapacity to 85936128, otherwise, the simulation will miss interactions, FILE /builds/omniverse/physics/physx/source/gpubroadphase/src/PxgAABBManager.cpp, LINE 1269
+2026-05-13 13:51:09 [23,981ms] [Error] [omni.kvdb.plugin] Unexpected key-value database error
+2026-05-13 13:51:09 [23,989ms] [Error] [omni.kit.app.plugin] failed to open file '/opt/conda/envs/isaaclab/lib/python3.10/site-packages/omni/data/Kit/Isaac-Sim/4.2/user.config.json' - unable to save the dictionary
+/opt/conda/envs/isaaclab/lib/python3.10/site-packages/optuna/_experimental.py:31: ExperimentalWarning: Argument ``multivariate`` is an experimental feature. The interface can change in the future.
+  warnings.warn(
+/opt/conda/envs/isaaclab/lib/python3.10/site-packages/optuna/_experimental.py:31: ExperimentalWarning: Argument ``group`` is an experimental feature. The interface can change in the future.
+  warnings.warn(
+/opt/conda/envs/isaaclab/lib/python3.10/site-packages/optuna/_experimental.py:31: ExperimentalWarning: Argument ``constant_liar`` is an experimental feature. The interface can change in the future.
+  warnings.warn(
+[I 2026-05-13 15:51:09,713] Using an existing study with name 'rand_policy_optuna_v1' instead of creating a new one.
+/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torchrl/envs/transforms/transforms.py:6557: FutureWarning: The VecNorm class is to be deprecated in favor of `torchrl.envs.VecNormV2` and will be replaced by that class in v0.10. You can adapt to these changes by using the `new_api` argument or importing the `VecNormV2` class from `torchrl.envs`.
+  warnings.warn(
+/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torchrl/envs/transforms/transforms.py:6648: FutureWarning: This class is to be deprecated in favor of :class:`~torchrl.envs.VecNormV2`.
+  warnings.warn(
+2026-05-13 13:51:10 [25,097ms] [Error] [omni.physx.plugin] PhysX error: The application needs to increase PxGpuDynamicsMemoryConfig::foundLostAggregatePairsCapacity buffers to 85444992, otherwise, the simulation will miss interactions, FILE /builds/omniverse/physics/physx/source/gpubroadphase/src/PxgAABBManager.cpp, LINE 1280
+[I 2026-05-13 16:33:33,648] Trial 6 finished with value: 0.089185984724083 and parameters: {'policy_opts.linear_speed': 0.27115906618560903, '_amp': 0.5426298311976759, '_freq': 0.002788359680865845, 'policy_opts.sync_flippers': True}. Best is trial 3 with value: 0.24629646075029496.
+/opt/conda/envs/isaaclab/lib/python3.10/multiprocessing/resource_tracker.py:224: UserWarning: resource_tracker: There appear to be 1 leaked semaphore objects to clean up at shutdown
+  warnings.warn('resource_tracker: There appear to be %d '

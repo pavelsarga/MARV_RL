@@ -1,0 +1,80 @@
+# Optuna hyperparameter search config for FTR-Crossing-Potential-v0
+# Used by: optuna_train_ftr.py
+# Run via: slurm/optuna_ftr.sbatch  (SLURM array — one trial per job)
+#
+# Metric: eval/success_rate  (from FtrTorchRLEnv.pop_termination_info(), averaged
+#         over eval_repeats_after_training rollouts at the end of each training run)
+#
+# Search space: 12 parameters
+#   Rewards (7): goal/fail bonuses, potential shaping, step penalty,
+#                joint-velocity variance, roll/pitch rate penalties
+#   Architecture (3): actor & value LR (log scale), encoder hidden dim
+#   PPO (2): entropy coefficient (log scale), LR schedule end factor
+
+study_name: "ftr_potential_optuna_v1"
+directions:
+  - maximize
+metrics_to_optimize:
+  - "eval/success_rate"
+num_trials: 100           # total trials across all SLURM array tasks
+gpu: 0                    # CUDA_VISIBLE_DEVICES inside each process
+
+# -----------------------------------------------------------------------
+# Keys use OmegaConf dotlist notation → nested into the training config.
+# Reward params sit under env_cfg_overrides.*
+# Architecture params sit under policy_opts.* and ftr_obs_encoder_opts.*
+# -----------------------------------------------------------------------
+optuna_keys:
+  # --- Reward shaping ---
+  - "env_cfg_overrides.goal_reached_reward"
+  - "env_cfg_overrides.failed_reward"
+  - "env_cfg_overrides.shaping_coef"
+  - "env_cfg_overrides.step_penalty"
+  - "env_cfg_overrides.joint_vel_variance_coef"
+  - "env_cfg_overrides.roll_rate_coef"
+  - "env_cfg_overrides.pitch_rate_coef"
+  # --- Learning rates (log scale) ---
+  - "policy_opts.actor_optimizer_opts.lr"
+  - "policy_opts.value_optimizer_opts.lr"
+  # --- Encoder size ---
+  - "ftr_obs_encoder_opts.hidden_dim"
+  # --- PPO / schedule ---
+  - "ppo_opts.entropy_coef"
+  - "scheduler_opts.end_factor"
+
+optuna_types:
+  - float       # goal_reached_reward
+  - float       # failed_reward
+  - float       # shaping_coef
+  - float       # step_penalty
+  - float       # joint_vel_variance_coef
+  - float       # roll_rate_coef
+  - float       # pitch_rate_coef
+  - log_float   # actor lr
+  - log_float   # value lr
+  - categorical # encoder hidden_dim
+  - log_float   # entropy_coef
+  - float       # scheduler end_factor
+
+optuna_values:
+  - [1.0, 20.0]         # goal_reached_reward
+  - [-20.0, -1.0]       # failed_reward
+  - [5.0, 50.0]         # shaping_coef
+  - [-1.0, -0.05]       # step_penalty
+  - [0.1, 5.0]          # joint_vel_variance_coef
+  - [0.0, 2.0]          # roll_rate_coef
+  - [0.0, 2.0]          # pitch_rate_coef
+  - [0.00005, 0.002]    # actor lr
+  - [0.0001, 0.005]     # value lr
+  - [128, 256, 512]     # encoder hidden_dim (categorical)
+  - [0.001, 0.1]        # entropy_coef
+  - [0.05, 1.0]         # scheduler end_factor
+
+# Applied on top of the base training config before sampling begins.
+# Shorter total_frames and fewer envs keep each trial fast enough for grid search.
+train_config_overrides:
+  use_wandb: false
+  use_tensorboard: false
+  eval_repeats_after_training: 3      # average over 3 rollouts for stable success-rate signal
+  total_frames: 5242880               # ~5M frames (~1/6 of full training) for fast trials
+  num_robots: 128                     # lighter footprint; overridden by --num_envs if passed

@@ -1,0 +1,27 @@
+# Env-type name mapping for cur_mixed terrain (cur_mixed.json birth config).
+#
+# Index i = robot i % num_env_types.  First 15 rows are obstacle lanes in the
+# cur_mixed terrain (Y ≈ 23.3 … -21.5, robots traverse in -X direction ~4.8 m).
+# Index 15 is the flat patch adjacent to the terrain (+X side).
+#
+# Pass to eval_ftr.py / eval_ftr_rand.py with:
+#   --env_names_yaml configs/cur_mixed_env_names.yaml  --num_env_types 16
+#
+# Modify names below to match your understanding of the terrain layout.
+
+0:  raised_platform         # Y≈23.3  — thin parallel ridges / rails, close spacing
+1:  lowered_platform        # Y≈20.1  — parallel ridges, wider spacing
+2:  rails                   # Y≈16.9  — small irregular block clusters
+3:  diag_rail               # Y≈13.7  — shallow ascending steps
+4:  asymmetric_platform     # Y≈10.5  — taller ascending steps / staircase
+5:  diag_mound              # Y≈ 7.3  — shallow descending steps
+6:  trenches                # Y≈ 4.1  — taller descending steps
+7:  cobblestone             # Y≈ 0.9  — sinusoidal / rolling terrain
+8:  steps_lowered           # Y≈-2.3  — narrow longitudinal trenches / gaps
+9:  steps_raised            # Y≈-5.5  — wider trenches
+10: large_blocks            # Y≈-8.7  — raised platform / uplift obstacles
+11: medium_blocks           # Y≈-11.9 — fine crosshatch / grating pattern
+12: diag_blocks             # Y≈-15.1 — coarser crosshatch pattern
+13: diag_platform           # Y≈-18.3 — scattered irregular debris blocks
+14: large_steps             # Y≈-21.5 — combination of multiple obstacle types
+15: flat_patch              # flat ground patch adjacent to the terrain (+X side)
