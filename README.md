@@ -1,6 +1,6 @@
 # MARV_RL
 
-Reinforcement learning experiments for autonomous flipper control of the MARV tracked robot, trained in the [FTR-Bench](https://github.com/leggedrobotics/FTR-Benchmark) rigid-body simulator (IsaacLab / PhysX).
+Reinforcement learning experiments for autonomous flipper control of the MARV tracked robot, trained in modified [FTR-Bench](github.com/pavelsarga/FTR-Benchmark) rigid-body simulator (IsaacLab / PhysX).
 
 The trained policy controls all four flippers and the robot's velocity simultaneously, enabling autonomous traversal of unstructured terrain without operator input.
 
