@@ -20,7 +20,7 @@ apptainer exec --nv \
     --bind "$WS/src/flipper_training":/local/flipper_training/src/flipper_training \
     --env OMNI_KIT_ACCEPT_EULA=Y \
     --env WANDB_DIR=/ws/logs/run_0_$$ \
-    --env WANDB_API_KEY=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 \
+    --env WANDB_API_KEY=${WANDB_API_KEY} \
     --env CUDA_LAUNCH_BLOCKING=1 \
     "$SIF" \
     conda run -n isaaclab --no-capture-output \
@@ -38,7 +38,7 @@ apptainer exec --nv \
     --bind "$WS/src/flipper_training":/local/flipper_training/src/flipper_training \
     --env OMNI_KIT_ACCEPT_EULA=Y \
     --env WANDB_DIR=/ws/logs/run_1_$$ \
-    --env WANDB_API_KEY=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 \
+    --env WANDB_API_KEY=${WANDB_API_KEY} \
     --env CUDA_LAUNCH_BLOCKING=1 \
     "$SIF" \
     conda run -n isaaclab --no-capture-output \
