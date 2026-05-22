@@ -82,7 +82,7 @@ policy_opts:
   amp_min: 1.0311              # flipper velocity amplitude bounds
   amp_max: 1.0311
   freq_min: 0.053048           # sinusoid frequency in rad/step (~1 cycle / 1257 steps)
-  freq_max: 0.05            # sinusoid frequency in rad/step (~1 cycle / 126 steps)
+  freq_max: 0.0531           # sinusoid frequency in rad/step (~1 cycle / 126 steps)
   seed: 42
 
 policy_weights_path: ""
