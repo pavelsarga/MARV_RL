@@ -94,7 +94,7 @@ Training logs and checkpoints are saved to `logs/<run_name>/`. W&B logging is en
 
 ---
 
-## Hyperparameter search (Optuna)
+## Hyperparameter search ([Optuna](https://doi.org/10.1145/3292500.3330701))
 
 ```bash
 # Local Optuna run
@@ -138,8 +138,8 @@ Results and per-environment heatmaps are saved under `experiments/`.
 
 ## Method summary
 
-- **Algorithm:** Proximal Policy Optimization (PPO) with Generalized Advantage Estimation (GAE)
-- **Simulator:** FTR-Bench (IsaacLab / NVIDIA PhysX rigid-body)
+- **Algorithm:** [Proximal Policy Optimization (PPO)](https://arxiv.org/abs/1707.06347) with [Generalized Advantage Estimation (GAE)](https://arxiv.org/abs/1506.02438)
+- **Simulator:** [FTR-Bench](github.com/pavelsarga/FTR-Benchmark) ([IsaacLab](https://isaac-sim.github.io/IsaacLab/main/index.html) / NVIDIA PhysX rigid-body)
 - **Observations:** 45×21 robot-centric heightmap (processed by a CNN encoder) + linear/angular velocity, flipper positions, pitch/roll, goal vector
 - **Actions:** Linear velocity, angular velocity, 4 independent flipper joint velocities
 - **Reward:** Multi-component — goal progress, forward motion bonus, flipper action bonus, roll/pitch stability penalties, shock penalty, clearance penalty
