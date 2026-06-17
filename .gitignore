@@ -50,3 +50,5 @@ htmlcov/
 *.npz
 
 containers/*.sif
+
+CLAUDE.md
