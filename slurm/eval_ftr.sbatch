@@ -104,8 +104,8 @@ COMMAND="apptainer exec --nv \
     --env OMNI_KIT_ACCEPT_EULA=Y \
     $SIF \
     conda run -n isaaclab --no-capture-output \
-    env PYTHONPATH=/ws/src/FTR-benchmark:/ws/src/flipper_training \
-    python /ws/src/flipper_training/flipper_training/experiments/ppo/eval_ftr.py \
+    env PYTHONPATH=/ws/src/FTR-Benchmark:/ws/src/flipper_training \
+    python /ws/src/flipper_training/marv_rl_training/ppo/eval_ftr.py \
     --headless --num_env_types 16 --max_steps 2000 $@"
 
 echo "Executing:"

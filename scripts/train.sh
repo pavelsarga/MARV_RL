@@ -54,8 +54,8 @@ WANDB_API_KEY=${WANDB_API_KEY} \
 WANDB_PROJECT=flipper_training \
 WANDB_DIR=$WS/logs/wandb \
 conda run -n isaaclab --no-capture-output \
-    env PYTHONPATH=$WS/src/FTR-benchmark:$WS/src/flipper_training \
-    python $WS/src/flipper_training/flipper_training/experiments/ppo/train_ftr.py \
+    env PYTHONPATH=$WS/src/FTR-Benchmark:$WS/src/flipper_training \
+    python $WS/src/flipper_training/marv_rl_training/ppo/train_ftr.py \
     --config $WS/configs/$CONFIG \
     --headless $@
 

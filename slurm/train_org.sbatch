@@ -20,9 +20,8 @@ echo "########################################################################"
 echo "Setting up environment..."
 WS=/home/sargapav/robot_rodeo_gym_ws
 SIF=$WS/containers/isaaclab_optuna.sif
-CONFIG=ftr_config_optuna_best_v4.yaml
+CONFIG=ftr_config_optuna_best_v5.yaml
 LOGDIR=$WS/logs/${SLURM_JOB_NAME}_${SLURM_JOB_ID}
-mkdir -p $LOGDIR $WS/logs/wandb
 cp $WS/configs/$CONFIG $LOGDIR/
 
 export WANDB_INIT_TIMEOUT=1000
@@ -85,12 +84,12 @@ while true; do
         --env OMNI_KIT_ACCEPT_EULA=Y \
         --env CUDA_VISIBLE_DEVICES=0 \
         --env WANDB_API_KEY=${WANDB_API_KEY} \
-        --env WANDB_PROJECT=flipper_training_v2 \
+        --env WANDB_PROJECT=flipper_training_v3 \
         --env WANDB_DIR=/ws/logs/wandb \
         $SIF \
         conda run -n isaaclab --no-capture-output \
-        env PYTHONPATH=/ws/src/FTR-benchmark:/ws/src/flipper_training \
-        python /ws/src/flipper_training/flipper_training/experiments/ppo/train_ftr.py \
+        env PYTHONPATH=/ws/src/FTR-Benchmark:/ws/src/flipper_training \
+        python /ws/src/flipper_training/marv_rl_training/ppo/train_ftr.py \
         --config /ws/configs/$CONFIG \
         --headless $@"
 

@@ -16,7 +16,7 @@ mkdir -p "$LOGDIR0" "$LOGDIR1"
 echo "Starting GPU 0 → config: $CONFIG0  logs: $LOGDIR0"
 apptainer exec --nv \
     --bind "$WS":/ws \
-    --bind "$WS/src/FTR-benchmark":/local/flipper_training/src/FTR-benchmark \
+    --bind "$WS/src/FTR-Benchmark":/local/flipper_training/src/FTR-Benchmark \
     --bind "$WS/src/flipper_training":/local/flipper_training/src/flipper_training \
     --env OMNI_KIT_ACCEPT_EULA=Y \
     --env WANDB_DIR=/ws/logs/run_0_$$ \
@@ -24,8 +24,8 @@ apptainer exec --nv \
     --env CUDA_LAUNCH_BLOCKING=1 \
     "$SIF" \
     conda run -n isaaclab --no-capture-output \
-    env PYTHONPATH=/ws/src/FTR-benchmark:/ws/src/flipper_training \
-    python /ws/src/flipper_training/flipper_training/experiments/ppo/train_ftr.py \
+    env PYTHONPATH=/ws/src/FTR-Benchmark:/ws/src/flipper_training \
+    python /ws/src/flipper_training/marv_rl_training/ppo/train_ftr.py \
     --config "/ws/configs/$CONFIG0" \
     --headless --gpu 0 "$@" \
     > "$LOGDIR0/output.log" 2>&1 &
@@ -34,7 +34,7 @@ PID0=$!
 echo "Starting GPU 1 → config: $CONFIG1  logs: $LOGDIR1"
 apptainer exec --nv \
     --bind "$WS":/ws \
-    --bind "$WS/src/FTR-benchmark":/local/flipper_training/src/FTR-benchmark \
+    --bind "$WS/src/FTR-Benchmark":/local/flipper_training/src/FTR-Benchmark \
     --bind "$WS/src/flipper_training":/local/flipper_training/src/flipper_training \
     --env OMNI_KIT_ACCEPT_EULA=Y \
     --env WANDB_DIR=/ws/logs/run_1_$$ \
@@ -42,8 +42,8 @@ apptainer exec --nv \
     --env CUDA_LAUNCH_BLOCKING=1 \
     "$SIF" \
     conda run -n isaaclab --no-capture-output \
-    env PYTHONPATH=/ws/src/FTR-benchmark:/ws/src/flipper_training \
-    python /ws/src/flipper_training/flipper_training/experiments/ppo/train_ftr.py \
+    env PYTHONPATH=/ws/src/FTR-Benchmark:/ws/src/flipper_training \
+    python /ws/src/flipper_training/marv_rl_training/ppo/train_ftr.py \
     --config "/ws/configs/$CONFIG1" \
     --headless --gpu 1 "$@" \
     > "$LOGDIR1/output.log" 2>&1 &

@@ -48,10 +48,12 @@ fi
 RUN_DIR="$1"
 shift
 
-# Detect --plot_heightmap in remaining args and force --num_envs 1
+# Detect --plot_heightmap / --print_actions in remaining args and force --num_envs 1
 PLOT_HEIGHTMAP=0
+PRINT_ACTIONS=0
 for arg in "$@"; do
     [[ "$arg" == "--plot_heightmap" ]] && PLOT_HEIGHTMAP=1
+    [[ "$arg" == "--print_actions" ]]  && PRINT_ACTIONS=1
 done
 if [ "$PLOT_HEIGHTMAP" -eq 1 ]; then
     # Inject --num_envs 1 unless the user already passed --num_envs
@@ -59,6 +61,12 @@ if [ "$PLOT_HEIGHTMAP" -eq 1 ]; then
         set -- "--num_envs" "1" "$@"
     fi
     echo "Heightmap mode: forcing num_envs=1. Plots will be saved to /tmp/ftr_eval_<timestamp>/ on the host."
+fi
+if [ "$PRINT_ACTIONS" -eq 1 ]; then
+    if ! echo "$@" | grep -q "\-\-num_envs"; then
+        set -- "--num_envs" "1" "$@"
+    fi
+    echo "Action-print mode: forcing num_envs=1."
 fi
 
 # Rewrite host-relative paths to the container mount point
@@ -102,7 +110,7 @@ set -- "${NEW_ARGS_PATHS[@]}"
 # ---------------------------------------------------------------------------
 # Environment — mirrors train_org.sbatch exactly
 # ---------------------------------------------------------------------------
-SIF=$WS/containers/isaaclab.sif
+SIF=$WS/containers/isaaclab_optuna.sif
 
 mkdir -p $WS/logs $WS/logs/wandb $WS/logs/isaac_cache $WS/logs/isaac_logs $WS/logs/isaac_data
 
@@ -196,7 +204,7 @@ else
 fi
 apptainer exec --nv \
     --bind $WS:/ws \
-    --bind "$WS/src/FTR-benchmark":/local/flipper_training/src/FTR-benchmark \
+    --bind "$WS/src/FTR-Benchmark":/local/flipper_training/src/FTR-Benchmark \
     --bind "$WS/src/flipper_training":/local/flipper_training/src/flipper_training \
     --bind "$WS/logs/isaac_cache":/opt/conda/envs/isaaclab/lib/python3.10/site-packages/omni/cache \
     --bind "$WS/logs/isaac_logs":/opt/conda/envs/isaaclab/lib/python3.10/site-packages/omni/logs \
@@ -205,12 +213,12 @@ apptainer exec --nv \
     --env OMNI_KIT_ACCEPT_EULA=Y \
     --env WANDB_API_KEY=${WANDB_API_KEY} \
     --env WANDB_PROJECT=${WANDB_PROJECT} \
-    --env PYTHONPATH=/ws/src/FTR-benchmark:/ws/src/flipper_training \
+    --env PYTHONPATH=/ws/src/FTR-Benchmark:/ws/src/flipper_training \
     --env LD_LIBRARY_PATH=/host_libs:\$LD_LIBRARY_PATH \
     $SIF \
     conda run -n isaaclab --no-capture-output \
-    env PYTHONPATH=/ws/src/FTR-benchmark:/ws/src/flipper_training \
-    python -m flipper_training.experiments.ppo.eval_ftr \
+    env PYTHONPATH=/ws/src/FTR-Benchmark:/ws/src/flipper_training \
+    python -m marv_rl_training.ppo.eval_ftr \
     --rundir "$RUN_DIR" \
     --max_steps 2000 \
     --num_env_types 16 \

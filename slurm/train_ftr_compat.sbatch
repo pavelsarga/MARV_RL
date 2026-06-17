@@ -78,7 +78,7 @@ while true; do
         --env WANDB_DIR=/ws/logs/wandb \
         --env PYTHONPATH=/ws/src/flipper_training \
         $SIF \
-        python3.12 -m flipper_training.experiments.ppo.train_ftr_compat \
+        python3.12 -m marv_rl_training.ppo.train_ftr_compat \
         --local /ws/configs/$CONFIG \
         use_wandb=true \
         $@"

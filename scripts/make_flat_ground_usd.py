@@ -15,7 +15,7 @@ Usage — run inside the Isaac Sim conda container:
 
   apptainer exec --nv <container.sif> \\
     conda run -n isaaclab python /ws/scripts/make_flat_ground_usd.py \\
-      /ws/src/FTR-benchmark/ftr_envs/assets/terrain/usd/flat_patch.usd
+      /ws/src/FTR-Benchmark/ftr_envs/assets/terrain/usd/flat_patch.usd
 
   # Or with any Python that has 'pxr' (pip install usd-core):
   python make_flat_ground_usd.py flat_patch.usd --width 16 --depth 16

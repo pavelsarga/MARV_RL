@@ -65,8 +65,8 @@ COMMAND="apptainer exec --nv \
     --env OMNI_KIT_ACCEPT_EULA=Y \
     $SIF \
     conda run -n isaaclab --no-capture-output \
-    env PYTHONPATH=/ws/src/FTR-benchmark:/ws/src/flipper_training \
-    python /ws/src/flipper_training/flipper_training/experiments/ppo/eval_optuna_top.py \
+    env PYTHONPATH=/ws/src/FTR-Benchmark:/ws/src/flipper_training \
+    python /ws/src/flipper_training/marv_rl_training/ppo/eval_optuna_top.py \
     --num_envs 512 \
     --headless $@"
 

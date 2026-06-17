@@ -49,8 +49,8 @@ apptainer exec --nv \
     --env LD_LIBRARY_PATH=/host_libs:\$LD_LIBRARY_PATH \
     $SIF \
     conda run -n isaaclab --no-capture-output \
-    env PYTHONPATH=/ws/src/FTR-benchmark:/ws/src/flipper_training \
-    python /ws/src/flipper_training/flipper_training/experiments/ppo/eval_optuna_top.py \
+    env PYTHONPATH=/ws/src/FTR-Benchmark:/ws/src/flipper_training \
+    python /ws/src/flipper_training/marv_rl_training/ppo/eval_optuna_top.py \
     --headless \
     "$@"
 

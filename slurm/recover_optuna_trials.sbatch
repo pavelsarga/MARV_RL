@@ -72,8 +72,8 @@ srun apptainer exec --nv \
     --env OMNI_KIT_ACCEPT_EULA=Y \
     $SIF \
     conda run -n isaaclab --no-capture-output \
-    env PYTHONPATH=/ws/src/FTR-benchmark:/ws/src/flipper_training \
-    python -m flipper_training.experiments.ppo.recover_optuna_trials \
+    env PYTHONPATH=/ws/src/FTR-Benchmark:/ws/src/flipper_training \
+    python -m marv_rl_training.ppo.recover_optuna_trials \
     --trial_num "$TRIAL_NUM" \
     --optuna_config "$OPTUNA_CONFIG" \
     --headless

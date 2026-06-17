@@ -52,7 +52,7 @@ echo "========================================================================"
 
 apptainer exec --nv \
     --bind $WS:/ws \
-    --bind "$WS/src/FTR-benchmark":/local/flipper_training/src/FTR-benchmark \
+    --bind "$WS/src/FTR-Benchmark":/local/flipper_training/src/FTR-Benchmark \
     --bind "$WS/src/flipper_training":/local/flipper_training/src/flipper_training \
     --bind "$WS/logs/isaac_cache":/opt/conda/envs/isaaclab/lib/python3.10/site-packages/omni/cache \
     --bind "$WS/logs/isaac_logs":/opt/conda/envs/isaaclab/lib/python3.10/site-packages/omni/logs \
@@ -61,12 +61,12 @@ apptainer exec --nv \
     --env OMNI_KIT_ACCEPT_EULA=Y \
     --env WANDB_API_KEY="${WANDB_API_KEY}" \
     --env WANDB_PROJECT="${WANDB_PROJECT}" \
-    --env PYTHONPATH=/ws/src/FTR-benchmark:/ws/src/flipper_training \
+    --env PYTHONPATH=/ws/src/FTR-Benchmark:/ws/src/flipper_training \
     --env LD_LIBRARY_PATH=/host_libs:\$LD_LIBRARY_PATH \
     $SIF \
     conda run -n isaaclab --no-capture-output \
-    env PYTHONPATH=/ws/src/FTR-benchmark:/ws/src/flipper_training \
-    python -m flipper_training.experiments.ppo.recover_optuna_trials \
+    env PYTHONPATH=/ws/src/FTR-Benchmark:/ws/src/flipper_training \
+    python -m marv_rl_training.ppo.recover_optuna_trials \
     --trial_num "$TRIAL_NUM" \
     --optuna_config "$OPTUNA_CONFIG" \
     --headless \

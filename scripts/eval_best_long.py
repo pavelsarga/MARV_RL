@@ -31,8 +31,8 @@ from tensordict import TensorDict
 from torchrl.envs.utils import ExplorationType, set_exploration_type
 
 import flipper_training  # noqa: F401 — registers OmegaConf resolvers
-from flipper_training.experiments.ppo.ftr_policy_inference_module import FtrPolicyInferenceModule
-from flipper_training.experiments.ppo.train_ftr_compat import _build_env
+from marv_rl_training.ppo.ftr_policy_inference_module import FtrPolicyInferenceModule
+from marv_rl_training.ppo.train_ftr_compat import _build_env
 from flipper_training.engine.engine_state import PhysicsState, PhysicsStateDer
 from flipper_training.environment.env import Env
 from flipper_training.utils.torch_utils import seed_all

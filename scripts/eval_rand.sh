@@ -125,7 +125,7 @@ fi
 
 apptainer exec --nv \
     --bind $WS:/ws \
-    --bind "$WS/src/FTR-benchmark":/local/flipper_training/src/FTR-benchmark \
+    --bind "$WS/src/FTR-Benchmark":/local/flipper_training/src/FTR-Benchmark \
     --bind "$WS/src/flipper_training":/local/flipper_training/src/flipper_training \
     --bind "$WS/logs/isaac_cache":/opt/conda/envs/isaaclab/lib/python3.10/site-packages/omni/cache \
     --bind "$WS/logs/isaac_logs":/opt/conda/envs/isaaclab/lib/python3.10/site-packages/omni/logs \
@@ -134,12 +134,12 @@ apptainer exec --nv \
     --env OMNI_KIT_ACCEPT_EULA=Y \
     --env WANDB_API_KEY=${WANDB_API_KEY} \
     --env WANDB_PROJECT=${WANDB_PROJECT} \
-    --env PYTHONPATH=/ws/src/FTR-benchmark:/ws/src/flipper_training \
+    --env PYTHONPATH=/ws/src/FTR-Benchmark:/ws/src/flipper_training \
     --env LD_LIBRARY_PATH=/host_libs:\$LD_LIBRARY_PATH \
     $SIF \
     conda run -n isaaclab --no-capture-output \
-    env PYTHONPATH=/ws/src/FTR-benchmark:/ws/src/flipper_training \
-    python /ws/src/flipper_training/flipper_training/experiments/ppo/eval_ftr_rand.py \
+    env PYTHONPATH=/ws/src/FTR-Benchmark:/ws/src/flipper_training \
+    python /ws/src/flipper_training/marv_rl_training/ppo/eval_ftr_rand.py \
     --config "$CONFIG" \
     --max_steps 2000 \
     --num_env_types 16 \

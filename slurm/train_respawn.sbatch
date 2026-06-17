@@ -79,8 +79,8 @@ while true; do
         --env WANDB_DIR=/ws/logs/wandb \
         $SIF \
         conda run -n isaaclab --no-capture-output \
-        env PYTHONPATH=/ws/src/FTR-benchmark:/ws/src/flipper_training \
-        python /ws/src/flipper_training/flipper_training/experiments/ppo/train_ftr.py \
+        env PYTHONPATH=/ws/src/FTR-Benchmark:/ws/src/flipper_training \
+        python /ws/src/flipper_training/marv_rl_training/ppo/train_ftr.py \
         --config /ws/configs/$CONFIG \
         --headless $@"
 

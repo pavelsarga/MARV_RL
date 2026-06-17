@@ -101,7 +101,7 @@ if [[ "$DB_URL" == sqlite://* ]]; then
             --bind $WS:/ws \
             $SIF \
             conda run -n isaaclab --no-capture-output \
-            env PYTHONPATH=/ws/src/FTR-benchmark:/ws/src/flipper_training \
+            env PYTHONPATH=/ws/src/FTR-Benchmark:/ws/src/flipper_training \
             python -c "
 import optuna, pathlib
 from optuna.storages import RDBStorage
@@ -176,8 +176,8 @@ COMMAND="apptainer exec --nv \
     --env SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt \
     $SIF \
     conda run -n isaaclab --no-capture-output \
-    env PYTHONPATH=/ws/src/FTR-benchmark:/ws/src/flipper_training \
-    python /ws/src/flipper_training/flipper_training/experiments/ppo/optuna_train_ftr.py \
+    env PYTHONPATH=/ws/src/FTR-Benchmark:/ws/src/flipper_training \
+    python /ws/src/flipper_training/marv_rl_training/ppo/optuna_train_ftr.py \
     --train_config  $TRAIN_CONFIG \
     --optuna_config $OPTUNA_CONFIG \
     --headless $@"
