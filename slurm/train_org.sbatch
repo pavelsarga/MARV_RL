@@ -5,7 +5,7 @@
 #SBATCH --tasks-per-node=1
 #SBATCH --gres=gpu:1
 #SBATCH --partition=amdgpulong
-#SBATCH --job-name=train_ftr
+#SBATCH --job-name=train_marv
 #SBATCH --output=/home/sargapav/robot_rodeo_gym_ws/logs/%x_%j/%x_%j.out
 #SBATCH --error=/home/sargapav/robot_rodeo_gym_ws/logs/%x_%j/%x_%j.err
 
@@ -53,7 +53,7 @@ SECRETS_FILE="${WS}/secrets/wandb.env"
 if [[ -f "$SECRETS_FILE" ]]; then
     chmod 600 "$SECRETS_FILE"
     source "$SECRETS_FILE"
-    echo "W&B project : flipper_training"
+    echo "W&B project : MARV_RL"
 else
     echo "ERROR: ${SECRETS_FILE} not found — upload it to the cluster before submitting."
     exit 1
@@ -84,7 +84,7 @@ while true; do
         --env OMNI_KIT_ACCEPT_EULA=Y \
         --env CUDA_VISIBLE_DEVICES=0 \
         --env WANDB_API_KEY=${WANDB_API_KEY} \
-        --env WANDB_PROJECT=flipper_training_v3 \
+        --env WANDB_PROJECT=MARV_RL \
         --env WANDB_DIR=/ws/logs/wandb \
         $SIF \
         conda run -n isaaclab --no-capture-output \
