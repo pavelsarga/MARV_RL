@@ -44,7 +44,7 @@ The training environment requires an NVIDIA GPU and the `isaaclab` conda environ
 
 ```bash
 # Clone with submodules
-git clone --recurse-submodules <repo-url>
+git clone --recurse-submodules git@github.com:pavelsarga/MARV_RL.git
 cd MARV_RL
 ```
 
