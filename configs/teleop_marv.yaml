@@ -1,0 +1,40 @@
+# Config for scripts/teleop.py — load with CONFIG=teleop_marv.yaml bash scripts/teleop.sh
+robot_type: marv
+terrain: cur_mixed
+num_envs: 1
+device: cuda:0
+js: /dev/input/js0
+
+# Pin every reset to a specific terrain_cfg.birth spawn point instead of the env's normal
+# round-robin cycling, so the same obstacle/terrain section is reproducible across runs.
+# null -> normal cycling behavior. Run with --list_spawns to see available indices.
+spawn_index: null
+
+v_sensitivity: 0.95
+w_sensitivity: 1.5
+flipper_sensitivity: 0.4
+dead_zone: 0.05
+
+# Original task default (episode_length_s=30, decimation=5, sim_dt=0.005) truncates and
+# respawns the env every 1200 steps, which cuts off manual driving/climbing sessions.
+# A very large value effectively disables the timeout for teleop use.
+episode_length_s: 1200.0
+
+# wheel1 (the lead, big-radius wheel on every flipper) intermittently gets its joint
+# velocity kicked to a large negative value under load — see notebooks/eval_analysis.ipynb
+# and CLAUDE.md history for context. Track it live during teleop to keep gathering data.
+track_wheel1_glitch: true
+glitch_vel_threshold: -10.0  # rad/s — flag a step where any wheel1 joint velocity drops below this
+glitch_log: null             # null -> auto path under logs/teleop_wheel1_<timestamp>.csv
+
+# wheel1 collision-only radius scale, for the wheel-size snag experiment (1.0 = unchanged).
+wheel1_radius_scale: 1.0
+
+# Match the Optuna-tuned solver/timestep settings from configs/best_long_config_marv.yaml —
+# parse_env_cfg's registered defaults (dt=0.0025, position=16, velocity=4, depenetration=0.15)
+# are NOT what train_ftr.py/eval_ftr.py actually run with, and were causing extra
+# bouncing/depenetration in teleop that the trained policy never sees during eval.
+solver_position_iterations: 5
+solver_velocity_iterations: 1
+sim_dt: 0.005
+max_depenetration_velocity: 0.12354395702544713
