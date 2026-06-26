@@ -24,7 +24,7 @@ training_dtype: ${dtype:float32}
 num_robots: 1024
 task: Ftr-Crossing-Direct-v0
 terrain: cur_mixed
-total_frames: ${mul:5242880,12}
+total_frames: ${mul:5242880,14}
 time_steps_per_batch: 128
 epochs_per_batch: 5
 frames_per_sub_batch: 4096

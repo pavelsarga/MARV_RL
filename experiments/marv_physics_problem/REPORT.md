@@ -3,6 +3,22 @@
 Working notes from the session investigating why MARV (unlike FTR) struggles with
 slow/laboured movement, bouncing, and getting stuck while climbing in the IsaacLab sim.
 
+## STATUS: PRIMARY OBJECTIVE MET
+
+`./scripts/eval.sh experiments/marv_physics_problem/attempt_0/ --num_envs 64 --repeats 4`
+
+```
+eval/success_rate    0.1239   ← target was > 0.1 ✓
+eval/explosion_rate  0.0000   ← zero explosions
+eval/failure_rate    0.0192
+state/lin_velocity   0.0839 m/s (mean)
+state/lin_velocity_max 0.480 m/s
+```
+
+The two root-cause fixes that got here:
+1. **`flipper_wheel` stiffness=0** (Finding #17) — eliminated phantom restoring torque
+2. **`disable_flipper_arm_collision: true`** (Finding #21) — eliminated overlapping rigid-body contact instability at wheel1 pivot
+
 ## Tooling added
 
 - `scripts/teleop.py` + `scripts/teleop.sh` + `configs/teleop_marv.yaml` /
@@ -446,6 +462,79 @@ the differentiator.
   ground contact (e.g. terrain-mesh resolution instead of wheel radius) — lower
   priority; wheel size may still matter for chatter rate even though it couldn't be
   cleanly isolated from "loses contact entirely."
+
+---
+
+## Finding #21 — MARV flipper arm body has overlapping collision geometry with child wheel links
+
+**Discovery (mass distribution / contact force investigation session).**
+
+Reading the MARV URDF xacro (`marv.xacro`, `rendering_target=urdf` branch) and comparing
+the generated USD collision geometry against FTR's structure revealed the following:
+
+The MARV flipper arm **link body** (the prim at the revolute pivot joint, with
+`flipper_mass = 1e-05 kg` — effectively massless) is imported with its OWN collision
+geometry directly from the URDF:
+
+- 3 box shapes spanning the arm length (top belt surface, angled-upper, angled-lower)  
+- 1 big cylinder at the pivot end (radius = 0.1165 m = big wheel radius)
+- 1 small cylinder at the far end (radius = 0.0780 m = small wheel radius)
+
+The 5 driven **fake-wheel child links** (`front_left_flipper_wheel1` … `wheel5`)
+are added as revolute-joint children of the arm body in the URDF — but after URDF
+import by Isaac Sim, they become **sibling prims** in the USD stage (flat articulation
+hierarchy). Each fake-wheel link has its own cylinder collision prim.
+
+**Problem**: `wheel1` (the biggest, pivot-end fake wheel) has `joint_origin = (0, 0, 0)`
+relative to the arm body — i.e., it sits **at exactly the same location** as the arm
+body's big cylinder collision shape. Both are radius 0.1165 m, both are cylinders
+oriented along Y. `wheel5` similarly overlaps the arm body's small cylinder at the
+far end.
+
+This creates **two rigid bodies at the same position both contacting terrain**:
+- Arm body: mass ≈ 0 kg, big cylinder at pivot (same position as wheel1)
+- Wheel1 link: mass = 0.73 kg, cylinder at pivot
+
+Having two distinct contact constraints at the same geometry vertex, from two bodies
+with a ~73000:1 mass ratio, forces PhysX's velocity solver to process two separate
+contact manifolds at the same point. This is a documented source of contact
+instability in PhysX — the near-zero-mass body prevents consistent impulse
+apportionment, producing velocity spikes (the observed wheel1 "glitch") and
+solver oscillation (the jerky/sluggish motion).
+
+**Fix**: `MarvWheelArticulation.set_robot_env` now calls `disable_collision_geometry()`
+on each flipper arm link prim (`{container}/front_left_flipper`, etc.), disabling ALL
+collision shapes on the arm body (walks the prim subtree, sets
+`physics:collisionEnabled = False` on each prim carrying `UsdPhysics.CollisionAPI`).
+The 5 driven wheel cylinders (on the child-link sibling prims) are **not** under those
+prim paths in the USD stage, so they remain active.
+
+Net result: only the 5 fake-wheel cylinder prims contact terrain per flipper. These
+already span the full arm length (wheel1 at pivot, wheel5 at far end, wheels 2-4
+evenly spaced between) and adequately approximate the continuous belt contact.
+
+**Config**: `disable_flipper_arm_collision: true` (default, set in `FtrEnvCfg` and
+propagated to `robot_config`). Expose via `env_cfg_overrides` in config YAML, or via
+`--no_disable_flipper_arm_collision` flag in `teleop.sh`.
+
+**Validated** (teleop_wheel1_20260627_000544.csv, 3005 steps, 75 s sim time):
+
+| Metric | Before fix | After fix | Change |
+|--------|-----------|-----------|--------|
+| Glitch rate (all wheels) | 1.85% | 0.54% | 3.4× reduction |
+| Median vx (driving steps) | 0.045 m/s | 0.102 m/s | 2.3× improvement |
+| Max vx | 0.570 m/s | 1.011 m/s | 1.8× (exceeds FTR teleop 0.675 m/s) |
+| Phantom torque growth | yes (first fix eliminated it) | none (torques decrease 84→35 N·m avg over session) | clean |
+
+User subjective assessment: "felt a thousand times better."
+
+Remaining glitches (0.54%) have SHIFTED from wheel1-dominated to **wheel5-dominated**
+(FL5=64, FR5=48, RL5=40 vs FL1=19, FR1=20 before fix). Wheel5 is the small-radius
+(0.078 m) wheel at the flipper tip — it experiences lever-arm amplification of the
+contact forces from the flipper's far end. Wheel5 also shows the highest torques
+(max 9764 N·m for FL5). This is a different mechanism from the arm-body overlap that
+was causing wheel1 instability. Possibly addressable by extending the contact-offset
+fix to wheel5 (was deprioritized in Finding #2/#4).
 
 ---
 

@@ -106,6 +106,14 @@ parser.add_argument("--wheel1_radius_scale", type=float,
                           "radius used for velocity targets is unaffected). 1.0 = unchanged. "
                           "Use e.g. 0.7 to test whether wheel1's larger contact geometry "
                           "(vs FTR's smaller equivalent) makes it snag terrain more often.")
+parser.add_argument("--no_disable_flipper_arm_collision", action="store_true",
+                     default=False,
+                     help="MARV only: disable the fix that removes the flipper arm body's own "
+                          "collision geometry. By default the arm body collision (3 boxes + 2 "
+                          "end cylinders from the URDF) is disabled because it exactly overlaps "
+                          "the driven child wheel-link cylinders at the pivot and far end, "
+                          "creating two contact bodies at the same point simultaneously. "
+                          "Pass this flag to revert to the original overlapping geometry.")
 parser.add_argument("--wheel_armature", type=float,
                      default=_file_cfg.get("wheel_armature", 0.0),
                      help="flipper_wheel actuator armature (currently unset -> 0.0 in both "
@@ -491,6 +499,7 @@ def main() -> None:
     # and respawns the env every 1200 steps, cutting off manual teleop sessions.
     env_cfg.episode_length_s = args_cli.episode_length_s
     env_cfg.wheel1_collision_radius_scale = args_cli.wheel1_radius_scale
+    env_cfg.disable_flipper_arm_collision = not args_cli.no_disable_flipper_arm_collision
     if args_cli.wheel_armature != 0.0:
         env_cfg.robot.actuators["flipper_wheel"].armature = args_cli.wheel_armature
     if args_cli.wheel_stiffness is not None:

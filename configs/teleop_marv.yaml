@@ -12,7 +12,7 @@ spawn_index: null
 
 v_sensitivity: 0.95
 w_sensitivity: 1.5
-flipper_sensitivity: 0.4
+flipper_sensitivity: 1.0
 dead_zone: 0.05
 
 # Original task default (episode_length_s=30, decimation=5, sim_dt=0.005) truncates and
@@ -29,6 +29,14 @@ glitch_log: null             # null -> auto path under logs/teleop_wheel1_<times
 
 # wheel1 collision-only radius scale, for the wheel-size snag experiment (1.0 = unchanged).
 wheel1_radius_scale: 1.0
+
+# Disable the flipper arm link's own collision geometry (the 3 boxes + 2 cylinders from the URDF
+# track model). The flipper arm body (mass=1e-05 kg) has collision shapes that physically overlap
+# with the child wheel1 (big cylinder at pivot) and wheel5 (small cylinder at far end) links.
+# Having two bodies at identical positions both contacting terrain creates duplicate contact
+# manifolds and PhysX solver instability. When true, only the 5 driven wheel cylinders contact
+# terrain. Set false to revert to the URDF-imported collision geometry.
+disable_flipper_arm_collision: true
 
 # Match the Optuna-tuned solver/timestep settings from configs/best_long_config_marv.yaml —
 # parse_env_cfg's registered defaults (dt=0.0025, position=16, velocity=4, depenetration=0.15)
