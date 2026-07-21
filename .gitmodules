@@ -4,3 +4,6 @@
 [submodule "src/FTR-Benchmark"]
 	path = src/FTR-Benchmark
 	url = git@github.com:pavelsarga/FTR-Benchmark.git
+[submodule "src/FTR-Bench-terrain-gen"]
+	path = src/FTR-Bench-terrain-gen
+	url = git@github.com:pavelsarga/FTR-Bench-terrain-gen.git

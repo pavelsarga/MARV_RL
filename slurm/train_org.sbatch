@@ -20,7 +20,7 @@ echo "########################################################################"
 echo "Setting up environment..."
 WS=/home/sargapav/robot_rodeo_gym_ws
 SIF=$WS/containers/isaaclab_optuna.sif
-CONFIG=marv_native_coldstart.yaml
+CONFIG=marv_asym_limits.yaml
 LOGDIR=$WS/logs/${SLURM_JOB_NAME}_${SLURM_JOB_ID}
 cp $WS/configs/$CONFIG $LOGDIR/
 

@@ -174,7 +174,7 @@ objective_opts: {}
 
 # Optional explicit heightmap generator override (instead of auto-resolving from terrain name).
 # Example — use FTR terrain at a custom map path:
-#   heightmap_gen: ${cls:flipper_training.heightmaps.ftr_terrain.FtrTerrainPatchGenerator}
+#   heightmap_gen: ${cls:marv_rl_training.heightmaps.ftr_terrain.FtrTerrainPatchGenerator}
 #   heightmap_gen_opts:
 #     map_path: /path/to/ftr_envs/assets/terrain/map/cur_mixed.map
 #     z_offset: 0.5
