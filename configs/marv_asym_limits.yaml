@@ -1,20 +1,5 @@
-# Train a fresh MARV policy from scratch (cold start) on MARV's native, correct controls
-# (no legacy_ftr_turning bridge). The FTR-trained "best_long" checkpoint (ftr_optuna_smooth_v2
-# trial #160, 0.727 SR on FTR) is not used as a warm start here — its learned strategy is
-# unknown/unverified for MARV's geometry, so a cold start avoids inheriting any FTR-specific
-# bias (e.g. the near-fully-retracted rear-flipper habit observed during diagnosis) while
-# testing whether the stuck-at-ledge climbing failure is a policy/strategy problem rather
-# than a remaining physics bug.
-#
-# Physics-layer findings carried over unchanged from this debugging session:
-#   - friction is uniform across all wheels (verified) — not touched here.
-#   - solver_position_iterations/solver_velocity_iterations/sim_dt below are the
-#     Optuna-tuned values that minimize crashes — do not change without re-validating.
-#   - wheel1's contact-offset fix lives in code (MarvWheelArticulation.set_robot_env),
-#     applies automatically regardless of this config.
-name: marv_native_coldstart_asym_limits
-comment: Same as marv_native_coldstart but with per-direction flipper angle limits
-  (marv_flipper_{front,back}_{up,down}_deg) instead of a single symmetric ±flipper_pos_max_deg.
+name: marv_asym_limits
+comment: Marv, asymmetric flipper limits, new terrain
 use_wandb: true
 use_tensorboard: false
 seed: 42
@@ -22,7 +7,7 @@ device: cuda
 training_dtype: ${dtype:float32}
 num_robots: 1024
 task: Ftr-Crossing-Direct-v0
-terrain: cur_mixed
+terrain: custom_mixed
 total_frames: ${mul:5242880,14}
 time_steps_per_batch: 128
 epochs_per_batch: 5
@@ -134,10 +119,10 @@ env_cfg_overrides:
   # Asymmetric per-direction MARV flipper limits (degrees).
   # Front: up = negative angle, down = positive angle.
   # Rear:  up = positive angle, down = negative angle.
-  marv_flipper_front_up_deg: 60.0
-  marv_flipper_front_down_deg: 80.0
-  marv_flipper_back_up_deg: 60.0
-  marv_flipper_back_down_deg: 80.0
+  marv_flipper_front_up_deg: 45.0
+  marv_flipper_front_down_deg: 60.0
+  marv_flipper_back_up_deg: 45.0
+  marv_flipper_back_down_deg: 60.0
   spawn_yaw_range: 0.0
   flipper_material_friction: 3.0
   wheel_material_friction: 6.0
