@@ -1,5 +1,5 @@
 name: ftr_ppo_crossing_ground
-comment: matched to average_ensembled_policy — balanced all coefs, disabled action_bonus and clearance
+comment: Fine-tuning from FTR config A with modified reward coefficients and flipper limits to encourage more cautious traversal and reduce shock damage.
 use_wandb: true
 use_tensorboard: false
 seed: 42
@@ -8,18 +8,18 @@ device: cuda
 training_dtype: ${dtype:float32}
 
 # Number of parallel Isaac Sim environments
-num_robots: 512
+num_robots: 1024
 
 task: Ftr-Crossing-Direct-v0
-terrain: cur_mixed
+terrain: cur_uplifts
 
 # Training schedule
-total_frames: ${mul:5242880,8}
+total_frames: ${mul:5242880,12}
 time_steps_per_batch: 128
 epochs_per_batch: 5
 frames_per_sub_batch: 4096
 eval_and_save_every: 10
-eval_repeats: 4             # rollouts averaged per mid-training eval checkpoint
+eval_repeats: 3             # rollouts averaged per mid-training eval checkpoint
 eval_repeats_after_training: 20
 
 # Gradient clipping
@@ -34,7 +34,7 @@ optimizer_opts: {}
 scheduler: ${cls:torch.optim.lr_scheduler.LinearLR}
 scheduler_opts:
   start_factor: 1.0
-  end_factor: 0.85
+  end_factor: 0.8
   total_iters: ${intdiv:${total_frames},${mul:${time_steps_per_batch},${num_robots}}}
 
 # step_penalty scheduler — anneals the per-step penalty over training.
@@ -42,11 +42,22 @@ scheduler_opts:
 #   Linear: factor = start_factor + (end_factor - start_factor) * step / total_iters
 #   Exponential: factor = start_factor * (end_factor/start_factor)^(step/total_iters) — requires both factors > 0
 # null = disabled (step_penalty stays constant throughout training).
-# step_penalty scheduler — disabled (constant -0.379 throughout).
-step_penalty_scheduler: null
+step_penalty_scheduler:
+  type: linear
+  start_factor: 0.5
+  end_factor: 1.0   # step_penalty from 0 → -step_penalty
+  total_iters: ${intdiv:${intdiv:${total_frames},${mul:${time_steps_per_batch},${num_robots}}},1}
 
-# action_bonus_coef scheduler — disabled (action_bonus_coef is null).
-action_bonus_coef_scheduler: null
+# action_bonus_coef scheduler — anneals movement bonus coefficient over training.
+# type: 'linear' or 'exponential' (default: linear)
+#   Linear: factor = start_factor + (end_factor - start_factor) * step / total_iters
+#   Exponential: factor = start_factor * (end_factor/start_factor)^(step/total_iters) — requires both factors > 0
+# null = disabled (action_bonus_coef stays constant). Silently skipped if action_bonus_coef is null.
+action_bonus_coef_scheduler:
+  type: linear
+  start_factor: 1.0
+  end_factor: 1.0
+  total_iters: ${intdiv:${intdiv:${total_frames},${mul:${time_steps_per_batch},${num_robots}}},1} # decays over first 10% of iterations, then stays at end_factor
 
 # GAE
 gae_opts:
@@ -59,7 +70,7 @@ gae_opts:
 ppo_opts:
   clip_epsilon: 0.2
   entropy_bonus: true
-  entropy_coef: 0.05
+  entropy_coef: 0.075
   critic_coef: 1.0
   loss_critic_type: smooth_l1
   normalize_advantage: true
@@ -77,18 +88,18 @@ policy_opts:
   share_encoder: false
   apply_baselines_init: true
   actor_mlp_opts:
-    num_hidden: 2
+    num_hidden: 3
     hidden_dim: 64
     layernorm: false
   value_mlp_opts:
-    num_hidden: 2
+    num_hidden: 3
     hidden_dim: 64
     layernorm: true
   actor_optimizer_opts:
-    lr: 0.0004824297168107223
+    lr: 0.001
     weight_decay: 0.0001
   value_optimizer_opts:
-    lr: 0.0023065521662259366
+    lr: 0.008
     weight_decay: 0.0001
 
 # Observation encoder (FtrFlatObservation, 966-D input)
@@ -129,28 +140,35 @@ env_cfg_overrides:
   # ── Terminal rewards ──────────────────────────────────────────────────────
   # One-time bonus when robot reaches the goal.
   # Range: scalar (positive). Should be >> |step_penalty| * episode_len.
-  goal_reached_reward: 7.96
+  goal_reached_reward: 150
 
   # One-time penalty for failure (rollover / out-of-range).
   # Range: scalar (negative).
-  failed_reward: -7.74
+  failed_reward: -35
 
   # ── Potential-based shaping ───────────────────────────────────────────────
   # Per-step reward = coef * (prev_dist - gamma * curr_dist).
   # At 0.05 m/step progress with coef=20: ~1.0/step; zero when standing still.
   # Range: roughly [-coef*max_step, +coef*max_step] per step. Typical: 0–1/step.
-  shaping_coef: 38.23
+  shaping_coef: 50
 
   # Discount factor in the potential — should match gae_opts.gamma so shaping is unbiased.
   shaping_gamma: ${gae_opts.gamma}
 
   # Constant per-step penalty to encourage fast task completion.
   # Range: fixed scalar each step.
-  step_penalty: -0.379
+  step_penalty: -0.5
 
   # ── Movement bonus ────────────────────────────────────────────────────────
-  # Disabled: movement bonus is handled by shaping reward.
-  action_bonus_coef: null
+  # coef * (v_norm^3 * ratio + flipper_norm^3 * (1-ratio)), where v_norm = v/v_max.
+  # Range: [-coef, +coef]. Typical when moving forward at ~0.5 v_max: ~0.1*coef.
+  # Encourages movement early in training; can be reduced once shaping takes over.
+  action_bonus_coef: 6
+
+  # Blend in action bonus: 1.0 = pure linear-velocity bonus, 0.0 = pure flipper-action bonus.
+  # 0.5 = equal weight on forward velocity and flipper articulation.
+  lin_to_flipper_action_ratio: 0.3
+  lin_action_ratio: 0.4
 
   # One-time penalty on episode timeout (truncation, not failure). null = disabled.
   # Range: scalar (negative). Typical: -0.5.
@@ -158,47 +176,57 @@ env_cfg_overrides:
 
   # ── Stability penalties ───────────────────────────────────────────────────
   # Penalises variance of flipper velocity commands: coef * var(flipper_cmds).
-  # Range: [0, coef * large]. Spikes during rapid flipper changes.
-  joint_vel_variance_coef: 0.122
+  # Range: [0, coef * large]. Spikes during rapid flipper changes. null = disabled.
+  joint_vel_variance_coef: null
 
   # Penalises asymmetric flipper angles: coef * mean(|FL-FR| + |RL-RR|) / (2 * limit).
-  # Range: [0, coef]. 0 = perfectly symmetric, 1 = max asymmetry.
-  joint_angle_variance_coef: 0.080
+  # Range: [0, coef]. 0 = perfectly symmetric, 1 = max asymmetry. Typical on flat ground: 0–0.1.
+  joint_angle_variance_coef: 0.2
+
+  joint_ang_from_flat_coef: 0.2
 
   # Flipper-ground contact reward via torque: coef * sqrt(mean * min) of (torque / effort_limit).
-  # Disabled.
+  # Geometric mean over 4 flippers — all flippers must be loaded to get full reward.
+  # Range: [0, coef]. Idle torque ~50 Nm → ~0.05 normalised; full contact ~650 Nm → ~0.65.
+  # Typical when all flippers on ground: ~0.5–0.65 * coef.
   flipper_contact_coef: null
 
   # Penalises excessive roll: coef * clamp(4*(|roll| - deadzone) / π, 0, 1).
-  # Dead-zone below 15°; rises linearly to max at 90° (π/2).
-  roll_coef: 0.1
+  # Dead-zone below 15°; rises linearly to max at 90° (π/2). Typical on flat terrain: 0.
+  roll_coef: 1.5
 
   # Penalises roll rate: coef * |roll_rate| / π.
-  # Range: [0, coef * large]. At 1 rad/s: ~0.32 * coef.
-  roll_rate_coef: 0.1
+  # Range: [0, coef * large]. At 1 rad/s: ~0.32 * coef. Typical traversal: 0.1–0.3 * coef.
+  roll_rate_coef: null
 
-  # Penalises excessive pitch: coef * clamp(4*(|pitch| - deadzone) / π, 0, 1).
-  # Dead-zone below 7.5°; rises linearly to max at 90° (π/2).
-  pitch_coef: 0.1
+  # Penalises excessive roll: coef * clamp(4*(|roll| - deadzone) / π, 0, 1).
+  # Dead-zone below 7.5°; rises linearly to max at 90° (π/2). Typical on flat terrain: 0.
+  pitch_coef: 2
 
   # Penalises pitch rate: coef * |pitch_rate| / π.
-  # Range: [0, coef * large]. At 1 rad/s: ~0.32 * coef.
-  pitch_rate_coef: 0.1
+  # Range: [0, coef * large]. At 1 rad/s: ~0.32 * coef. On stairs: ~0.2–0.5 * coef.
+  pitch_rate_coef: 2.5
 
-  # Clearance penalty: disabled.
-  clearance_coef: null
+  clearance_coef: 0.01
 
-  # Shock penalty: disabled.
-  shock_coef: null
+  # Shock penalty: coef * (2 / (1 + exp(-accel / shock_scale)) - 1), applied as penalty.
+  # Maps acceleration [0, ∞) → [0, 1). At accel = shock_scale: ~0.46; at 2*shock_scale: ~0.76.
+  # Range: [0, coef). Typical light traversal: <0.1 * coef; hard falls: ~0.5–0.8 * coef.
+  shock_coef: 5
 
   # Sigmoid inflection point in m/s². Set to expected "moderate shock" acceleration.
   # At shock_scale the penalty is ~0.46 * coef; robot is penalised heavily beyond this.
   # Typical peak accel on hard falls: ~10–15 m/s². Recommended: 7–10.
-  shock_scale: 10
+  shock_scale: 20
 
   # ── Flipper & spawn settings ──────────────────────────────────────────────
   # null = lock flippers horizontal; 90.0 = full ±90° independent control (MARV), 60° for FTR.
-  flipper_pos_max_deg: 60.0
+  flipper_pos_max_deg: 90.0
 
   # ± yaw perturbation at spawn in degrees. 0 = always face the goal.
   spawn_yaw_range: 0.0
+  flipper_material_friction: 3.0
+  wheel_material_friction: 6.0                                                              
+  terrain_static_friction: 0.9                                                            
+  terrain_dynamic_friction: 0.7 
+  shock_fail_limit: 22.5

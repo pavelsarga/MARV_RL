@@ -61,7 +61,7 @@ data_collector_opts:
 # -----------------------------------------------------------------------
 # Heightmap flipper policy — no weights needed
 # -----------------------------------------------------------------------
-policy_config: ${cls:flipper_training.policies.heightmap_flipper_policy.HeightmapFlipperPolicyConfig}
+policy_config: ${cls:marv_rl_training.policies.heightmap_flipper_policy.HeightmapFlipperPolicyConfig}
 policy_opts:
   linear_speed: 0.4         # forward speed in [-1, 1]; override with --const_linear_vel
   angular_speed: 0.0        # 0 = drive straight

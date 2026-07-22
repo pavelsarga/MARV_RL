@@ -40,7 +40,7 @@ data_collector_opts:
   split_trajs: false
   compile_policy: false
   exploration_type: RANDOM
-policy_config: ${cls:flipper_training.policies.mlp_policy.MLPPolicyConfig}
+policy_config: ${cls:marv_rl_training.policies.mlp_policy.MLPPolicyConfig}
 policy_opts:
   share_encoder: false
   apply_baselines_init: true

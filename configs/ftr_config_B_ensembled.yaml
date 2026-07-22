@@ -171,8 +171,6 @@ env_cfg_overrides:
   terrain_static_friction: 0.9
   terrain_dynamic_friction: 0.7
   shock_fail_limit: null
-  flipper_style: ${ftr_obs_encoder_opts.flipper_style}
-  track_vel_max: 1.0   # match native v_max (default FtrEnvCfg=0.7 would clip policy outputs)
 
 # Raw per-robot acceleration logging
 log_raw_accel: true
