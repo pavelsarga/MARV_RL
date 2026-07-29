@@ -100,10 +100,11 @@ COMMAND="apptainer exec --nv \
     --env OMNI_KIT_ACCEPT_EULA=Y \
     --env REQUESTS_CA_BUNDLE=/etc/ssl/certs/ca-certificates.crt \
     --env SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt \
+    --env CURL_CA_BUNDLE=/etc/ssl/certs/ca-certificates.crt \
     $SIF \
     conda run -n isaaclab --no-capture-output \
     env PYTHONPATH=/ws/src/FTR-Benchmark:/ws/src/flipper_training \
-    python /ws/src/flipper_training/marv_rl_training/ppo/optuna_eval_rand.py \
+    python /ws/src/flipper_training/marv_rl_training/training/optuna_eval_rand.py \
     --config  $EVAL_CONFIG \
     --optuna_config $OPTUNA_CONFIG \
     --headless $@"

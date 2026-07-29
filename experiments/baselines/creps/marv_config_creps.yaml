@@ -1,0 +1,112 @@
+name: creps_pecka_pallet
+comment: >-
+  Constrained REPS (Pecka, Salansky, Zimmermann & Svoboda 2016, "Autonomous Flipper
+  Control with Safety Constraints"), context-free (single global upper-level
+  q(omega)=N(mu,Sigma) over a 6-D linear front/rear flipper control law — matching the
+  paper's own reported experiment, which never uses context either). Trained by
+  train_creps.py (NOT train_ftr.py — this is an episodic, gradient-free black-box policy
+  search, not PPO; see rl_modules/creps/creps_algorithm.py). The lower-level policy
+  (rl_modules/creps/creps_policy.py) is a deterministic linear controller: front =
+  omega1+omega2*pitch+omega3*height_ahead, rear = omega4+omega5*pitch+omega6*height_ahead,
+  reacting to CREPSObservation's 2-D state (pitch, terrain height ~20cm ahead). Forward
+  track velocity is held at fixed_forward_vel below (the paper's "robot automatically
+  driven forward by a constant speed") — not learned. Reward is literal distance
+  traveled over the env's native fixed 30s episode (episode_length_s, FtrEnvCfg's
+  default — matches the paper's fixed-duration rollout exactly). Safety/mechanical
+  constraints are read directly by train_creps.py's rollout loop from
+  env._fail_mask/env._explosion_mask (rollover / out-of-range / high-deceleration shock
+  / physics explosion) and env.last_action (raw pre-clamp flipper command vs [-1,1]) —
+  see train_creps.py's _run_creps_episode docstring.
+use_wandb: true
+use_tensorboard: false
+seed: 42
+device: cuda
+
+num_robots: 192          # total parallel envs = num_omega_samples(64) * num_executions_with_same_omega(3)
+task: Ftr-Crossing-Direct-v0
+# Single raised_platform pallet obstacle (src/FTR-Bench-terrain-gen/terrain_config_pecka_pallet.yaml)
+# — matches the paper's Fig. 3 task (a single low pallet: climb up, cross, descend).
+terrain: pecka_pallet
+num_iterations: 30        # K, paper: 10-30
+
+# eta's KL bound (exploration/exploitation trade-off — paper's toy example used 0.1, but
+# the real flipper experiment's value isn't stated numerically; this is a genuinely open
+# tuning parameter, start here and adjust based on train/ess and train/mean_safety).
+kl_epsilon: 0.5
+safety_delta: 0.8        # paper's own number: lower bound on expected safety compliance
+mechanical_delta: 0.9    # lower bound on expected mechanical-limit compliance (not given by the paper)
+
+# Initial upper-level Gaussian q(omega) = N(initial_omega_mean, diag(initial_omega_std^2)).
+# omega = [front_bias, front_pitch_coef, front_height_coef, rear_bias, rear_pitch_coef, rear_height_coef].
+initial_omega_mean: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+initial_omega_std: [0.3, 0.3, 0.3, 0.3, 0.3, 0.3]
+
+eval_and_save_every: 2
+cov_min_std: 0.001
+solver_eta_init: 1.0
+# Reference implementation's CREPSParameters defaults/config
+# (paper_repos/tradr-simulation/safe_exploration/src/constrained_reps/constrained_reps.py,
+# src/safe_exploration/gazebo_safe_exploration.py): each sampled omega is executed this
+# many times per iteration and its (reward, safety, mechanical) values averaged before
+# the dual solve (variance reduction) — num_robots must be evenly divisible by this.
+num_executions_with_same_omega: 3
+solver_eta_min: 0.01
+solver_dual_var_max: 1000000.0
+solver_max_optimization_trials: 10
+
+# CREPSEncoder takes no meaningful options (identity passthrough — see creps_observation.py).
+ftr_obs_encoder_opts: {}
+
+omega_weights_path: null
+
+robot_max_linear_velocity: 10.0
+robot_max_angular_velocity: 720.0
+physx_gpu_heap_capacity: 2147483648
+physx_gpu_temp_buffer_capacity: 1073741824
+physx_gpu_max_num_partitions: 8
+solver_position_iterations: 5
+solver_velocity_iterations: 1
+max_depenetration_velocity: 0.12354395702544713
+sim_dt: 0.005
+decimation: 20
+
+env_cfg_overrides:
+  # Routes FtrEnv's observations/rewards through CREPSModule (rl_modules/registry.py).
+  module_name: creps
+  # Front/rear flipper pairs, matching the paper's 2-D flipper action space (no per-side
+  # independent control).
+  sync_flipper_control: true
+  # Absolute positional control: the paper's action is an absolute flipper-angle target
+  # (not an increment/velocity) — same mode hfc/mitriakov use.
+  flipper_control_mode: position
+  # The paper's "robot automatically driven forward by a constant speed" — CREPSLowerLevelPolicy
+  # always emits v=0 itself; this override replaces it with a real constant regardless.
+  fixed_forward_vel: 0.4
+
+  robot_type: marv
+  # Matches Table 3/text's "-1, if tip over" style terminal penalties loosely — not
+  # actually used by CREPSModule's own reward (creps_module.py returns only
+  # distance_reward, no terminal bonus/masking), kept here only because CrossingEnvCfg
+  # requires these fields to exist; harmless no-ops for this module.
+  goal_reached_reward: 0.0
+  failed_reward: 0.0
+  timeout_penalty: 0.0
+  rollover_threshold_deg: 80.0
+  shock_scale: 4
+  # Non-null so shock_high_idx (part of _fail_mask, read by train_creps.py's safety
+  # signal) is actually computed — HFC/others disable this (null) but CREPS wants it.
+  shock_fail_limit: 20.0
+
+  # Flipper angle limits (degrees) — the outer envelope CREPSLowerLevelPolicy's raw
+  # linear output is mapped onto via FtrEnv's position-control [-1,1]->[low,high]
+  # mapping. Symmetric front/rear (the paper doesn't describe an asymmetric limit for
+  # this task, unlike mitriakov/hfc's staircase-specific asymmetric ranges).
+  marv_flipper_front_up_deg: 90.0
+  marv_flipper_front_down_deg: 90.0
+  marv_flipper_back_up_deg: 90.0
+  marv_flipper_back_down_deg: 90.0
+  spawn_yaw_range: 0.0
+  flipper_material_friction: 3.0
+  wheel_material_friction: 6.0
+  terrain_static_friction: 0.9
+  terrain_dynamic_friction: 0.7

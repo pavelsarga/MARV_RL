@@ -23,13 +23,20 @@
 #
 # Per-env-type CSV output (eval_summary.csv, eval_per_env.csv, eval_episodes.csv):
 #   ./scripts/eval.sh "..." --output_dir /tmp/eval_out
+#   Env-type count/names default to the terrain's layout — for generated terrains read
+#   straight from ftr_envs/assets/terrain/gen_config/<terrain>.yaml (env_type_registry.py
+#   in marv_rl_training/training/); --num_env_types overrides if you need a different count.
+#   The run's terrain (config `terrain:`) is recorded in <output_dir>/eval_terrain.json and
+#   its gen_config + preview plot copied to <output_dir>/terrain/ before the first rollout,
+#   so notebooks/eval_analysis.ipynb can label and group the results by terrain.
 #   ./scripts/eval.sh "..." --output_dir /tmp/eval_out --num_env_types 16 --repeats 5
 #   ./scripts/eval.sh "..." --output_dir /tmp/eval_out --env_names_yaml /ws/configs/env_names.yaml
 #   ./scripts/eval.sh "..." --output_dir /tmp/eval_out --eval_id my_run_label
 #   Host paths under the workspace root for --output_dir and --env_names_yaml are
 #   automatically rewritten to the container mount point /ws/.
 #
-# Available terrains: ground  cur_mixed  cur_stairs_up  exp_stair33_up
+# Available terrains: ground  cur_mixed  cur_stairs_up  exp_stair33_up  and everything under
+# ftr_envs/assets/terrain/gen_config/ (custom_mixed, pan_symmetric, mitriakov_stairs, ...)
 
 set -e
 
@@ -211,6 +218,9 @@ apptainer exec --nv \
     --bind "$WS/logs/isaac_data":/opt/conda/envs/isaaclab/lib/python3.10/site-packages/omni/data \
     --bind "$HOST_LIBS":/host_libs \
     --env OMNI_KIT_ACCEPT_EULA=Y \
+    --env SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt \
+    --env REQUESTS_CA_BUNDLE=/etc/ssl/certs/ca-certificates.crt \
+    --env CURL_CA_BUNDLE=/etc/ssl/certs/ca-certificates.crt \
     --env WANDB_API_KEY=${WANDB_API_KEY} \
     --env WANDB_PROJECT=${WANDB_PROJECT} \
     --env PYTHONPATH=/ws/src/FTR-Benchmark:/ws/src/flipper_training \
@@ -218,10 +228,9 @@ apptainer exec --nv \
     $SIF \
     conda run -n isaaclab --no-capture-output \
     env PYTHONPATH=/ws/src/FTR-Benchmark:/ws/src/flipper_training \
-    python -m marv_rl_training.ppo.eval_ftr \
+    python -m marv_rl_training.training.eval_ftr \
     --rundir "$RUN_DIR" \
     --max_steps 2000 \
-    --num_env_types 16 \
     "$@"
 
 EXIT_STATUS=$?

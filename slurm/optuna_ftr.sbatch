@@ -174,10 +174,11 @@ COMMAND="apptainer exec --nv \
     --env WANDB__NETWORK_BUFFER=60 \
     --env REQUESTS_CA_BUNDLE=/etc/ssl/certs/ca-certificates.crt \
     --env SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt \
+    --env CURL_CA_BUNDLE=/etc/ssl/certs/ca-certificates.crt \
     $SIF \
     conda run -n isaaclab --no-capture-output \
     env PYTHONPATH=/ws/src/FTR-Benchmark:/ws/src/flipper_training \
-    python /ws/src/flipper_training/marv_rl_training/ppo/optuna_train_ftr.py \
+    python /ws/src/flipper_training/marv_rl_training/training/optuna_train_ftr.py \
     --train_config  $TRAIN_CONFIG \
     --optuna_config $OPTUNA_CONFIG \
     --headless $@"

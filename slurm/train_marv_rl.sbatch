@@ -5,7 +5,7 @@
 #SBATCH --tasks-per-node=1
 #SBATCH --gres=gpu:1
 #SBATCH --partition=amdgpulong
-#SBATCH --job-name=train_marv
+#SBATCH --job-name=train_marv_rl
 #SBATCH --output=/home/sargapav/robot_rodeo_gym_ws/logs/%x_%j/%x_%j.out
 #SBATCH --error=/home/sargapav/robot_rodeo_gym_ws/logs/%x_%j/%x_%j.err
 
@@ -20,7 +20,7 @@ echo "########################################################################"
 echo "Setting up environment..."
 WS=/home/sargapav/robot_rodeo_gym_ws
 SIF=$WS/containers/isaaclab_optuna.sif
-CONFIG=marv_asym_limits.yaml
+CONFIG=marv_config_marv_rl.yaml
 LOGDIR=$WS/logs/${SLURM_JOB_NAME}_${SLURM_JOB_ID}
 cp $WS/configs/$CONFIG $LOGDIR/
 
@@ -58,8 +58,8 @@ else
     echo "ERROR: ${SECRETS_FILE} not found — upload it to the cluster before submitting."
     exit 1
 fi
-if ! getent hosts api.wandb.ai > /dev/null 2>&1; then                                     
-    echo "WARNING: Cannot resolve api.wandb.ai — running W&B in offline mode."                
+if ! getent hosts api.wandb.ai > /dev/null 2>&1; then
+    echo "WARNING: Cannot resolve api.wandb.ai — running W&B in offline mode."
     export WANDB_MODE=offline
 fi
 
@@ -86,10 +86,13 @@ while true; do
         --env WANDB_API_KEY=${WANDB_API_KEY} \
         --env WANDB_PROJECT=MARV_RL \
         --env WANDB_DIR=/ws/logs/wandb \
+        --env SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt \
+        --env REQUESTS_CA_BUNDLE=/etc/ssl/certs/ca-certificates.crt \
+        --env CURL_CA_BUNDLE=/etc/ssl/certs/ca-certificates.crt \
         $SIF \
         conda run -n isaaclab --no-capture-output \
         env PYTHONPATH=/ws/src/FTR-Benchmark:/ws/src/flipper_training \
-        python /ws/src/flipper_training/marv_rl_training/ppo/train_ftr.py \
+        python /ws/src/flipper_training/marv_rl_training/training/train_ftr.py \
         --config /ws/configs/$CONFIG \
         --headless $@"
 

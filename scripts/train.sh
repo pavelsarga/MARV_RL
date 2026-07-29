@@ -10,7 +10,12 @@ echo "########################################################################"
 echo "Setting up environment..."
 WS="$(cd "$(dirname "$0")/.." && pwd)"
 CONFIG=${CONFIG:-ftr_config_new_v2.yaml}
-RUN_NAME="train_ftr_$(date +%Y-%m-%d_%H-%M-%S)"
+# Must match CONFIG's trainer: train_ftr.py (PPO, FtrPPOConfig) / train_d3qn.py
+# (AT-D3QN, FtrD3QNConfig) / train_icmd3qn.py (ICM-D3QN, FtrICMD3QNConfig). Mismatching
+# these crashes immediately with e.g. "FtrPPOConfig.__init__() got an unexpected keyword
+# argument 'replay_buffer_capacity'" — the config dataclasses aren't interchangeable.
+TRAIN_SCRIPT=${TRAIN_SCRIPT:-train_ftr.py}
+RUN_NAME="${TRAIN_SCRIPT%.py}_$(date +%Y-%m-%d_%H-%M-%S)"
 LOGDIR=$WS/logs/$RUN_NAME
 mkdir -p $LOGDIR $WS/logs/wandb
 cp $WS/configs/$CONFIG $LOGDIR/
@@ -55,7 +60,7 @@ WANDB_PROJECT=flipper_training \
 WANDB_DIR=$WS/logs/wandb \
 conda run -n isaaclab --no-capture-output \
     env PYTHONPATH=$WS/src/FTR-Benchmark:$WS/src/flipper_training \
-    python $WS/src/flipper_training/marv_rl_training/ppo/train_ftr.py \
+    python $WS/src/flipper_training/marv_rl_training/training/$TRAIN_SCRIPT \
     --config $WS/configs/$CONFIG \
     --headless $@
 

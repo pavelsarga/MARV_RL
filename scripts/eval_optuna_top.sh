@@ -50,7 +50,7 @@ apptainer exec --nv \
     $SIF \
     conda run -n isaaclab --no-capture-output \
     env PYTHONPATH=/ws/src/FTR-Benchmark:/ws/src/flipper_training \
-    python /ws/src/flipper_training/marv_rl_training/ppo/eval_optuna_top.py \
+    python /ws/src/flipper_training/marv_rl_training/training/eval_optuna_top.py \
     --headless \
     "$@"
 

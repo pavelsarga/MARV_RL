@@ -28,6 +28,13 @@
 # Override with --output_dir (host or /ws/ path, auto-rewritten):
 #   sbatch slurm/eval_ftr.sbatch --rundir /ws/experiments/my_run --repeats 10
 #   sbatch slurm/eval_ftr.sbatch --rundir /ws/experiments/my_run --output_dir /ws/experiments --eval_id label
+#
+# Alongside the CSVs the job writes eval_terrain.json (which terrain this eval_id ran on,
+# its env-type row names and depth-column count, read from the run's config `terrain:`) and
+# copies that terrain's generator config + preview plot from
+# ftr_envs/assets/terrain/{gen_config,plot,birth,config}/ into <output_dir>/terrain/.
+# notebooks/eval_analysis.ipynb reads those to label and group its plots, so pull the whole
+# output directory back — not just the CSVs.
 
 echo "########################################################################"
 echo "Job ID: $SLURM_JOB_ID"
@@ -60,13 +67,16 @@ _rewrite_ws() {
 # Scan args: rewrite --rundir, --output_dir, --env_names_yaml values to
 # container paths; detect if --output_dir was explicitly set by the caller.
 CALLER_SET_OUTPUT_DIR=0
+CALLER_SET_POLICY=0
+RUN_DIR=""
 NEW_ARGS=()
 _next_is_rundir=0
 _next_is_output_dir=0
 _next_is_env_names=0
 for arg in "$@"; do
     if [ "$_next_is_rundir" -eq 1 ]; then
-        NEW_ARGS+=("$(_rewrite_ws "$arg")")
+        RUN_DIR="$(_rewrite_ws "$arg")"
+        NEW_ARGS+=("$RUN_DIR")
         _next_is_rundir=0
         continue
     fi
@@ -86,9 +96,31 @@ for arg in "$@"; do
         _next_is_output_dir=1
     fi
     [[ "$arg" == "--env_names_yaml" ]] && _next_is_env_names=1
+    [[ "$arg" == "--policy" ]] && CALLER_SET_POLICY=1
     NEW_ARGS+=("$arg")
 done
 set -- "${NEW_ARGS[@]}"
+
+# ── Auto-detect weights: use policy_final.pth if present, else the
+# highest-numbered policy_step_*.pth checkpoint (mirrors scripts/eval.sh).
+# Skipped if the caller already passed --policy explicitly. ──
+if [ -n "$RUN_DIR" ] && [ "$CALLER_SET_POLICY" -eq 0 ]; then
+    HOST_WEIGHTS_DIR="$WS/${RUN_DIR#/ws/}/weights"
+    if [ -f "$HOST_WEIGHTS_DIR/policy_final.pth" ]; then
+        echo "Weights: policy_final.pth  +  vecnorm_final.pth"
+    else
+        LATEST_POLICY=$(ls -v "$HOST_WEIGHTS_DIR"/policy_step_*.pth 2>/dev/null | tail -1)
+        LATEST_VECNORM=$(ls -v "$HOST_WEIGHTS_DIR"/vecnorm_step_*.pth 2>/dev/null | tail -1)
+        if [ -n "$LATEST_POLICY" ] && [ -n "$LATEST_VECNORM" ]; then
+            POLICY_FILE=$(basename "$LATEST_POLICY")
+            VECNORM_FILE=$(basename "$LATEST_VECNORM")
+            echo "No policy_final.pth found — auto-selecting latest checkpoint: $POLICY_FILE"
+            set -- "--policy" "$POLICY_FILE" "--vecnorm" "$VECNORM_FILE" "$@"
+        else
+            echo "WARNING: no weights found in $HOST_WEIGHTS_DIR"
+        fi
+    fi
+fi
 
 # Default --output_dir to the SLURM log directory (container path)
 if [ "$CALLER_SET_OUTPUT_DIR" -eq 0 ]; then
@@ -102,11 +134,14 @@ COMMAND="apptainer exec --nv \
     --bind $WS:/ws \
     --bind $WS/experiments/eval_top3_averaged/weights:/ws/experiments/eval_top3_averaged/weights \
     --env OMNI_KIT_ACCEPT_EULA=Y \
+    --env SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt \
+    --env REQUESTS_CA_BUNDLE=/etc/ssl/certs/ca-certificates.crt \
+    --env CURL_CA_BUNDLE=/etc/ssl/certs/ca-certificates.crt \
     $SIF \
     conda run -n isaaclab --no-capture-output \
     env PYTHONPATH=/ws/src/FTR-Benchmark:/ws/src/flipper_training \
-    python /ws/src/flipper_training/marv_rl_training/ppo/eval_ftr.py \
-    --headless --num_env_types 16 --max_steps 2000 $@"
+    python /ws/src/flipper_training/marv_rl_training/training/eval_ftr.py \
+    --headless --max_steps 2000 $@"
 
 echo "Executing:"
 echo "$COMMAND"

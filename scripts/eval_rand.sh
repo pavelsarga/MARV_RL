@@ -22,6 +22,11 @@
 #   ./scripts/eval_rand.sh configs/rand_policy_eval.yaml --output_dir /tmp/eval_out --eval_id rand_baseline
 #   Host paths under the workspace root for --output_dir and --env_names_yaml are
 #   automatically rewritten to the container mount point /ws/.
+#   The config's `terrain:` is recorded in <output_dir>/eval_terrain.json and its generator
+#   config + preview plot copied to <output_dir>/terrain/ before the first rollout, so
+#   notebooks/eval_analysis.ipynb can label and group the results by terrain. Env-type
+#   count/names default to that terrain's layout, read from
+#   ftr_envs/assets/terrain/gen_config/<terrain>.yaml — pass --num_env_types to override.
 #
 # To change policy parameters without editing the YAML, pass OmegaConf overrides:
 #   ./scripts/eval_rand.sh configs/rand_policy_eval.yaml policy_opts.linear_speed=0.5
@@ -132,6 +137,9 @@ apptainer exec --nv \
     --bind "$WS/logs/isaac_data":/opt/conda/envs/isaaclab/lib/python3.10/site-packages/omni/data \
     --bind "$HOST_LIBS":/host_libs \
     --env OMNI_KIT_ACCEPT_EULA=Y \
+    --env SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt \
+    --env REQUESTS_CA_BUNDLE=/etc/ssl/certs/ca-certificates.crt \
+    --env CURL_CA_BUNDLE=/etc/ssl/certs/ca-certificates.crt \
     --env WANDB_API_KEY=${WANDB_API_KEY} \
     --env WANDB_PROJECT=${WANDB_PROJECT} \
     --env PYTHONPATH=/ws/src/FTR-Benchmark:/ws/src/flipper_training \
@@ -139,10 +147,9 @@ apptainer exec --nv \
     $SIF \
     conda run -n isaaclab --no-capture-output \
     env PYTHONPATH=/ws/src/FTR-Benchmark:/ws/src/flipper_training \
-    python /ws/src/flipper_training/marv_rl_training/ppo/eval_ftr_rand.py \
+    python /ws/src/flipper_training/marv_rl_training/training/eval_ftr_rand.py \
     --config "$CONFIG" \
     --max_steps 2000 \
-    --num_env_types 16 \
     "$@"
 
 EXIT_STATUS=$?

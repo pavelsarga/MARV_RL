@@ -63,10 +63,13 @@ fi
 COMMAND="apptainer exec --nv \
     --bind $WS:/ws \
     --env OMNI_KIT_ACCEPT_EULA=Y \
+    --env SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt \
+    --env REQUESTS_CA_BUNDLE=/etc/ssl/certs/ca-certificates.crt \
+    --env CURL_CA_BUNDLE=/etc/ssl/certs/ca-certificates.crt \
     $SIF \
     conda run -n isaaclab --no-capture-output \
     env PYTHONPATH=/ws/src/FTR-Benchmark:/ws/src/flipper_training \
-    python /ws/src/flipper_training/marv_rl_training/ppo/eval_optuna_top.py \
+    python /ws/src/flipper_training/marv_rl_training/training/eval_optuna_top.py \
     --num_envs 512 \
     --headless $@"
 

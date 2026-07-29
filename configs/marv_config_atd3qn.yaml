@@ -1,0 +1,124 @@
+name: atd3qn_marv_asym
+comment: >-
+  AT-D3QN (Pan et al. 2023) flipper policy, reusing marv_asym_limits.yaml's
+  robot/terrain/reward parameters. Front/rear flipper pairs only (2-DOF,
+  9-action discrete space) — requires sync_flipper_control: true below, which
+  deviates from marv_asym_limits.yaml's 4-independent-flipper default. If you
+  need true per-corner MARV control, the Q-network's action space (currently
+  3x3=9) needs extending to 3^4=81 and is out of scope for this config.
+use_wandb: true
+use_tensorboard: false
+seed: 42
+device: cuda
+training_dtype: ${dtype:float32}
+num_robots: 1024
+task: Ftr-Crossing-Direct-v0
+terrain: pan_symmetric
+total_frames: ${mul:5242880,6}
+time_steps_per_batch: 128
+eval_and_save_every: 8
+eval_repeats: 2
+eval_repeats_after_training: 20
+max_grad_norm: 0.697298401413678
+clip_grad_norm_p: 2
+
+# ---- Off-policy replay + optimisation ----
+replay_buffer_capacity: 2000000   # transitions kept, persists across iterations (unlike PPO's on-policy buffer)
+min_replay_size: 131072           # ~1 iteration (time_steps_per_batch * num_robots) before updates start
+batch_size: 8192
+updates_per_batch: 64             # gradient steps performed per collected iteration
+gamma: 0.995
+target_update_interval: 1000      # gradient steps between hard target-network syncs
+
+# ---- Epsilon-greedy exploration schedule (linear decay) ----
+epsilon_start: 1.0
+epsilon_end: 0.05
+epsilon_decay_iters: null   # null = decay over the full run
+
+optimizer: ${cls:torch.optim.AdamW}
+optimizer_opts:
+  lr: 0.001
+  weight_decay: 0.0001
+scheduler: ${cls:torch.optim.lr_scheduler.LinearLR}
+scheduler_opts:
+  start_factor: 1.0
+  end_factor: 0.8
+  total_iters: ${intdiv:${total_frames},${mul:${time_steps_per_batch},${num_robots}}}
+# No step_penalty_scheduler / action_bonus_coef_scheduler: FtrD3QNTrainer doesn't support
+# them, and neither step_penalty nor action_bonus_coef is read by
+# ATD3QNModule.get_reward_components() at all.
+
+data_collector_opts:
+  split_trajs: false
+
+# ATD3QNPolicy kwargs — track_vel is the constant forward speed driving the tracks
+# (the paper assumes an external operator/planner, not the D3QN network, controls this);
+# hm_hidden/hm_out/fusion_hidden must match ftr_obs_encoder_opts below (same architecture,
+# two separate instantiation points: FtrTorchRLEnv's Observation bookkeeping vs the actual
+# training policy).
+policy_opts:
+  track_vel: 0.5
+  hm_hidden: 32
+  hm_out: 4
+  fusion_hidden: 16
+
+# Observation encoder opts for ATD3QNObservation.get_encoder() (17-D input: 15 terrain + 2 state)
+ftr_obs_encoder_opts:
+  hm_hidden: 32
+  hm_out: 4
+  fusion_hidden: 16
+
+vecnorm_opts:
+  decay: 0.99
+  eps: 0.0001
+vecnorm_on_reward: true
+extra_env_transforms: []
+
+# Cold start — no warm-start policy available for this architecture yet.
+policy_weights_path: null
+vecnorm_weights_path: null
+
+robot_max_linear_velocity: 10.0
+robot_max_angular_velocity: 720.0
+physx_gpu_heap_capacity: 2147483648
+physx_gpu_temp_buffer_capacity: 1073741824
+physx_gpu_max_num_partitions: 8
+solver_position_iterations: 5
+solver_velocity_iterations: 1
+max_depenetration_velocity: 0.12354395702544713
+sim_dt: 0.005
+decimation: 20
+
+env_cfg_overrides:
+  # Routes FtrEnv's observations/rewards through ATD3QNModule (rl_modules/registry.py)
+  # instead of the default marv_rl module — required for the 17-D obs this policy expects.
+  module_name: atd3qn
+  # 2-DOF front/rear flipper pairs, matching the paper's action space (see comment above).
+  sync_flipper_control: true
+  # Incremental flipper control: each discrete action {-1, 0, +1} steps the flipper by a
+  # fixed ±flipper_angle_increment_deg per control step (matching AT-D3QN's ±π/12 CW/hold/CCW
+  # design), integrated onto the current angle and clamped to the asymmetric MARV limits below.
+  flipper_control_mode: increment
+  flipper_angle_increment_deg: 15.0   # π/12
+
+  robot_type: marv
+  goal_reached_reward: 2
+  failed_reward: -2
+  timeout_penalty: -2
+  # ATD3QNModule always computes both pitch_penalty and pan_geom_reward (their
+  # magnitudes/thresholds come from rl_modules/atd3qn/atd3qn_module.yaml) — no
+  # pitch_coef/pan_geom_rew enable-flag needed here.
+  shock_scale: 4
+  # Asymmetric per-direction MARV flipper limits (degrees).
+  # Front: up = negative angle, down = positive angle.
+  # Rear:  up = positive angle, down = negative angle.
+  marv_flipper_front_up_deg: 90.0
+  marv_flipper_front_down_deg: 80.0
+  marv_flipper_back_up_deg: 90.0
+  marv_flipper_back_down_deg: 80.0
+  spawn_yaw_range: 0.0
+  flipper_material_friction: 3.0
+  wheel_material_friction: 6.0
+  terrain_static_friction: 0.9
+  terrain_dynamic_friction: 0.7
+  shock_fail_limit: null

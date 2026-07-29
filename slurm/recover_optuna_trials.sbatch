@@ -73,7 +73,7 @@ srun apptainer exec --nv \
     $SIF \
     conda run -n isaaclab --no-capture-output \
     env PYTHONPATH=/ws/src/FTR-Benchmark:/ws/src/flipper_training \
-    python -m marv_rl_training.ppo.recover_optuna_trials \
+    python -m marv_rl_training.training.recover_optuna_trials \
     --trial_num "$TRIAL_NUM" \
     --optuna_config "$OPTUNA_CONFIG" \
     --headless

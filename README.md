@@ -64,7 +64,7 @@ This pulls Miniconda, installs the conda environment, and bakes Isaac Lab v1.2.0
 
 Run a command inside the container:
 ```bash
-apptainer exec --nv containers/isaaclab_optuna.sif python src/flipper_training/marv_rl_training/ppo/train_ftr.py --config configs/ftr_config_optuna_best_v4.yaml --headless
+apptainer exec --nv containers/isaaclab_optuna.sif python src/flipper_training/marv_rl_training/training/train_ftr.py --config configs/ftr_config_optuna_best_v4.yaml --headless
 
 # Or use scripts that include the apptainer bind
 bash scripts/train.sh --config configs/ftr_config_optuna_best_v4.yaml --headless

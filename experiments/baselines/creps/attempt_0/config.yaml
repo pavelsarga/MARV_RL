@@ -1,0 +1,83 @@
+name: creps_pecka_pallet
+comment: 'Constrained REPS (Pecka, Salansky, Zimmermann & Svoboda 2016, "Autonomous
+  Flipper Control with Safety Constraints"), context-free (single global upper-level
+  q(omega)=N(mu,Sigma) over a 6-D linear front/rear flipper control law — matching
+  the paper''s own reported experiment, which never uses context either). Trained
+  by train_creps.py (NOT train_ftr.py — this is an episodic, gradient-free black-box
+  policy search, not PPO; see rl_modules/creps/creps_algorithm.py). The lower-level
+  policy (rl_modules/creps/creps_policy.py) is a deterministic linear controller:
+  front = omega1+omega2*pitch+omega3*height_ahead, rear = omega4+omega5*pitch+omega6*height_ahead,
+  reacting to CREPSObservation''s 2-D state (pitch, terrain height ~20cm ahead). Forward
+  track velocity is held at fixed_forward_vel below (the paper''s "robot automatically
+  driven forward by a constant speed") — not learned. Reward is literal distance traveled
+  over the env''s native fixed 30s episode (episode_length_s, FtrEnvCfg''s default
+  — matches the paper''s fixed-duration rollout exactly). Safety/mechanical constraints
+  are read directly by train_creps.py''s rollout loop from env._fail_mask/env._explosion_mask
+  (rollover / out-of-range / high-deceleration shock / physics explosion) and env.last_action
+  (raw pre-clamp flipper command vs [-1,1]) — see train_creps.py''s _run_creps_episode
+  docstring.'
+use_wandb: true
+use_tensorboard: false
+seed: 42
+device: cuda
+num_robots: 192
+task: Ftr-Crossing-Direct-v0
+terrain: pecka_pallet
+num_iterations: 30
+kl_epsilon: 0.5
+safety_delta: 0.8
+mechanical_delta: 0.9
+initial_omega_mean:
+- 0.0
+- 0.0
+- 0.0
+- 0.0
+- 0.0
+- 0.0
+initial_omega_std:
+- 0.3
+- 0.3
+- 0.3
+- 0.3
+- 0.3
+- 0.3
+eval_and_save_every: 2
+cov_min_std: 0.001
+solver_eta_init: 1.0
+num_executions_with_same_omega: 3
+solver_eta_min: 0.01
+solver_dual_var_max: 1000000.0
+solver_max_optimization_trials: 10
+ftr_obs_encoder_opts: {}
+omega_weights_path: null
+robot_max_linear_velocity: 10.0
+robot_max_angular_velocity: 720.0
+physx_gpu_heap_capacity: 2147483648
+physx_gpu_temp_buffer_capacity: 1073741824
+physx_gpu_max_num_partitions: 8
+solver_position_iterations: 5
+solver_velocity_iterations: 1
+max_depenetration_velocity: 0.12354395702544713
+sim_dt: 0.005
+decimation: 20
+env_cfg_overrides:
+  module_name: creps
+  sync_flipper_control: true
+  flipper_control_mode: position
+  fixed_forward_vel: 0.4
+  robot_type: marv
+  goal_reached_reward: 0.0
+  failed_reward: 0.0
+  timeout_penalty: 0.0
+  rollover_threshold_deg: 80.0
+  shock_scale: 4
+  shock_fail_limit: 20.0
+  marv_flipper_front_up_deg: 90.0
+  marv_flipper_front_down_deg: 90.0
+  marv_flipper_back_up_deg: 90.0
+  marv_flipper_back_down_deg: 90.0
+  spawn_yaw_range: 0.0
+  flipper_material_friction: 3.0
+  wheel_material_friction: 6.0
+  terrain_static_friction: 0.9
+  terrain_dynamic_friction: 0.7

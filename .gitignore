@@ -9,6 +9,7 @@ logs/
 secrets/
 wandb/
 reports/
+paper_repos/
 
 # Python
 __pycache__/

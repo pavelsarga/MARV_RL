@@ -25,6 +25,12 @@
 #   sbatch slurm/eval_rand.sbatch configs/rand_policy_eval.yaml --num_env_types 16 --repeats 10
 #   sbatch slurm/eval_rand.sbatch configs/rand_policy_eval.yaml --output_dir /custom/path --eval_id label
 #   sbatch slurm/eval_rand.sbatch configs/rand_policy_eval.yaml --env_names_yaml configs/env_names.yaml
+#
+# Alongside the CSVs the job writes eval_terrain.json (which terrain this eval_id ran on,
+# its env-type row names and depth-column count, from the config's `terrain:`) and copies
+# that terrain's generator config + preview plot from ftr_envs/assets/terrain/ into
+# <output_dir>/terrain/, for notebooks/eval_analysis.ipynb. Pull the whole output directory
+# back, not just the CSVs.
 
 echo "########################################################################"
 echo "Job ID: $SLURM_JOB_ID"

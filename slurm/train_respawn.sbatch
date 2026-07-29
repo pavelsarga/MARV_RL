@@ -77,10 +77,13 @@ while true; do
         --env WANDB_API_KEY=${WANDB_API_KEY} \
         --env WANDB_PROJECT=flipper_training \
         --env WANDB_DIR=/ws/logs/wandb \
+        --env SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt \
+        --env REQUESTS_CA_BUNDLE=/etc/ssl/certs/ca-certificates.crt \
+        --env CURL_CA_BUNDLE=/etc/ssl/certs/ca-certificates.crt \
         $SIF \
         conda run -n isaaclab --no-capture-output \
         env PYTHONPATH=/ws/src/FTR-Benchmark:/ws/src/flipper_training \
-        python /ws/src/flipper_training/marv_rl_training/ppo/train_ftr.py \
+        python /ws/src/flipper_training/marv_rl_training/training/train_ftr.py \
         --config /ws/configs/$CONFIG \
         --headless $@"
 
