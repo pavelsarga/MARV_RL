@@ -150,7 +150,7 @@ env_cfg_overrides:
   marv_flipper_back_up_deg: 90.0
   marv_flipper_back_down_deg: 90.0
   spawn_yaw_range: 0.0
-  flipper_material_friction: 3.0
-  wheel_material_friction: 6.0
-  terrain_static_friction: 0.9
-  terrain_dynamic_friction: 0.7
+  flipper_material_friction: 6.0
+  wheel_material_friction: 4.0
+  terrain_static_friction: 1.2
+  terrain_dynamic_friction: 0.9

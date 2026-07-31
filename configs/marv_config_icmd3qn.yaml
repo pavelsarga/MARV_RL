@@ -54,7 +54,7 @@ data_collector_opts:
 # two separate instantiation points: FtrTorchRLEnv's Observation bookkeeping vs the actual
 # training policy).
 policy_opts:
-  track_vel: 0.5
+  track_vel: 0.6
   hm_hidden: 32
   hm_out: 4
   fusion_hidden: 16
@@ -109,6 +109,11 @@ env_cfg_overrides:
   sync_flipper_control: true
   flipper_control_mode: increment
   flipper_angle_increment_deg: 15.0   # π/12
+  # ICMD3QNPolicy already always emits this same constant for track_v itself (the paper's
+  # action space has no velocity component — see icmd3qn_policy.py's docstring); this
+  # override is a defense-in-depth backstop, not a behavior change, so it must match
+  # policy_opts.track_vel above.
+  fixed_forward_vel: 0.6
 
   robot_type: marv
   goal_reached_reward: 2
@@ -126,8 +131,8 @@ env_cfg_overrides:
   marv_flipper_back_up_deg: 90.0
   marv_flipper_back_down_deg: 80.0
   spawn_yaw_range: 0.0
-  flipper_material_friction: 3.0
-  wheel_material_friction: 6.0
-  terrain_static_friction: 0.9
-  terrain_dynamic_friction: 0.7
+  flipper_material_friction: 6.0
+  wheel_material_friction: 4.0
+  terrain_static_friction: 1.2
+  terrain_dynamic_friction: 0.9
   shock_fail_limit: null
