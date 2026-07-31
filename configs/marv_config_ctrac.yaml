@@ -1,0 +1,152 @@
+name: ctrac_pan2025
+comment: >-
+  C-TRAC (Pan et al. 2025, "C-TRAC: Terrain-Adaptive Control for Articulated Tracked
+  Robots via Contact-Aware Reinforcement Learning") — Stage II, joint asymmetric SAC +
+  C-VAE training (rl_modules/ctrac/{ctrac_module,ctrac_observation,ctrac_contact,
+  ctrac_cvae,ctrac_policy}.py, src/flipper_training/marv_rl_training/training/train_sac.py).
+  Ground-truth per-flipper contact points/existence come from a real IsaacLab
+  ContactSensor + wheel-radius geometric projection (ftr_env.py's _setup_scene, gated on
+  module_name: ctrac — see ctrac_contact.py). Two deliberate departures from the paper,
+  both explicit user decisions: (1) terrain is this project's existing custom_mixed asset,
+  not the paper's per-episode procedural stair/stepfield/terrace/ramp curriculum; (2) the
+  C-VAE's Stage I pretraining dataset (marv_config_ctrac_cvae_pretrain.yaml) is collected
+  by rolling out this project's already-trained marv_rl policy through this CTRAC-configured
+  env (collect_ctrac_dataset.py), not the paper's own from-scratch terrain-specific
+  policies (unavailable here) — reasoning: an untrained/barely-trained policy can't cross
+  most obstacles, starving the dataset of exactly the contact-pattern diversity the C-VAE
+  needs. cvae_weights_path below warm-starts (not freezes) the C-VAE from that Stage I
+  checkpoint; it keeps training jointly through Stage II via its own optimizer with a
+  RISING learning-rate schedule (scheduler/scheduler_opts below — the inverse of every
+  other schedule in this project), deliberately blunting its influence early while SAC's
+  rollout distribution is still far from the Stage I marv_rl-driven demonstrations, then
+  ramping up as training converges closer to it.
+use_wandb: true
+use_tensorboard: false
+seed: 42
+device: cuda
+training_dtype: ${dtype:float32}
+num_robots: 512
+task: Ftr-Crossing-Direct-v0
+terrain: custom_mixed
+total_frames: ${mul:5242880,10}
+time_steps_per_batch: 128
+
+# ---- Off-policy replay + optimisation ----
+replay_buffer_capacity: 2000000
+min_replay_size: 65536
+batch_size: 256                    # Table (paper): batch_size 256
+updates_per_batch: 32
+gamma: 0.99                        # paper Table: discount factor 0.99
+tau: 0.01                          # paper Table: target network update rate 0.01
+
+# ---- SAC entropy (paper Table: "entropy coefficient (1.5)" — reported as a fixed value,
+# not an auto-tuned target entropy) ----
+alpha_init: 1.5
+fixed_alpha: true
+alpha_optimizer_opts:
+  lr: 0.0003
+loss_function: smooth_l1
+
+# ---- C-VAE alternating update (Fig. 2: "1 SAC iteration : 5 C-VAE refinement iterations") ----
+cvae_updates_per_sac_step: 5
+cvae_vae_beta: 1.0                 # paper Table: KL divergence weight 1.0
+cvae_prob_weight: 1.0
+cvae_est_weight: 1.0
+cvae_geo_weight: 1.0
+cvae_max_reach: 0.8
+
+eval_and_save_every: 8
+eval_repeats: 2
+eval_repeats_after_training: 20
+max_grad_norm: 0.5                 # paper Table: gradient clipping threshold 0.5
+clip_grad_norm_p: 2
+
+optimizer: ${cls:torch.optim.Adam}
+optimizer_opts:
+  lr: 0.0003                       # paper Table: Adam lr 3e-4
+# Rising schedule for the C-VAE's own optimizer ONLY (train_sac.py's cvae_scheduler) — actor/
+# qvalue optimizers use a flat lr (optimizer_opts above), matching the paper's single Adam
+# lr with no schedule mentioned. LinearLR with start_factor < end_factor deliberately ramps
+# UP rather than down (see the comment block above / this config's top-level comment).
+scheduler: ${cls:torch.optim.lr_scheduler.LinearLR}
+scheduler_opts:
+  start_factor: 0.1
+  end_factor: 1.0
+  total_iters: ${intdiv:${total_frames},${mul:${time_steps_per_batch},${num_robots}}}
+
+data_collector_opts:
+  split_trajs: false
+
+# CTRACPolicyConfig kwargs (rl_modules/ctrac/ctrac_policy.py).
+policy_opts:
+  actor_optimizer_opts:
+    lr: 0.0003
+  qvalue_optimizer_opts:
+    lr: 0.0003
+  cvae_optimizer_opts:
+    lr: 0.0001                     # low starting point — scaled up by the rising schedule above
+  history_len: 8
+  latent_dim: 32
+  actor_hidden: [512, 128]         # paper Fig. 2 actor sizes
+  qvalue_hidden: [512, 256, 128]   # paper Fig. 2 critic sizes
+  cvae_encoder_hidden: [512, 256, 128]
+  cvae_decoder_hidden: [128, 256, 128]
+  w_log_std: -4.0
+  # Stage I checkpoint from pretrain_ctrac_cvae.py (marv_config_ctrac_cvae_pretrain.yaml's
+  # output_path). null = cold start (matches "C-TRAC w/o Pretrained", the paper's own
+  # ablation shape) — set this once Stage I has actually run.
+  cvae_weights_path: experiments/baselines/ctrac/ctrac_dataset/ctrac_cvae_stage1.pth
+
+ftr_obs_encoder_opts: {}
+
+vecnorm_opts:
+  decay: 0.99
+  eps: 0.0001
+vecnorm_on_reward: true
+extra_env_transforms: []
+
+policy_weights_path: null
+vecnorm_weights_path: null
+
+robot_max_linear_velocity: 10.0
+robot_max_angular_velocity: 720.0
+physx_gpu_heap_capacity: 2147483648
+physx_gpu_temp_buffer_capacity: 1073741824
+physx_gpu_max_num_partitions: 8
+solver_position_iterations: 5
+solver_velocity_iterations: 1
+max_depenetration_velocity: 0.12354395702544713
+sim_dt: 0.005
+decimation: 20
+
+env_cfg_overrides:
+  # Routes FtrEnv's observations/reward through CTRACModule and attaches the ContactSensor
+  # (ftr_env.py's _setup_scene, gated on this) — see rl_modules/registry.py.
+  module_name: ctrac
+  # 4 independent flippers — Eq. 3's action is per-flipper.
+  sync_flipper_control: false
+  # "velocity" (the env's default) integrates a continuous, magnitude-proportional
+  # per-step delta onto the current flipper angle — exactly the paper's continuous
+  # delta-rotation-angle action (Eq. 3), unlike atd3qn/icmd3qn's discrete ±-only
+  # "increment" mode. No fixed_forward_vel override either: unlike hfc/creps/atd3qn/
+  # icmd3qn, the paper's action genuinely includes desired velocity v_t as a learned
+  # output (Eq. 3), not a fixed constant.
+  flipper_control_mode: velocity
+
+  robot_type: marv
+  goal_reached_reward: 150     # Eq. 8
+  failed_reward: -150          # Eq. 8 (tipover)
+  timeout_penalty: -225        # Eq. 8 (t >= 200)
+  step_penalty: 0.0
+
+  # Asymmetric per-direction MARV flipper limits (degrees) — same values as hfc/creps.
+  marv_flipper_front_up_deg: 60.0
+  marv_flipper_front_down_deg: 80.0
+  marv_flipper_back_up_deg: 60.0
+  marv_flipper_back_down_deg: 80.0
+  spawn_yaw_range: 0.0
+  flipper_material_friction: 6.0
+  wheel_material_friction: 4.0
+  terrain_static_friction: 1.2
+  terrain_dynamic_friction: 0.9
+  shock_fail_limit: null

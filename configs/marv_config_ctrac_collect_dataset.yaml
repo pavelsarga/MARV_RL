@@ -1,0 +1,73 @@
+name: ctrac_collect_dataset
+comment: >-
+  Stage 0 for C-TRAC (rl_modules/ctrac) — drives collect_ctrac_dataset.py. Rolls out an
+  already-trained marv_rl policy (marv_rl_policy_opts/marv_rl_weights_path below — point
+  this at a real checkpoint, e.g. experiments/<name>/attempt_N/weights/policy_final.pth,
+  or a logs/<job>_<id>/attempt_N/weights/ run) through the CTRAC-configured env
+  (env_cfg_overrides.module_name: ctrac), logging CTRACModule's own observations and
+  ground-truth contact points/existence each step as the Stage I C-VAE pretraining
+  dataset. marv_rl_policy_opts/marv_rl_encoder_opts below are copied from
+  marv_config_marv_rl.yaml's policy_opts/ftr_obs_encoder_opts — must match whatever
+  checkpoint marv_rl_weights_path actually points at.
+seed: 42
+device: cuda
+num_robots: 512
+task: Ftr-Crossing-Direct-v0
+terrain: custom_mixed
+total_steps: 2000
+output_path: experiments/baselines/ctrac/ctrac_dataset/ctrac_stage1_dataset.pt
+cvae_history_len: 8   # must match marv_config_ctrac.yaml's policy_opts.history_len
+
+marv_rl_policy_opts:
+  share_encoder: false
+  apply_baselines_init: true
+  actor_mlp_opts:
+    num_hidden: 2
+    hidden_dim: 128
+    layernorm: false
+  value_mlp_opts:
+    num_hidden: 2
+    hidden_dim: 256
+    layernorm: true
+  actor_optimizer_opts: {}
+  value_optimizer_opts: {}
+marv_rl_encoder_opts:
+  num_hidden: 3
+  hidden_dim: 256
+  output_dim: 128
+  layernorm: true
+# Cold start placeholder — MUST be set to a real trained marv_rl checkpoint before running.
+marv_rl_weights_path: null
+
+robot_max_linear_velocity: 10.0
+robot_max_angular_velocity: 720.0
+physx_gpu_heap_capacity: 2147483648
+physx_gpu_temp_buffer_capacity: 1073741824
+physx_gpu_max_num_partitions: 8
+solver_position_iterations: 5
+solver_velocity_iterations: 1
+max_depenetration_velocity: 0.12354395702544713
+sim_dt: 0.005
+decimation: 20
+
+env_cfg_overrides:
+  module_name: ctrac
+  sync_flipper_control: false
+  flipper_control_mode: velocity
+
+  robot_type: marv
+  goal_reached_reward: 150
+  failed_reward: -150
+  timeout_penalty: -225
+  step_penalty: 0.0
+
+  marv_flipper_front_up_deg: 60.0
+  marv_flipper_front_down_deg: 80.0
+  marv_flipper_back_up_deg: 60.0
+  marv_flipper_back_down_deg: 80.0
+  spawn_yaw_range: 0.0
+  flipper_material_friction: 6.0
+  wheel_material_friction: 4.0
+  terrain_static_friction: 1.2
+  terrain_dynamic_friction: 0.9
+  shock_fail_limit: null

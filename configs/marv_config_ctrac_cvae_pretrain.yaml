@@ -1,0 +1,29 @@
+name: ctrac_cvae_pretrain
+comment: >-
+  Stage I for C-TRAC (rl_modules/ctrac) — supervised-only C-VAE pretraining
+  (pretrain_ctrac_cvae.py), on the dataset collect_ctrac_dataset.py produced
+  (marv_config_ctrac_collect_dataset.yaml's output_path). Pure PyTorch, no Isaac Sim / GPU
+  physics scene needed — runnable anywhere, including this project's local sandbox.
+  output_path below feeds marv_config_ctrac.yaml's policy_opts.cvae_weights_path
+  (warm start, not frozen — Stage II keeps training the C-VAE jointly).
+seed: 42
+device: cuda
+dataset_path: experiments/baselines/ctrac/ctrac_dataset/ctrac_stage1_dataset.pt
+output_path: experiments/baselines/ctrac/ctrac_dataset/ctrac_cvae_stage1.pth
+total_steps: 20000
+batch_size: 256
+history_len: 8          # must match marv_config_ctrac.yaml's policy_opts.history_len
+latent_dim: 32
+encoder_hidden: [512, 256, 128]
+decoder_hidden: [128, 256, 128]
+vae_beta: 1.0
+prob_weight: 1.0
+est_weight: 1.0
+geo_weight: 1.0
+max_reach: 0.8
+max_grad_norm: 0.5
+optimizer: ${cls:torch.optim.Adam}
+optimizer_opts:
+  lr: 0.0003
+log_every: 100
+save_every: 1000
