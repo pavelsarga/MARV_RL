@@ -10,6 +10,7 @@ secrets/
 wandb/
 reports/
 paper_repos/
+notebooks/images/
 
 # Python
 __pycache__/
