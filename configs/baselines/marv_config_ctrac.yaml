@@ -68,25 +68,34 @@ fixed_alpha: false
 # for a 6-D action is barely more deterministic than the max-entropy prior we're trying to
 # escape, so leaving this on "auto" would have silently reproduced the same failure.
 #
-# -3.0, loosened from SB3's literal -dim(action_space) = -5.0 after measuring what the
-# policy actually reaches. Run train_ctrac_11311704 (49M frames at -5.0) ended with a
-# measured entropy of H = -3.485 nats over the full 6-D action. Since alpha's gradient is
-# -(log_pi + target_entropy), alpha only rises when H < target; with H = -3.485 > -5.0 the
-# target was never reachable from above, so alpha fell monotonically 1.486 -> 0.0065 and
-# entropy regularisation switched itself off entirely. With no entropy term left, the actor
-# optimised Q alone and drove |loc| to 0.92 — deep into tanh saturation — so behaviour went
-# effectively deterministic (per-lane eval success froze at bit-identical values across
-# independent stochastic evals) even though scale stayed ~0.80. Every "climb up" lane
-# (raised_stairs/raised_stairs_2/raised_platform) sat at 0.000 while the comparable descent
-# lanes were the policy's best results: it locked in a gait and stopped exploring the
-# flipper motion needed to mount an obstacle.
+# -5.0 = SB3's literal -dim(action_space) rule for this 6-D action, restored after the
+# heightmap fix (see ctrac_module.py's _crop_and_pad). It was loosened to -3.0 on the
+# evidence below, but that evidence was gathered while the policy could not see forward.
 #
-# -3.0 sits just above the measured H = -3.485, so alpha rises again (gently — a large gap
-# would spike it) and keeps exploration alive. This is a deliberate, measured departure
-# from SB3's -dim(A) rule; the frozen w dim already made the literal value awkward here
-# (it contributes a constant ~-2.58 nats, see ctrac_policy.py's w_log_std).
-# If alpha runs away upward, the policy is over-exploring — lower this back toward -4.
-target_entropy: -3.0
+# What was measured at -5.0 (run train_ctrac_11311704, 49M frames): final policy entropy
+# H = -3.485 nats. Since alpha's gradient is -(log_pi + target_entropy), alpha only rises
+# when H < target; with H = -3.485 > -5.0 the target was unreachable from above, so alpha
+# fell monotonically 1.486 -> 0.0065 and entropy regularisation switched itself off. The
+# actor then optimised Q alone and drove |loc| to 0.92, deep into tanh saturation.
+#
+# Why that no longer justifies -3.0: _crop_and_pad was sampling the MIRROR of the paper's
+# heightmap ranges, so the actor's local map showed 0.4-1.0 m BEHIND the robot instead of
+# ahead. Per-lane success then came out near-identical (r = 0.94-0.996) across runs at
+# -5.0 AND at -3.0, plateauing at ~0.13 with every "climb up" lane at exactly 0.000 — a
+# ceiling set by missing forward vision, not by exploration. H = -3.485 is what a
+# forward-blind policy converged to; a policy that can see the obstacle it is about to
+# mount has no reason to settle at the same entropy. Keeping -3.0 would change two
+# variables at once and make the heightmap fix impossible to attribute.
+#
+# So: back to the literal SB3 value for the first post-fix run. Note the env's action is
+# 6-D while Eq. 3's is 5-D — ctrac_policy.py pins the unused w (yaw-rate) dim at loc=0,
+# scale=exp(-4), contributing a constant ~-2.58 nats, so the 5 real dims settle near -0.48
+# each rather than SB3's nominal -1.0.
+#
+# If alpha again decays monotonically toward 0 (watch train/alpha in the first ~5M frames),
+# the target is still unreachable from above and -3.0 is the right correction — but decide
+# that from a run where the policy can actually see ahead.
+target_entropy: -5.0
 alpha_optimizer_opts:
   lr: 0.0003
 loss_function: smooth_l1
