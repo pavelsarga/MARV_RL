@@ -7,12 +7,12 @@
 set -e
 
 WS="$(cd "$(dirname "$0")/.." && pwd)"
-CONFIG=${CONFIG:-marv_config_ctrac_collect_dataset.yaml}
+CONFIG=${CONFIG:-baselines/marv_config_ctrac_collect_dataset.yaml}
 NUM_ENVS=${NUM_ENVS:-8}
-TOTAL_STEPS=${TOTAL_STEPS:-50}
-OUTPUT=${OUTPUT:-$WS/logs/ctrac_dataset_debug/ctrac_stage1_dataset_debug.pt}
+EPISODE_REPEATS=${EPISODE_REPEATS:-2}
+OUTPUT=${OUTPUT:-$WS/logs/ctrac_dataset_debug/ctrac_stage1_shards_debug}
 
-mkdir -p "$(dirname "$OUTPUT")"
+mkdir -p "$OUTPUT"
 
 cd $WS || { echo "Failed to cd into $WS"; exit 1; }
 echo "nvidia-smi output:"
@@ -25,8 +25,9 @@ conda run -n isaaclab --no-capture-output \
     python $WS/src/flipper_training/marv_rl_training/training/collect_ctrac_dataset.py \
     --config $WS/configs/$CONFIG \
     --num_envs "$NUM_ENVS" \
-    --total_steps "$TOTAL_STEPS" \
+    --episode_repeats "$EPISODE_REPEATS" \
     --output "$OUTPUT" \
+    log_every_n_steps=1 shard_size_steps=100 \
     --headless "$@"
 
 EXIT_STATUS=$?

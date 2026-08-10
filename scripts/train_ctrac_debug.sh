@@ -16,7 +16,7 @@ UPDATES_PER_BATCH=${UPDATES_PER_BATCH:-2}
 CVAE_UPDATES_PER_SAC_STEP=${CVAE_UPDATES_PER_SAC_STEP:-1}
 EVAL_AND_SAVE_EVERY=${EVAL_AND_SAVE_EVERY:-2}
 
-CONFIG=marv_config_ctrac.yaml \
+CONFIG=baselines/marv_config_ctrac.yaml \
 TRAIN_SCRIPT=train_sac.py \
 bash "$WS/scripts/train.sh" \
     --num_envs "$NUM_ENVS" \

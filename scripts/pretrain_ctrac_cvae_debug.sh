@@ -6,8 +6,8 @@
 set -e
 
 WS="$(cd "$(dirname "$0")/.." && pwd)"
-CONFIG=${CONFIG:-marv_config_ctrac_cvae_pretrain.yaml}
-DATASET=${DATASET:-$WS/logs/ctrac_dataset_debug/ctrac_stage1_dataset_debug.pt}
+CONFIG=${CONFIG:-baselines/marv_config_ctrac_cvae_pretrain.yaml}
+DATASET=${DATASET:-$WS/logs/ctrac_dataset_debug/ctrac_stage1_shards_debug}
 OUTPUT=${OUTPUT:-$WS/logs/ctrac_dataset_debug/ctrac_cvae_stage1_debug.pth}
 TOTAL_STEPS=${TOTAL_STEPS:-50}
 

@@ -12,7 +12,7 @@ NUM_ENVS=${NUM_ENVS:-16}
 TOTAL_FRAMES=${TOTAL_FRAMES:-8192}            # ~4 PPO iterations at NUM_ENVS=16, time_steps_per_batch=128
 EVAL_AND_SAVE_EVERY=${EVAL_AND_SAVE_EVERY:-2}
 
-CONFIG=marv_config_hfc.yaml \
+CONFIG=baselines/marv_config_hfc.yaml \
 TRAIN_SCRIPT=train_ftr.py \
 bash "$WS/scripts/train.sh" \
     --num_envs "$NUM_ENVS" \

@@ -15,13 +15,16 @@ Usage:
     python scripts/clean_logs.py [--logs-dir PATH] [--dry-run] [--keep-last N]
                                   [--min-age-hours H] [--eval-min-repeats R]
                                   [--audit-log PATH] [--compact-raw-accel]
-                                  [--raw-accel-bins N] [-v]
+                                  [--raw-accel-bins N] [--exclude NAME ...]
+                                  [--backup-dir PATH] [-v]
 
 Examples:
     python scripts/clean_logs.py --logs-dir logs --dry-run -v   # preview, no changes
     python scripts/clean_logs.py --logs-dir logs                # apply for real
     python scripts/clean_logs.py --logs-dir logs --compact-raw-accel
     python scripts/clean_logs.py --logs-dir /path/to/logs --dry-run
+    python scripts/clean_logs.py --logs-dir logs --exclude train_ctrac_11311704   # leave untouched
+    python scripts/clean_logs.py --logs-dir logs --backup-dir /tmp/clean_logs_backup  # copy before delete/prune
 
 Run with --help for the full flag descriptions and defaults.
 """
@@ -56,7 +59,8 @@ SUCCESS_RE = re.compile(
     r"exit status: 0|Job finished\.|Eval finished with exit status: 0|wandb: Synced"
 )
 
-NON_RUN_NAMES = {"host_libs", "isaac_cache", "isaac_data", "isaac_logs", "test"}
+NON_RUN_NAMES = {"host_libs", "isaac_cache", "isaac_data", "isaac_logs", "test", "terrain_previews"}
+ONESHOT_PREFIXES = {"collect_ctrac_dataset_": "ctrac_dataset", "pretrain_ctrac_cvae_": "ctrac_pretrain"}
 FAILURE_LOG_SIZE_THRESHOLD = 5 * 1024
 FAILURE_ELAPSED_THRESHOLD = 600  # seconds
 
@@ -109,6 +113,21 @@ def read_text_safe(path: Path) -> str:
         return path.read_text(errors="ignore")
     except OSError:
         return ""
+
+
+def backup_before_remove(path: Path, logs_dir: Path, backup_root: Path | None, dry_run: bool, log) -> None:
+    """Copy path into backup_root (mirroring its position relative to logs_dir) before it gets
+    deleted/overwritten for real. No-op if backup_root is None or this is a dry run."""
+    if backup_root is None or dry_run:
+        return
+    rel = path.resolve().relative_to(logs_dir.resolve())
+    dest = backup_root / rel
+    dest.parent.mkdir(parents=True, exist_ok=True)
+    log(f"  [backup] {path} -> {dest}")
+    if path.is_dir():
+        shutil.copytree(path, dest, dirs_exist_ok=True)
+    else:
+        shutil.copy2(path, dest)
 
 
 def dir_size(path: Path) -> int:
@@ -420,7 +439,8 @@ def parse_step_pairs(weights_dir: Path) -> dict[int, dict[str, Path]]:
     return {n: {"policy": policies[n], "vecnorm": vecnorms[n]} for n in policies if n in vecnorms}
 
 
-def prune_weights(weights_dir: Path, keep_slots: int, dry_run: bool, log) -> tuple[int, int]:
+def prune_weights(weights_dir: Path, keep_slots: int, logs_dir: Path, backup_root: Path | None,
+                   dry_run: bool, log) -> tuple[int, int]:
     pairs = parse_step_pairs(weights_dir)
     all_ns = sorted(pairs)
     target_max = all_ns[-1] if all_ns else 0
@@ -457,6 +477,8 @@ def prune_weights(weights_dir: Path, keep_slots: int, dry_run: bool, log) -> tup
             continue
         sz = pair["policy"].stat().st_size + pair["vecnorm"].stat().st_size
         log(f"  delete {pair['policy'].name} + {pair['vecnorm'].name} in {weights_dir}")
+        backup_before_remove(pair["policy"], logs_dir, backup_root, dry_run, log)
+        backup_before_remove(pair["vecnorm"], logs_dir, backup_root, dry_run, log)
         if not dry_run:
             pair["policy"].unlink()
             pair["vecnorm"].unlink()
@@ -466,6 +488,7 @@ def prune_weights(weights_dir: Path, keep_slots: int, dry_run: bool, log) -> tup
     if training_state.exists():
         sz = training_state.stat().st_size
         log(f"  delete training_state.pth in {weights_dir}")
+        backup_before_remove(training_state, logs_dir, backup_root, dry_run, log)
         if not dry_run:
             training_state.unlink()
         freed += sz
@@ -504,8 +527,8 @@ def read_study_name(top_dir: Path) -> str | None:
 
 
 def process_unit_group(top_dir: Path, units: list[Path], keep_slots: int, job_type: str, log_scope: str,
-                        protected: set, min_age_hours: float, now: float, dry_run: bool, log, stats: Stats,
-                        audit_fh):
+                        protected: set, min_age_hours: float, now: float, logs_dir: Path,
+                        backup_root: Path | None, dry_run: bool, log, stats: Stats, audit_fh):
     """log_scope: 'per_unit' if each unit has its own out/err (optuna trials, recover tasks),
     'top_dir_only' if out/err are shared across units and only live at top_dir (train attempts)."""
     any_survived = False
@@ -531,6 +554,7 @@ def process_unit_group(top_dir: Path, units: list[Path], keep_slots: int, job_ty
                 if log_scope == "per_unit" or u == top_dir:
                     record_deletion(audit_fh, u, job_type, reason, sz, dry_run, log, stats)
                 log(f"DELETE (failed: {reason}) {u}")
+                backup_before_remove(u, logs_dir, backup_root, dry_run, log)
                 if not dry_run:
                     shutil.rmtree(u, ignore_errors=True)
                 stats.units_deleted += 1
@@ -543,7 +567,7 @@ def process_unit_group(top_dir: Path, units: list[Path], keep_slots: int, job_ty
             continue
 
         log(f"PRUNE weights in {u}")
-        kept, freed = prune_weights(weights_dir, keep_slots, dry_run, log)
+        kept, freed = prune_weights(weights_dir, keep_slots, logs_dir, backup_root, dry_run, log)
         stats.units_pruned += 1
         stats.checkpoints_kept += kept
         stats.bytes_freed += freed
@@ -559,6 +583,7 @@ def process_unit_group(top_dir: Path, units: list[Path], keep_slots: int, job_ty
             sz = dir_size(top_dir)
             record_deletion(audit_fh, top_dir, job_type, "all sub-units removed", sz, dry_run, log, stats)
         log(f"REMOVE now-empty top-level dir {top_dir}")
+        backup_before_remove(top_dir, logs_dir, backup_root, dry_run, log)
         if not dry_run:
             shutil.rmtree(top_dir, ignore_errors=True)
         stats.top_dirs_removed += 1
@@ -600,18 +625,26 @@ def merge_optuna_studies(optuna_top: list[Path], min_age_hours: float, now: floa
         stats.studies_merged += 1
 
 
-def process_eval_dir(top_dir: Path, min_repeats: int, min_age_hours: float, now: float,
-                      dry_run: bool, log, stats: Stats, audit_fh):
+def process_eval_dir(top_dir: Path, min_repeats: int, min_age_hours: float, now: float, logs_dir: Path,
+                      backup_root: Path | None, dry_run: bool, log, stats: Stats, audit_fh):
     if is_recent(top_dir, min_age_hours, now):
         log(f"SKIP eval (modified within {min_age_hours}h) {top_dir}")
         return
 
     summary = top_dir / "eval_summary.csv"
     if not summary.is_file():
+        # Many eval entry points (eval_auto.sh sweeps, eval_creps.sh, eval_d3qn.sh runs without
+        # --output_dir) write their results straight to an experiments/... dir instead of
+        # <log_dir>/eval_summary.csv -- a missing summary here is not itself evidence of a crash.
+        # Fall back to the same log-text success/failure heuristic used for training units.
+        failed, reason = looks_like_failure(top_dir)
+        if not failed:
+            log(f"KEEP eval (no eval_summary.csv, but no failure signal -- {reason}) {top_dir}")
+            return
         sz = dir_size(top_dir)
-        reason = "no eval_summary.csv, crashed at start"
         record_deletion(audit_fh, top_dir, "eval", reason, sz, dry_run, log, stats)
         log(f"DELETE eval dir ({reason}) {top_dir}")
+        backup_before_remove(top_dir, logs_dir, backup_root, dry_run, log)
         if not dry_run:
             shutil.rmtree(top_dir, ignore_errors=True)
         stats.eval_dirs_deleted += 1
@@ -647,6 +680,7 @@ def process_eval_dir(top_dir: Path, min_repeats: int, min_age_hours: float, now:
     reason = f"incomplete: {completed}/{intended} repeats"
     record_deletion(audit_fh, top_dir, "eval", reason, sz, dry_run, log, stats)
     log(f"DELETE eval dir ({reason}) {top_dir}")
+    backup_before_remove(top_dir, logs_dir, backup_root, dry_run, log)
     if not dry_run:
         shutil.rmtree(top_dir, ignore_errors=True)
     stats.eval_dirs_deleted += 1
@@ -723,6 +757,17 @@ def build_parser() -> argparse.ArgumentParser:
         help=f"histogram bin count for --compact-raw-accel (default: {RAW_ACCEL_DEFAULT_BINS})",
     )
     p.add_argument("-v", "--verbose", action="store_true", help="print per-directory reasoning, not just the summary")
+    p.add_argument(
+        "--exclude", action="append", default=[], metavar="NAME",
+        help="top-level dir name under --logs-dir to leave completely untouched (repeatable). "
+             "Matched against the exact directory name (e.g. --exclude train_ctrac_11311704).",
+    )
+    p.add_argument(
+        "--backup-dir", default=None, metavar="PATH",
+        help="before deleting or pruning anything for real, copy it into PATH first (mirroring its "
+             "path relative to --logs-dir). No-op during --dry-run. Not cleaned up automatically -- "
+             "remove it yourself once you've verified the run.",
+    )
     return p
 
 
@@ -741,16 +786,24 @@ def main():
     now = datetime.now().timestamp()
     stats = Stats()
     audit_path = Path(args.audit_log).resolve() if args.audit_log else logs_dir / AUDIT_LOG_DEFAULT_NAME
+    exclude_names = set(args.exclude)
+    backup_root = Path(args.backup_dir).resolve() if args.backup_dir else None
+    if backup_root is not None and not args.dry_run:
+        backup_root.mkdir(parents=True, exist_ok=True)
 
     def log(msg):
         if args.verbose:
             print(msg)
 
-    train_top, optuna_top, recover_top, eval_top = [], [], [], []
+    train_top, optuna_top, recover_top, eval_top, oneshot_top = [], [], [], [], []
     for d in sorted(logs_dir.iterdir()):
         if not d.is_dir():
             continue
         name = d.name
+        if name in exclude_names:
+            print(f"SKIP (--exclude) {d}")
+            continue
+        matched_prefix = next((p for p in ONESHOT_PREFIXES if name.startswith(p)), None)
         if name.startswith("recover_optuna_"):
             recover_top.append(d)
         elif name.startswith("optuna_"):
@@ -759,6 +812,8 @@ def main():
             train_top.append(d)
         elif name.startswith("eval_"):
             eval_top.append(d)
+        elif matched_prefix is not None:
+            oneshot_top.append((d, ONESHOT_PREFIXES[matched_prefix]))
         elif name in NON_RUN_NAMES or name.startswith("wandb"):
             continue
         else:
@@ -774,6 +829,8 @@ def main():
         pool.extend(recover_units(d))
     for d in optuna_top:
         pool.extend(optuna_trial_units(d))
+    for d, _job_type in oneshot_top:
+        pool.append(d)
 
     def unit_key(u: Path):
         _, hi = mtime_range(u)
@@ -785,15 +842,24 @@ def main():
     try:
         for d in train_top:
             process_unit_group(d, train_units(d), 3, "train", "top_dir_only", protected,
-                                args.min_age_hours, now, args.dry_run, log, stats, audit_fh)
+                                args.min_age_hours, now, logs_dir, backup_root, args.dry_run, log, stats, audit_fh)
         for d in recover_top:
             process_unit_group(d, recover_units(d), 3, "recover_optuna", "per_unit", protected,
-                                args.min_age_hours, now, args.dry_run, log, stats, audit_fh)
+                                args.min_age_hours, now, logs_dir, backup_root, args.dry_run, log, stats, audit_fh)
         for d in optuna_top:
             process_unit_group(d, optuna_trial_units(d), 1, "optuna", "per_unit", protected,
-                                args.min_age_hours, now, args.dry_run, log, stats, audit_fh)
+                                args.min_age_hours, now, logs_dir, backup_root, args.dry_run, log, stats, audit_fh)
+        for d, job_type in oneshot_top:
+            # One-shot jobs (dataset collection, C-VAE pretraining): a single unrestructured
+            # dir with no attempt_N/ and no weights/ -- their deliverable (a dataset dir or a
+            # single checkpoint file) sits directly at the top, so there's nothing to prune;
+            # process_unit_group's "no weights" branch reduces to a pure log-based success/
+            # failure check, which is exactly what's needed here.
+            process_unit_group(d, [d], 1, job_type, "per_unit", protected,
+                                args.min_age_hours, now, logs_dir, backup_root, args.dry_run, log, stats, audit_fh)
         for d in eval_top:
-            process_eval_dir(d, args.eval_min_repeats, args.min_age_hours, now, args.dry_run, log, stats, audit_fh)
+            process_eval_dir(d, args.eval_min_repeats, args.min_age_hours, now, logs_dir, backup_root,
+                              args.dry_run, log, stats, audit_fh)
     finally:
         if audit_fh is not None:
             audit_fh.close()

@@ -9,17 +9,17 @@
 # IMPORTANT: Quote the path or pass it on one line.
 #
 # Examples:
-#   ./scripts/eval_rand.sh configs/rand_policy_eval.yaml
-#   ./scripts/eval_rand.sh configs/rand_policy_eval.yaml --num_envs 64 --repeats 5
-#   ./scripts/eval_rand.sh configs/rand_policy_eval.yaml --plot_heightmap
-#   ./scripts/eval_rand.sh configs/rand_policy_eval.yaml --plot_heightmap --plot_interval 5
+#   ./scripts/eval_rand.sh configs/random_policy/rand_policy_eval.yaml
+#   ./scripts/eval_rand.sh configs/random_policy/rand_policy_eval.yaml --num_envs 64 --repeats 5
+#   ./scripts/eval_rand.sh configs/random_policy/rand_policy_eval.yaml --plot_heightmap
+#   ./scripts/eval_rand.sh configs/random_policy/rand_policy_eval.yaml --plot_heightmap --plot_interval 5
 #   Heightmap PNGs (and optionally a GIF) are saved to /tmp/ftr_eval_<timestamp>/ on the host.
 #
 # Per-env-type CSV output (eval_summary.csv, eval_per_env.csv, eval_episodes.csv):
-#   ./scripts/eval_rand.sh configs/rand_policy_eval.yaml --output_dir /tmp/eval_out
-#   ./scripts/eval_rand.sh configs/rand_policy_eval.yaml --output_dir /tmp/eval_out --num_env_types 16 --repeats 5
-#   ./scripts/eval_rand.sh configs/rand_policy_eval.yaml --output_dir /tmp/eval_out --env_names_yaml /ws/configs/env_names.yaml
-#   ./scripts/eval_rand.sh configs/rand_policy_eval.yaml --output_dir /tmp/eval_out --eval_id rand_baseline
+#   ./scripts/eval_rand.sh configs/random_policy/rand_policy_eval.yaml --output_dir /tmp/eval_out
+#   ./scripts/eval_rand.sh configs/random_policy/rand_policy_eval.yaml --output_dir /tmp/eval_out --num_env_types 16 --repeats 5
+#   ./scripts/eval_rand.sh configs/random_policy/rand_policy_eval.yaml --output_dir /tmp/eval_out --env_names_yaml /ws/configs/env_names.yaml
+#   ./scripts/eval_rand.sh configs/random_policy/rand_policy_eval.yaml --output_dir /tmp/eval_out --eval_id rand_baseline
 #   Host paths under the workspace root for --output_dir and --env_names_yaml are
 #   automatically rewritten to the container mount point /ws/.
 #   The config's `terrain:` is recorded in <output_dir>/eval_terrain.json and its generator
@@ -29,8 +29,8 @@
 #   ftr_envs/assets/terrain/gen_config/<terrain>.yaml — pass --num_env_types to override.
 #
 # To change policy parameters without editing the YAML, pass OmegaConf overrides:
-#   ./scripts/eval_rand.sh configs/rand_policy_eval.yaml policy_opts.linear_speed=0.5
-#   ./scripts/eval_rand.sh configs/rand_policy_eval.yaml policy_opts.freq_max=0.02 num_robots=128
+#   ./scripts/eval_rand.sh configs/random_policy/rand_policy_eval.yaml policy_opts.linear_speed=0.5
+#   ./scripts/eval_rand.sh configs/random_policy/rand_policy_eval.yaml policy_opts.freq_max=0.02 num_robots=128
 
 set -e
 

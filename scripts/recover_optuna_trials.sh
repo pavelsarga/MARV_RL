@@ -23,7 +23,7 @@ shift
 
 WS="$(cd "$(dirname "$0")/.." && pwd)"
 SIF=$WS/containers/isaaclab_optuna.sif
-OPTUNA_CONFIG=/ws/configs/optuna_ftr.yaml
+OPTUNA_CONFIG=/ws/configs/optuna/optuna_ftr.yaml
 
 mkdir -p $WS/logs $WS/logs/wandb $WS/logs/isaac_cache $WS/logs/isaac_logs $WS/logs/isaac_data
 

@@ -4,7 +4,7 @@
 # Submit:  sbatch --array=0-79%8 slurm/optuna_rand.sbatch
 #   or:    sbatch slurm/optuna_rand.sbatch  (uses the default array range below)
 #
-# The array range should be >= num_trials in configs/optuna_rand_policy.yaml.
+# The array range should be >= num_trials in configs/optuna/optuna_rand_policy.yaml.
 # Extra tasks exit cleanly once the trial budget is exhausted.
 #
 #SBATCH --array=0-79%8
@@ -31,8 +31,8 @@ echo "########################################################################"
 WS=/home/sargapav/robot_rodeo_gym_ws
 SIF=$WS/containers/isaaclab_optuna.sif
 
-EVAL_CONFIG=$WS/configs/rand_policy_eval.yaml
-OPTUNA_CONFIG=$WS/configs/optuna_rand_policy.yaml
+EVAL_CONFIG=$WS/configs/random_policy/rand_policy_eval.yaml
+OPTUNA_CONFIG=$WS/configs/optuna/optuna_rand_policy.yaml
 
 LOGDIR=$WS/logs/${SLURM_JOB_NAME}_${SLURM_ARRAY_JOB_ID}
 TASKDIR=$LOGDIR/${SLURM_JOB_NAME}_${SLURM_ARRAY_JOB_ID}_${SLURM_ARRAY_TASK_ID}

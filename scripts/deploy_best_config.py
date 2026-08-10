@@ -11,7 +11,7 @@ Usage:
 Options:
     --study NAME        Optuna study name (default: most recent study in DB)
     --db PATH           SQLite DB path (default: <ws>/optuna/optuna.db)
-    --base-config PATH  Base config YAML (default: <ws>/configs/ftr_config_A_new.yaml)
+    --base-config PATH  Base config YAML (default: <ws>/configs/main/ftr_config_A_new.yaml)
     --out PATH          Output YAML path (default: auto-versioned in configs/)
     --top K             Print top K trials, write only the best (default: 1)
     --dry-run           Print config to stdout without writing any file
@@ -88,7 +88,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("--study", default=None, help="Optuna study name (default: most recent)")
     parser.add_argument("--db", type=Path, default=ROOT / "optuna" / "optuna.db")
-    parser.add_argument("--base-config", type=Path, default=ROOT / "configs" / "ftr_config_A_new.yaml")
+    parser.add_argument("--base-config", type=Path, default=ROOT / "configs" / "main" / "ftr_config_A_new.yaml")
     parser.add_argument("--out", type=Path, default=None, help="Output YAML path (default: auto-versioned)")
     parser.add_argument("--top", type=int, default=1, help="Print top K trials (write only the best)")
     parser.add_argument("--dry-run", action="store_true", help="Print config without writing")
@@ -129,7 +129,7 @@ def main():
     comment = _metadata_comment(study, best)
     yaml_text = comment + OmegaConf.to_yaml(cfg, resolve=False)
 
-    out_path = args.out or _next_version_path(ROOT / "configs")
+    out_path = args.out or _next_version_path(ROOT / "configs" / "optuna_best")
 
     if args.dry_run:
         print("─" * 60)

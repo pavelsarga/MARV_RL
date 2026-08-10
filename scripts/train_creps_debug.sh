@@ -14,7 +14,7 @@ NUM_EXECUTIONS=${NUM_EXECUTIONS:-3}
 NUM_ITERATIONS=${NUM_ITERATIONS:-3}
 EVAL_AND_SAVE_EVERY=${EVAL_AND_SAVE_EVERY:-1}
 
-CONFIG=marv_config_creps.yaml \
+CONFIG=baselines/marv_config_creps.yaml \
 TRAIN_SCRIPT=train_creps.py \
 bash "$WS/scripts/train.sh" \
     --num_envs "$NUM_ENVS" \

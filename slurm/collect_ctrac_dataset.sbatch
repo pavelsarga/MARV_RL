@@ -4,8 +4,8 @@
 #SBATCH --nodes=1
 #SBATCH --tasks-per-node=1
 #SBATCH --gres=gpu:1
-#SBATCH --partition=amdgpufast
-#SBATCH --time=4:00:00
+#SBATCH --partition=amdgpu
+#SBATCH --time=8:00:00
 #SBATCH --job-name=collect_ctrac_dataset
 #SBATCH --output=/home/sargapav/robot_rodeo_gym_ws/logs/%x_%j/%x_%j.out
 #SBATCH --error=/home/sargapav/robot_rodeo_gym_ws/logs/%x_%j/%x_%j.err
@@ -22,7 +22,7 @@ echo "########################################################################"
 
 WS=/home/sargapav/robot_rodeo_gym_ws
 SIF=$WS/containers/isaaclab_optuna.sif
-CONFIG=marv_config_ctrac_collect_dataset.yaml
+CONFIG=baselines/marv_config_ctrac_collect_dataset.yaml
 LOGDIR=$WS/logs/${SLURM_JOB_NAME}_${SLURM_JOB_ID}
 mkdir -p "$LOGDIR"
 cp $WS/configs/$CONFIG $LOGDIR/
@@ -42,8 +42,14 @@ COMMAND="apptainer exec --nv \
     env PYTHONPATH=/ws/src/FTR-Benchmark:/ws/src/flipper_training \
     python /ws/src/flipper_training/marv_rl_training/training/collect_ctrac_dataset.py \
     --config /ws/configs/$CONFIG \
-    --output /ws/logs/${SLURM_JOB_NAME}_${SLURM_JOB_ID}/ctrac_stage1_dataset.pt \
     --headless $@"
+# No --output override here on purpose: the dataset location is the config's own
+# output_path, so it stays in one place across the collect -> pretrain -> train chain
+# (marv_config_ctrac_cvae_pretrain.yaml's dataset_path has to point at it). An --output
+# pointing into this job's logs/ dir used to silently win over the config, which is how a
+# collection run ended up somewhere the pretrain config wasn't looking. Relative config
+# paths resolve against the workspace root, not cwd — see collect_ctrac_dataset.py's
+# _resolve_ws_path. Pass --output explicitly on the sbatch command line to override.
 
 echo "Executing:"
 echo "$COMMAND"

@@ -13,7 +13,7 @@ MIN_REPLAY_SIZE=${MIN_REPLAY_SIZE:-1000}     # well under one iteration's worth 
 UPDATES_PER_BATCH=${UPDATES_PER_BATCH:-4}
 EVAL_AND_SAVE_EVERY=${EVAL_AND_SAVE_EVERY:-2}
 
-CONFIG=marv_config_atd3qn.yaml \
+CONFIG=baselines/marv_config_atd3qn.yaml \
 TRAIN_SCRIPT=train_d3qn.py \
 bash "$WS/scripts/train.sh" \
     --num_envs "$NUM_ENVS" \

@@ -14,7 +14,7 @@
 set -e
 
 WS="$(cd "$(dirname "$0")/.." && pwd)"
-CONFIG=marv_config_creps.yaml
+CONFIG=baselines/marv_config_creps.yaml
 
 RUN_NAME="train_creps_$(date +%Y-%m-%d_%H-%M-%S)"
 LOGDIR=$WS/logs/$RUN_NAME

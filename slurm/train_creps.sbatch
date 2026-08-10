@@ -20,7 +20,7 @@ echo "########################################################################"
 echo "Setting up environment..."
 WS=/home/sargapav/robot_rodeo_gym_ws
 SIF=$WS/containers/isaaclab_optuna.sif
-CONFIG=marv_config_creps.yaml
+CONFIG=baselines/marv_config_creps.yaml
 LOGDIR=$WS/logs/${SLURM_JOB_NAME}_${SLURM_JOB_ID}
 cp $WS/configs/$CONFIG $LOGDIR/
 
@@ -73,11 +73,27 @@ rsync -a --no-perms "${HOME}/.cache/ov/" "${LOCAL_CACHE}/" 2>/dev/null \
 trap "echo 'Cleaning up node-local cache...'; rm -rf '${LOCAL_CACHE}'" EXIT
 
 # --- Respawn Configuration ---
-MAX_RESPAWNS=5
+# Respawns are bounded by the config's frame budget, not by a fixed count: after a crash the run
+# is restarted with only the frames still missing, until total_frames has actually been collected.
+# STALL_LIMIT is the safety net for a failure that recurs before any progress is made — without it
+# an unrecoverable crash would respawn for the rest of the SLURM allocation.
+source $WS/slurm/lib/respawn_common.sh
+frame_budget_init "$WS/configs/$CONFIG"
+STALL_LIMIT=5
+STALLED=0
 RESPAWN_COUNT=0
 
 # --- Execution Loop ---
 while true; do
+    REMAINING=$(frames_remaining)
+    if [ -n "$REMAINING" ] && [ "$REMAINING" -le 0 ]; then
+        echo "########################################################################"
+        echo "Frame budget reached: $FRAMES_DONE / $FRAME_BUDGET frames collected. Done."
+        echo "########################################################################"
+        exit 0
+    fi
+    FRAME_ARGS=$(frame_overrides "$REMAINING")
+
     COMMAND="apptainer exec --nv \
         --bind $WS:/ws \
         --bind ${LOCAL_CACHE}:${HOME}/.cache/ov \
@@ -94,10 +110,14 @@ while true; do
         env PYTHONPATH=/ws/src/FTR-Benchmark:/ws/src/flipper_training \
         python /ws/src/flipper_training/marv_rl_training/training/train_creps.py \
         --config /ws/configs/$CONFIG \
-        --headless $@"
+        --headless $FRAME_ARGS $@"
 
     echo "########################################################################"
-    echo "Starting training (respawn #$RESPAWN_COUNT of $MAX_RESPAWNS)..."
+    if [ -n "$REMAINING" ]; then
+        echo "Starting training (respawn #$RESPAWN_COUNT — $FRAMES_DONE/$FRAME_BUDGET frames done, $REMAINING to go)..."
+    else
+        echo "Starting training (respawn #$RESPAWN_COUNT)..."
+    fi
     echo "########################################################################"
 
     srun $COMMAND
@@ -107,19 +127,28 @@ while true; do
     echo "Python script finished with exit status: $EXIT_STATUS"
     echo "########################################################################"
 
+    attempt_record_progress "$LOGDIR" "$REMAINING"
+    echo "Attempt collected $ATTEMPT_PROGRESS frames (job total: $FRAMES_DONE${FRAME_BUDGET:+ / $FRAME_BUDGET})."
+
     # Exit code 75 = CUDA/W&B error, should respawn and auto-resume from crash checkpoint
     if [ "$EXIT_STATUS" -eq 75 ]; then
-        RESPAWN_COUNT=$((RESPAWN_COUNT + 1))
-        if [ "$RESPAWN_COUNT" -lt "$MAX_RESPAWNS" ]; then
-            echo "Exit code 75 detected (CUDA/W&B error). Respawning training (attempt $((RESPAWN_COUNT + 1))/$MAX_RESPAWNS)..."
-            sleep 5  # Brief pause before respawn to allow cleanup
-            continue
+        if [ "$ATTEMPT_PROGRESS" -gt 0 ] && attempt_wrote_weights "$ATTEMPT_DIR"; then
+            STALLED=0
         else
-            echo "Max respawns ($MAX_RESPAWNS) reached. Exiting."
+            STALLED=$((STALLED + 1))
+            echo "This attempt made no progress ($STALLED in a row)."
+        fi
+        if [ "$STALLED" -ge "$STALL_LIMIT" ]; then
+            echo "Aborting: $STALLED consecutive respawns made no progress — the failure is not transient."
             exit 75
         fi
+        RESPAWN_COUNT=$((RESPAWN_COUNT + 1))
+        echo "Exit code 75 detected (CUDA/W&B error). Respawning (attempt $((RESPAWN_COUNT + 1)))..."
+        sleep 5  # Brief pause before respawn to allow cleanup
+        continue
     else
-        # Normal exit (0 or other non-75 code)
+        # Normal exit (0 or other non-75 code). Exit 0 means the trainer collected everything it
+        # was asked for, so the budget is met; anything else is a failure respawning cannot fix.
         echo "Training finished with exit code $EXIT_STATUS. Not respawning."
         exit $EXIT_STATUS
     fi

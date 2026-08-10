@@ -13,15 +13,15 @@ fixes/additions on top of the original:
      load. This script reads each wheel1 joint's velocity every step, flags anomalies,
      prints them live, and logs everything to a CSV for later analysis.
 
-All settings are driven by a YAML config (configs/teleop_marv.yaml, configs/teleop_ftr.yaml),
-loaded via --config or the CONFIG env var (see scripts/teleop.sh). Any CLI flag overrides
-the corresponding config value.
+All settings are driven by a YAML config (configs/teleop/teleop_marv.yaml,
+configs/teleop/teleop_ftr.yaml), loaded via --config or the CONFIG env var (see
+scripts/teleop.sh). Any CLI flag overrides the corresponding config value.
 
 Launch via the wrapper (recommended — sets PYTHONPATH/conda env):
-  CONFIG=teleop_marv.yaml bash scripts/teleop.sh
+  CONFIG=teleop/teleop_marv.yaml bash scripts/teleop.sh
 
 Launch directly:
-  conda run -n isaaclab python scripts/teleop.py --config configs/teleop_marv.yaml
+  conda run -n isaaclab python scripts/teleop.py --config configs/teleop/teleop_marv.yaml
 """
 
 # Isaac Sim AppLauncher MUST be initialised before any omni/carb imports.
@@ -38,7 +38,7 @@ import yaml
 from omni.isaac.lab.app import AppLauncher
 
 _WS_ROOT = Path(__file__).resolve().parents[1]
-_DEFAULT_CONFIG = _WS_ROOT / "configs" / "teleop_marv.yaml"
+_DEFAULT_CONFIG = _WS_ROOT / "configs" / "teleop" / "teleop_marv.yaml"
 
 
 def _load_config(path: Path | None) -> dict:

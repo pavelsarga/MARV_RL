@@ -4,7 +4,7 @@
 # Submit:  sbatch --array=0-150%10 slurm/optuna_ftr.sbatch
 #   or:    sbatch slurm/optuna_ftr.sbatch   (uses the default array range below)
 #
-# The array range should be >= num_trials in configs/optuna_ftr.yaml.
+# The array range should be >= num_trials in configs/optuna/optuna_ftr_smooth.yaml.
 # Extra tasks exit cleanly once the study's trial budget is exhausted.
 #
 # Prerequisites (run once from the login node before submitting):
@@ -38,8 +38,8 @@ echo "########################################################################"
 WS=/home/sargapav/robot_rodeo_gym_ws
 SIF=$WS/containers/isaaclab_optuna.sif
 
-TRAIN_CONFIG=$WS/configs/ftr_config_A_new.yaml
-OPTUNA_CONFIG=$WS/configs/optuna_ftr_smooth.yaml
+TRAIN_CONFIG=$WS/configs/main/ftr_config_A_new.yaml
+OPTUNA_CONFIG=$WS/configs/optuna/optuna_ftr_smooth.yaml
 
 PG_DATA_DIR="${HOME}/postgres_optuna"
 PG_LOG="${PG_DATA_DIR}/postgres.log"

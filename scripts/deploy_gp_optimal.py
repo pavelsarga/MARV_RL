@@ -17,7 +17,7 @@ Usage:
 Options:
     --study NAME        Optuna study name (default: most recent in DB)
     --db PATH           SQLite DB path (default: <ws>/optuna/optuna.db)
-    --base-config PATH  Base config YAML (default: <ws>/configs/ftr_config_A_new.yaml)
+    --base-config PATH  Base config YAML (default: <ws>/configs/main/ftr_config_A_new.yaml)
     --out PATH          Output YAML path (default: auto-versioned in configs/)
     --n-restarts N      GP optimisation restarts (default: 500)
     --dry-run           Print config to stdout without writing any file
@@ -186,7 +186,7 @@ def main():
                                      formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("--study",       default=None)
     parser.add_argument("--db",          type=Path, default=ROOT / "optuna" / "optuna.db")
-    parser.add_argument("--base-config", type=Path, default=ROOT / "configs" / "ftr_config_A_new.yaml")
+    parser.add_argument("--base-config", type=Path, default=ROOT / "configs" / "main" / "ftr_config_A_new.yaml")
     parser.add_argument("--out",         type=Path, default=None)
     parser.add_argument("--n-restarts",  type=int,  default=500)
     parser.add_argument("--dry-run",     action="store_true")
@@ -267,7 +267,7 @@ def main():
     comment  = _metadata_comment(study_name, result_main, result_secondary)
     yaml_text = comment + OmegaConf.to_yaml(cfg, resolve=False)
 
-    out_path = args.out or _next_version_path(ROOT / "configs")
+    out_path = args.out or _next_version_path(ROOT / "configs" / "gp")
 
     print()
     if args.dry_run:

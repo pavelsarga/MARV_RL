@@ -37,8 +37,8 @@ TRIAL_NUM=$((TRIAL_OFFSET + SLURM_ARRAY_TASK_ID))
 
 WS=/home/sargapav/robot_rodeo_gym_ws
 SIF=$WS/containers/isaaclab_optuna.sif
-# Override without editing:  sbatch --export=ALL,OPTUNA_CONFIG=/ws/configs/optuna_ftr_smooth.yaml ...
-OPTUNA_CONFIG=${OPTUNA_CONFIG:-$WS/configs/optuna_ftr.yaml}
+# Override without editing:  sbatch --export=ALL,OPTUNA_CONFIG=/ws/configs/optuna/optuna_ftr_smooth.yaml ...
+OPTUNA_CONFIG=${OPTUNA_CONFIG:-$WS/configs/optuna/optuna_ftr.yaml}
 
 LOGDIR=$WS/logs/${SLURM_JOB_NAME}_${SLURM_ARRAY_JOB_ID}
 TASKDIR=$LOGDIR/${SLURM_JOB_NAME}_${SLURM_ARRAY_JOB_ID}_${SLURM_ARRAY_TASK_ID}

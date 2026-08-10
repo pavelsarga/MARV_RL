@@ -16,15 +16,15 @@
 #   sbatch slurm/eval_rand.sbatch <config.yaml> [eval_ftr_rand.py args...]
 #
 # Examples:
-#   sbatch slurm/eval_rand.sbatch configs/rand_policy_eval.yaml
-#   sbatch slurm/eval_rand.sbatch configs/rand_policy_eval.yaml --num_envs 64 --repeats 5
-#   sbatch slurm/eval_rand.sbatch configs/rand_policy_eval.yaml policy_opts.linear_speed=0.5
+#   sbatch slurm/eval_rand.sbatch configs/random_policy/rand_policy_eval.yaml
+#   sbatch slurm/eval_rand.sbatch configs/random_policy/rand_policy_eval.yaml --num_envs 64 --repeats 5
+#   sbatch slurm/eval_rand.sbatch configs/random_policy/rand_policy_eval.yaml policy_opts.linear_speed=0.5
 #
 # Per-env-type CSV output is saved automatically to the SLURM log directory.
 # Override with --output_dir <path> (host path; auto-rewritten by eval_rand.sh):
-#   sbatch slurm/eval_rand.sbatch configs/rand_policy_eval.yaml --num_env_types 16 --repeats 10
-#   sbatch slurm/eval_rand.sbatch configs/rand_policy_eval.yaml --output_dir /custom/path --eval_id label
-#   sbatch slurm/eval_rand.sbatch configs/rand_policy_eval.yaml --env_names_yaml configs/env_names.yaml
+#   sbatch slurm/eval_rand.sbatch configs/random_policy/rand_policy_eval.yaml --num_env_types 16 --repeats 10
+#   sbatch slurm/eval_rand.sbatch configs/random_policy/rand_policy_eval.yaml --output_dir /custom/path --eval_id label
+#   sbatch slurm/eval_rand.sbatch configs/random_policy/rand_policy_eval.yaml --env_names_yaml configs/env_names.yaml
 #
 # Alongside the CSVs the job writes eval_terrain.json (which terrain this eval_id ran on,
 # its env-type row names and depth-column count, from the config's `terrain:`) and copies
