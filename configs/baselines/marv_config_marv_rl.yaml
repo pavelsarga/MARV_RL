@@ -123,7 +123,7 @@ env_cfg_overrides:
   module_name: marv_rl
 
   robot_type: marv
-  flipper_control_mode: position
+  flipper_control_mode: velocity
   goal_reached_reward: 129.53813225921667
   failed_reward: -29.94922004490214
   shaping_coef: 72.50368190480287
@@ -154,6 +154,7 @@ env_cfg_overrides:
   spawn_yaw_range: 0.0
   flipper_material_friction: 6.0
   wheel_material_friction: 4.0
+  body_material_friction: 0.1
   terrain_static_friction: 1.2
   terrain_dynamic_friction: 0.9
   shock_fail_limit: null

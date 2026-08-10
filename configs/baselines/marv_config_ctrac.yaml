@@ -32,17 +32,61 @@ total_frames: ${mul:5242880,10}
 time_steps_per_batch: 128
 
 # ---- Off-policy replay + optimisation ----
-replay_buffer_capacity: 2000000
+# Lowered from 2,000,000 (copied from the D3QN configs without reconsidering CTRAC's much
+# heavier per-transition footprint — see train_sac.py's replay-buffer comment; the
+# original value OOM-killed a real run). Now disk-backed (LazyMemmapStorage) so this
+# mainly controls disk usage / replay staleness, not RAM — 500,000 x ~17.9 KB/transition
+# =~ 9 GB on disk.
+replay_buffer_capacity: 500000
 min_replay_size: 65536
 batch_size: 256                    # Table (paper): batch_size 256
 updates_per_batch: 32
 gamma: 0.99                        # paper Table: discount factor 0.99
 tau: 0.01                          # paper Table: target network update rate 0.01
 
-# ---- SAC entropy (paper Table: "entropy coefficient (1.5)" — reported as a fixed value,
-# not an auto-tuned target entropy) ----
+# ---- SAC entropy: paper says "entropy coefficient (1.5)" and states the implementation
+# "leverages the SAC framework from the Stable-Baselines3 RL library". In SB3's SAC,
+# ent_coef defaults to "auto" (auto-tuned, initial value 1.0) and an initial value is
+# spelled "auto_1.5"; a bare float means a FIXED coefficient. 1.5 is a natural tweak of
+# SB3's 1.0 auto-init and an unusual fixed value, so "entropy coefficient (1.5)" reads as
+# the auto-tuning initial value — which is what alpha_init + fixed_alpha: false gives.
+#
+# Reading it as fixed (the original setting here) produced a policy that never left the
+# max-entropy prior: after 19M frames the actor's loc was ~0.05 and its scale ~0.92, i.e.
+# near-uniform over the tanh range, so actions averaged to ~0 and the robot thrashed in
+# place (action/v_mean ~0.05 while lin_vel_mean was 0.31 — motion without displacement,
+# dist_to_goal 7.03 -> 6.55 over the whole run). With alpha pinned at 1.5, SAC's Boltzmann
+# optimum pi ~ exp(Q/alpha) is near-uniform unless Q varies by more than ~1.5 across
+# actions, and this reward's per-step action-dependent Q spread is far smaller than that.
+# Auto-tuning drives alpha down until the policy hits target_entropy instead.
 alpha_init: 1.5
-fixed_alpha: true
+fixed_alpha: false
+# MUST be explicit: "auto" is broken in this torchrl version. SACLoss.target_entropy
+# computes -action_spec.shape[len(container_shape):].numel() after wrapping the spec in a
+# Composite, so it measures the *container's* shape, not the action's — it returns -1.0 for
+# both a bare Bounded(6,) and a Composite(action=(512,6)) (both verified). A target of -1.0
+# for a 6-D action is barely more deterministic than the max-entropy prior we're trying to
+# escape, so leaving this on "auto" would have silently reproduced the same failure.
+#
+# -3.0, loosened from SB3's literal -dim(action_space) = -5.0 after measuring what the
+# policy actually reaches. Run train_ctrac_11311704 (49M frames at -5.0) ended with a
+# measured entropy of H = -3.485 nats over the full 6-D action. Since alpha's gradient is
+# -(log_pi + target_entropy), alpha only rises when H < target; with H = -3.485 > -5.0 the
+# target was never reachable from above, so alpha fell monotonically 1.486 -> 0.0065 and
+# entropy regularisation switched itself off entirely. With no entropy term left, the actor
+# optimised Q alone and drove |loc| to 0.92 — deep into tanh saturation — so behaviour went
+# effectively deterministic (per-lane eval success froze at bit-identical values across
+# independent stochastic evals) even though scale stayed ~0.80. Every "climb up" lane
+# (raised_stairs/raised_stairs_2/raised_platform) sat at 0.000 while the comparable descent
+# lanes were the policy's best results: it locked in a gait and stopped exploring the
+# flipper motion needed to mount an obstacle.
+#
+# -3.0 sits just above the measured H = -3.485, so alpha rises again (gently — a large gap
+# would spike it) and keeps exploration alive. This is a deliberate, measured departure
+# from SB3's -dim(A) rule; the frozen w dim already made the literal value awkward here
+# (it contributes a constant ~-2.58 nats, see ctrac_policy.py's w_log_std).
+# If alpha runs away upward, the policy is over-exploring — lower this back toward -4.
+target_entropy: -3.0
 alpha_optimizer_opts:
   lr: 0.0003
 loss_function: smooth_l1
@@ -95,14 +139,23 @@ policy_opts:
   # Stage I checkpoint from pretrain_ctrac_cvae.py (marv_config_ctrac_cvae_pretrain.yaml's
   # output_path). null = cold start (matches "C-TRAC w/o Pretrained", the paper's own
   # ablation shape) — set this once Stage I has actually run.
-  cvae_weights_path: experiments/baselines/ctrac/ctrac_dataset/ctrac_cvae_stage1.pth
+  cvae_weights_path:  experiments/baselines/ctrac/ctrac_dataset/ctrac_cvae_stage1.pth
 
 ftr_obs_encoder_opts: {}
 
 vecnorm_opts:
   decay: 0.99
   eps: 0.0001
-vecnorm_on_reward: true
+# MUST stay false for SAC with a fixed entropy coefficient. The paper's alpha (1.5) is
+# calibrated against its RAW reward scale (per-step ~-2, terminal +-150/-225); SAC's actor
+# loss is alpha*log_pi - Q, so normalising the reward rescales Q while alpha stays fixed and
+# the entropy term takes over. Observed in run train_ctrac_11305386: normalised reward came
+# out ~-0.005 vs a raw ~-1.8, i.e. ~360x smaller than alpha assumes -> loss_actor diverged
+# monotonically (-2 -> -84 over 29M frames) as the policy maximised entropy unopposed, std
+# blew up, and the deterministic-eval mean action collapsed to ~0 (v_mean ~0.008): the robot
+# standing still. The paper uses SB3 SAC on unnormalised rewards; this flag is inherited from
+# the PPO trainer, where advantage normalisation makes reward scale far less critical.
+vecnorm_on_reward: false
 extra_env_transforms: []
 
 policy_weights_path: null
@@ -147,6 +200,7 @@ env_cfg_overrides:
   spawn_yaw_range: 0.0
   flipper_material_friction: 6.0
   wheel_material_friction: 4.0
+  body_material_friction: 0.1
   terrain_static_friction: 1.2
   terrain_dynamic_friction: 0.9
   shock_fail_limit: null

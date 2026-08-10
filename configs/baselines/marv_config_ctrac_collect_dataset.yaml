@@ -11,11 +11,26 @@ comment: >-
   checkpoint marv_rl_weights_path actually points at.
 seed: 42
 device: cuda
-num_robots: 512
+num_robots: 1024
 task: Ftr-Crossing-Direct-v0
 terrain: custom_mixed
-total_steps: 2000
-output_path: experiments/baselines/ctrac/ctrac_dataset/ctrac_stage1_dataset.pt
+# episode_repeats * max_episode_length (computed from the real env, not guessed — see
+# CTRACDatasetCollectionConfig's docstring) = control steps to collect. At the default
+# sim_dt=0.005 x decimation=20 x episode_length_s=30, max_episode_length=300 steps, so
+# episode_repeats=100 -> 30000 control steps -> 30000 x num_robots transitions, with every
+# env completing ~100 full episode resets (distinct start/target draws + DR noise) instead
+# of the ~6-7 a flat total_steps=2000 would have given.
+episode_repeats: 100
+# Dataset size, independent of episode_repeats above (which drives DIVERSITY — logging
+# every one of the 30000 x 1024 transitions those repeats produce would be ~550 GB held in
+# RAM before a single final save, an instant OOM). log_every_n_steps subsamples which
+# control steps get logged (every 20th here -> 1500 logged steps x 1024 envs ~= 1.5M
+# transitions, ~27 GB on disk); shard_size_steps flushes to a new file every 50 logged
+# steps (~890 MB/shard) so peak RAM during collection stays bounded to one shard,
+# regardless of how long the run goes.
+log_every_n_steps: 20
+shard_size_steps: 50
+output_path: experiments/baselines/ctrac/ctrac_dataset/ctrac_stage1_shards
 cvae_history_len: 8   # must match marv_config_ctrac.yaml's policy_opts.history_len
 
 marv_rl_policy_opts:
@@ -36,8 +51,15 @@ marv_rl_encoder_opts:
   hidden_dim: 256
   output_dim: 128
   layernorm: true
-# Cold start placeholder — MUST be set to a real trained marv_rl checkpoint before running.
-marv_rl_weights_path: null
+marv_rl_vecnorm_opts:
+  decay: 0.99
+  eps: 0.0001
+# Must point at the SAME checkpoint step's weights — MarvRLFlatObservation trained with
+# VecNorm, so the demonstrator needs its matching normalization stats, not just its policy
+# weights (see CTRACDatasetCollectionConfig's docstring: unnormalized input gives near-
+# garbage actions from an otherwise-competent policy).
+marv_rl_weights_path: experiments/baselines/marv_rl/weights/policy_step_131072.pth
+marv_rl_vecnorm_weights_path: experiments/baselines/marv_rl/weights/vecnorm_step_131072.pth
 
 robot_max_linear_velocity: 10.0
 robot_max_angular_velocity: 720.0
@@ -68,6 +90,7 @@ env_cfg_overrides:
   spawn_yaw_range: 0.0
   flipper_material_friction: 6.0
   wheel_material_friction: 4.0
+  body_material_friction: 0.1
   terrain_static_friction: 1.2
   terrain_dynamic_friction: 0.9
   shock_fail_limit: null

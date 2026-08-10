@@ -105,7 +105,11 @@ ftr_obs_encoder_opts: {}
 vecnorm_opts:
   decay: 0.99
   eps: 0.0001
-vecnorm_on_reward: true
+# Off: none of the reproduced papers use reward normalisation, and every non-marv_rl
+# observation class already sets supports_vecnorm = False, so VecNorm reduces to a no-op
+# here (verified: VecNorm with empty in_keys passes the tensordict through unchanged).
+# Reward scale is load-bearing for these methods' own literal reward constants.
+vecnorm_on_reward: false
 extra_env_transforms: []
 
 # Cold start — no prior HFC checkpoint to warm-start from (architecture is new this run).
@@ -165,6 +169,7 @@ env_cfg_overrides:
   spawn_yaw_range: 0.0
   flipper_material_friction: 6.0
   wheel_material_friction: 4.0
+  body_material_friction: 0.1
   terrain_static_friction: 1.2
   terrain_dynamic_friction: 0.9
   shock_fail_limit: null

@@ -85,8 +85,8 @@ policy_opts:
   back_down_deg: 90.0
   # Tighter inner constraint (paper's psi_s in [-pi/4, 0]): rear during ascent, front
   # during descent, selected per env from the is_ascending observation feature.
-  mitriakov_limit_front_deg: 45.0
-  mitriakov_limit_rear_deg: 45.0
+  mitriakov_limit_front_deg: 60.0
+  mitriakov_limit_rear_deg: 60.0
 
 # MitriakovEncoder takes no meaningful options (identity passthrough — see
 # mitriakov_observation.py).
@@ -95,7 +95,11 @@ ftr_obs_encoder_opts: {}
 vecnorm_opts:
   decay: 0.99
   eps: 0.0001
-vecnorm_on_reward: true
+# Off: none of the reproduced papers use reward normalisation, and every non-marv_rl
+# observation class already sets supports_vecnorm = False, so VecNorm reduces to a no-op
+# here (verified: VecNorm with empty in_keys passes the tensordict through unchanged).
+# Reward scale is load-bearing for these methods' own literal reward constants.
+vecnorm_on_reward: false
 extra_env_transforms: []
 
 policy_weights_path: null
@@ -152,5 +156,6 @@ env_cfg_overrides:
   spawn_yaw_range: 0.0
   flipper_material_friction: 6.0
   wheel_material_friction: 4.0
+  body_material_friction: 0.1
   terrain_static_friction: 1.2
   terrain_dynamic_friction: 0.9

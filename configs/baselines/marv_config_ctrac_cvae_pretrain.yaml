@@ -8,8 +8,15 @@ comment: >-
   (warm start, not frozen — Stage II keeps training the C-VAE jointly).
 seed: 42
 device: cuda
-dataset_path: experiments/baselines/ctrac/ctrac_dataset/ctrac_stage1_dataset.pt
+# A directory of shard_*.pt files (collect_ctrac_dataset.py's output_path) — a single
+# legacy .pt file also still works.
+dataset_path: experiments/baselines/ctrac/ctrac_dataset/ctrac_stage1_shards
 output_path: experiments/baselines/ctrac/ctrac_dataset/ctrac_cvae_stage1.pth
+# Caps transitions loaded into RAM at once (~17.4 KB/row -> 1,000,000 rows ~= 17.4 GB);
+# shards beyond this are proportionally subsampled (see pretrain_ctrac_cvae.py's
+# _load_dataset), not just the earliest ones. Loading now uses mmap so this cap — not
+# shard/file size — is what actually bounds peak RAM.
+max_dataset_rows: 1000000
 total_steps: 20000
 batch_size: 256
 history_len: 8          # must match marv_config_ctrac.yaml's policy_opts.history_len
