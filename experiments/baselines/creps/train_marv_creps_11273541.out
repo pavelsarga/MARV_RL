@@ -1,0 +1,233 @@
+########################################################################
+Job ID: 11273541
+Running on node: g08
+Script arguments received by sbatch script (/var/spool/slurm/d/job11273541/slurm_script): 
+Number of arguments: 0
+########################################################################
+Setting up environment...
+Changed directory to /home/sargapav/robot_rodeo_gym_ws
+------------------------------------------------------------------------
+nvidia-smi output:
+Thu Jul 30 12:44:18 2026       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 550.54.14              Driver Version: 550.54.14      CUDA Version: 12.4     |
+|-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA A100-SXM4-40GB          On  |   00000000:81:00.0 Off |                    0 |
+| N/A   28C    P0             52W /  400W |       0MiB /  40960MiB |      0%      Default |
+|                                         |                        |             Disabled |
++-----------------------------------------+------------------------+----------------------+
+                                                                                         
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI        PID   Type   Process name                              GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|  No running processes found                                                             |
++-----------------------------------------------------------------------------------------+
+GPU is clear (no active CUDA contexts).
+------------------------------------------------------------------------
+W&B project : MARV_RL
+Copying Omniverse cache to node-local /tmp/omni_cache_11273541 ...
+########################################################################
+Starting training (respawn #0 of 5)...
+########################################################################
+[Warning] [omni.isaac.kit.simulation_app] Modules: ['omni.kit_app'] were loaded before SimulationApp was started and might not be loaded correctly.
+[Warning] [omni.isaac.kit.simulation_app] Please check to make sure no extra omniverse or pxr modules are imported before the call to SimulationApp(...)
+[Info] [carb] Logging to file: /opt/conda/envs/isaaclab/lib/python3.10/site-packages/omni/logs/Kit/Isaac-Sim/4.2/kit_20260730_124421.log
+2026-07-30 10:44:21 [0ms] [Warning] [omni.kit.app.plugin] No crash reporter present, dumps uploading isn't available.
+2026-07-30 10:44:21 [4ms] [Warning] [omni.ext.plugin] [ext: experiments] Extensions config 'extension.toml' doesn't exist '/home/sargapav/robot_rodeo_gym_ws/experiments' or '/home/sargapav/robot_rodeo_gym_ws/experiments/config'
+2026-07-30 10:44:21 [4ms] [Warning] [omni.ext.plugin] [ext: notebooks] Extensions config 'extension.toml' doesn't exist '/home/sargapav/robot_rodeo_gym_ws/notebooks' or '/home/sargapav/robot_rodeo_gym_ws/notebooks/config'
+2026-07-30 10:44:21 [4ms] [Warning] [omni.ext.plugin] [ext: slurm] Extensions config 'extension.toml' doesn't exist '/home/sargapav/robot_rodeo_gym_ws/slurm' or '/home/sargapav/robot_rodeo_gym_ws/slurm/config'
+2026-07-30 10:44:21 [4ms] [Warning] [omni.ext.plugin] [ext: configs] Extensions config 'extension.toml' doesn't exist '/home/sargapav/robot_rodeo_gym_ws/configs' or '/home/sargapav/robot_rodeo_gym_ws/configs/config'
+2026-07-30 10:44:21 [5ms] [Warning] [omni.ext.plugin] [ext: runs] Extensions config 'extension.toml' doesn't exist '/home/sargapav/robot_rodeo_gym_ws/runs' or '/home/sargapav/robot_rodeo_gym_ws/runs/config'
+2026-07-30 10:44:21 [5ms] [Warning] [omni.ext.plugin] [ext: src] Extensions config 'extension.toml' doesn't exist '/home/sargapav/robot_rodeo_gym_ws/src' or '/home/sargapav/robot_rodeo_gym_ws/src/config'
+2026-07-30 10:44:21 [5ms] [Warning] [omni.ext.plugin] [ext: secrets] Extensions config 'extension.toml' doesn't exist '/home/sargapav/robot_rodeo_gym_ws/secrets' or '/home/sargapav/robot_rodeo_gym_ws/secrets/config'
+2026-07-30 10:44:21 [5ms] [Warning] [omni.ext.plugin] [ext: wandb] Extensions config 'extension.toml' doesn't exist '/home/sargapav/robot_rodeo_gym_ws/wandb' or '/home/sargapav/robot_rodeo_gym_ws/wandb/config'
+2026-07-30 10:44:21 [5ms] [Warning] [omni.ext.plugin] [ext: optuna] Extensions config 'extension.toml' doesn't exist '/home/sargapav/robot_rodeo_gym_ws/optuna' or '/home/sargapav/robot_rodeo_gym_ws/optuna/config'
+2026-07-30 10:44:21 [5ms] [Warning] [omni.ext.plugin] [ext: containers] Extensions config 'extension.toml' doesn't exist '/home/sargapav/robot_rodeo_gym_ws/containers' or '/home/sargapav/robot_rodeo_gym_ws/containers/config'
+2026-07-30 10:44:21 [5ms] [Warning] [omni.ext.plugin] [ext: scripts] Extensions config 'extension.toml' doesn't exist '/home/sargapav/robot_rodeo_gym_ws/scripts' or '/home/sargapav/robot_rodeo_gym_ws/scripts/config'
+2026-07-30 10:44:21 [5ms] [Warning] [omni.ext.plugin] [ext: logs] Extensions config 'extension.toml' doesn't exist '/home/sargapav/robot_rodeo_gym_ws/logs' or '/home/sargapav/robot_rodeo_gym_ws/logs/config'
+[0.230s] [ext: omni.kit.async_engine-0.0.1] startup
+[0.478s] [ext: omni.stats-1.0.1] startup
+[0.485s] [ext: omni.client-1.2.0] startup
+[0.631s] [ext: omni.gpu_foundation.shadercache.vulkan-1.0.0] startup
+[0.642s] [ext: omni.assets.plugins-0.0.0] startup
+[0.657s] [ext: omni.gpu_foundation-0.0.0] startup
+[0.805s] [ext: omni.kit.pipapi-0.0.0] startup
+[0.806s] [ext: omni.materialx.libs-1.0.4] startup
+[0.832s] [ext: omni.kit.pip_archive-0.0.0] startup
+[0.833s] [ext: omni.usd.config-1.0.4] startup
+[0.843s] [ext: omni.gpucompute.plugins-0.0.0] startup
+[0.845s] [ext: omni.usd.libs-1.0.1] startup
+[1.247s] [ext: omni.kit.telemetry-0.5.0] startup
+[1.282s] [ext: omni.usd.schema.semantics-0.0.0] startup
+[1.490s] [ext: omni.usd.schema.audio-0.0.0] startup
+[1.519s] [ext: omni.usd.schema.physx-106.1.9] startup
+[1.610s] [ext: carb.audio-0.1.0] startup
+[1.646s] [ext: omni.kvdb-106.1.9] startup
+[1.653s] [ext: omni.timeline-1.0.10] startup
+[1.659s] [ext: omni.kit.actions.core-1.0.0] startup
+[1.666s] [ext: omni.kit.audiodeviceenum-1.0.1] startup
+[1.671s] [ext: omni.localcache-106.1.9] startup
+[1.675s] [ext: omni.usd_resolver-1.0.0] startup
+[1.684s] [ext: omni.kit.commands-1.4.9] startup
+[1.693s] [ext: omni.graph.exec-0.9.4] startup
+[1.695s] [ext: omni.usd.core-1.4.1] startup
+[1.707s] [ext: omni.kit.usd_undo-0.1.8] startup
+[1.708s] [ext: omni.kit.exec.core-0.13.4] startup
+[1.715s] [ext: omni.convexdecomposition-106.1.9] startup
+[1.725s] [ext: omni.usd-1.12.2] startup
+[1.794s] [ext: omni.usdphysics-106.1.9] startup
+[1.797s] [ext: omni.physx.foundation-106.1.9] startup
+[1.811s] [ext: omni.kit.usd.layers-2.1.36] startup
+[1.831s] [ext: omni.physx.cooking-106.1.9] startup
+[1.846s] [ext: omni.blobkey-1.1.2] startup
+[1.851s] [ext: omni.datastore-0.0.0] startup
+[1.916s] [ext: omni.ujitso.default-1.0.0] startup
+[1.924s] [ext: omni.hsscclient-1.1.1] startup
+[1.937s] [ext: omni.kit.primitive.mesh-1.0.17] startup
+[1.942s] [ext: usdrt.scenegraph-7.5.0] startup
+[2.047s] [ext: omni.warp.core-1.2.1] startup
+[2.352s] [ext: omni.physx-106.1.9] startup
+[2.408s] [ext: omni.kit.stage_template.core-1.1.22] startup
+[2.410s] [ext: omni.physx.stageupdate-106.1.9] startup
+[2.415s] [ext: omni.kit.stage_templates-1.2.5] startup
+[2.418s] [ext: omni.physics.tensors-106.1.9] startup
+[2.435s] [ext: omni.isaac.version-1.1.0] startup
+[2.436s] [ext: omni.physx.tensors-106.1.9] startup
+2026-07-30 10:44:24 [2,518ms] [Warning] [omni.platforminfo.plugin] failed to open the default display.  Can't verify X Server version.
+2026-07-30 10:44:24 [2,519ms] [Warning] [omni.platforminfo.plugin] failed to load XRAndR.
+[2.912s] [ext: omni.isaac.nucleus-0.3.1] startup
+[2.914s] [ext: omni.kit.loop-isaac-1.2.0] startup
+[2.918s] [ext: omni.isaac.core-3.19.5] startup
+[5.860s] [ext: omni.physx.fabric-106.1.9] startup
+[5.874s] [ext: omni.isaac.kit-1.13.2] startup
+[5.874s] [ext: omni.isaac.cloner-0.8.1] startup
+[5.876s] [ext: isaaclab.python.headless-1.2.0] startup
+[5.878s] Simulation App Starting
+2026-07-30 10:44:27 [5,854ms] [Warning] [gpu.foundation.plugin] [ShaderCache]: Creating driver shaderCache directory failed: /opt/conda/envs/isaaclab/lib/python3.10/site-packages/omni/cache/nv_shadercache
+
+|---------------------------------------------------------------------------------------------|
+| Driver Version: 0             | Graphics API: Vulkan
+|=============================================================================================|
+| GPU | Name                             | Active | LDA | GPU Memory | Vendor-ID | LUID       |
+|     |                                  |        |     |            | Device-ID | UUID       |
+|     |                                  |        |     |            | Bus-ID    |            |
+|=============================================================================================|
+| OS: 13 (trixie) debian, Version: 13.1734960750.0, Kernel: 4.18.0-513.9.1.el8_9.x86_64
+| Processor: AMD EPYC 7543 32-Core Processor | Cores: 64 | Logical: 128
+|---------------------------------------------------------------------------------------------|
+| Total Memory (MB): 1031894 | Free Memory: 938163
+| Total Page/Swap (MB): 0 | Free Page/Swap: 0
+|---------------------------------------------------------------------------------------------|
+2026-07-30 10:44:27 [6,449ms] [Warning] [omni.physx.foundation.plugin] PhysXFoundation: Couldn't get driver version, failed to getDeviceInfo
+2026-07-30 10:44:27 [6,449ms] [Warning] [omni.physx.foundation.plugin] PhysXFoundation: Unable to get IGpuFoundation, GpuDevices or Graphics!
+2026-07-30 10:44:27 [6,450ms] [Warning] [carb.cudainterop.plugin] CUDA_VISIBLE_DEVICES environment variable is set.
+2026-07-30 10:44:27 [6,450ms] [Warning] [carb.cudainterop.plugin] Note CUDA device enumeration and Omniverse device enumeration are different.
+2026-07-30 10:44:27 [6,450ms] [Warning] [carb.cudainterop.plugin] Setting CUDA_VISIBLE_DEVICES can lead to undesired behavior or crashes.
+[7.450s] app ready
+[7.618s] Simulation App Startup Complete
+2026-07-30 10:44:33 [11,579ms] [Warning] [pxr.Semantics] pxr.Semantics is deprecated - please use Semantics instead
+2026-07-30 10:44:35 [13,559ms] [Warning] [omni.isaac.lab.envs.direct_rl_env] Seed not set for the environment. The environment creation may not be deterministic.
+2026-07-30 10:44:35 [13,596ms] [Warning] [omni.isaac.lab.envs.direct_rl_env] The render interval (5) is smaller than the decimation (20). Multiple multiple render calls will happen for each environment step.If this is not intended, set the render interval to be equal to the decimation.
+[INFO][AppLauncher]: Loading experience file: /opt/IsaacLab/source/extensions/omni.isaac.lab/omni/isaac/lab/app/../../../../../../apps/isaaclab.python.headless.kit
+Starting kit application with the following args:  ['/opt/conda/envs/isaaclab/lib/python3.10/site-packages/isaacsim/exts/omni.isaac.kit/omni/isaac/kit/simulation_app.py', '/opt/IsaacLab/source/extensions/omni.isaac.lab/omni/isaac/lab/app/../../../../../../apps/isaaclab.python.headless.kit', '--/app/tokens/exe-path=/opt/conda/envs/isaaclab/lib/python3.10/site-packages/omni', '--/persistent/app/viewport/displayOptions=3094', '--/rtx/materialDb/syncLoads=True', '--/rtx/hydra/materialSyncLoads=True', '--/omni.kit.plugin/syncUsdLoads=True', '--/app/renderer/resolution/width=1280', '--/app/renderer/resolution/height=720', '--/app/window/width=1440', '--/app/window/height=900', '--/renderer/multiGpu/enabled=True', '--/app/fastShutdown=True', '--ext-folder', '/opt/conda/envs/isaaclab/lib/python3.10/site-packages/isaacsim/exts', '--ext-folder', '/opt/conda/envs/isaaclab/lib/python3.10/site-packages/isaacsim/apps', '--/renderer/activeGpu=0', '--/physics/cudaDevice=0', '--portable', '--no-window', '--/app/window/hideUi=True']
+Passing the following args to the base kit application:  ['--config', '/ws/configs/marv_config_creps.yaml', '--headless']
+Warp 1.2.1 initialized:
+   CUDA Toolkit 11.8, Driver 12.4
+   Devices:
+     "cpu"      : "CPU"
+     "cuda:0"   : "NVIDIA A100-SXM4-40GB" (39 GiB, sm_80, mempool enabled)
+   Kernel cache:
+     /home/sargapav/.cache/warp/1.2.1
+[INFO]: Base environment:
+	Environment device    : cuda:0
+	Environment seed      : None
+	Physics step-size     : 0.005
+	Rendering step-size   : 0.025
+	Environment step-size : 0.1
+[INFO]: Time taken for scene creation : 0.590431 seconds
+[INFO]: Scene manager:  <class InteractiveScene>
+	Number of environments: 384
+	Environment spacing   : 0.0
+	Source prim name      : /World/envs/env_0
+	Global prim paths     : ['/World/terrain']
+	Replicate physics     : True
+[INFO]: Starting the simulation. This may take a few seconds. Please wait...
+[INFO]: Time taken for simulation start : 4.093321 seconds
+[INFO]: Completed setting up the environment...
+2026-07-30 12:44:39,833 [RunLogger][[92mINFO[00m]: RunLogger initialized for run train_marv_creps_11273541_attempt_0 at /ws/logs/train_marv_creps_11273541/attempt_0 (logutils.py:105)
+2026-07-30 12:44:47,375 [ftr_creps_train][[92mINFO[00m]: Seed: 42 (train_creps.py:185)
+2026-07-30 12:44:47,395 [ftr_creps_train][[92mINFO[00m]: Initialized FtrCREPSTrainer. (train_creps.py:222)
+2026-07-30 12:44:47,396 [ftr_creps_train][[92mINFO[00m]: CREPS: 128 omega samples x 3 repeats (384 rollouts) per iteration, 60 iterations, 300 steps/episode. (train_creps.py:368)
+2026-07-30 12:46:16,981 [ftr_creps_train][[92mINFO[00m]: iter 0: mean_reward=0.8909 mean_safety=0.997 mean_mechanical_ok=0.703 eta=1.3240 gamma=[ 0.        -0.9705164] (train_creps.py:431)
+2026-07-30 12:47:40,859 [ftr_creps_train][[92mINFO[00m]: iter 1: mean_reward=1.0916 mean_safety=1.000 mean_mechanical_ok=0.865 eta=1.3046 gamma=[ 0.         -0.50021115] (train_creps.py:431)
+2026-07-30 12:49:06,074 [ftr_creps_train][[92mINFO[00m]: iter 2: mean_reward=1.3985 mean_safety=1.000 mean_mechanical_ok=0.776 eta=1.2169 gamma=[ 0.         -0.37628052] (train_creps.py:431)
+2026-07-30 12:50:30,019 [ftr_creps_train][[92mINFO[00m]: iter 3: mean_reward=1.7981 mean_safety=1.000 mean_mechanical_ok=0.932 eta=1.0114 gamma=[0. 0.] (train_creps.py:431)
+2026-07-30 12:51:53,692 [ftr_creps_train][[92mINFO[00m]: iter 4: mean_reward=2.2109 mean_safety=1.000 mean_mechanical_ok=0.953 eta=0.6729 gamma=[0. 0.] (train_creps.py:431)
+2026-07-30 12:53:16,147 [ftr_creps_train][[92mINFO[00m]: iter 5: mean_reward=2.8163 mean_safety=1.000 mean_mechanical_ok=0.951 eta=0.4177 gamma=[0. 0.] (train_creps.py:431)
+2026-07-30 12:54:36,871 [ftr_creps_train][[92mINFO[00m]: iter 6: mean_reward=2.9872 mean_safety=1.000 mean_mechanical_ok=0.917 eta=0.3469 gamma=[0. 0.] (train_creps.py:431)
+2026-07-30 12:55:57,715 [ftr_creps_train][[92mINFO[00m]: iter 7: mean_reward=3.1995 mean_safety=1.000 mean_mechanical_ok=0.945 eta=0.1543 gamma=[0. 0.] (train_creps.py:431)
+2026-07-30 12:57:18,372 [ftr_creps_train][[92mINFO[00m]: iter 8: mean_reward=3.3888 mean_safety=1.000 mean_mechanical_ok=0.922 eta=0.0149 gamma=[ 0.         -0.01285148] (train_creps.py:431)
+2026-07-30 12:58:39,066 [ftr_creps_train][[92mINFO[00m]: iter 9: mean_reward=3.5023 mean_safety=1.000 mean_mechanical_ok=0.948 eta=0.0135 gamma=[ 0.         -0.00715994] (train_creps.py:431)
+2026-07-30 12:59:59,271 [ftr_creps_train][[92mINFO[00m]: iter 10: mean_reward=3.5485 mean_safety=1.000 mean_mechanical_ok=0.932 eta=0.0105 gamma=[0. 0.] (train_creps.py:431)
+2026-07-30 13:01:19,145 [ftr_creps_train][[92mINFO[00m]: iter 11: mean_reward=3.4929 mean_safety=1.000 mean_mechanical_ok=0.901 eta=0.0107 gamma=[ 0.         -0.00580227] (train_creps.py:431)
+2026-07-30 13:02:39,263 [ftr_creps_train][[92mINFO[00m]: iter 12: mean_reward=3.6038 mean_safety=1.000 mean_mechanical_ok=0.927 eta=0.0104 gamma=[0. 0.] (train_creps.py:431)
+2026-07-30 13:03:59,398 [ftr_creps_train][[92mINFO[00m]: iter 13: mean_reward=3.6048 mean_safety=1.000 mean_mechanical_ok=0.904 eta=0.0117 gamma=[ 0.         -0.00873079] (train_creps.py:431)
+2026-07-30 13:05:19,211 [ftr_creps_train][[92mINFO[00m]: iter 14: mean_reward=3.4833 mean_safety=1.000 mean_mechanical_ok=0.823 eta=0.0111 gamma=[ 0.         -0.01180762] (train_creps.py:431)
+2026-07-30 13:06:38,594 [ftr_creps_train][[92mINFO[00m]: iter 15: mean_reward=3.5797 mean_safety=1.000 mean_mechanical_ok=0.857 eta=0.0121 gamma=[ 0.         -0.00701536] (train_creps.py:431)
+2026-07-30 13:07:58,609 [ftr_creps_train][[92mINFO[00m]: iter 16: mean_reward=3.4768 mean_safety=1.000 mean_mechanical_ok=0.867 eta=0.0111 gamma=[ 0.         -0.00701008] (train_creps.py:431)
+2026-07-30 13:09:20,171 [ftr_creps_train][[92mINFO[00m]: iter 17: mean_reward=3.4948 mean_safety=1.000 mean_mechanical_ok=0.857 eta=0.0131 gamma=[ 0.         -0.00366745] (train_creps.py:431)
+2026-07-30 13:10:41,213 [ftr_creps_train][[92mINFO[00m]: iter 18: mean_reward=3.5680 mean_safety=1.000 mean_mechanical_ok=0.852 eta=0.0100 gamma=[ 0.         -0.00546461] (train_creps.py:431)
+2026-07-30 13:12:01,272 [ftr_creps_train][[92mINFO[00m]: iter 19: mean_reward=3.6091 mean_safety=1.000 mean_mechanical_ok=0.786 eta=0.0108 gamma=[ 0.         -0.01460947] (train_creps.py:431)
+2026-07-30 13:13:21,425 [ftr_creps_train][[92mINFO[00m]: iter 20: mean_reward=3.5860 mean_safety=1.000 mean_mechanical_ok=0.888 eta=0.0130 gamma=[0. 0.] (train_creps.py:431)
+2026-07-30 13:14:40,578 [ftr_creps_train][[92mINFO[00m]: iter 21: mean_reward=3.5603 mean_safety=1.000 mean_mechanical_ok=0.865 eta=0.0119 gamma=[ 0.         -0.00993414] (train_creps.py:431)
+2026-07-30 13:16:00,605 [ftr_creps_train][[92mINFO[00m]: iter 22: mean_reward=3.5540 mean_safety=1.000 mean_mechanical_ok=0.789 eta=0.0127 gamma=[ 0.         -0.00861837] (train_creps.py:431)
+2026-07-30 13:17:20,353 [ftr_creps_train][[92mINFO[00m]: iter 23: mean_reward=3.5873 mean_safety=1.000 mean_mechanical_ok=0.823 eta=0.0111 gamma=[ 0.         -0.00453682] (train_creps.py:431)
+2026-07-30 13:18:39,848 [ftr_creps_train][[92mINFO[00m]: iter 24: mean_reward=3.5258 mean_safety=1.000 mean_mechanical_ok=0.826 eta=0.0131 gamma=[ 0.         -0.00664331] (train_creps.py:431)
+2026-07-30 13:19:59,909 [ftr_creps_train][[92mINFO[00m]: iter 25: mean_reward=3.5698 mean_safety=1.000 mean_mechanical_ok=0.833 eta=0.0115 gamma=[ 0.         -0.00394797] (train_creps.py:431)
+2026-07-30 13:21:20,184 [ftr_creps_train][[92mINFO[00m]: iter 26: mean_reward=3.5927 mean_safety=1.000 mean_mechanical_ok=0.867 eta=0.0120 gamma=[ 0.         -0.00209942] (train_creps.py:431)
+2026-07-30 13:22:40,673 [ftr_creps_train][[92mINFO[00m]: iter 27: mean_reward=3.5582 mean_safety=1.000 mean_mechanical_ok=0.904 eta=0.0123 gamma=[0. 0.] (train_creps.py:431)
+2026-07-30 13:24:00,381 [ftr_creps_train][[92mINFO[00m]: iter 28: mean_reward=3.5945 mean_safety=1.000 mean_mechanical_ok=0.857 eta=0.0112 gamma=[0. 0.] (train_creps.py:431)
+2026-07-30 13:25:20,470 [ftr_creps_train][[92mINFO[00m]: iter 29: mean_reward=3.5570 mean_safety=1.000 mean_mechanical_ok=0.878 eta=0.0112 gamma=[0. 0.] (train_creps.py:431)
+2026-07-30 13:26:40,409 [ftr_creps_train][[92mINFO[00m]: iter 30: mean_reward=3.5377 mean_safety=1.000 mean_mechanical_ok=0.883 eta=0.0106 gamma=[ 0.         -0.00176197] (train_creps.py:431)
+2026-07-30 13:28:00,524 [ftr_creps_train][[92mINFO[00m]: iter 31: mean_reward=3.5773 mean_safety=1.000 mean_mechanical_ok=0.878 eta=0.0120 gamma=[ 0.         -0.00206001] (train_creps.py:431)
+2026-07-30 13:29:19,963 [ftr_creps_train][[92mINFO[00m]: iter 32: mean_reward=3.5944 mean_safety=1.000 mean_mechanical_ok=0.810 eta=0.0118 gamma=[ 0.         -0.01115356] (train_creps.py:431)
+2026-07-30 13:30:39,921 [ftr_creps_train][[92mINFO[00m]: iter 33: mean_reward=3.5956 mean_safety=1.000 mean_mechanical_ok=0.823 eta=0.0122 gamma=[ 0.         -0.00533424] (train_creps.py:431)
+2026-07-30 13:31:59,413 [ftr_creps_train][[92mINFO[00m]: iter 34: mean_reward=3.5864 mean_safety=1.000 mean_mechanical_ok=0.844 eta=0.0100 gamma=[ 0.         -0.00989528] (train_creps.py:431)
+2026-07-30 13:33:18,449 [ftr_creps_train][[92mINFO[00m]: iter 35: mean_reward=3.5414 mean_safety=1.000 mean_mechanical_ok=0.828 eta=0.0119 gamma=[ 0.         -0.00539569] (train_creps.py:431)
+2026-07-30 13:34:37,118 [ftr_creps_train][[92mINFO[00m]: iter 36: mean_reward=3.5980 mean_safety=1.000 mean_mechanical_ok=0.859 eta=0.0103 gamma=[0. 0.] (train_creps.py:431)
+2026-07-30 13:35:57,737 [ftr_creps_train][[92mINFO[00m]: iter 37: mean_reward=3.5689 mean_safety=1.000 mean_mechanical_ok=0.906 eta=0.0109 gamma=[0. 0.] (train_creps.py:431)
+2026-07-30 13:37:18,874 [ftr_creps_train][[92mINFO[00m]: iter 38: mean_reward=3.5903 mean_safety=1.000 mean_mechanical_ok=0.852 eta=0.0113 gamma=[ 0.         -0.00438983] (train_creps.py:431)
+2026-07-30 13:38:38,020 [ftr_creps_train][[92mINFO[00m]: iter 39: mean_reward=3.5448 mean_safety=1.000 mean_mechanical_ok=0.753 eta=0.0119 gamma=[ 0.         -0.00860338] (train_creps.py:431)
+2026-07-30 13:39:57,062 [ftr_creps_train][[92mINFO[00m]: iter 40: mean_reward=3.5363 mean_safety=1.000 mean_mechanical_ok=0.766 eta=0.0119 gamma=[ 0.         -0.01197591] (train_creps.py:431)
+2026-07-30 13:41:16,543 [ftr_creps_train][[92mINFO[00m]: iter 41: mean_reward=3.5953 mean_safety=1.000 mean_mechanical_ok=0.911 eta=0.0106 gamma=[ 0.         -0.00677814] (train_creps.py:431)
+2026-07-30 13:42:35,855 [ftr_creps_train][[92mINFO[00m]: iter 42: mean_reward=3.5314 mean_safety=1.000 mean_mechanical_ok=0.846 eta=0.0121 gamma=[0. 0.] (train_creps.py:431)
+2026-07-30 13:43:54,907 [ftr_creps_train][[92mINFO[00m]: iter 43: mean_reward=3.6138 mean_safety=1.000 mean_mechanical_ok=0.885 eta=0.0100 gamma=[0. 0.] (train_creps.py:431)
+2026-07-30 13:45:15,168 [ftr_creps_train][[92mINFO[00m]: iter 44: mean_reward=3.5530 mean_safety=1.000 mean_mechanical_ok=0.813 eta=0.0117 gamma=[0. 0.] (train_creps.py:431)
+2026-07-30 13:46:34,136 [ftr_creps_train][[92mINFO[00m]: iter 45: mean_reward=3.5782 mean_safety=1.000 mean_mechanical_ok=0.846 eta=0.0118 gamma=[ 0.         -0.00916135] (train_creps.py:431)
+2026-07-30 13:47:53,874 [ftr_creps_train][[92mINFO[00m]: iter 46: mean_reward=3.5601 mean_safety=1.000 mean_mechanical_ok=0.823 eta=0.0128 gamma=[ 0.         -0.00471869] (train_creps.py:431)
+2026-07-30 13:49:13,948 [ftr_creps_train][[92mINFO[00m]: iter 47: mean_reward=3.4786 mean_safety=1.000 mean_mechanical_ok=0.799 eta=0.0123 gamma=[ 0.         -0.00626847] (train_creps.py:431)
+2026-07-30 13:50:33,582 [ftr_creps_train][[92mINFO[00m]: iter 48: mean_reward=3.5520 mean_safety=1.000 mean_mechanical_ok=0.911 eta=0.0107 gamma=[0. 0.] (train_creps.py:431)
+2026-07-30 13:51:53,590 [ftr_creps_train][[92mINFO[00m]: iter 49: mean_reward=3.5636 mean_safety=1.000 mean_mechanical_ok=0.888 eta=0.0124 gamma=[ 0.         -0.00015821] (train_creps.py:431)
+2026-07-30 13:53:13,284 [ftr_creps_train][[92mINFO[00m]: iter 50: mean_reward=3.5086 mean_safety=1.000 mean_mechanical_ok=0.885 eta=0.0115 gamma=[0. 0.] (train_creps.py:431)
+2026-07-30 13:54:33,596 [ftr_creps_train][[92mINFO[00m]: iter 51: mean_reward=3.5650 mean_safety=1.000 mean_mechanical_ok=0.904 eta=0.0104 gamma=[ 0.         -0.00026908] (train_creps.py:431)
+2026-07-30 13:55:54,112 [ftr_creps_train][[92mINFO[00m]: iter 52: mean_reward=3.5178 mean_safety=1.000 mean_mechanical_ok=0.872 eta=0.0120 gamma=[ 0.         -0.00249043] (train_creps.py:431)
+2026-07-30 13:57:15,446 [ftr_creps_train][[92mINFO[00m]: iter 53: mean_reward=3.5904 mean_safety=1.000 mean_mechanical_ok=0.846 eta=0.0110 gamma=[0. 0.] (train_creps.py:431)
+2026-07-30 13:58:35,109 [ftr_creps_train][[92mINFO[00m]: iter 54: mean_reward=3.5649 mean_safety=1.000 mean_mechanical_ok=0.852 eta=0.0127 gamma=[ 0.         -0.00242531] (train_creps.py:431)
+2026-07-30 13:59:54,143 [ftr_creps_train][[92mINFO[00m]: iter 55: mean_reward=3.5945 mean_safety=1.000 mean_mechanical_ok=0.854 eta=0.0116 gamma=[ 0.         -0.00846201] (train_creps.py:431)
+2026-07-30 14:01:13,813 [ftr_creps_train][[92mINFO[00m]: iter 56: mean_reward=3.5534 mean_safety=1.000 mean_mechanical_ok=0.865 eta=0.0114 gamma=[ 0.         -0.00238528] (train_creps.py:431)
+2026-07-30 14:02:33,657 [ftr_creps_train][[92mINFO[00m]: iter 57: mean_reward=3.5497 mean_safety=1.000 mean_mechanical_ok=0.911 eta=0.0127 gamma=[ 0.         -0.00567315] (train_creps.py:431)
+2026-07-30 14:03:53,822 [ftr_creps_train][[92mINFO[00m]: iter 58: mean_reward=3.5427 mean_safety=1.000 mean_mechanical_ok=0.927 eta=0.0135 gamma=[0. 0.] (train_creps.py:431)
+2026-07-30 14:05:13,473 [ftr_creps_train][[92mINFO[00m]: iter 59: mean_reward=3.5827 mean_safety=1.000 mean_mechanical_ok=0.849 eta=0.0116 gamma=[ 0.         -0.00475831] (train_creps.py:431)
+2026-07-30 14:05:23,100 [RunLogger][[92mINFO[00m]: W&B run finished (ID: bad202dbd3896560fb4ca98d15ed86cfa123bc281a215422cfa2b47f15aa09e7). (logutils.py:277)
+2026-07-30 14:05:23,100 [RunLogger][[92mINFO[00m]: RunLogger closed. (logutils.py:280)
+########################################################################
+Python script finished with exit status: 0
+########################################################################
+Training finished with exit code 0. Not respawning.
+Cleaning up node-local cache...

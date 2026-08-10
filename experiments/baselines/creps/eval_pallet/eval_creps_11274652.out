@@ -1,0 +1,1073 @@
+########################################################################
+Job ID: 11274652
+Running on node: g09
+Script arguments: --rundir logs/train_marv_creps_11273541/attempt_0/ --repeats 15 --num_envs 256 --eval_id CREPS
+########################################################################
+Thu Jul 30 16:04:02 2026       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 550.54.14              Driver Version: 550.54.14      CUDA Version: 12.4     |
+|-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA A100-SXM4-40GB          On  |   00000000:81:00.0 Off |                    0 |
+| N/A   24C    P0             49W /  400W |       0MiB /  40960MiB |      0%      Default |
+|                                         |                        |             Disabled |
++-----------------------------------------+------------------------+----------------------+
+                                                                                         
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI        PID   Type   Process name                              GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|  No running processes found                                                             |
++-----------------------------------------------------------------------------------------+
+Weights: creps_state_final.pth
+Auto output_dir: /ws/logs/eval_creps_11274652
+Executing:
+apptainer exec --nv     --bind /home/sargapav/robot_rodeo_gym_ws:/ws     --env OMNI_KIT_ACCEPT_EULA=Y     --env SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt     --env REQUESTS_CA_BUNDLE=/etc/ssl/certs/ca-certificates.crt     --env CURL_CA_BUNDLE=/etc/ssl/certs/ca-certificates.crt     /home/sargapav/robot_rodeo_gym_ws/containers/isaaclab_optuna.sif     conda run -n isaaclab --no-capture-output     env PYTHONPATH=/ws/src/FTR-Benchmark:/ws/src/flipper_training     python /ws/src/flipper_training/marv_rl_training/training/eval_creps.py     --headless --max_steps 2000 --output_dir /ws/logs/eval_creps_11274652 --rundir logs/train_marv_creps_11273541/attempt_0/ --repeats 15 --num_envs 256 --eval_id CREPS
+------------------------------------------------------------------------
+[Warning] [omni.isaac.kit.simulation_app] Modules: ['omni.kit_app'] were loaded before SimulationApp was started and might not be loaded correctly.
+[Warning] [omni.isaac.kit.simulation_app] Please check to make sure no extra omniverse or pxr modules are imported before the call to SimulationApp(...)
+[Info] [carb] Logging to file: /opt/conda/envs/isaaclab/lib/python3.10/site-packages/omni/logs/Kit/Isaac-Sim/4.2/kit_20260730_160405.log
+2026-07-30 14:04:05 [0ms] [Warning] [omni.kit.app.plugin] No crash reporter present, dumps uploading isn't available.
+2026-07-30 14:04:05 [4ms] [Warning] [omni.ext.plugin] [ext: containers] Extensions config 'extension.toml' doesn't exist '/home/sargapav/robot_rodeo_gym_ws/containers' or '/home/sargapav/robot_rodeo_gym_ws/containers/config'
+2026-07-30 14:04:05 [4ms] [Warning] [omni.ext.plugin] [ext: src] Extensions config 'extension.toml' doesn't exist '/home/sargapav/robot_rodeo_gym_ws/src' or '/home/sargapav/robot_rodeo_gym_ws/src/config'
+2026-07-30 14:04:05 [4ms] [Warning] [omni.ext.plugin] [ext: logs] Extensions config 'extension.toml' doesn't exist '/home/sargapav/robot_rodeo_gym_ws/logs' or '/home/sargapav/robot_rodeo_gym_ws/logs/config'
+2026-07-30 14:04:05 [4ms] [Warning] [omni.ext.plugin] [ext: experiments] Extensions config 'extension.toml' doesn't exist '/home/sargapav/robot_rodeo_gym_ws/experiments' or '/home/sargapav/robot_rodeo_gym_ws/experiments/config'
+2026-07-30 14:04:05 [4ms] [Warning] [omni.ext.plugin] [ext: optuna] Extensions config 'extension.toml' doesn't exist '/home/sargapav/robot_rodeo_gym_ws/optuna' or '/home/sargapav/robot_rodeo_gym_ws/optuna/config'
+2026-07-30 14:04:05 [4ms] [Warning] [omni.ext.plugin] [ext: secrets] Extensions config 'extension.toml' doesn't exist '/home/sargapav/robot_rodeo_gym_ws/secrets' or '/home/sargapav/robot_rodeo_gym_ws/secrets/config'
+2026-07-30 14:04:05 [4ms] [Warning] [omni.ext.plugin] [ext: notebooks] Extensions config 'extension.toml' doesn't exist '/home/sargapav/robot_rodeo_gym_ws/notebooks' or '/home/sargapav/robot_rodeo_gym_ws/notebooks/config'
+2026-07-30 14:04:05 [4ms] [Warning] [omni.ext.plugin] [ext: slurm] Extensions config 'extension.toml' doesn't exist '/home/sargapav/robot_rodeo_gym_ws/slurm' or '/home/sargapav/robot_rodeo_gym_ws/slurm/config'
+2026-07-30 14:04:05 [4ms] [Warning] [omni.ext.plugin] [ext: scripts] Extensions config 'extension.toml' doesn't exist '/home/sargapav/robot_rodeo_gym_ws/scripts' or '/home/sargapav/robot_rodeo_gym_ws/scripts/config'
+2026-07-30 14:04:05 [4ms] [Warning] [omni.ext.plugin] [ext: wandb] Extensions config 'extension.toml' doesn't exist '/home/sargapav/robot_rodeo_gym_ws/wandb' or '/home/sargapav/robot_rodeo_gym_ws/wandb/config'
+2026-07-30 14:04:05 [4ms] [Warning] [omni.ext.plugin] [ext: runs] Extensions config 'extension.toml' doesn't exist '/home/sargapav/robot_rodeo_gym_ws/runs' or '/home/sargapav/robot_rodeo_gym_ws/runs/config'
+2026-07-30 14:04:05 [4ms] [Warning] [omni.ext.plugin] [ext: configs] Extensions config 'extension.toml' doesn't exist '/home/sargapav/robot_rodeo_gym_ws/configs' or '/home/sargapav/robot_rodeo_gym_ws/configs/config'
+[0.225s] [ext: omni.kit.async_engine-0.0.1] startup
+[0.461s] [ext: omni.stats-1.0.1] startup
+[0.467s] [ext: omni.client-1.2.0] startup
+[0.608s] [ext: omni.gpu_foundation.shadercache.vulkan-1.0.0] startup
+[0.618s] [ext: omni.assets.plugins-0.0.0] startup
+[0.632s] [ext: omni.gpu_foundation-0.0.0] startup
+[0.764s] [ext: omni.kit.pipapi-0.0.0] startup
+[0.766s] [ext: omni.materialx.libs-1.0.4] startup
+[0.791s] [ext: omni.kit.pip_archive-0.0.0] startup
+[0.792s] [ext: omni.usd.config-1.0.4] startup
+[0.802s] [ext: omni.gpucompute.plugins-0.0.0] startup
+[0.804s] [ext: omni.usd.libs-1.0.1] startup
+[1.191s] [ext: omni.kit.telemetry-0.5.0] startup
+[1.225s] [ext: omni.usd.schema.semantics-0.0.0] startup
+[1.419s] [ext: omni.usd.schema.audio-0.0.0] startup
+[1.447s] [ext: omni.usd.schema.physx-106.1.9] startup
+[1.526s] [ext: carb.audio-0.1.0] startup
+[1.544s] [ext: omni.kvdb-106.1.9] startup
+[1.550s] [ext: omni.timeline-1.0.10] startup
+[1.554s] [ext: omni.kit.actions.core-1.0.0] startup
+[1.561s] [ext: omni.kit.audiodeviceenum-1.0.1] startup
+[1.565s] [ext: omni.localcache-106.1.9] startup
+[1.568s] [ext: omni.usd_resolver-1.0.0] startup
+[1.577s] [ext: omni.kit.commands-1.4.9] startup
+[1.585s] [ext: omni.graph.exec-0.9.4] startup
+[1.587s] [ext: omni.usd.core-1.4.1] startup
+[1.597s] [ext: omni.kit.usd_undo-0.1.8] startup
+[1.598s] [ext: omni.kit.exec.core-0.13.4] startup
+[1.605s] [ext: omni.convexdecomposition-106.1.9] startup
+[1.614s] [ext: omni.usd-1.12.2] startup
+[1.680s] [ext: omni.usdphysics-106.1.9] startup
+[1.683s] [ext: omni.physx.foundation-106.1.9] startup
+[1.696s] [ext: omni.kit.usd.layers-2.1.36] startup
+[1.713s] [ext: omni.physx.cooking-106.1.9] startup
+[1.727s] [ext: omni.blobkey-1.1.2] startup
+[1.731s] [ext: omni.datastore-0.0.0] startup
+[1.788s] [ext: omni.ujitso.default-1.0.0] startup
+[1.796s] [ext: omni.hsscclient-1.1.1] startup
+[1.808s] [ext: omni.kit.primitive.mesh-1.0.17] startup
+[1.813s] [ext: usdrt.scenegraph-7.5.0] startup
+[1.915s] [ext: omni.warp.core-1.2.1] startup
+[2.236s] [ext: omni.physx-106.1.9] startup
+2026-07-30 14:04:08 [2,129ms] [Warning] [omni.platforminfo.plugin] failed to open the default display.  Can't verify X Server version.
+2026-07-30 14:04:08 [2,130ms] [Warning] [omni.platforminfo.plugin] failed to load XRAndR.
+[2.280s] [ext: omni.kit.stage_template.core-1.1.22] startup
+[2.282s] [ext: omni.physx.stageupdate-106.1.9] startup
+[2.287s] [ext: omni.kit.stage_templates-1.2.5] startup
+[2.289s] [ext: omni.physics.tensors-106.1.9] startup
+[2.299s] [ext: omni.isaac.version-1.1.0] startup
+[2.300s] [ext: omni.physx.tensors-106.1.9] startup
+[2.791s] [ext: omni.isaac.nucleus-0.3.1] startup
+[2.793s] [ext: omni.kit.loop-isaac-1.2.0] startup
+[2.796s] [ext: omni.isaac.core-3.19.5] startup
+[5.645s] [ext: omni.physx.fabric-106.1.9] startup
+[5.657s] [ext: omni.isaac.kit-1.13.2] startup
+[5.658s] [ext: omni.isaac.cloner-0.8.1] startup
+[5.659s] [ext: isaaclab.python.headless-1.2.0] startup
+[5.661s] Simulation App Starting
+2026-07-30 14:04:11 [5,636ms] [Warning] [gpu.foundation.plugin] [ShaderCache]: Creating driver shaderCache directory failed: /opt/conda/envs/isaaclab/lib/python3.10/site-packages/omni/cache/nv_shadercache
+
+|---------------------------------------------------------------------------------------------|
+| Driver Version: 0             | Graphics API: Vulkan
+|=============================================================================================|
+| GPU | Name                             | Active | LDA | GPU Memory | Vendor-ID | LUID       |
+|     |                                  |        |     |            | Device-ID | UUID       |
+|     |                                  |        |     |            | Bus-ID    |            |
+|=============================================================================================|
+| OS: 13 (trixie) debian, Version: 13.1684632178.774978917, Kernel: 4.18.0-513.9.1.el8_9.x86_64
+| Processor: AMD EPYC 7543 32-Core Processor | Cores: 64 | Logical: 128
+|---------------------------------------------------------------------------------------------|
+| Total Memory (MB): 1031894 | Free Memory: 887344
+| Total Page/Swap (MB): 0 | Free Page/Swap: 0
+|---------------------------------------------------------------------------------------------|
+2026-07-30 14:04:12 [6,159ms] [Warning] [omni.physx.foundation.plugin] PhysXFoundation: Couldn't get driver version, failed to getDeviceInfo
+2026-07-30 14:04:12 [6,159ms] [Warning] [omni.physx.foundation.plugin] PhysXFoundation: Unable to get IGpuFoundation, GpuDevices or Graphics!
+2026-07-30 14:04:12 [6,160ms] [Warning] [carb.cudainterop.plugin] CUDA_VISIBLE_DEVICES environment variable is set.
+2026-07-30 14:04:12 [6,160ms] [Warning] [carb.cudainterop.plugin] Note CUDA device enumeration and Omniverse device enumeration are different.
+2026-07-30 14:04:12 [6,160ms] [Warning] [carb.cudainterop.plugin] Setting CUDA_VISIBLE_DEVICES can lead to undesired behavior or crashes.
+[7.084s] app ready
+[7.249s] Simulation App Startup Complete
+2026-07-30 14:04:17 [11,105ms] [Warning] [pxr.Semantics] pxr.Semantics is deprecated - please use Semantics instead
+2026-07-30 14:04:19 [13,063ms] [Warning] [omni.isaac.lab.envs.direct_rl_env] Seed not set for the environment. The environment creation may not be deterministic.
+2026-07-30 14:04:19 [13,101ms] [Warning] [omni.isaac.lab.envs.direct_rl_env] The render interval (5) is smaller than the decimation (20). Multiple multiple render calls will happen for each environment step.If this is not intended, set the render interval to be equal to the decimation.
+[INFO][AppLauncher]: Loading experience file: /opt/IsaacLab/source/extensions/omni.isaac.lab/omni/isaac/lab/app/../../../../../../apps/isaaclab.python.headless.kit
+Starting kit application with the following args:  ['/opt/conda/envs/isaaclab/lib/python3.10/site-packages/isaacsim/exts/omni.isaac.kit/omni/isaac/kit/simulation_app.py', '/opt/IsaacLab/source/extensions/omni.isaac.lab/omni/isaac/lab/app/../../../../../../apps/isaaclab.python.headless.kit', '--/app/tokens/exe-path=/opt/conda/envs/isaaclab/lib/python3.10/site-packages/omni', '--/persistent/app/viewport/displayOptions=3094', '--/rtx/materialDb/syncLoads=True', '--/rtx/hydra/materialSyncLoads=True', '--/omni.kit.plugin/syncUsdLoads=True', '--/app/renderer/resolution/width=1280', '--/app/renderer/resolution/height=720', '--/app/window/width=1440', '--/app/window/height=900', '--/renderer/multiGpu/enabled=True', '--/app/fastShutdown=True', '--ext-folder', '/opt/conda/envs/isaaclab/lib/python3.10/site-packages/isaacsim/exts', '--ext-folder', '/opt/conda/envs/isaaclab/lib/python3.10/site-packages/isaacsim/apps', '--/renderer/activeGpu=0', '--/physics/cudaDevice=0', '--portable', '--no-window', '--/app/window/hideUi=True']
+Passing the following args to the base kit application:  ['--headless', '--max_steps', '2000', '--output_dir', '/ws/logs/eval_creps_11274652', '--rundir', 'logs/train_marv_creps_11273541/attempt_0/', '--repeats', '15', '--num_envs', '256', '--eval_id', 'CREPS']
+Warp 1.2.1 initialized:
+   CUDA Toolkit 11.8, Driver 12.4
+   Devices:
+     "cpu"      : "CPU"
+     "cuda:0"   : "NVIDIA A100-SXM4-40GB" (39 GiB, sm_80, mempool enabled)
+   Kernel cache:
+     /home/sargapav/.cache/warp/1.2.1
+[INFO]: Base environment:
+	Environment device    : cuda:0
+	Environment seed      : None
+	Physics step-size     : 0.005
+	Rendering step-size   : 0.025
+	Environment step-size : 0.1
+[INFO]: Time taken for scene creation : 0.534736 seconds
+[INFO]: Scene manager:  <class InteractiveScene>
+	Number of environments: 256
+	Environment spacing   : 0.0
+	Source prim name      : /World/envs/env_0
+	Global prim paths     : ['/World/terrain']
+	Replicate physics     : True
+[INFO]: Starting the simulation. This may take a few seconds. Please wait...
+[INFO]: Time taken for simulation start : 3.151725 seconds
+[INFO]: Completed setting up the environment...
+2026-07-30 16:04:22,776 [eval_creps][[92mINFO[00m]: Seed: 42  (random ✓  numpy ✓  torch ✓  cuda ✓) (eval_creps.py:145)
+2026-07-30 16:04:22,795 [eval_creps][[92mINFO[00m]: Loaded omega_mean from logs/train_marv_creps_11273541/attempt_0/weights/creps_state_final.pth: [0.31056949496269226, 0.7008155584335327, -0.573819637298584, -0.4203844368457794, -0.4907954931259155, 1.0189045667648315] (eval_creps.py:172)
+2026-07-30 16:04:22,801 [eval_creps][[92mINFO[00m]: CSV output: /ws/logs/eval_creps_11274652  eval_id=CREPS (eval_creps.py:191)
+2026-07-30 16:04:22,898 [eval_creps][[92mINFO[00m]: Terrain 'pecka_pallet': 1 env types x 10 depth cols → assets copied to /ws/logs/eval_creps_11274652/terrain (eval_creps.py:195)
+2026-07-30 16:04:22,898 [eval_creps][[92mINFO[00m]: Running eval rollout 1/15 (max_steps=2000) ... (eval_creps.py:202)
+
+============================================================
+Repeat 1/15
+============================================================
+  clearance/height                              0.083809
+  clearance/height_max                          0.156542
+  clearance/height_min                          0.009637
+  eval/explosion_rate                           0.000000
+  eval/failure_rate                             0.000000
+  eval/max_step_reward                          0.092458
+  eval/mean_step_reward                         0.031102
+  eval/min_step_reward                          -0.057383
+  eval/pct_terminated                           0.008348
+  eval/pct_truncated                            0.000051
+  eval/rollout_steps                            2000.000000
+  eval/success_rate                             0.993953
+  rew/distance_reward                           0.031102
+  rew/total_reward                              0.031102
+  shock/accel_magnitude                         1.005742
+  shock/accel_magnitude_max                     5.753931
+  shock/accel_magnitude_min                     0.082366
+  shock/accel_p90                               1.850880
+  shock/accel_p95                               2.086726
+  shock/accel_p99                               2.389348
+  shock/shock_normalised                        0.000066
+  shock/shock_normalised_max                    0.013302
+  shock/shock_normalised_min                    0.000000
+  shock/shock_p90_normalised                    0.227319
+  shock/shock_p95_normalised                    0.255082
+  shock/shock_p99_normalised                    0.290094
+  state/ang_velocity                            0.215863
+  state/ang_velocity_max                        1.420144
+  state/ang_velocity_min                        0.012243
+  state/lin_velocity                            0.346955
+  state/lin_velocity_max                        0.787956
+  state/lin_velocity_min                        0.090044
+  state/pitch                                   0.308429
+  state/pitch_max                               0.545975
+  state/pitch_min                               0.055192
+  state/roll                                    0.000074
+  state/roll_max                                0.005959
+  state/roll_min                                -0.006095
+  state/success_lin_velocity                    0.180781
+  torque/flipper_torque_FL                      378.781748
+  torque/flipper_torque_FL_max                  994.102440
+  torque/flipper_torque_FL_min                  3.154344
+  torque/flipper_torque_FR                      378.292264
+  torque/flipper_torque_FR_max                  993.897773
+  torque/flipper_torque_FR_min                  3.173429
+  torque/flipper_torque_RL                      374.341135
+  torque/flipper_torque_RL_max                  993.376274
+  torque/flipper_torque_RL_min                  3.778825
+  torque/flipper_torque_RR                      374.997733
+  torque/flipper_torque_RR_max                  993.346242
+  torque/flipper_torque_RR_min                  3.658663
+2026-07-30 16:11:37,169 [eval_creps][[92mINFO[00m]: Saved repeat 1 CSV → /ws/logs/eval_creps_11274652 (eval_creps.py:254)
+2026-07-30 16:11:37,170 [eval_creps][[92mINFO[00m]: Running eval rollout 2/15 (max_steps=2000) ... (eval_creps.py:202)
+
+============================================================
+Repeat 2/15
+============================================================
+  clearance/height                              0.083557
+  clearance/height_max                          0.129310
+  clearance/height_min                          0.023789
+  eval/explosion_rate                           0.000000
+  eval/failure_rate                             0.000000
+  eval/max_step_reward                          0.092538
+  eval/mean_step_reward                         0.031556
+  eval/min_step_reward                          -0.055834
+  eval/pct_terminated                           0.008500
+  eval/pct_truncated                            0.000000
+  eval/rollout_steps                            2000.000000
+  eval/success_rate                             1.000000
+  rew/distance_reward                           0.031556
+  rew/total_reward                              0.031556
+  shock/accel_magnitude                         1.017273
+  shock/accel_magnitude_max                     4.518115
+  shock/accel_magnitude_min                     0.096286
+  shock/accel_p90                               1.950675
+  shock/accel_p95                               2.200953
+  shock/accel_p99                               2.622387
+  shock/shock_normalised                        0.000060
+  shock/shock_normalised_max                    0.011547
+  shock/shock_normalised_min                    0.000000
+  shock/shock_p90_normalised                    0.239114
+  shock/shock_p95_normalised                    0.268382
+  shock/shock_p99_normalised                    0.316541
+  state/ang_velocity                            0.218167
+  state/ang_velocity_max                        1.095525
+  state/ang_velocity_min                        0.013812
+  state/lin_velocity                            0.351781
+  state/lin_velocity_max                        0.701150
+  state/lin_velocity_min                        0.141902
+  state/pitch                                   0.309233
+  state/pitch_max                               0.433313
+  state/pitch_min                               0.142127
+  state/roll                                    0.000067
+  state/roll_max                                0.006080
+  state/roll_min                                -0.005922
+  state/success_lin_velocity                    0.114262
+  torque/flipper_torque_FL                      379.951781
+  torque/flipper_torque_FL_max                  984.467663
+  torque/flipper_torque_FL_min                  3.255274
+  torque/flipper_torque_FR                      380.285528
+  torque/flipper_torque_FR_max                  985.588750
+  torque/flipper_torque_FR_min                  3.357455
+  torque/flipper_torque_RL                      376.399429
+  torque/flipper_torque_RL_max                  982.604809
+  torque/flipper_torque_RL_min                  3.978700
+  torque/flipper_torque_RR                      376.483251
+  torque/flipper_torque_RR_max                  981.735648
+  torque/flipper_torque_RR_min                  4.034065
+2026-07-30 16:18:37,974 [eval_creps][[92mINFO[00m]: Saved repeat 2 CSV → /ws/logs/eval_creps_11274652 (eval_creps.py:254)
+2026-07-30 16:18:37,974 [eval_creps][[92mINFO[00m]: Running eval rollout 3/15 (max_steps=2000) ... (eval_creps.py:202)
+
+============================================================
+Repeat 3/15
+============================================================
+  clearance/height                              0.083536
+  clearance/height_max                          0.133933
+  clearance/height_min                          0.020781
+  eval/explosion_rate                           0.000000
+  eval/failure_rate                             0.000230
+  eval/max_step_reward                          0.092300
+  eval/mean_step_reward                         0.031555
+  eval/min_step_reward                          -0.056836
+  eval/pct_terminated                           0.008498
+  eval/pct_truncated                            0.000000
+  eval/rollout_steps                            2000.000000
+  eval/success_rate                             0.999770
+  rew/distance_reward                           0.031555
+  rew/total_reward                              0.031555
+  shock/accel_magnitude                         1.016829
+  shock/accel_magnitude_max                     4.626413
+  shock/accel_magnitude_min                     0.095176
+  shock/accel_p90                               1.921823
+  shock/accel_p95                               2.199220
+  shock/accel_p99                               2.637703
+  shock/shock_normalised                        0.000062
+  shock/shock_normalised_max                    0.012013
+  shock/shock_normalised_min                    0.000000
+  shock/shock_p90_normalised                    0.235711
+  shock/shock_p95_normalised                    0.268181
+  shock/shock_p99_normalised                    0.318263
+  state/ang_velocity                            0.218134
+  state/ang_velocity_max                        1.113488
+  state/ang_velocity_min                        0.014024
+  state/lin_velocity                            0.351706
+  state/lin_velocity_max                        0.706535
+  state/lin_velocity_min                        0.136034
+  state/pitch                                   0.309188
+  state/pitch_max                               0.460208
+  state/pitch_min                               0.118826
+  state/roll                                    0.000064
+  state/roll_max                                0.006093
+  state/roll_min                                -0.005917
+  state/success_lin_velocity                    0.116957
+  torque/flipper_torque_FL                      380.171733
+  torque/flipper_torque_FL_max                  983.906978
+  torque/flipper_torque_FL_min                  3.404625
+  torque/flipper_torque_FR                      380.140371
+  torque/flipper_torque_FR_max                  983.787563
+  torque/flipper_torque_FR_min                  3.402886
+  torque/flipper_torque_RL                      376.440817
+  torque/flipper_torque_RL_max                  982.029419
+  torque/flipper_torque_RL_min                  3.855689
+  torque/flipper_torque_RR                      376.968252
+  torque/flipper_torque_RR_max                  982.653356
+  torque/flipper_torque_RR_min                  3.942424
+2026-07-30 16:25:36,674 [eval_creps][[92mINFO[00m]: Saved repeat 3 CSV → /ws/logs/eval_creps_11274652 (eval_creps.py:254)
+2026-07-30 16:25:36,674 [eval_creps][[92mINFO[00m]: Running eval rollout 4/15 (max_steps=2000) ... (eval_creps.py:202)
+
+============================================================
+Repeat 4/15
+============================================================
+  clearance/height                              0.083519
+  clearance/height_max                          0.129878
+  clearance/height_min                          0.021563
+  eval/explosion_rate                           0.000000
+  eval/failure_rate                             0.000000
+  eval/max_step_reward                          0.092621
+  eval/mean_step_reward                         0.031547
+  eval/min_step_reward                          -0.057991
+  eval/pct_terminated                           0.008498
+  eval/pct_truncated                            0.000000
+  eval/rollout_steps                            2000.000000
+  eval/success_rate                             1.000000
+  rew/distance_reward                           0.031547
+  rew/total_reward                              0.031547
+  shock/accel_magnitude                         1.015911
+  shock/accel_magnitude_max                     4.485972
+  shock/accel_magnitude_min                     0.096299
+  shock/accel_p90                               1.937224
+  shock/accel_p95                               2.258252
+  shock/accel_p99                               2.721343
+  shock/shock_normalised                        0.000068
+  shock/shock_normalised_max                    0.012056
+  shock/shock_normalised_min                    0.000000
+  shock/shock_p90_normalised                    0.237528
+  shock/shock_p95_normalised                    0.275015
+  shock/shock_p99_normalised                    0.327627
+  state/ang_velocity                            0.218108
+  state/ang_velocity_max                        1.086541
+  state/ang_velocity_min                        0.014033
+  state/lin_velocity                            0.351588
+  state/lin_velocity_max                        0.695410
+  state/lin_velocity_min                        0.137533
+  state/pitch                                   0.309116
+  state/pitch_max                               0.435127
+  state/pitch_min                               0.133703
+  state/roll                                    0.000069
+  state/roll_max                                0.005567
+  state/roll_min                                -0.005420
+  state/success_lin_velocity                    0.110762
+  torque/flipper_torque_FL                      379.566883
+  torque/flipper_torque_FL_max                  985.480040
+  torque/flipper_torque_FL_min                  3.293567
+  torque/flipper_torque_FR                      380.105651
+  torque/flipper_torque_FR_max                  984.843653
+  torque/flipper_torque_FR_min                  3.359311
+  torque/flipper_torque_RL                      376.721826
+  torque/flipper_torque_RL_max                  981.967378
+  torque/flipper_torque_RL_min                  4.029159
+  torque/flipper_torque_RR                      376.847464
+  torque/flipper_torque_RR_max                  982.708260
+  torque/flipper_torque_RR_min                  4.032436
+2026-07-30 16:32:40,181 [eval_creps][[92mINFO[00m]: Saved repeat 4 CSV → /ws/logs/eval_creps_11274652 (eval_creps.py:254)
+2026-07-30 16:32:40,181 [eval_creps][[92mINFO[00m]: Running eval rollout 5/15 (max_steps=2000) ... (eval_creps.py:202)
+
+============================================================
+Repeat 5/15
+============================================================
+  clearance/height                              0.083563
+  clearance/height_max                          0.129293
+  clearance/height_min                          0.024214
+  eval/explosion_rate                           0.000000
+  eval/failure_rate                             0.000000
+  eval/max_step_reward                          0.093184
+  eval/mean_step_reward                         0.031548
+  eval/min_step_reward                          -0.056957
+  eval/pct_terminated                           0.008500
+  eval/pct_truncated                            0.000000
+  eval/rollout_steps                            2000.000000
+  eval/success_rate                             1.000000
+  rew/distance_reward                           0.031548
+  rew/total_reward                              0.031548
+  shock/accel_magnitude                         1.017218
+  shock/accel_magnitude_max                     4.466279
+  shock/accel_magnitude_min                     0.095799
+  shock/accel_p90                               2.010431
+  shock/accel_p95                               2.276328
+  shock/accel_p99                               2.630986
+  shock/shock_normalised                        0.000060
+  shock/shock_normalised_max                    0.011842
+  shock/shock_normalised_min                    0.000000
+  shock/shock_p90_normalised                    0.246144
+  shock/shock_p95_normalised                    0.277103
+  shock/shock_p99_normalised                    0.317508
+  state/ang_velocity                            0.218132
+  state/ang_velocity_max                        1.077390
+  state/ang_velocity_min                        0.014264
+  state/lin_velocity                            0.351638
+  state/lin_velocity_max                        0.693469
+  state/lin_velocity_min                        0.143847
+  state/pitch                                   0.309226
+  state/pitch_max                               0.434403
+  state/pitch_min                               0.145731
+  state/roll                                    0.000063
+  state/roll_max                                0.005840
+  state/roll_min                                -0.006123
+  state/success_lin_velocity                    0.110546
+  torque/flipper_torque_FL                      380.394096
+  torque/flipper_torque_FL_max                  983.581273
+  torque/flipper_torque_FL_min                  3.514538
+  torque/flipper_torque_FR                      379.954593
+  torque/flipper_torque_FR_max                  984.451489
+  torque/flipper_torque_FR_min                  3.303030
+  torque/flipper_torque_RL                      376.993155
+  torque/flipper_torque_RL_max                  979.730801
+  torque/flipper_torque_RL_min                  4.061371
+  torque/flipper_torque_RR                      377.213746
+  torque/flipper_torque_RR_max                  978.512951
+  torque/flipper_torque_RR_min                  3.836031
+2026-07-30 16:39:37,120 [eval_creps][[92mINFO[00m]: Saved repeat 5 CSV → /ws/logs/eval_creps_11274652 (eval_creps.py:254)
+2026-07-30 16:39:37,120 [eval_creps][[92mINFO[00m]: Running eval rollout 6/15 (max_steps=2000) ... (eval_creps.py:202)
+
+============================================================
+Repeat 6/15
+============================================================
+  clearance/height                              0.083543
+  clearance/height_max                          0.128376
+  clearance/height_min                          0.024816
+  eval/explosion_rate                           0.000000
+  eval/failure_rate                             0.000000
+  eval/max_step_reward                          0.092606
+  eval/mean_step_reward                         0.031554
+  eval/min_step_reward                          -0.056820
+  eval/pct_terminated                           0.008500
+  eval/pct_truncated                            0.000000
+  eval/rollout_steps                            2000.000000
+  eval/success_rate                             1.000000
+  rew/distance_reward                           0.031554
+  rew/total_reward                              0.031554
+  shock/accel_magnitude                         1.017682
+  shock/accel_magnitude_max                     4.573970
+  shock/accel_magnitude_min                     0.095578
+  shock/accel_p90                               1.962732
+  shock/accel_p95                               2.202754
+  shock/accel_p99                               2.613258
+  shock/shock_normalised                        0.000073
+  shock/shock_normalised_max                    0.013023
+  shock/shock_normalised_min                    0.000000
+  shock/shock_p90_normalised                    0.240535
+  shock/shock_p95_normalised                    0.268591
+  shock/shock_p99_normalised                    0.315514
+  state/ang_velocity                            0.218284
+  state/ang_velocity_max                        1.100555
+  state/ang_velocity_min                        0.013741
+  state/lin_velocity                            0.351722
+  state/lin_velocity_max                        0.700074
+  state/lin_velocity_min                        0.143499
+  state/pitch                                   0.309222
+  state/pitch_max                               0.430641
+  state/pitch_min                               0.146995
+  state/roll                                    0.000069
+  state/roll_max                                0.005808
+  state/roll_min                                -0.005706
+  state/success_lin_velocity                    0.114087
+  torque/flipper_torque_FL                      380.181746
+  torque/flipper_torque_FL_max                  984.757859
+  torque/flipper_torque_FL_min                  3.192573
+  torque/flipper_torque_FR                      380.670439
+  torque/flipper_torque_FR_max                  986.071701
+  torque/flipper_torque_FR_min                  3.428049
+  torque/flipper_torque_RL                      376.900993
+  torque/flipper_torque_RL_max                  980.985372
+  torque/flipper_torque_RL_min                  4.001159
+  torque/flipper_torque_RR                      376.861229
+  torque/flipper_torque_RR_max                  980.642020
+  torque/flipper_torque_RR_min                  3.931920
+2026-07-30 16:46:35,675 [eval_creps][[92mINFO[00m]: Saved repeat 6 CSV → /ws/logs/eval_creps_11274652 (eval_creps.py:254)
+2026-07-30 16:46:35,675 [eval_creps][[92mINFO[00m]: Running eval rollout 7/15 (max_steps=2000) ... (eval_creps.py:202)
+
+============================================================
+Repeat 7/15
+============================================================
+  clearance/height                              0.083546
+  clearance/height_max                          0.134003
+  clearance/height_min                          0.021260
+  eval/explosion_rate                           0.000000
+  eval/failure_rate                             0.000000
+  eval/max_step_reward                          0.092146
+  eval/mean_step_reward                         0.031546
+  eval/min_step_reward                          -0.056847
+  eval/pct_terminated                           0.008498
+  eval/pct_truncated                            0.000000
+  eval/rollout_steps                            2000.000000
+  eval/success_rate                             1.000000
+  rew/distance_reward                           0.031546
+  rew/total_reward                              0.031546
+  shock/accel_magnitude                         1.017882
+  shock/accel_magnitude_max                     4.696162
+  shock/accel_magnitude_min                     0.095278
+  shock/accel_p90                               1.947502
+  shock/accel_p95                               2.187643
+  shock/accel_p99                               2.639664
+  shock/shock_normalised                        0.000064
+  shock/shock_normalised_max                    0.012217
+  shock/shock_normalised_min                    0.000000
+  shock/shock_p90_normalised                    0.238740
+  shock/shock_p95_normalised                    0.266837
+  shock/shock_p99_normalised                    0.318483
+  state/ang_velocity                            0.218300
+  state/ang_velocity_max                        1.125526
+  state/ang_velocity_min                        0.013801
+  state/lin_velocity                            0.351654
+  state/lin_velocity_max                        0.708926
+  state/lin_velocity_min                        0.133769
+  state/pitch                                   0.309179
+  state/pitch_max                               0.459158
+  state/pitch_min                               0.128486
+  state/roll                                    0.000065
+  state/roll_max                                0.005793
+  state/roll_min                                -0.005813
+  state/success_lin_velocity                    0.117695
+  torque/flipper_torque_FL                      380.288031
+  torque/flipper_torque_FL_max                  986.811387
+  torque/flipper_torque_FL_min                  3.399586
+  torque/flipper_torque_FR                      380.356710
+  torque/flipper_torque_FR_max                  987.267173
+  torque/flipper_torque_FR_min                  3.334087
+  torque/flipper_torque_RL                      377.096846
+  torque/flipper_torque_RL_max                  984.339992
+  torque/flipper_torque_RL_min                  3.879296
+  torque/flipper_torque_RR                      377.002711
+  torque/flipper_torque_RR_max                  983.916451
+  torque/flipper_torque_RR_min                  3.907613
+2026-07-30 16:53:37,749 [eval_creps][[92mINFO[00m]: Saved repeat 7 CSV → /ws/logs/eval_creps_11274652 (eval_creps.py:254)
+2026-07-30 16:53:37,750 [eval_creps][[92mINFO[00m]: Running eval rollout 8/15 (max_steps=2000) ... (eval_creps.py:202)
+
+============================================================
+Repeat 8/15
+============================================================
+  clearance/height                              0.083549
+  clearance/height_max                          0.128164
+  clearance/height_min                          0.025354
+  eval/explosion_rate                           0.000000
+  eval/failure_rate                             0.000000
+  eval/max_step_reward                          0.092958
+  eval/mean_step_reward                         0.031558
+  eval/min_step_reward                          -0.057868
+  eval/pct_terminated                           0.008500
+  eval/pct_truncated                            0.000000
+  eval/rollout_steps                            2000.000000
+  eval/success_rate                             1.000000
+  rew/distance_reward                           0.031558
+  rew/total_reward                              0.031558
+  shock/accel_magnitude                         1.016083
+  shock/accel_magnitude_max                     4.489896
+  shock/accel_magnitude_min                     0.095775
+  shock/accel_p90                               1.959201
+  shock/accel_p95                               2.215974
+  shock/accel_p99                               2.629544
+  shock/shock_normalised                        0.000061
+  shock/shock_normalised_max                    0.012384
+  shock/shock_normalised_min                    0.000000
+  shock/shock_p90_normalised                    0.240119
+  shock/shock_p95_normalised                    0.270123
+  shock/shock_p99_normalised                    0.317346
+  state/ang_velocity                            0.218159
+  state/ang_velocity_max                        1.079966
+  state/ang_velocity_min                        0.014060
+  state/lin_velocity                            0.351700
+  state/lin_velocity_max                        0.694083
+  state/lin_velocity_min                        0.145952
+  state/pitch                                   0.309228
+  state/pitch_max                               0.429337
+  state/pitch_min                               0.150209
+  state/roll                                    0.000062
+  state/roll_max                                0.005518
+  state/roll_min                                -0.005855
+  state/success_lin_velocity                    0.112053
+  torque/flipper_torque_FL                      380.362022
+  torque/flipper_torque_FL_max                  983.792166
+  torque/flipper_torque_FL_min                  3.354655
+  torque/flipper_torque_FR                      380.377399
+  torque/flipper_torque_FR_max                  983.570901
+  torque/flipper_torque_FR_min                  3.303548
+  torque/flipper_torque_RL                      376.657542
+  torque/flipper_torque_RL_max                  980.352981
+  torque/flipper_torque_RL_min                  3.827976
+  torque/flipper_torque_RR                      377.089340
+  torque/flipper_torque_RR_max                  980.451723
+  torque/flipper_torque_RR_min                  4.056143
+2026-07-30 17:00:43,390 [eval_creps][[92mINFO[00m]: Saved repeat 8 CSV → /ws/logs/eval_creps_11274652 (eval_creps.py:254)
+2026-07-30 17:00:43,390 [eval_creps][[92mINFO[00m]: Running eval rollout 9/15 (max_steps=2000) ... (eval_creps.py:202)
+
+============================================================
+Repeat 9/15
+============================================================
+  clearance/height                              0.083511
+  clearance/height_max                          0.129424
+  clearance/height_min                          0.022354
+  eval/explosion_rate                           0.000000
+  eval/failure_rate                             0.000000
+  eval/max_step_reward                          0.092579
+  eval/mean_step_reward                         0.031539
+  eval/min_step_reward                          -0.056516
+  eval/pct_terminated                           0.008496
+  eval/pct_truncated                            0.000000
+  eval/rollout_steps                            2000.000000
+  eval/success_rate                             1.000000
+  rew/distance_reward                           0.031539
+  rew/total_reward                              0.031539
+  shock/accel_magnitude                         1.017585
+  shock/accel_magnitude_max                     4.506720
+  shock/accel_magnitude_min                     0.095701
+  shock/accel_p90                               1.936800
+  shock/accel_p95                               2.221828
+  shock/accel_p99                               2.579650
+  shock/shock_normalised                        0.000070
+  shock/shock_normalised_max                    0.012804
+  shock/shock_normalised_min                    0.000000
+  shock/shock_p90_normalised                    0.237478
+  shock/shock_p95_normalised                    0.270801
+  shock/shock_p99_normalised                    0.311726
+  state/ang_velocity                            0.218380
+  state/ang_velocity_max                        1.082946
+  state/ang_velocity_min                        0.014242
+  state/lin_velocity                            0.351671
+  state/lin_velocity_max                        0.695917
+  state/lin_velocity_min                        0.135228
+  state/pitch                                   0.309047
+  state/pitch_max                               0.433464
+  state/pitch_min                               0.132809
+  state/roll                                    0.000061
+  state/roll_max                                0.005596
+  state/roll_min                                -0.005696
+  state/success_lin_velocity                    0.112101
+  torque/flipper_torque_FL                      380.608713
+  torque/flipper_torque_FL_max                  985.103872
+  torque/flipper_torque_FL_min                  3.357190
+  torque/flipper_torque_FR                      380.531357
+  torque/flipper_torque_FR_max                  984.446773
+  torque/flipper_torque_FR_min                  3.479752
+  torque/flipper_torque_RL                      376.279708
+  torque/flipper_torque_RL_max                  981.731553
+  torque/flipper_torque_RL_min                  4.005159
+  torque/flipper_torque_RR                      377.171434
+  torque/flipper_torque_RR_max                  980.437925
+  torque/flipper_torque_RR_min                  4.050674
+2026-07-30 17:07:45,112 [eval_creps][[92mINFO[00m]: Saved repeat 9 CSV → /ws/logs/eval_creps_11274652 (eval_creps.py:254)
+2026-07-30 17:07:45,113 [eval_creps][[92mINFO[00m]: Running eval rollout 10/15 (max_steps=2000) ... (eval_creps.py:202)
+
+============================================================
+Repeat 10/15
+============================================================
+  clearance/height                              0.083558
+  clearance/height_max                          0.127392
+  clearance/height_min                          0.026064
+  eval/explosion_rate                           0.000000
+  eval/failure_rate                             0.000000
+  eval/max_step_reward                          0.092297
+  eval/mean_step_reward                         0.031552
+  eval/min_step_reward                          -0.056108
+  eval/pct_terminated                           0.008500
+  eval/pct_truncated                            0.000000
+  eval/rollout_steps                            2000.000000
+  eval/success_rate                             1.000000
+  rew/distance_reward                           0.031552
+  rew/total_reward                              0.031552
+  shock/accel_magnitude                         1.016434
+  shock/accel_magnitude_max                     4.460143
+  shock/accel_magnitude_min                     0.097995
+  shock/accel_p90                               1.963815
+  shock/accel_p95                               2.222512
+  shock/accel_p99                               2.655427
+  shock/shock_normalised                        0.000065
+  shock/shock_normalised_max                    0.012226
+  shock/shock_normalised_min                    0.000000
+  shock/shock_p90_normalised                    0.240662
+  shock/shock_p95_normalised                    0.270881
+  shock/shock_p99_normalised                    0.320252
+  state/ang_velocity                            0.218064
+  state/ang_velocity_max                        1.067596
+  state/ang_velocity_min                        0.014280
+  state/lin_velocity                            0.351673
+  state/lin_velocity_max                        0.689127
+  state/lin_velocity_min                        0.146886
+  state/pitch                                   0.309198
+  state/pitch_max                               0.427892
+  state/pitch_min                               0.151139
+  state/roll                                    0.000069
+  state/roll_max                                0.005701
+  state/roll_min                                -0.005832
+  state/success_lin_velocity                    0.108717
+  torque/flipper_torque_FL                      380.291962
+  torque/flipper_torque_FL_max                  984.444258
+  torque/flipper_torque_FL_min                  3.431639
+  torque/flipper_torque_FR                      379.794839
+  torque/flipper_torque_FR_max                  983.208036
+  torque/flipper_torque_FR_min                  3.499883
+  torque/flipper_torque_RL                      376.877509
+  torque/flipper_torque_RL_max                  980.506944
+  torque/flipper_torque_RL_min                  3.854416
+  torque/flipper_torque_RR                      376.690970
+  torque/flipper_torque_RR_max                  979.109541
+  torque/flipper_torque_RR_min                  3.977684
+2026-07-30 17:14:40,683 [eval_creps][[92mINFO[00m]: Saved repeat 10 CSV → /ws/logs/eval_creps_11274652 (eval_creps.py:254)
+2026-07-30 17:14:40,683 [eval_creps][[92mINFO[00m]: Running eval rollout 11/15 (max_steps=2000) ... (eval_creps.py:202)
+
+============================================================
+Repeat 11/15
+============================================================
+  clearance/height                              0.083559
+  clearance/height_max                          0.127458
+  clearance/height_min                          0.025914
+  eval/explosion_rate                           0.000000
+  eval/failure_rate                             0.000000
+  eval/max_step_reward                          0.092075
+  eval/mean_step_reward                         0.031548
+  eval/min_step_reward                          -0.057609
+  eval/pct_terminated                           0.008498
+  eval/pct_truncated                            0.000000
+  eval/rollout_steps                            2000.000000
+  eval/success_rate                             1.000000
+  rew/distance_reward                           0.031548
+  rew/total_reward                              0.031548
+  shock/accel_magnitude                         1.017082
+  shock/accel_magnitude_max                     4.407889
+  shock/accel_magnitude_min                     0.095288
+  shock/accel_p90                               1.960870
+  shock/accel_p95                               2.236934
+  shock/accel_p99                               2.722331
+  shock/shock_normalised                        0.000060
+  shock/shock_normalised_max                    0.010735
+  shock/shock_normalised_min                    0.000000
+  shock/shock_p90_normalised                    0.240315
+  shock/shock_p95_normalised                    0.272550
+  shock/shock_p99_normalised                    0.327737
+  state/ang_velocity                            0.218235
+  state/ang_velocity_max                        1.066779
+  state/ang_velocity_min                        0.014428
+  state/lin_velocity                            0.351746
+  state/lin_velocity_max                        0.685645
+  state/lin_velocity_min                        0.141234
+  state/pitch                                   0.309267
+  state/pitch_max                               0.427456
+  state/pitch_min                               0.150819
+  state/roll                                    0.000067
+  state/roll_max                                0.005821
+  state/roll_min                                -0.005861
+  state/success_lin_velocity                    0.106002
+  torque/flipper_torque_FL                      380.307544
+  torque/flipper_torque_FL_max                  983.289120
+  torque/flipper_torque_FL_min                  3.271751
+  torque/flipper_torque_FR                      380.387794
+  torque/flipper_torque_FR_max                  984.405017
+  torque/flipper_torque_FR_min                  3.479922
+  torque/flipper_torque_RL                      376.925678
+  torque/flipper_torque_RL_max                  980.653005
+  torque/flipper_torque_RL_min                  4.010188
+  torque/flipper_torque_RR                      377.563068
+  torque/flipper_torque_RR_max                  980.520815
+  torque/flipper_torque_RR_min                  4.053039
+2026-07-30 17:21:34,021 [eval_creps][[92mINFO[00m]: Saved repeat 11 CSV → /ws/logs/eval_creps_11274652 (eval_creps.py:254)
+2026-07-30 17:21:34,022 [eval_creps][[92mINFO[00m]: Running eval rollout 12/15 (max_steps=2000) ... (eval_creps.py:202)
+
+============================================================
+Repeat 12/15
+============================================================
+  clearance/height                              0.083564
+  clearance/height_max                          0.134823
+  clearance/height_min                          0.015664
+  eval/explosion_rate                           0.000000
+  eval/failure_rate                             0.000000
+  eval/max_step_reward                          0.092715
+  eval/mean_step_reward                         0.031542
+  eval/min_step_reward                          -0.055891
+  eval/pct_terminated                           0.008498
+  eval/pct_truncated                            0.000000
+  eval/rollout_steps                            2000.000000
+  eval/success_rate                             1.000000
+  rew/distance_reward                           0.031542
+  rew/total_reward                              0.031542
+  shock/accel_magnitude                         1.017830
+  shock/accel_magnitude_max                     4.609381
+  shock/accel_magnitude_min                     0.094707
+  shock/accel_p90                               1.927540
+  shock/accel_p95                               2.201687
+  shock/accel_p99                               2.650404
+  shock/shock_normalised                        0.000064
+  shock/shock_normalised_max                    0.012018
+  shock/shock_normalised_min                    0.000000
+  shock/shock_p90_normalised                    0.236386
+  shock/shock_p95_normalised                    0.268467
+  shock/shock_p99_normalised                    0.319689
+  state/ang_velocity                            0.218391
+  state/ang_velocity_max                        1.112315
+  state/ang_velocity_min                        0.013983
+  state/lin_velocity                            0.351753
+  state/lin_velocity_max                        0.707030
+  state/lin_velocity_min                        0.124708
+  state/pitch                                   0.309198
+  state/pitch_max                               0.477490
+  state/pitch_min                               0.096321
+  state/roll                                    0.000069
+  state/roll_max                                0.005736
+  state/roll_min                                -0.005640
+  state/success_lin_velocity                    0.115012
+  torque/flipper_torque_FL                      380.589362
+  torque/flipper_torque_FL_max                  987.461770
+  torque/flipper_torque_FL_min                  3.312521
+  torque/flipper_torque_FR                      380.529522
+  torque/flipper_torque_FR_max                  986.702864
+  torque/flipper_torque_FR_min                  3.284211
+  torque/flipper_torque_RL                      377.186110
+  torque/flipper_torque_RL_max                  982.454890
+  torque/flipper_torque_RL_min                  3.930783
+  torque/flipper_torque_RR                      377.236927
+  torque/flipper_torque_RR_max                  984.342982
+  torque/flipper_torque_RR_min                  3.951589
+2026-07-30 17:28:34,720 [eval_creps][[92mINFO[00m]: Saved repeat 12 CSV → /ws/logs/eval_creps_11274652 (eval_creps.py:254)
+2026-07-30 17:28:34,720 [eval_creps][[92mINFO[00m]: Running eval rollout 13/15 (max_steps=2000) ... (eval_creps.py:202)
+
+============================================================
+Repeat 13/15
+============================================================
+  clearance/height                              0.083541
+  clearance/height_max                          0.128333
+  clearance/height_min                          0.025135
+  eval/explosion_rate                           0.000000
+  eval/failure_rate                             0.000000
+  eval/max_step_reward                          0.091978
+  eval/mean_step_reward                         0.031561
+  eval/min_step_reward                          -0.057819
+  eval/pct_terminated                           0.008500
+  eval/pct_truncated                            0.000000
+  eval/rollout_steps                            2000.000000
+  eval/success_rate                             1.000000
+  rew/distance_reward                           0.031561
+  rew/total_reward                              0.031561
+  shock/accel_magnitude                         1.017214
+  shock/accel_magnitude_max                     4.465026
+  shock/accel_magnitude_min                     0.095826
+  shock/accel_p90                               1.990295
+  shock/accel_p95                               2.240576
+  shock/accel_p99                               2.623582
+  shock/shock_normalised                        0.000065
+  shock/shock_normalised_max                    0.012124
+  shock/shock_normalised_min                    0.000000
+  shock/shock_p90_normalised                    0.243778
+  shock/shock_p95_normalised                    0.272972
+  shock/shock_p99_normalised                    0.316676
+  state/ang_velocity                            0.218344
+  state/ang_velocity_max                        1.075520
+  state/ang_velocity_min                        0.014355
+  state/lin_velocity                            0.351743
+  state/lin_velocity_max                        0.691254
+  state/lin_velocity_min                        0.145798
+  state/pitch                                   0.309177
+  state/pitch_max                               0.429144
+  state/pitch_min                               0.148648
+  state/roll                                    0.000062
+  state/roll_max                                0.005817
+  state/roll_min                                -0.006031
+  state/success_lin_velocity                    0.109289
+  torque/flipper_torque_FL                      381.005510
+  torque/flipper_torque_FL_max                  985.623021
+  torque/flipper_torque_FL_min                  3.297373
+  torque/flipper_torque_FR                      379.789219
+  torque/flipper_torque_FR_max                  985.231587
+  torque/flipper_torque_FR_min                  3.339002
+  torque/flipper_torque_RL                      376.495609
+  torque/flipper_torque_RL_max                  979.848480
+  torque/flipper_torque_RL_min                  3.930735
+  torque/flipper_torque_RR                      376.577512
+  torque/flipper_torque_RR_max                  978.307534
+  torque/flipper_torque_RR_min                  3.927058
+2026-07-30 17:35:34,364 [eval_creps][[92mINFO[00m]: Saved repeat 13 CSV → /ws/logs/eval_creps_11274652 (eval_creps.py:254)
+2026-07-30 17:35:34,364 [eval_creps][[92mINFO[00m]: Running eval rollout 14/15 (max_steps=2000) ... (eval_creps.py:202)
+
+============================================================
+Repeat 14/15
+============================================================
+  clearance/height                              0.083543
+  clearance/height_max                          0.134980
+  clearance/height_min                          0.020567
+  eval/explosion_rate                           0.000000
+  eval/failure_rate                             0.000000
+  eval/max_step_reward                          0.092777
+  eval/mean_step_reward                         0.031554
+  eval/min_step_reward                          -0.056426
+  eval/pct_terminated                           0.008498
+  eval/pct_truncated                            0.000000
+  eval/rollout_steps                            2000.000000
+  eval/success_rate                             1.000000
+  rew/distance_reward                           0.031554
+  rew/total_reward                              0.031554
+  shock/accel_magnitude                         1.017240
+  shock/accel_magnitude_max                     4.641358
+  shock/accel_magnitude_min                     0.093695
+  shock/accel_p90                               1.929769
+  shock/accel_p95                               2.186169
+  shock/accel_p99                               2.612960
+  shock/shock_normalised                        0.000063
+  shock/shock_normalised_max                    0.012147
+  shock/shock_normalised_min                    0.000000
+  shock/shock_p90_normalised                    0.236649
+  shock/shock_p95_normalised                    0.266666
+  shock/shock_p99_normalised                    0.315480
+  state/ang_velocity                            0.218252
+  state/ang_velocity_max                        1.120487
+  state/ang_velocity_min                        0.013935
+  state/lin_velocity                            0.351743
+  state/lin_velocity_max                        0.710059
+  state/lin_velocity_min                        0.136098
+  state/pitch                                   0.309169
+  state/pitch_max                               0.465804
+  state/pitch_min                               0.130427
+  state/roll                                    0.000063
+  state/roll_max                                0.005821
+  state/roll_min                                -0.005617
+  state/success_lin_velocity                    0.117888
+  torque/flipper_torque_FL                      380.000663
+  torque/flipper_torque_FL_max                  985.162617
+  torque/flipper_torque_FL_min                  3.290411
+  torque/flipper_torque_FR                      380.720122
+  torque/flipper_torque_FR_max                  985.282447
+  torque/flipper_torque_FR_min                  3.401888
+  torque/flipper_torque_RL                      377.352952
+  torque/flipper_torque_RL_max                  982.530810
+  torque/flipper_torque_RL_min                  3.783245
+  torque/flipper_torque_RR                      377.310999
+  torque/flipper_torque_RR_max                  982.143522
+  torque/flipper_torque_RR_min                  3.823197
+2026-07-30 17:42:31,555 [eval_creps][[92mINFO[00m]: Saved repeat 14 CSV → /ws/logs/eval_creps_11274652 (eval_creps.py:254)
+2026-07-30 17:42:31,556 [eval_creps][[92mINFO[00m]: Running eval rollout 15/15 (max_steps=2000) ... (eval_creps.py:202)
+
+============================================================
+Repeat 15/15
+============================================================
+  clearance/height                              0.083547
+  clearance/height_max                          0.133431
+  clearance/height_min                          0.019605
+  eval/explosion_rate                           0.000000
+  eval/failure_rate                             0.000000
+  eval/max_step_reward                          0.092947
+  eval/mean_step_reward                         0.031552
+  eval/min_step_reward                          -0.056267
+  eval/pct_terminated                           0.008500
+  eval/pct_truncated                            0.000000
+  eval/rollout_steps                            2000.000000
+  eval/success_rate                             1.000000
+  rew/distance_reward                           0.031552
+  rew/total_reward                              0.031552
+  shock/accel_magnitude                         1.017171
+  shock/accel_magnitude_max                     4.629806
+  shock/accel_magnitude_min                     0.095234
+  shock/accel_p90                               1.959583
+  shock/accel_p95                               2.236278
+  shock/accel_p99                               2.630476
+  shock/shock_normalised                        0.000074
+  shock/shock_normalised_max                    0.013389
+  shock/shock_normalised_min                    0.000000
+  shock/shock_p90_normalised                    0.240164
+  shock/shock_p95_normalised                    0.272474
+  shock/shock_p99_normalised                    0.317451
+  state/ang_velocity                            0.218333
+  state/ang_velocity_max                        1.121559
+  state/ang_velocity_min                        0.013850
+  state/lin_velocity                            0.351667
+  state/lin_velocity_max                        0.714070
+  state/lin_velocity_min                        0.136698
+  state/pitch                                   0.309188
+  state/pitch_max                               0.445476
+  state/pitch_min                               0.131259
+  state/roll                                    0.000062
+  state/roll_max                                0.005784
+  state/roll_min                                -0.005926
+  state/success_lin_velocity                    0.121493
+  torque/flipper_torque_FL                      379.561298
+  torque/flipper_torque_FL_max                  985.789277
+  torque/flipper_torque_FL_min                  3.259406
+  torque/flipper_torque_FR                      380.605311
+  torque/flipper_torque_FR_max                  985.566531
+  torque/flipper_torque_FR_min                  3.251749
+  torque/flipper_torque_RL                      376.741738
+  torque/flipper_torque_RL_max                  982.067498
+  torque/flipper_torque_RL_min                  4.077590
+  torque/flipper_torque_RR                      376.982822
+  torque/flipper_torque_RR_max                  982.354086
+  torque/flipper_torque_RR_min                  3.753047
+2026-07-30 17:49:32,697 [eval_creps][[92mINFO[00m]: Saved repeat 15 CSV → /ws/logs/eval_creps_11274652 (eval_creps.py:254)
+
+============================================================
+AVERAGE over 15 repeats
+============================================================
+  clearance/height                              0.083563
+  clearance/height_max                          0.132356
+  clearance/height_min                          0.021781
+  eval/explosion_rate                           0.000000
+  eval/failure_rate                             0.000015
+  eval/max_step_reward                          0.092545
+  eval/mean_step_reward                         0.031521
+  eval/min_step_reward                          -0.056878
+  eval/pct_terminated                           0.008489
+  eval/pct_truncated                            0.000003
+  eval/rollout_steps                            2000.000000
+  eval/success_rate                             0.999582
+  rew/distance_reward                           0.031521
+  rew/total_reward                              0.031521
+  shock/accel_magnitude                         1.016345
+  shock/accel_magnitude_max                     4.622071
+  shock/accel_magnitude_min                     0.094733
+  shock/accel_p90                               1.947276
+  shock/accel_p95                               2.211589
+  shock/accel_p99                               2.623938
+  shock/shock_normalised                        0.000065
+  shock/shock_normalised_max                    0.012255
+  shock/shock_normalised_min                    0.000000
+  shock/shock_p90_normalised                    0.238709
+  shock/shock_p95_normalised                    0.269608
+  shock/shock_p99_normalised                    0.316692
+  state/ang_velocity                            0.218076
+  state/ang_velocity_max                        1.116423
+  state/ang_velocity_min                        0.013937
+  state/lin_velocity                            0.351383
+  state/lin_velocity_max                        0.705380
+  state/lin_velocity_min                        0.135949
+  state/pitch                                   0.309138
+  state/pitch_max                               0.448992
+  state/pitch_min                               0.130846
+  state/roll                                    0.000066
+  state/roll_max                                0.005795
+  state/roll_min                                -0.005830
+  state/success_lin_velocity                    0.117843
+  torque/flipper_torque_FL                      380.137540
+  torque/flipper_torque_FL_max                  985.584916
+  torque/flipper_torque_FL_min                  3.319297
+  torque/flipper_torque_FR                      380.169408
+  torque/flipper_torque_FR_max                  985.621484
+  torque/flipper_torque_FR_min                  3.359880
+  torque/flipper_torque_RL                      376.627403
+  torque/flipper_torque_RL_max                  982.345347
+  torque/flipper_torque_RL_min                  3.933619
+  torque/flipper_torque_RR                      376.866497
+  torque/flipper_torque_RR_max                  982.078870
+  torque/flipper_torque_RR_min                  3.929039
+2026-07-30 17:49:32,698 [eval_creps][[92mINFO[00m]: Eval complete. Results saved to /ws/logs/eval_creps_11274652  (eval_id=CREPS) (eval_creps.py:263)
+########################################################################
+Eval finished with exit status: 0
+########################################################################

@@ -1,0 +1,391 @@
+2026-08-01 11:20:53 [1,179ms] [Error] [omni.ext.plugin] Could not load the dynamic library from /opt/conda/envs/isaaclab/lib/python3.10/site-packages/isaacsim/extscache/omni.usd.libs-1.0.1+10a4b5c0.lx64.r.cp310/bin/libMaterialXRenderHw.so. Error: libXt.so.6: cannot open shared object file: No such file or directory (note that this may be caused by a dependent library)
+2026-08-01 11:20:53 [1,183ms] [Error] [omni.ext.plugin] Could not load the dynamic library from /opt/conda/envs/isaaclab/lib/python3.10/site-packages/isaacsim/extscache/omni.usd.libs-1.0.1+10a4b5c0.lx64.r.cp310/bin/libMaterialXRenderGlsl.so. Error: libXt.so.6: cannot open shared object file: No such file or directory (note that this may be caused by a dependent library)
+2026-08-01 11:20:53 [1,186ms] [Error] [omni.ext.plugin] Could not load the dynamic library from /opt/conda/envs/isaaclab/lib/python3.10/site-packages/isaacsim/extscache/omni.usd.libs-1.0.1+10a4b5c0.lx64.r.cp310/bin/libusdBakeMtlx.so. Error: libXt.so.6: cannot open shared object file: No such file or directory (note that this may be caused by a dependent library)
+2026-08-01 11:20:54 [2,196ms] [Error] [omni.datastore] Failed to acquire exclusive lock to data store (64>=64)
+2026-08-01 11:20:54 [2,196ms] [Error] [omni.datastore] Failed to create local file data store at '/opt/conda/envs/isaaclab/lib/python3.10/site-packages/omni/cache/Kit/106.1/10a4b5c0/PhysXLocalMeshCache/LocalDS0'
+2026-08-01 11:20:54 [2,547ms] [Error] [omni.kit.stage_templates.new_stage] Failed to create directory /opt/conda/envs/isaaclab/lib/python3.10/site-packages/omni/data/documents/Kit/apps/Isaac-Sim/scripts/new_stage
+2026-08-01 11:20:59 [6,876ms] [Error] [omni.kit.app.plugin] failed to open file '/opt/conda/envs/isaaclab/lib/python3.10/site-packages/omni/data/Kit/Isaac-Sim/4.2/user.config.json' - unable to save the dictionary
+2026-08-01 11:21:00 [7,854ms] [Error] [gpu.foundation.plugin] No device could be created. Some known system issues:
+- The driver is not installed properly and requires a clean re-install.
+- Your GPUs do not support RayTracing: DXR or Vulkan ray_tracing, or hardware is excluded due to performance.
+- The driver cannot enumerate any GPU: driver, display, TCC mode or a docker issue. For Vulkan, test it with Vulkaninfo tool from Vulkan SDK, instead of nvidia-smi.
+- For Ubuntu, it requires server-xorg-core 1.20.7+ and a display to work without --no-window.
+- For Linux dockers, the setup is not complete. Install the latest driver, xServer and NVIDIA container runtime.
+
+2026-08-01 11:21:00 [7,857ms] [Error] [gpu.foundation.plugin] Invalid getDeviceInfo parameters.
+2026-08-01 11:21:01 [9,024ms] [Error] [omni.kvdb.plugin] Unexpected key-value database error
+2026-08-01 11:21:01 [9,062ms] [Error] [omni.kit.app.plugin] failed to open file '/opt/conda/envs/isaaclab/lib/python3.10/site-packages/omni/data/Kit/Isaac-Sim/4.2/user.config.json' - unable to save the dictionary
+/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torchrl/data/replay_buffers/samplers.py:34: UserWarning: Failed to import torchrl C++ binaries. Some modules (eg, prioritized replay buffers) may not work with your installation. This is likely due to a discrepancy between your package version and the PyTorch version. Make sure both are compatible. Usually, torchrl majors follow the pytorch majors within a few days around the release. For instance, TorchRL 0.5 requires PyTorch 2.4.0, and TorchRL 0.6 requires PyTorch 2.5.0.
+  warnings.warn(EXTENSION_WARNING)
+/opt/conda/envs/isaaclab/lib/python3.10/site-packages/wandb/sdk/internal/internal_api.py:13: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import parse_version
+2026-08-01 11:21:09 [17,540ms] [Error] [omni.kit.app.plugin] failed to open file '/opt/conda/envs/isaaclab/lib/python3.10/site-packages/omni/data/Kit/Isaac-Sim/4.2/user.config.json' - unable to save the dictionary
+2026-08-01 11:21:27 [35,662ms] [Error] [omni.kvdb.plugin] Unexpected key-value database error
+2026-08-01 11:21:27 [35,676ms] [Error] [omni.kit.app.plugin] failed to open file '/opt/conda/envs/isaaclab/lib/python3.10/site-packages/omni/data/Kit/Isaac-Sim/4.2/user.config.json' - unable to save the dictionary
+wandb: Currently logged in as: sargapav (marv_flipper_training). Use `wandb login --relogin` to force relogin
+/opt/conda/envs/isaaclab/lib/python3.10/site-packages/wandb/sdk/internal/internal_api.py:13: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import parse_version
+wandb: wandb version 0.28.1 is available!  To upgrade, please run:
+wandb:  $ pip install wandb --upgrade
+wandb: Tracking run with wandb version 0.12.21
+wandb: Run data is saved locally in /ws/logs/wandb/wandb/run-20260801_132128-d453ce311419b995cc64da829012b199d298293f879b41f793ac0d52e7fc5e32
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run train_marv_mitriakov_11279578_attempt_0
+wandb: ⭐️ View project at https://wandb.ai/marv_flipper_training/MARV_RL
+wandb: 🚀 View run at https://wandb.ai/marv_flipper_training/MARV_RL/runs/d453ce311419b995cc64da829012b199d298293f879b41f793ac0d52e7fc5e32
+/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torchrl/envs/transforms/transforms.py:6557: FutureWarning: The VecNorm class is to be deprecated in favor of `torchrl.envs.VecNormV2` and will be replaced by that class in v0.10. You can adapt to these changes by using the `new_api` argument or importing the `VecNormV2` class from `torchrl.envs`.
+  warnings.warn(
+/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torchrl/envs/transforms/transforms.py:6648: FutureWarning: This class is to be deprecated in favor of :class:`~torchrl.envs.VecNormV2`.
+  warnings.warn(
+FTR PPO Training:   0% 0/20971520 [00:00<?, ?frames/s]FTR PPO Training:   1% 131072/20971520 [01:39<4:23:48, 1316.63frames/s]FTR PPO Training:   1% 131072/20971520 [01:50<4:23:48, 1316.63frames/s]FTR PPO Training:   1% 262144/20971520 [03:11<4:10:31, 1377.74frames/s]FTR PPO Training:   1% 262144/20971520 [03:30<4:10:31, 1377.74frames/s]FTR PPO Training:   2% 393216/20971520 [04:42<4:04:22, 1403.42frames/s]FTR PPO Training:   2% 393216/20971520 [05:00<4:04:22, 1403.42frames/s]FTR PPO Training:   2% 524288/20971520 [06:14<4:01:16, 1412.49frames/s]FTR PPO Training:   2% 524288/20971520 [06:30<4:01:16, 1412.49frames/s]FTR PPO Training:   3% 655360/20971520 [07:47<3:59:44, 1412.36frames/s]FTR PPO Training:   3% 655360/20971520 [08:00<3:59:44, 1412.36frames/s]FTR PPO Training:   4% 786432/20971520 [09:18<3:56:28, 1422.61frames/s]FTR PPO Training:   4% 786432/20971520 [09:30<3:56:28, 1422.61frames/s]FTR PPO Training:   4% 917504/20971520 [10:50<3:54:55, 1422.74frames/s]FTR PPO Training:   4% 917504/20971520 [11:10<3:54:55, 1422.74frames/s]FTR PPO Training:   5% 1048576/20971520 [12:22<3:53:23, 1422.76frames/s]FTR PPO Training:   5% 1048576/20971520 [12:40<3:53:23, 1422.76frames/s]FTR PPO Training:   6% 1179648/20971520 [13:55<3:52:33, 1418.39frames/s]FTR PPO Training:   6% 1179648/20971520 [14:10<3:52:33, 1418.39frames/s]FTR PPO Training:   6% 1310720/20971520 [15:28<3:50:56, 1418.85frames/s]FTR PPO Training:   6% 1310720/20971520 [15:40<3:50:56, 1418.85frames/s]FTR PPO Training:   7% 1441792/20971520 [17:00<3:49:18, 1419.49frames/s]FTR PPO Training:   7% 1441792/20971520 [17:20<3:49:18, 1419.49frames/s]FTR PPO Training:   8% 1572864/20971520 [24:55<8:35:07, 627.64frames/s] FTR PPO Training:   8% 1572864/20971520 [25:10<8:35:07, 627.64frames/s]FTR PPO Training:   8% 1703936/20971520 [26:28<7:05:59, 753.82frames/s]FTR PPO Training:   8% 1703936/20971520 [26:40<7:05:59, 753.82frames/s]FTR PPO Training:   9% 1835008/20971520 [28:03<6:04:25, 875.20frames/s]FTR PPO Training:   9% 1835008/20971520 [28:20<6:04:25, 875.20frames/s]FTR PPO Training:   9% 1966080/20971520 [29:37<5:21:41, 984.64frames/s]FTR PPO Training:   9% 1966080/20971520 [29:50<5:21:41, 984.64frames/s]FTR PPO Training:  10% 2097152/20971520 [31:11<4:50:52, 1081.45frames/s]FTR PPO Training:  10% 2097152/20971520 [31:30<4:50:52, 1081.45frames/s]FTR PPO Training:  11% 2228224/20971520 [32:45<4:29:52, 1157.51frames/s]FTR PPO Training:  11% 2228224/20971520 [33:00<4:29:52, 1157.51frames/s]FTR PPO Training:  11% 2359296/20971520 [34:21<4:15:13, 1215.39frames/s]FTR PPO Training:  11% 2359296/20971520 [34:40<4:15:13, 1215.39frames/s]FTR PPO Training:  12% 2490368/20971520 [35:57<4:05:06, 1256.66frames/s]FTR PPO Training:  12% 2490368/20971520 [36:10<4:05:06, 1256.66frames/s]FTR PPO Training:  12% 2621440/20971520 [37:32<3:57:18, 1288.73frames/s]FTR PPO Training:  12% 2621440/20971520 [37:50<3:57:18, 1288.73frames/s]FTR PPO Training:  13% 2752512/20971520 [39:10<3:52:40, 1305.08frames/s]FTR PPO Training:  13% 2752512/20971520 [39:20<3:52:40, 1305.08frames/s]FTR PPO Training:  14% 2883584/20971520 [47:13<8:15:06, 608.88frames/s] FTR PPO Training:  14% 2883584/20971520 [47:30<8:15:06, 608.88frames/s]FTR PPO Training:  14% 3014656/20971520 [48:48<6:49:14, 731.31frames/s]FTR PPO Training:  14% 3014656/20971520 [49:00<6:49:14, 731.31frames/s]FTR PPO Training:  15% 3145728/20971520 [50:22<5:48:32, 852.40frames/s]FTR PPO Training:  15% 3145728/20971520 [50:40<5:48:32, 852.40frames/s]FTR PPO Training:  16% 3276800/20971520 [51:57<5:06:05, 963.50frames/s]FTR PPO Training:  16% 3276800/20971520 [52:10<5:06:05, 963.50frames/s]FTR PPO Training:  16% 3407872/20971520 [53:31<4:35:25, 1062.81frames/s]FTR PPO Training:  16% 3407872/20971520 [53:50<4:35:25, 1062.81frames/s]FTR PPO Training:  17% 3538944/20971520 [55:05<4:13:53, 1144.34frames/s]FTR PPO Training:  17% 3538944/20971520 [55:20<4:13:53, 1144.34frames/s]FTR PPO Training:  18% 3670016/20971520 [56:38<3:58:11, 1210.59frames/s]FTR PPO Training:  18% 3670016/20971520 [56:50<3:58:11, 1210.59frames/s]FTR PPO Training:  18% 3801088/20971520 [58:14<3:47:55, 1255.53frames/s]FTR PPO Training:  18% 3801088/20971520 [58:30<3:47:55, 1255.53frames/s]FTR PPO Training:  19% 3932160/20971520 [59:44<3:37:14, 1307.21frames/s]FTR PPO Training:  19% 3932160/20971520 [1:00:00<3:37:14, 1307.21frames/s]FTR PPO Training:  19% 4063232/20971520 [1:01:16<3:29:44, 1343.63frames/s]FTR PPO Training:  19% 4063232/20971520 [1:01:30<3:29:44, 1343.63frames/s]FTR PPO Training:  20% 4194304/20971520 [1:09:07<7:27:18, 625.11frames/s] FTR PPO Training:  20% 4194304/20971520 [1:09:20<7:27:18, 625.11frames/s]FTR PPO Training:  21% 4325376/20971520 [1:10:37<6:08:04, 753.76frames/s]FTR PPO Training:  21% 4325376/20971520 [1:10:50<6:08:04, 753.76frames/s]FTR PPO Training:  21% 4456448/20971520 [1:12:08<5:12:58, 879.44frames/s]FTR PPO Training:  21% 4456448/20971520 [1:12:20<5:12:58, 879.44frames/s]FTR PPO Training:  22% 4587520/20971520 [1:13:37<4:32:51, 1000.75frames/s]FTR PPO Training:  22% 4587520/20971520 [1:13:50<4:32:51, 1000.75frames/s]FTR PPO Training:  22% 4718592/20971520 [1:15:09<4:06:11, 1100.29frames/s]FTR PPO Training:  22% 4718592/20971520 [1:15:21<4:06:11, 1100.29frames/s]FTR PPO Training:  23% 4849664/20971520 [1:16:38<3:45:40, 1190.67frames/s]FTR PPO Training:  23% 4849664/20971520 [1:16:51<3:45:40, 1190.67frames/s]FTR PPO Training:  24% 4980736/20971520 [1:18:06<3:30:20, 1267.04frames/s]FTR PPO Training:  24% 4980736/20971520 [1:18:21<3:30:20, 1267.04frames/s]FTR PPO Training:  24% 5111808/20971520 [1:19:36<3:20:58, 1315.28frames/s]FTR PPO Training:  24% 5111808/20971520 [1:19:51<3:20:58, 1315.28frames/s]FTR PPO Training:  25% 5242880/20971520 [1:21:05<3:12:34, 1361.30frames/s]FTR PPO Training:  25% 5242880/20971520 [1:21:21<3:12:34, 1361.30frames/s]FTR PPO Training:  26% 5373952/20971520 [1:22:34<3:06:45, 1392.02frames/s]FTR PPO Training:  26% 5373952/20971520 [1:22:51<3:06:45, 1392.02frames/s]FTR PPO Training:  26% 5505024/20971520 [1:30:21<6:45:07, 636.28frames/s] FTR PPO Training:  26% 5505024/20971520 [1:30:41<6:45:07, 636.28frames/s]FTR PPO Training:  27% 5636096/20971520 [1:31:50<5:33:11, 767.08frames/s]FTR PPO Training:  27% 5636096/20971520 [1:32:01<5:33:11, 767.08frames/s]FTR PPO Training:  28% 5767168/20971520 [1:33:20<4:43:46, 892.96frames/s]FTR PPO Training:  28% 5767168/20971520 [1:33:31<4:43:46, 892.96frames/s]FTR PPO Training:  28% 5898240/20971520 [1:34:50<4:08:41, 1010.19frames/s]FTR PPO Training:  28% 5898240/20971520 [1:35:01<4:08:41, 1010.19frames/s]FTR PPO Training:  29% 6029312/20971520 [1:36:21<3:43:58, 1111.91frames/s]FTR PPO Training:  29% 6029312/20971520 [1:36:31<3:43:58, 1111.91frames/s]FTR PPO Training:  29% 6160384/20971520 [1:37:52<3:26:50, 1193.44frames/s]FTR PPO Training:  29% 6160384/20971520 [1:38:11<3:26:50, 1193.44frames/s]FTR PPO Training:  30% 6291456/20971520 [1:39:20<3:13:09, 1266.68frames/s]FTR PPO Training:  30% 6291456/20971520 [1:39:31<3:13:09, 1266.68frames/s]FTR PPO Training:  31% 6422528/20971520 [1:40:50<3:03:58, 1317.98frames/s]FTR PPO Training:  31% 6422528/20971520 [1:41:01<3:03:58, 1317.98frames/s]FTR PPO Training:  31% 6553600/20971520 [1:42:19<2:56:28, 1361.68frames/s]FTR PPO Training:  31% 6553600/20971520 [1:42:31<2:56:28, 1361.68frames/s]FTR PPO Training:  32% 6684672/20971520 [1:43:49<2:51:17, 1390.12frames/s]FTR PPO Training:  32% 6684672/20971520 [1:44:01<2:51:17, 1390.12frames/s]FTR PPO Training:  32% 6815744/20971520 [1:51:35<6:10:30, 636.76frames/s] FTR PPO Training:  32% 6815744/20971520 [1:51:51<6:10:30, 636.76frames/s]FTR PPO Training:  33% 6946816/20971520 [1:53:07<5:06:10, 763.44frames/s]FTR PPO Training:  33% 6946816/20971520 [1:53:21<5:06:10, 763.44frames/s]FTR PPO Training:  34% 7077888/20971520 [1:54:37<4:20:01, 890.50frames/s]FTR PPO Training:  34% 7077888/20971520 [1:54:51<4:20:01, 890.50frames/s]FTR PPO Training:  34% 7208960/20971520 [1:56:06<3:47:14, 1009.41frames/s]FTR PPO Training:  34% 7208960/20971520 [1:56:21<3:47:14, 1009.41frames/s]FTR PPO Training:  35% 7340032/20971520 [1:57:37<3:24:27, 1111.22frames/s]FTR PPO Training:  35% 7340032/20971520 [1:57:51<3:24:27, 1111.22frames/s]FTR PPO Training:  36% 7471104/20971520 [1:59:10<3:09:38, 1186.49frames/s]FTR PPO Training:  36% 7471104/20971520 [1:59:21<3:09:38, 1186.49frames/s]FTR PPO Training:  36% 7602176/20971520 [2:00:39<2:56:48, 1260.29frames/s]FTR PPO Training:  36% 7602176/20971520 [2:00:51<2:56:48, 1260.29frames/s]FTR PPO Training:  37% 7733248/20971520 [2:02:09<2:48:04, 1312.72frames/s]FTR PPO Training:  37% 7733248/20971520 [2:02:21<2:48:04, 1312.72frames/s]FTR PPO Training:  38% 7864320/20971520 [2:03:39<2:41:30, 1352.58frames/s]FTR PPO Training:  38% 7864320/20971520 [2:03:51<2:41:30, 1352.58frames/s]FTR PPO Training:  38% 7995392/20971520 [2:05:10<2:37:16, 1375.09frames/s]FTR PPO Training:  38% 7995392/20971520 [2:05:21<2:37:16, 1375.09frames/s]FTR PPO Training:  39% 8126464/20971520 [2:12:55<5:36:24, 636.40frames/s] FTR PPO Training:  39% 8126464/20971520 [2:13:11<5:36:24, 636.40frames/s]FTR PPO Training:  39% 8257536/20971520 [2:14:25<4:36:51, 765.39frames/s]FTR PPO Training:  39% 8257536/20971520 [2:14:41<4:36:51, 765.39frames/s]FTR PPO Training:  40% 8388608/20971520 [2:15:55<3:55:08, 891.85frames/s]FTR PPO Training:  40% 8388608/20971520 [2:16:11<3:55:08, 891.85frames/s]FTR PPO Training:  41% 8519680/20971520 [2:17:24<3:24:57, 1012.52frames/s]FTR PPO Training:  41% 8519680/20971520 [2:17:41<3:24:57, 1012.52frames/s]FTR PPO Training:  41% 8650752/20971520 [2:18:54<3:04:26, 1113.33frames/s]FTR PPO Training:  41% 8650752/20971520 [2:19:11<3:04:26, 1113.33frames/s]2026-08-01 13:41:07 [8,414,954ms] [Error] [omni.physx.tensors.plugin] CUDA error: an illegal memory access was encountered: ../../../extensions/runtime/source/omni.physx.tensors/plugins/gpu/GpuArticulationView.cpp: 749
+2026-08-01 13:41:07 [8,415,094ms] [Error] [ftr_ppo_train] Training failed: CUDA error: an illegal memory access was encountered
+CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.
+For debugging consider passing CUDA_LAUNCH_BLOCKING=1
+Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
+
+Traceback (most recent call last):
+  File "/ws/src/flipper_training/marv_rl_training/training/train_ftr.py", line 510, in train
+    self._train()
+  File "/ws/src/flipper_training/marv_rl_training/training/train_ftr.py", line 571, in _train
+    for i, tensordict_data in enumerate(self.collector):
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torchrl/collectors/collectors.py", line 327, in __iter__
+    yield from self.iterator()
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torchrl/collectors/collectors.py", line 1206, in iterator
+    tensordict_out = self.rollout()
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torchrl/_utils.py", line 601, in unpack_rref_and_invoke_function
+    return func(self, *args, **kwargs)
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torch/utils/_contextlib.py", line 116, in decorate_context
+    return func(*args, **kwargs)
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torchrl/collectors/collectors.py", line 1458, in rollout
+    env_output, env_next_output = self.env.step_and_maybe_reset(env_input)
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torchrl/envs/common.py", line 3585, in step_and_maybe_reset
+    tensordict = self.step(tensordict)
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torchrl/envs/common.py", line 2031, in step
+    next_tensordict = self._step(tensordict)
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torchrl/envs/transforms/transforms.py", line 1129, in _step
+    next_tensordict = self.base_env._step(tensordict_in)
+  File "/ws/src/flipper_training/marv_rl_training/environment/ftr_env_adapter.py", line 156, in _step
+    obs_dict, reward, terminated, truncated, _info = self.ftr_env.step(action)
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/gymnasium/wrappers/order_enforcing.py", line 56, in step
+    return self.env.step(action)
+  File "/opt/IsaacLab/source/extensions/omni.isaac.lab/omni/isaac/lab/envs/direct_rl_env.py", line 322, in step
+    self.scene.write_data_to_sim()
+  File "/opt/IsaacLab/source/extensions/omni.isaac.lab/omni/isaac/lab/scene/interactive_scene.py", line 349, in write_data_to_sim
+    articulation.write_data_to_sim()
+  File "/opt/IsaacLab/source/extensions/omni.isaac.lab/omni/isaac/lab/assets/articulation/articulation.py", line 198, in write_data_to_sim
+    self.root_physx_view.set_dof_position_targets(self._joint_pos_target_sim, self._ALL_INDICES)
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/isaacsim/extsPhysics/omni.physics.tensors/omni/physics/tensors/impl/api.py", line 479, in set_dof_position_targets
+    indices = self._frontend.as_contiguous_uint32(indices)
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/isaacsim/extsPhysics/omni.physics.tensors/omni/physics/tensors/impl/frontend_torch.py", line 88, in as_contiguous_uint32
+    return tensor.to(torch.int32).contiguous()
+RuntimeError: CUDA error: an illegal memory access was encountered
+CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.
+For debugging consider passing CUDA_LAUNCH_BLOCKING=1
+ERROR conda.cli.main_run:execute(142): `conda run env PYTHONPATH=/ws/src/FTR-Benchmark:/ws/src/flipper_training python /ws/src/flipper_training/marv_rl_training/training/train_ftr.py --config /ws/configs/marv_config_mitriakov.yaml --headless` failed. (See above for error)
+INFO:    Terminating squashfuse_ll after timeout
+INFO:    Timeouts can be caused by a running background process
+srun: error: g12: task 0: Exited with exit code 75
+2026-08-01 13:41:22 [1,235ms] [Error] [omni.ext.plugin] Could not load the dynamic library from /opt/conda/envs/isaaclab/lib/python3.10/site-packages/isaacsim/extscache/omni.usd.libs-1.0.1+10a4b5c0.lx64.r.cp310/bin/libMaterialXRenderHw.so. Error: libXt.so.6: cannot open shared object file: No such file or directory (note that this may be caused by a dependent library)
+2026-08-01 13:41:22 [1,239ms] [Error] [omni.ext.plugin] Could not load the dynamic library from /opt/conda/envs/isaaclab/lib/python3.10/site-packages/isaacsim/extscache/omni.usd.libs-1.0.1+10a4b5c0.lx64.r.cp310/bin/libMaterialXRenderGlsl.so. Error: libXt.so.6: cannot open shared object file: No such file or directory (note that this may be caused by a dependent library)
+2026-08-01 13:41:22 [1,242ms] [Error] [omni.ext.plugin] Could not load the dynamic library from /opt/conda/envs/isaaclab/lib/python3.10/site-packages/isaacsim/extscache/omni.usd.libs-1.0.1+10a4b5c0.lx64.r.cp310/bin/libusdBakeMtlx.so. Error: libXt.so.6: cannot open shared object file: No such file or directory (note that this may be caused by a dependent library)
+2026-08-01 13:41:23 [2,194ms] [Error] [omni.datastore] Failed to acquire exclusive lock to data store (64>=64)
+2026-08-01 13:41:23 [2,194ms] [Error] [omni.datastore] Failed to create local file data store at '/opt/conda/envs/isaaclab/lib/python3.10/site-packages/omni/cache/Kit/106.1/10a4b5c0/PhysXLocalMeshCache/LocalDS0'
+2026-08-01 13:41:23 [2,530ms] [Error] [omni.kit.stage_templates.new_stage] Failed to create directory /opt/conda/envs/isaaclab/lib/python3.10/site-packages/omni/data/documents/Kit/apps/Isaac-Sim/scripts/new_stage
+2026-08-01 13:41:27 [6,443ms] [Error] [omni.kit.app.plugin] failed to open file '/opt/conda/envs/isaaclab/lib/python3.10/site-packages/omni/data/Kit/Isaac-Sim/4.2/user.config.json' - unable to save the dictionary
+2026-08-01 13:41:28 [7,314ms] [Error] [gpu.foundation.plugin] No device could be created. Some known system issues:
+- The driver is not installed properly and requires a clean re-install.
+- Your GPUs do not support RayTracing: DXR or Vulkan ray_tracing, or hardware is excluded due to performance.
+- The driver cannot enumerate any GPU: driver, display, TCC mode or a docker issue. For Vulkan, test it with Vulkaninfo tool from Vulkan SDK, instead of nvidia-smi.
+- For Ubuntu, it requires server-xorg-core 1.20.7+ and a display to work without --no-window.
+- For Linux dockers, the setup is not complete. Install the latest driver, xServer and NVIDIA container runtime.
+
+2026-08-01 13:41:28 [7,317ms] [Error] [gpu.foundation.plugin] Invalid getDeviceInfo parameters.
+2026-08-01 13:41:29 [8,229ms] [Error] [omni.kvdb.plugin] Unexpected key-value database error
+2026-08-01 13:41:29 [8,268ms] [Error] [omni.kit.app.plugin] failed to open file '/opt/conda/envs/isaaclab/lib/python3.10/site-packages/omni/data/Kit/Isaac-Sim/4.2/user.config.json' - unable to save the dictionary
+/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torchrl/data/replay_buffers/samplers.py:34: UserWarning: Failed to import torchrl C++ binaries. Some modules (eg, prioritized replay buffers) may not work with your installation. This is likely due to a discrepancy between your package version and the PyTorch version. Make sure both are compatible. Usually, torchrl majors follow the pytorch majors within a few days around the release. For instance, TorchRL 0.5 requires PyTorch 2.4.0, and TorchRL 0.6 requires PyTorch 2.5.0.
+  warnings.warn(EXTENSION_WARNING)
+/opt/conda/envs/isaaclab/lib/python3.10/site-packages/wandb/sdk/internal/internal_api.py:13: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import parse_version
+2026-08-01 13:41:36 [15,776ms] [Error] [omni.kit.app.plugin] failed to open file '/opt/conda/envs/isaaclab/lib/python3.10/site-packages/omni/data/Kit/Isaac-Sim/4.2/user.config.json' - unable to save the dictionary
+2026-08-01 13:41:54 [33,341ms] [Error] [omni.kvdb.plugin] Unexpected key-value database error
+2026-08-01 13:41:54 [33,355ms] [Error] [omni.kit.app.plugin] failed to open file '/opt/conda/envs/isaaclab/lib/python3.10/site-packages/omni/data/Kit/Isaac-Sim/4.2/user.config.json' - unable to save the dictionary
+wandb: Currently logged in as: sargapav (marv_flipper_training). Use `wandb login --relogin` to force relogin
+/opt/conda/envs/isaaclab/lib/python3.10/site-packages/wandb/sdk/internal/internal_api.py:13: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import parse_version
+wandb: wandb version 0.28.1 is available!  To upgrade, please run:
+wandb:  $ pip install wandb --upgrade
+wandb: Tracking run with wandb version 0.12.21
+wandb: Run data is saved locally in /ws/logs/wandb/wandb/run-20260801_154154-7f0ebe8b80235b6b01658ea36f0e0e86ca475d4cb82025197e25a9ffd28a2322
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run train_marv_mitriakov_11279578_attempt_1
+wandb: ⭐️ View project at https://wandb.ai/marv_flipper_training/MARV_RL
+wandb: 🚀 View run at https://wandb.ai/marv_flipper_training/MARV_RL/runs/7f0ebe8b80235b6b01658ea36f0e0e86ca475d4cb82025197e25a9ffd28a2322
+/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torchrl/envs/transforms/transforms.py:6557: FutureWarning: The VecNorm class is to be deprecated in favor of `torchrl.envs.VecNormV2` and will be replaced by that class in v0.10. You can adapt to these changes by using the `new_api` argument or importing the `VecNormV2` class from `torchrl.envs`.
+  warnings.warn(
+/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torchrl/envs/transforms/transforms.py:6648: FutureWarning: This class is to be deprecated in favor of :class:`~torchrl.envs.VecNormV2`.
+  warnings.warn(
+/ws/src/flipper_training/marv_rl_training/training/train_ftr.py:421: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  policy_state = torch.load(policy_to_load, map_location=self.device)
+/ws/src/flipper_training/marv_rl_training/training/train_ftr.py:428: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  vecnorm_state = torch.load(vecnorm_to_load, map_location=self.device)
+/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torchrl/envs/transforms/transforms.py:7002: UserWarning: VecNorm wasn't initialized and the tensordict is not shared. In single process settings, this is ok, but if you need to share the statistics between workers this should require some attention. Make sure that the content of VecNorm is transmitted to the workers after calling load_state_dict and not before, as other workers may not have access to the loaded TensorDict.
+  warnings.warn(
+/ws/src/flipper_training/marv_rl_training/training/train_ftr.py:478: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  checkpoint = torch.load(training_state_file, map_location=self.device)
+FTR PPO Training:   0% 0/20971520 [00:00<?, ?frames/s]FTR PPO Training:   1% 131072/20971520 [01:38<4:21:33, 1327.97frames/s]FTR PPO Training:   1% 131072/20971520 [01:50<4:21:33, 1327.97frames/s]FTR PPO Training:   1% 262144/20971520 [03:13<4:14:19, 1357.18frames/s]FTR PPO Training:   1% 262144/20971520 [03:30<4:14:19, 1357.18frames/s]FTR PPO Training:   2% 393216/20971520 [04:43<4:04:05, 1405.10frames/s]FTR PPO Training:   2% 393216/20971520 [05:00<4:04:05, 1405.10frames/s]FTR PPO Training:   2% 524288/20971520 [06:11<3:57:44, 1433.46frames/s]FTR PPO Training:   2% 524288/20971520 [06:30<3:57:44, 1433.46frames/s]FTR PPO Training:   3% 655360/20971520 [07:40<3:53:26, 1450.53frames/s]FTR PPO Training:   3% 655360/20971520 [07:50<3:53:26, 1450.53frames/s]FTR PPO Training:   4% 786432/20971520 [09:08<3:50:21, 1460.46frames/s]FTR PPO Training:   4% 786432/20971520 [09:20<3:50:21, 1460.46frames/s]FTR PPO Training:   4% 917504/20971520 [10:37<3:47:52, 1466.72frames/s]FTR PPO Training:   4% 917504/20971520 [10:50<3:47:52, 1466.72frames/s]FTR PPO Training:   5% 1048576/20971520 [12:06<3:46:23, 1466.73frames/s]FTR PPO Training:   5% 1048576/20971520 [12:20<3:46:23, 1466.73frames/s]FTR PPO Training:   6% 1179648/20971520 [13:34<3:43:55, 1473.05frames/s]FTR PPO Training:   6% 1179648/20971520 [13:50<3:43:55, 1473.05frames/s]FTR PPO Training:   6% 1310720/20971520 [15:04<3:42:58, 1469.60frames/s]FTR PPO Training:   6% 1310720/20971520 [15:20<3:42:58, 1469.60frames/s]FTR PPO Training:   7% 1441792/20971520 [16:32<3:40:37, 1475.31frames/s]FTR PPO Training:   7% 1441792/20971520 [16:50<3:40:37, 1475.31frames/s]FTR PPO Training:   8% 1572864/20971520 [24:27<8:28:48, 635.42frames/s] FTR PPO Training:   8% 1572864/20971520 [24:40<8:28:48, 635.42frames/s]FTR PPO Training:   8% 1703936/20971520 [25:56<6:58:25, 767.48frames/s]FTR PPO Training:   8% 1703936/20971520 [26:10<6:58:25, 767.48frames/s]FTR PPO Training:   9% 1835008/20971520 [27:27<5:56:42, 894.11frames/s]FTR PPO Training:   9% 1835008/20971520 [27:40<5:56:42, 894.11frames/s]2026-08-01 14:10:44 [1,763,192ms] [Error] [omni.physx.tensors.plugin] CUDA error: an illegal memory access was encountered: ../../../extensions/runtime/source/omni.physx.tensors/plugins/gpu/GpuArticulationView.cpp: 749
+2026-08-01 14:10:44 [1,763,264ms] [Error] [ftr_ppo_train] Training failed: CUDA error: an illegal memory access was encountered
+CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.
+For debugging consider passing CUDA_LAUNCH_BLOCKING=1
+Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
+
+Traceback (most recent call last):
+ERROR conda.cli.main_run:execute(142): `conda run env PYTHONPATH=/ws/src/FTR-Benchmark:/ws/src/flipper_training python /ws/src/flipper_training/marv_rl_training/training/train_ftr.py --config /ws/configs/marv_config_mitriakov.yaml --headless` failed. (See above for error)
+INFO:    Terminating squashfuse_ll after timeout
+INFO:    Timeouts can be caused by a running background process
+srun: error: g12: task 0: Exited with exit code 75
+2026-08-01 14:10:59 [1,255ms] [Error] [omni.ext.plugin] Could not load the dynamic library from /opt/conda/envs/isaaclab/lib/python3.10/site-packages/isaacsim/extscache/omni.usd.libs-1.0.1+10a4b5c0.lx64.r.cp310/bin/libMaterialXRenderHw.so. Error: libXt.so.6: cannot open shared object file: No such file or directory (note that this may be caused by a dependent library)
+2026-08-01 14:10:59 [1,259ms] [Error] [omni.ext.plugin] Could not load the dynamic library from /opt/conda/envs/isaaclab/lib/python3.10/site-packages/isaacsim/extscache/omni.usd.libs-1.0.1+10a4b5c0.lx64.r.cp310/bin/libMaterialXRenderGlsl.so. Error: libXt.so.6: cannot open shared object file: No such file or directory (note that this may be caused by a dependent library)
+2026-08-01 14:10:59 [1,263ms] [Error] [omni.ext.plugin] Could not load the dynamic library from /opt/conda/envs/isaaclab/lib/python3.10/site-packages/isaacsim/extscache/omni.usd.libs-1.0.1+10a4b5c0.lx64.r.cp310/bin/libusdBakeMtlx.so. Error: libXt.so.6: cannot open shared object file: No such file or directory (note that this may be caused by a dependent library)
+2026-08-01 14:11:00 [2,194ms] [Error] [omni.datastore] Failed to acquire exclusive lock to data store (64>=64)
+2026-08-01 14:11:00 [2,194ms] [Error] [omni.datastore] Failed to create local file data store at '/opt/conda/envs/isaaclab/lib/python3.10/site-packages/omni/cache/Kit/106.1/10a4b5c0/PhysXLocalMeshCache/LocalDS0'
+2026-08-01 14:11:00 [2,518ms] [Error] [omni.kit.stage_templates.new_stage] Failed to create directory /opt/conda/envs/isaaclab/lib/python3.10/site-packages/omni/data/documents/Kit/apps/Isaac-Sim/scripts/new_stage
+2026-08-01 14:11:04 [6,350ms] [Error] [omni.kit.app.plugin] failed to open file '/opt/conda/envs/isaaclab/lib/python3.10/site-packages/omni/data/Kit/Isaac-Sim/4.2/user.config.json' - unable to save the dictionary
+2026-08-01 14:11:05 [7,236ms] [Error] [gpu.foundation.plugin] No device could be created. Some known system issues:
+- The driver is not installed properly and requires a clean re-install.
+- Your GPUs do not support RayTracing: DXR or Vulkan ray_tracing, or hardware is excluded due to performance.
+- The driver cannot enumerate any GPU: driver, display, TCC mode or a docker issue. For Vulkan, test it with Vulkaninfo tool from Vulkan SDK, instead of nvidia-smi.
+- For Ubuntu, it requires server-xorg-core 1.20.7+ and a display to work without --no-window.
+- For Linux dockers, the setup is not complete. Install the latest driver, xServer and NVIDIA container runtime.
+
+2026-08-01 14:11:05 [7,239ms] [Error] [gpu.foundation.plugin] Invalid getDeviceInfo parameters.
+2026-08-01 14:11:06 [8,153ms] [Error] [omni.kvdb.plugin] Unexpected key-value database error
+2026-08-01 14:11:06 [8,189ms] [Error] [omni.kit.app.plugin] failed to open file '/opt/conda/envs/isaaclab/lib/python3.10/site-packages/omni/data/Kit/Isaac-Sim/4.2/user.config.json' - unable to save the dictionary
+/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torchrl/data/replay_buffers/samplers.py:34: UserWarning: Failed to import torchrl C++ binaries. Some modules (eg, prioritized replay buffers) may not work with your installation. This is likely due to a discrepancy between your package version and the PyTorch version. Make sure both are compatible. Usually, torchrl majors follow the pytorch majors within a few days around the release. For instance, TorchRL 0.5 requires PyTorch 2.4.0, and TorchRL 0.6 requires PyTorch 2.5.0.
+  warnings.warn(EXTENSION_WARNING)
+/opt/conda/envs/isaaclab/lib/python3.10/site-packages/wandb/sdk/internal/internal_api.py:13: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import parse_version
+2026-08-01 14:11:13 [15,835ms] [Error] [omni.kit.app.plugin] failed to open file '/opt/conda/envs/isaaclab/lib/python3.10/site-packages/omni/data/Kit/Isaac-Sim/4.2/user.config.json' - unable to save the dictionary
+2026-08-01 14:11:32 [34,472ms] [Error] [omni.kvdb.plugin] Unexpected key-value database error
+2026-08-01 14:11:32 [34,488ms] [Error] [omni.kit.app.plugin] failed to open file '/opt/conda/envs/isaaclab/lib/python3.10/site-packages/omni/data/Kit/Isaac-Sim/4.2/user.config.json' - unable to save the dictionary
+wandb: Currently logged in as: sargapav (marv_flipper_training). Use `wandb login --relogin` to force relogin
+/opt/conda/envs/isaaclab/lib/python3.10/site-packages/wandb/sdk/internal/internal_api.py:13: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import parse_version
+wandb: wandb version 0.28.1 is available!  To upgrade, please run:
+wandb:  $ pip install wandb --upgrade
+wandb: Tracking run with wandb version 0.12.21
+wandb: Run data is saved locally in /ws/logs/wandb/wandb/run-20260801_161132-d6ded948280329e0720d370dfd5270eb74d6b24e9a840806178d7bc219daeff0
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run train_marv_mitriakov_11279578_attempt_2
+wandb: ⭐️ View project at https://wandb.ai/marv_flipper_training/MARV_RL
+wandb: 🚀 View run at https://wandb.ai/marv_flipper_training/MARV_RL/runs/d6ded948280329e0720d370dfd5270eb74d6b24e9a840806178d7bc219daeff0
+/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torchrl/envs/transforms/transforms.py:6557: FutureWarning: The VecNorm class is to be deprecated in favor of `torchrl.envs.VecNormV2` and will be replaced by that class in v0.10. You can adapt to these changes by using the `new_api` argument or importing the `VecNormV2` class from `torchrl.envs`.
+  warnings.warn(
+/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torchrl/envs/transforms/transforms.py:6648: FutureWarning: This class is to be deprecated in favor of :class:`~torchrl.envs.VecNormV2`.
+  warnings.warn(
+/ws/src/flipper_training/marv_rl_training/training/train_ftr.py:421: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  policy_state = torch.load(policy_to_load, map_location=self.device)
+/ws/src/flipper_training/marv_rl_training/training/train_ftr.py:428: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  vecnorm_state = torch.load(vecnorm_to_load, map_location=self.device)
+/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torchrl/envs/transforms/transforms.py:7002: UserWarning: VecNorm wasn't initialized and the tensordict is not shared. In single process settings, this is ok, but if you need to share the statistics between workers this should require some attention. Make sure that the content of VecNorm is transmitted to the workers after calling load_state_dict and not before, as other workers may not have access to the loaded TensorDict.
+  warnings.warn(
+/ws/src/flipper_training/marv_rl_training/training/train_ftr.py:478: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  checkpoint = torch.load(training_state_file, map_location=self.device)
+FTR PPO Training:   0% 0/20971520 [00:00<?, ?frames/s]FTR PPO Training:   1% 131072/20971520 [01:38<4:20:10, 1335.02frames/s]FTR PPO Training:   1% 131072/20971520 [01:50<4:20:10, 1335.02frames/s]FTR PPO Training:   1% 262144/20971520 [03:08<4:06:57, 1397.62frames/s]FTR PPO Training:   1% 262144/20971520 [03:20<4:06:57, 1397.62frames/s]FTR PPO Training:   2% 393216/20971520 [04:35<3:57:03, 1446.78frames/s]FTR PPO Training:   2% 393216/20971520 [04:50<3:57:03, 1446.78frames/s]FTR PPO Training:   2% 524288/20971520 [06:04<3:53:21, 1460.36frames/s]FTR PPO Training:   2% 524288/20971520 [06:20<3:53:21, 1460.36frames/s]FTR PPO Training:   3% 655360/20971520 [07:32<3:50:13, 1470.73frames/s]FTR PPO Training:   3% 655360/20971520 [07:50<3:50:13, 1470.73frames/s]FTR PPO Training:   4% 786432/20971520 [08:58<3:46:27, 1485.51frames/s]FTR PPO Training:   4% 786432/20971520 [09:10<3:46:27, 1485.51frames/s]FTR PPO Training:   4% 917504/20971520 [10:25<3:43:37, 1494.61frames/s]FTR PPO Training:   4% 917504/20971520 [10:40<3:43:37, 1494.61frames/s]FTR PPO Training:   5% 1048576/20971520 [11:52<3:41:58, 1495.91frames/s]FTR PPO Training:   5% 1048576/20971520 [12:11<3:41:58, 1495.91frames/s]FTR PPO Training:   6% 1179648/20971520 [13:19<3:40:11, 1498.10frames/s]FTR PPO Training:   6% 1179648/20971520 [13:31<3:40:11, 1498.10frames/s]FTR PPO Training:   6% 1310720/20971520 [14:46<3:38:16, 1501.21frames/s]FTR PPO Training:   6% 1310720/20971520 [15:01<3:38:16, 1501.21frames/s]FTR PPO Training:   7% 1441792/20971520 [16:15<3:37:40, 1495.30frames/s]FTR PPO Training:   7% 1441792/20971520 [16:31<3:37:40, 1495.30frames/s]2026-08-01 14:30:06 [1,148,325ms] [Error] [omni.physx.tensors.plugin] CUDA error: an illegal memory access was encountered: ../../../extensions/runtime/source/omni.physx.tensors/plugins/gpu/GpuArticulationView.cpp: 749
+ERROR conda.cli.main_run:execute(142): `conda run env PYTHONPATH=/ws/src/FTR-Benchmark:/ws/src/flipper_training python /ws/src/flipper_training/marv_rl_training/training/train_ftr.py --config /ws/configs/marv_config_mitriakov.yaml --headless` failed. (See above for error)
+INFO:    Terminating squashfuse_ll after timeout
+INFO:    Timeouts can be caused by a running background process
+srun: error: g12: task 0: Exited with exit code 75
+2026-08-01 14:30:21 [1,345ms] [Error] [omni.ext.plugin] Could not load the dynamic library from /opt/conda/envs/isaaclab/lib/python3.10/site-packages/isaacsim/extscache/omni.usd.libs-1.0.1+10a4b5c0.lx64.r.cp310/bin/libMaterialXRenderHw.so. Error: libXt.so.6: cannot open shared object file: No such file or directory (note that this may be caused by a dependent library)
+2026-08-01 14:30:21 [1,349ms] [Error] [omni.ext.plugin] Could not load the dynamic library from /opt/conda/envs/isaaclab/lib/python3.10/site-packages/isaacsim/extscache/omni.usd.libs-1.0.1+10a4b5c0.lx64.r.cp310/bin/libMaterialXRenderGlsl.so. Error: libXt.so.6: cannot open shared object file: No such file or directory (note that this may be caused by a dependent library)
+2026-08-01 14:30:21 [1,352ms] [Error] [omni.ext.plugin] Could not load the dynamic library from /opt/conda/envs/isaaclab/lib/python3.10/site-packages/isaacsim/extscache/omni.usd.libs-1.0.1+10a4b5c0.lx64.r.cp310/bin/libusdBakeMtlx.so. Error: libXt.so.6: cannot open shared object file: No such file or directory (note that this may be caused by a dependent library)
+2026-08-01 14:30:22 [2,336ms] [Error] [omni.datastore] Failed to acquire exclusive lock to data store (64>=64)
+2026-08-01 14:30:22 [2,337ms] [Error] [omni.datastore] Failed to create local file data store at '/opt/conda/envs/isaaclab/lib/python3.10/site-packages/omni/cache/Kit/106.1/10a4b5c0/PhysXLocalMeshCache/LocalDS0'
+2026-08-01 14:30:22 [2,681ms] [Error] [omni.kit.stage_templates.new_stage] Failed to create directory /opt/conda/envs/isaaclab/lib/python3.10/site-packages/omni/data/documents/Kit/apps/Isaac-Sim/scripts/new_stage
+2026-08-01 14:30:26 [6,650ms] [Error] [omni.kit.app.plugin] failed to open file '/opt/conda/envs/isaaclab/lib/python3.10/site-packages/omni/data/Kit/Isaac-Sim/4.2/user.config.json' - unable to save the dictionary
+2026-08-01 14:30:27 [7,593ms] [Error] [gpu.foundation.plugin] No device could be created. Some known system issues:
+- The driver is not installed properly and requires a clean re-install.
+- Your GPUs do not support RayTracing: DXR or Vulkan ray_tracing, or hardware is excluded due to performance.
+- The driver cannot enumerate any GPU: driver, display, TCC mode or a docker issue. For Vulkan, test it with Vulkaninfo tool from Vulkan SDK, instead of nvidia-smi.
+- For Ubuntu, it requires server-xorg-core 1.20.7+ and a display to work without --no-window.
+- For Linux dockers, the setup is not complete. Install the latest driver, xServer and NVIDIA container runtime.
+
+2026-08-01 14:30:27 [7,596ms] [Error] [gpu.foundation.plugin] Invalid getDeviceInfo parameters.
+2026-08-01 14:30:28 [8,569ms] [Error] [omni.kvdb.plugin] Unexpected key-value database error
+2026-08-01 14:30:28 [8,608ms] [Error] [omni.kit.app.plugin] failed to open file '/opt/conda/envs/isaaclab/lib/python3.10/site-packages/omni/data/Kit/Isaac-Sim/4.2/user.config.json' - unable to save the dictionary
+/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torchrl/data/replay_buffers/samplers.py:34: UserWarning: Failed to import torchrl C++ binaries. Some modules (eg, prioritized replay buffers) may not work with your installation. This is likely due to a discrepancy between your package version and the PyTorch version. Make sure both are compatible. Usually, torchrl majors follow the pytorch majors within a few days around the release. For instance, TorchRL 0.5 requires PyTorch 2.4.0, and TorchRL 0.6 requires PyTorch 2.5.0.
+  warnings.warn(EXTENSION_WARNING)
+/opt/conda/envs/isaaclab/lib/python3.10/site-packages/wandb/sdk/internal/internal_api.py:13: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import parse_version
+2026-08-01 14:30:35 [15,866ms] [Error] [omni.kit.app.plugin] failed to open file '/opt/conda/envs/isaaclab/lib/python3.10/site-packages/omni/data/Kit/Isaac-Sim/4.2/user.config.json' - unable to save the dictionary
+2026-08-01 14:30:54 [34,202ms] [Error] [omni.kvdb.plugin] Unexpected key-value database error
+2026-08-01 14:30:54 [34,221ms] [Error] [omni.kit.app.plugin] failed to open file '/opt/conda/envs/isaaclab/lib/python3.10/site-packages/omni/data/Kit/Isaac-Sim/4.2/user.config.json' - unable to save the dictionary
+wandb: Currently logged in as: sargapav (marv_flipper_training). Use `wandb login --relogin` to force relogin
+/opt/conda/envs/isaaclab/lib/python3.10/site-packages/wandb/sdk/internal/internal_api.py:13: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import parse_version
+wandb: wandb version 0.28.1 is available!  To upgrade, please run:
+wandb:  $ pip install wandb --upgrade
+wandb: Tracking run with wandb version 0.12.21
+wandb: Run data is saved locally in /ws/logs/wandb/wandb/run-20260801_163054-d66940f6a90b66a31092432b54ae2559c54203e2f2d7e5668237789b526695ec
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run train_marv_mitriakov_11279578_attempt_3
+wandb: ⭐️ View project at https://wandb.ai/marv_flipper_training/MARV_RL
+wandb: 🚀 View run at https://wandb.ai/marv_flipper_training/MARV_RL/runs/d66940f6a90b66a31092432b54ae2559c54203e2f2d7e5668237789b526695ec
+/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torchrl/envs/transforms/transforms.py:6557: FutureWarning: The VecNorm class is to be deprecated in favor of `torchrl.envs.VecNormV2` and will be replaced by that class in v0.10. You can adapt to these changes by using the `new_api` argument or importing the `VecNormV2` class from `torchrl.envs`.
+  warnings.warn(
+/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torchrl/envs/transforms/transforms.py:6648: FutureWarning: This class is to be deprecated in favor of :class:`~torchrl.envs.VecNormV2`.
+  warnings.warn(
+/ws/src/flipper_training/marv_rl_training/training/train_ftr.py:421: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  policy_state = torch.load(policy_to_load, map_location=self.device)
+/ws/src/flipper_training/marv_rl_training/training/train_ftr.py:428: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  vecnorm_state = torch.load(vecnorm_to_load, map_location=self.device)
+/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torchrl/envs/transforms/transforms.py:7002: UserWarning: VecNorm wasn't initialized and the tensordict is not shared. In single process settings, this is ok, but if you need to share the statistics between workers this should require some attention. Make sure that the content of VecNorm is transmitted to the workers after calling load_state_dict and not before, as other workers may not have access to the loaded TensorDict.
+  warnings.warn(
+/ws/src/flipper_training/marv_rl_training/training/train_ftr.py:478: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  checkpoint = torch.load(training_state_file, map_location=self.device)
+FTR PPO Training:   0% 0/20971520 [00:00<?, ?frames/s]2026-08-01 14:31:16 [56,123ms] [Error] [omni.physx.tensors.plugin] CUDA error: an illegal memory access was encountered: ../../../extensions/runtime/source/omni.physx.tensors/plugins/gpu/GpuArticulationView.cpp: 749
+2026-08-01 14:31:16 [56,190ms] [Error] [ftr_ppo_train] Training failed: CUDA error: an illegal memory access was encountered
+CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.
+For debugging consider passing CUDA_LAUNCH_BLOCKING=1
+Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
+
+Traceback (most recent call last):
+  File "/ws/src/flipper_training/marv_rl_training/training/train_ftr.py", line 510, in train
+    self._train()
+  File "/ws/src/flipper_training/marv_rl_training/training/train_ftr.py", line 571, in _train
+    for i, tensordict_data in enumerate(self.collector):
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torchrl/collectors/collectors.py", line 327, in __iter__
+    yield from self.iterator()
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torchrl/collectors/collectors.py", line 1206, in iterator
+    tensordict_out = self.rollout()
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torchrl/_utils.py", line 601, in unpack_rref_and_invoke_function
+    return func(self, *args, **kwargs)
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torch/utils/_contextlib.py", line 116, in decorate_context
+    return func(*args, **kwargs)
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torchrl/collectors/collectors.py", line 1458, in rollout
+    env_output, env_next_output = self.env.step_and_maybe_reset(env_input)
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torchrl/envs/common.py", line 3585, in step_and_maybe_reset
+    tensordict = self.step(tensordict)
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torchrl/envs/common.py", line 2031, in step
+    next_tensordict = self._step(tensordict)
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torchrl/envs/transforms/transforms.py", line 1129, in _step
+    next_tensordict = self.base_env._step(tensordict_in)
+  File "/ws/src/flipper_training/marv_rl_training/environment/ftr_env_adapter.py", line 156, in _step
+    obs_dict, reward, terminated, truncated, _info = self.ftr_env.step(action)
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/gymnasium/wrappers/order_enforcing.py", line 56, in step
+    return self.env.step(action)
+  File "/opt/IsaacLab/source/extensions/omni.isaac.lab/omni/isaac/lab/envs/direct_rl_env.py", line 322, in step
+    self.scene.write_data_to_sim()
+  File "/opt/IsaacLab/source/extensions/omni.isaac.lab/omni/isaac/lab/scene/interactive_scene.py", line 349, in write_data_to_sim
+    articulation.write_data_to_sim()
+  File "/opt/IsaacLab/source/extensions/omni.isaac.lab/omni/isaac/lab/assets/articulation/articulation.py", line 198, in write_data_to_sim
+    self.root_physx_view.set_dof_position_targets(self._joint_pos_target_sim, self._ALL_INDICES)
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/isaacsim/extsPhysics/omni.physics.tensors/omni/physics/tensors/impl/api.py", line 479, in set_dof_position_targets
+    indices = self._frontend.as_contiguous_uint32(indices)
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/isaacsim/extsPhysics/omni.physics.tensors/omni/physics/tensors/impl/frontend_torch.py", line 88, in as_contiguous_uint32
+    return tensor.to(torch.int32).contiguous()
+RuntimeError: CUDA error: an illegal memory access was encountered
+CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.
+For debugging consider passing CUDA_LAUNCH_BLOCKING=1
+Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
+
+ERROR conda.cli.main_run:execute(142): `conda run env PYTHONPATH=/ws/src/FTR-Benchmark:/ws/src/flipper_training python /ws/src/flipper_training/marv_rl_training/training/train_ftr.py --config /ws/configs/marv_config_mitriakov.yaml --headless` failed. (See above for error)
+INFO:    Terminating squashfuse_ll after timeout
+INFO:    Timeouts can be caused by a running background process
+srun: error: g12: task 0: Exited with exit code 75
+2026-08-01 14:31:31 [1,273ms] [Error] [omni.ext.plugin] Could not load the dynamic library from /opt/conda/envs/isaaclab/lib/python3.10/site-packages/isaacsim/extscache/omni.usd.libs-1.0.1+10a4b5c0.lx64.r.cp310/bin/libMaterialXRenderHw.so. Error: libXt.so.6: cannot open shared object file: No such file or directory (note that this may be caused by a dependent library)
+2026-08-01 14:31:31 [1,277ms] [Error] [omni.ext.plugin] Could not load the dynamic library from /opt/conda/envs/isaaclab/lib/python3.10/site-packages/isaacsim/extscache/omni.usd.libs-1.0.1+10a4b5c0.lx64.r.cp310/bin/libMaterialXRenderGlsl.so. Error: libXt.so.6: cannot open shared object file: No such file or directory (note that this may be caused by a dependent library)
+2026-08-01 14:31:31 [1,281ms] [Error] [omni.ext.plugin] Could not load the dynamic library from /opt/conda/envs/isaaclab/lib/python3.10/site-packages/isaacsim/extscache/omni.usd.libs-1.0.1+10a4b5c0.lx64.r.cp310/bin/libusdBakeMtlx.so. Error: libXt.so.6: cannot open shared object file: No such file or directory (note that this may be caused by a dependent library)
+2026-08-01 14:31:32 [2,238ms] [Error] [omni.datastore] Failed to acquire exclusive lock to data store (64>=64)
+2026-08-01 14:31:32 [2,238ms] [Error] [omni.datastore] Failed to create local file data store at '/opt/conda/envs/isaaclab/lib/python3.10/site-packages/omni/cache/Kit/106.1/10a4b5c0/PhysXLocalMeshCache/LocalDS0'
+2026-08-01 14:31:32 [2,589ms] [Error] [omni.kit.stage_templates.new_stage] Failed to create directory /opt/conda/envs/isaaclab/lib/python3.10/site-packages/omni/data/documents/Kit/apps/Isaac-Sim/scripts/new_stage
+2026-08-01 14:31:36 [6,567ms] [Error] [omni.kit.app.plugin] failed to open file '/opt/conda/envs/isaaclab/lib/python3.10/site-packages/omni/data/Kit/Isaac-Sim/4.2/user.config.json' - unable to save the dictionary
+2026-08-01 14:31:37 [7,513ms] [Error] [gpu.foundation.plugin] No device could be created. Some known system issues:
+- The driver is not installed properly and requires a clean re-install.
+- Your GPUs do not support RayTracing: DXR or Vulkan ray_tracing, or hardware is excluded due to performance.
+- The driver cannot enumerate any GPU: driver, display, TCC mode or a docker issue. For Vulkan, test it with Vulkaninfo tool from Vulkan SDK, instead of nvidia-smi.
+- For Ubuntu, it requires server-xorg-core 1.20.7+ and a display to work without --no-window.
+- For Linux dockers, the setup is not complete. Install the latest driver, xServer and NVIDIA container runtime.
+
+2026-08-01 14:31:37 [7,515ms] [Error] [gpu.foundation.plugin] Invalid getDeviceInfo parameters.
+2026-08-01 14:31:38 [8,464ms] [Error] [omni.kvdb.plugin] Unexpected key-value database error
+2026-08-01 14:31:38 [8,503ms] [Error] [omni.kit.app.plugin] failed to open file '/opt/conda/envs/isaaclab/lib/python3.10/site-packages/omni/data/Kit/Isaac-Sim/4.2/user.config.json' - unable to save the dictionary
+/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torchrl/data/replay_buffers/samplers.py:34: UserWarning: Failed to import torchrl C++ binaries. Some modules (eg, prioritized replay buffers) may not work with your installation. This is likely due to a discrepancy between your package version and the PyTorch version. Make sure both are compatible. Usually, torchrl majors follow the pytorch majors within a few days around the release. For instance, TorchRL 0.5 requires PyTorch 2.4.0, and TorchRL 0.6 requires PyTorch 2.5.0.
+  warnings.warn(EXTENSION_WARNING)
+/opt/conda/envs/isaaclab/lib/python3.10/site-packages/wandb/sdk/internal/internal_api.py:13: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import parse_version
+2026-08-01 14:31:45 [15,669ms] [Error] [omni.kit.app.plugin] failed to open file '/opt/conda/envs/isaaclab/lib/python3.10/site-packages/omni/data/Kit/Isaac-Sim/4.2/user.config.json' - unable to save the dictionary
+2026-08-01 14:32:04 [33,755ms] [Error] [omni.kvdb.plugin] Unexpected key-value database error
+2026-08-01 14:32:04 [33,771ms] [Error] [omni.kit.app.plugin] failed to open file '/opt/conda/envs/isaaclab/lib/python3.10/site-packages/omni/data/Kit/Isaac-Sim/4.2/user.config.json' - unable to save the dictionary
+wandb: Currently logged in as: sargapav (marv_flipper_training). Use `wandb login --relogin` to force relogin
+/opt/conda/envs/isaaclab/lib/python3.10/site-packages/wandb/sdk/internal/internal_api.py:13: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import parse_version
+wandb: wandb version 0.28.1 is available!  To upgrade, please run:
+wandb:  $ pip install wandb --upgrade
+wandb: Tracking run with wandb version 0.12.21
+wandb: Run data is saved locally in /ws/logs/wandb/wandb/run-20260801_163204-de0285ba409df0c83bc5837ea4dc15a27dc5aed7b94ec5ae221b3026ec1d9749
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run train_marv_mitriakov_11279578_attempt_4
+wandb: ⭐️ View project at https://wandb.ai/marv_flipper_training/MARV_RL
+wandb: 🚀 View run at https://wandb.ai/marv_flipper_training/MARV_RL/runs/de0285ba409df0c83bc5837ea4dc15a27dc5aed7b94ec5ae221b3026ec1d9749
+/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torchrl/envs/transforms/transforms.py:6557: FutureWarning: The VecNorm class is to be deprecated in favor of `torchrl.envs.VecNormV2` and will be replaced by that class in v0.10. You can adapt to these changes by using the `new_api` argument or importing the `VecNormV2` class from `torchrl.envs`.
+  warnings.warn(
+/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torchrl/envs/transforms/transforms.py:6648: FutureWarning: This class is to be deprecated in favor of :class:`~torchrl.envs.VecNormV2`.
+  warnings.warn(
+/ws/src/flipper_training/marv_rl_training/training/train_ftr.py:421: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  policy_state = torch.load(policy_to_load, map_location=self.device)
+/ws/src/flipper_training/marv_rl_training/training/train_ftr.py:428: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  vecnorm_state = torch.load(vecnorm_to_load, map_location=self.device)
+/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torchrl/envs/transforms/transforms.py:7002: UserWarning: VecNorm wasn't initialized and the tensordict is not shared. In single process settings, this is ok, but if you need to share the statistics between workers this should require some attention. Make sure that the content of VecNorm is transmitted to the workers after calling load_state_dict and not before, as other workers may not have access to the loaded TensorDict.
+  warnings.warn(
+/ws/src/flipper_training/marv_rl_training/training/train_ftr.py:478: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  checkpoint = torch.load(training_state_file, map_location=self.device)
+FTR PPO Training:   0% 0/20971520 [00:00<?, ?frames/s]FTR PPO Training:   1% 131072/20971520 [01:37<4:18:22, 1344.34frames/s]FTR PPO Training:   1% 131072/20971520 [01:50<4:18:22, 1344.34frames/s]FTR PPO Training:   1% 262144/20971520 [03:07<4:04:51, 1409.62frames/s]FTR PPO Training:   1% 262144/20971520 [03:20<4:04:51, 1409.62frames/s]FTR PPO Training:   2% 393216/20971520 [04:40<4:03:43, 1407.20frames/s]FTR PPO Training:   2% 393216/20971520 [05:00<4:03:43, 1407.20frames/s]FTR PPO Training:   2% 524288/20971520 [06:06<3:54:34, 1452.81frames/s]FTR PPO Training:   2% 524288/20971520 [06:20<3:54:34, 1452.81frames/s]FTR PPO Training:   3% 655360/20971520 [07:33<3:50:14, 1470.66frames/s]FTR PPO Training:   3% 655360/20971520 [07:50<3:50:14, 1470.66frames/s]FTR PPO Training:   4% 786432/20971520 [09:04<3:50:40, 1458.37frames/s]FTR PPO Training:   4% 786432/20971520 [09:20<3:50:40, 1458.37frames/s]FTR PPO Training:   4% 917504/20971520 [10:33<3:47:45, 1467.50frames/s]FTR PPO Training:   4% 917504/20971520 [10:50<3:47:45, 1467.50frames/s]FTR PPO Training:   5% 1048576/20971520 [12:01<3:45:55, 1469.70frames/s]FTR PPO Training:   5% 1048576/20971520 [12:20<3:45:55, 1469.70frames/s]FTR PPO Training:   6% 1179648/20971520 [13:30<3:43:34, 1475.46frames/s]FTR PPO Training:   6% 1179648/20971520 [13:40<3:43:34, 1475.46frames/s]FTR PPO Training:   6% 1310720/20971520 [15:00<3:43:16, 1467.61frames/s]FTR PPO Training:   6% 1310720/20971520 [15:10<3:43:16, 1467.61frames/s]FTR PPO Training:   7% 1441792/20971520 [16:27<3:39:45, 1481.11frames/s]FTR PPO Training:   7% 1441792/20971520 [16:40<3:39:45, 1481.11frames/s]FTR PPO Training:   8% 1572864/20971520 [24:11<8:20:42, 645.70frames/s] FTR PPO Training:   8% 1572864/20971520 [24:30<8:20:42, 645.70frames/s]FTR PPO Training:   8% 1703936/20971520 [25:39<6:51:23, 780.59frames/s]FTR PPO Training:   8% 1703936/20971520 [25:50<6:51:23, 780.59frames/s]FTR PPO Training:   9% 1835008/20971520 [27:07<5:50:16, 910.55frames/s]FTR PPO Training:   9% 1835008/20971520 [27:20<5:50:16, 910.55frames/s]FTR PPO Training:   9% 1966080/20971520 [28:35<5:07:13, 1031.05frames/s]FTR PPO Training:   9% 1966080/20971520 [28:50<5:07:13, 1031.05frames/s]FTR PPO Training:  10% 2097152/20971520 [30:04<4:37:38, 1133.02frames/s]FTR PPO Training:  10% 2097152/20971520 [30:20<4:37:38, 1133.02frames/s]FTR PPO Training:  11% 2228224/20971520 [31:34<4:16:45, 1216.65frames/s]FTR PPO Training:  11% 2228224/20971520 [31:50<4:16:45, 1216.65frames/s]FTR PPO Training:  11% 2359296/20971520 [33:02<4:00:55, 1287.52frames/s]FTR PPO Training:  11% 2359296/20971520 [33:20<4:00:55, 1287.52frames/s]2026-08-01 15:06:40 [2,109,974ms] [Error] [omni.physx.tensors.plugin] CUDA error: an illegal memory access was encountered: ../../../extensions/runtime/source/omni.physx.tensors/plugins/gpu/GpuArticulationView.cpp: 749
+2026-08-01 15:06:40 [2,110,051ms] [Error] [ftr_ppo_train] Training failed: CUDA error: an illegal memory access was encountered
+CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.
+For debugging consider passing CUDA_LAUNCH_BLOCKING=1
+Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
+
+Traceback (most recent call last):
+  File "/ws/src/flipper_training/marv_rl_training/training/train_ftr.py", line 510, in train
+    self._train()
+  File "/ws/src/flipper_training/marv_rl_training/training/train_ftr.py", line 571, in _train
+    for i, tensordict_data in enumerate(self.collector):
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torchrl/collectors/collectors.py", line 327, in __iter__
+    yield from self.iterator()
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torchrl/collectors/collectors.py", line 1206, in iterator
+    tensordict_out = self.rollout()
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torchrl/_utils.py", line 601, in unpack_rref_and_invoke_function
+    return func(self, *args, **kwargs)
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torch/utils/_contextlib.py", line 116, in decorate_context
+    return func(*args, **kwargs)
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torchrl/collectors/collectors.py", line 1458, in rollout
+    env_output, env_next_output = self.env.step_and_maybe_reset(env_input)
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torchrl/envs/common.py", line 3585, in step_and_maybe_reset
+    tensordict = self.step(tensordict)
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torchrl/envs/common.py", line 2031, in step
+    next_tensordict = self._step(tensordict)
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torchrl/envs/transforms/transforms.py", line 1129, in _step
+    next_tensordict = self.base_env._step(tensordict_in)
+  File "/ws/src/flipper_training/marv_rl_training/environment/ftr_env_adapter.py", line 156, in _step
+    obs_dict, reward, terminated, truncated, _info = self.ftr_env.step(action)
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/gymnasium/wrappers/order_enforcing.py", line 56, in step
+    return self.env.step(action)
+  File "/opt/IsaacLab/source/extensions/omni.isaac.lab/omni/isaac/lab/envs/direct_rl_env.py", line 322, in step
+    self.scene.write_data_to_sim()
+  File "/opt/IsaacLab/source/extensions/omni.isaac.lab/omni/isaac/lab/scene/interactive_scene.py", line 349, in write_data_to_sim
+    articulation.write_data_to_sim()
+  File "/opt/IsaacLab/source/extensions/omni.isaac.lab/omni/isaac/lab/assets/articulation/articulation.py", line 198, in write_data_to_sim
+    self.root_physx_view.set_dof_position_targets(self._joint_pos_target_sim, self._ALL_INDICES)
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/isaacsim/extsPhysics/omni.physics.tensors/omni/physics/tensors/impl/api.py", line 479, in set_dof_position_targets
+    indices = self._frontend.as_contiguous_uint32(indices)
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/isaacsim/extsPhysics/omni.physics.tensors/omni/physics/tensors/impl/frontend_torch.py", line 88, in as_contiguous_uint32
+    return tensor.to(torch.int32).contiguous()
+RuntimeError: CUDA error: an illegal memory access was encountered
+CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.
+For debugging consider passing CUDA_LAUNCH_BLOCKING=1
+Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
+
+ERROR conda.cli.main_run:execute(142): `conda run env PYTHONPATH=/ws/src/FTR-Benchmark:/ws/src/flipper_training python /ws/src/flipper_training/marv_rl_training/training/train_ftr.py --config /ws/configs/marv_config_mitriakov.yaml --headless` failed. (See above for error)
+INFO:    Terminating squashfuse_ll after timeout
+INFO:    Timeouts can be caused by a running background process
+srun: error: g12: task 0: Exited with exit code 75

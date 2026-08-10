@@ -1,0 +1,16 @@
+eval_id,policy,terrain,repeat,env_type_idx,env_type_name,episodes_total,success_rate,failure_rate,explosion_rate,mean_cumulative_reward,mean_dist_to_goal_final,flipper_fl_mean,flipper_fr_mean,flipper_rl_mean,flipper_rr_mean
+CREPS,logs/train_marv_creps_11273541/attempt_0/weights/creps_state_final.pth,pecka_pallet,1,0,raised_platform,4300,0.9939534883720931,0.0,0.0,3.619215404294258,0.44442998324022737,nan,nan,nan,nan
+CREPS,logs/train_marv_creps_11273541/attempt_0/weights/creps_state_final.pth,pecka_pallet,2,0,raised_platform,4352,1.0,0.0,0.0,3.6376946702161255,0.4263912408735932,nan,nan,nan,nan
+CREPS,logs/train_marv_creps_11273541/attempt_0/weights/creps_state_final.pth,pecka_pallet,3,0,raised_platform,4351,0.9997701677775224,0.00022983222247759135,0.0,3.6385538158841966,0.42625753076370765,nan,nan,nan,nan
+CREPS,logs/train_marv_creps_11273541/attempt_0/weights/creps_state_final.pth,pecka_pallet,4,0,raised_platform,4351,1.0,0.0,0.0,3.6375347129560507,0.4264423733496222,nan,nan,nan,nan
+CREPS,logs/train_marv_creps_11273541/attempt_0/weights/creps_state_final.pth,pecka_pallet,5,0,raised_platform,4352,1.0,0.0,0.0,3.6376891355304157,0.4263322508674772,nan,nan,nan,nan
+CREPS,logs/train_marv_creps_11273541/attempt_0/weights/creps_state_final.pth,pecka_pallet,6,0,raised_platform,4352,1.0,0.0,0.0,3.6377281326362314,0.4262883327011129,nan,nan,nan,nan
+CREPS,logs/train_marv_creps_11273541/attempt_0/weights/creps_state_final.pth,pecka_pallet,7,0,raised_platform,4351,1.0,0.0,0.0,3.637900554950252,0.42612436805558296,nan,nan,nan,nan
+CREPS,logs/train_marv_creps_11273541/attempt_0/weights/creps_state_final.pth,pecka_pallet,8,0,raised_platform,4352,1.0,0.0,0.0,3.6383281553931095,0.4256571512121488,nan,nan,nan,nan
+CREPS,logs/train_marv_creps_11273541/attempt_0/weights/creps_state_final.pth,pecka_pallet,9,0,raised_platform,4350,1.0,0.0,0.0,3.6373987716367875,0.4265473822410079,nan,nan,nan,nan
+CREPS,logs/train_marv_creps_11273541/attempt_0/weights/creps_state_final.pth,pecka_pallet,10,0,raised_platform,4352,1.0,0.0,0.0,3.6375931280610314,0.4264836832607055,nan,nan,nan,nan
+CREPS,logs/train_marv_creps_11273541/attempt_0/weights/creps_state_final.pth,pecka_pallet,11,0,raised_platform,4351,1.0,0.0,0.0,3.6377242950153637,0.4263857457589018,nan,nan,nan,nan
+CREPS,logs/train_marv_creps_11273541/attempt_0/weights/creps_state_final.pth,pecka_pallet,12,0,raised_platform,4351,1.0,0.0,0.0,3.6377906386152516,0.4262466118667789,nan,nan,nan,nan
+CREPS,logs/train_marv_creps_11273541/attempt_0/weights/creps_state_final.pth,pecka_pallet,13,0,raised_platform,4352,1.0,0.0,0.0,3.638041395803585,0.4260834645931883,nan,nan,nan,nan
+CREPS,logs/train_marv_creps_11273541/attempt_0/weights/creps_state_final.pth,pecka_pallet,14,0,raised_platform,4351,1.0,0.0,0.0,3.638008732654341,0.4261166844538397,nan,nan,nan,nan
+CREPS,logs/train_marv_creps_11273541/attempt_0/weights/creps_state_final.pth,pecka_pallet,15,0,raised_platform,4352,1.0,0.0,0.0,3.637315470999216,0.42661119729746133,nan,nan,nan,nan

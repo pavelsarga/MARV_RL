@@ -1,0 +1,91 @@
+WARNING: Environment variable WANDB_PROJECT already has value [MARV_RL], will not forward new value [optuna_ftr_smooth_v2] from parent process environment
+INFO:    underlay of /usr/bin/nvidia-smi required more than 50 (375) bind mounts
+2026-07-30 10:44:22 [984ms] [Error] [omni.ext.plugin] Could not load the dynamic library from /opt/conda/envs/isaaclab/lib/python3.10/site-packages/isaacsim/extscache/omni.usd.libs-1.0.1+10a4b5c0.lx64.r.cp310/bin/libMaterialXRenderHw.so. Error: libXt.so.6: cannot open shared object file: No such file or directory (note that this may be caused by a dependent library)
+2026-07-30 10:44:22 [988ms] [Error] [omni.ext.plugin] Could not load the dynamic library from /opt/conda/envs/isaaclab/lib/python3.10/site-packages/isaacsim/extscache/omni.usd.libs-1.0.1+10a4b5c0.lx64.r.cp310/bin/libMaterialXRenderGlsl.so. Error: libXt.so.6: cannot open shared object file: No such file or directory (note that this may be caused by a dependent library)
+2026-07-30 10:44:22 [990ms] [Error] [omni.ext.plugin] Could not load the dynamic library from /opt/conda/envs/isaaclab/lib/python3.10/site-packages/isaacsim/extscache/omni.usd.libs-1.0.1+10a4b5c0.lx64.r.cp310/bin/libusdBakeMtlx.so. Error: libXt.so.6: cannot open shared object file: No such file or directory (note that this may be caused by a dependent library)
+2026-07-30 10:44:23 [1,804ms] [Error] [omni.datastore] Failed to acquire exclusive lock to data store (64>=64)
+2026-07-30 10:44:23 [1,804ms] [Error] [omni.datastore] Failed to create local file data store at '/opt/conda/envs/isaaclab/lib/python3.10/site-packages/omni/cache/Kit/106.1/10a4b5c0/PhysXLocalMeshCache/LocalDS0'
+2026-07-30 10:44:23 [2,285ms] [Error] [omni.kit.stage_templates.new_stage] Failed to create directory /opt/conda/envs/isaaclab/lib/python3.10/site-packages/omni/data/documents/Kit/apps/Isaac-Sim/scripts/new_stage
+2026-07-30 10:44:27 [5,747ms] [Error] [omni.kit.app.plugin] failed to open file '/opt/conda/envs/isaaclab/lib/python3.10/site-packages/omni/data/Kit/Isaac-Sim/4.2/user.config.json' - unable to save the dictionary
+2026-07-30 10:44:27 [6,447ms] [Error] [gpu.foundation.plugin] No device could be created. Some known system issues:
+- The driver is not installed properly and requires a clean re-install.
+- Your GPUs do not support RayTracing: DXR or Vulkan ray_tracing, or hardware is excluded due to performance.
+- The driver cannot enumerate any GPU: driver, display, TCC mode or a docker issue. For Vulkan, test it with Vulkaninfo tool from Vulkan SDK, instead of nvidia-smi.
+- For Ubuntu, it requires server-xorg-core 1.20.7+ and a display to work without --no-window.
+- For Linux dockers, the setup is not complete. Install the latest driver, xServer and NVIDIA container runtime.
+
+2026-07-30 10:44:27 [6,449ms] [Error] [gpu.foundation.plugin] Invalid getDeviceInfo parameters.
+2026-07-30 10:44:28 [7,280ms] [Error] [omni.kvdb.plugin] Unexpected key-value database error
+2026-07-30 10:44:28 [7,312ms] [Error] [omni.kit.app.plugin] failed to open file '/opt/conda/envs/isaaclab/lib/python3.10/site-packages/omni/data/Kit/Isaac-Sim/4.2/user.config.json' - unable to save the dictionary
+/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torchrl/data/replay_buffers/samplers.py:34: UserWarning: Failed to import torchrl C++ binaries. Some modules (eg, prioritized replay buffers) may not work with your installation. This is likely due to a discrepancy between your package version and the PyTorch version. Make sure both are compatible. Usually, torchrl majors follow the pytorch majors within a few days around the release. For instance, TorchRL 0.5 requires PyTorch 2.4.0, and TorchRL 0.6 requires PyTorch 2.5.0.
+  warnings.warn(EXTENSION_WARNING)
+/opt/conda/envs/isaaclab/lib/python3.10/site-packages/wandb/sdk/internal/internal_api.py:13: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import parse_version
+2026-07-30 10:44:35 [13,593ms] [Error] [omni.kit.app.plugin] failed to open file '/opt/conda/envs/isaaclab/lib/python3.10/site-packages/omni/data/Kit/Isaac-Sim/4.2/user.config.json' - unable to save the dictionary
+2026-07-30 10:44:39 [18,272ms] [Error] [omni.kvdb.plugin] Unexpected key-value database error
+2026-07-30 10:44:39 [18,280ms] [Error] [omni.kit.app.plugin] failed to open file '/opt/conda/envs/isaaclab/lib/python3.10/site-packages/omni/data/Kit/Isaac-Sim/4.2/user.config.json' - unable to save the dictionary
+wandb: Currently logged in as: sargapav (marv_flipper_training). Use `wandb login --relogin` to force relogin
+/opt/conda/envs/isaaclab/lib/python3.10/site-packages/wandb/sdk/internal/internal_api.py:13: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import parse_version
+wandb: wandb version 0.28.1 is available!  To upgrade, please run:
+wandb:  $ pip install wandb --upgrade
+wandb: Tracking run with wandb version 0.12.21
+wandb: Run data is saved locally in /ws/logs/wandb/wandb/run-20260730_124440-bad202dbd3896560fb4ca98d15ed86cfa123bc281a215422cfa2b47f15aa09e7
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run train_marv_creps_11273541_attempt_0
+wandb: ⭐️ View project at https://wandb.ai/marv_flipper_training/MARV_RL
+wandb: 🚀 View run at https://wandb.ai/marv_flipper_training/MARV_RL/runs/bad202dbd3896560fb4ca98d15ed86cfa123bc281a215422cfa2b47f15aa09e7
+wandb: Waiting for W&B process to finish... (success).
+wandb: - 0.058 MB of 0.058 MB uploaded (0.000 MB deduped)wandb: \ 0.058 MB of 0.058 MB uploaded (0.000 MB deduped)wandb: | 0.058 MB of 0.058 MB uploaded (0.000 MB deduped)wandb: / 0.058 MB of 0.089 MB uploaded (0.000 MB deduped)wandb: - 0.058 MB of 0.089 MB uploaded (0.000 MB deduped)wandb: \ 0.058 MB of 0.089 MB uploaded (0.000 MB deduped)wandb: | 0.058 MB of 0.089 MB uploaded (0.000 MB deduped)wandb: / 0.072 MB of 0.089 MB uploaded (0.000 MB deduped)wandb: - 0.072 MB of 0.089 MB uploaded (0.000 MB deduped)wandb: \ 0.072 MB of 0.089 MB uploaded (0.000 MB deduped)wandb: | 0.072 MB of 0.089 MB uploaded (0.000 MB deduped)wandb: / 0.072 MB of 0.089 MB uploaded (0.000 MB deduped)wandb: - 0.072 MB of 0.089 MB uploaded (0.000 MB deduped)wandb: \ 0.072 MB of 0.089 MB uploaded (0.000 MB deduped)wandb: | 0.072 MB of 0.089 MB uploaded (0.000 MB deduped)wandb: / 0.072 MB of 0.089 MB uploaded (0.000 MB deduped)wandb: - 0.083 MB of 0.089 MB uploaded (0.000 MB deduped)wandb: \ 0.088 MB of 0.089 MB uploaded (0.000 MB deduped)wandb: | 0.088 MB of 0.089 MB uploaded (0.000 MB deduped)wandb: / 0.088 MB of 0.089 MB uploaded (0.000 MB deduped)wandb: - 0.088 MB of 0.089 MB uploaded (0.000 MB deduped)wandb: \ 0.088 MB of 0.089 MB uploaded (0.000 MB deduped)wandb: | 0.088 MB of 0.089 MB uploaded (0.000 MB deduped)wandb: / 0.088 MB of 0.089 MB uploaded (0.000 MB deduped)wandb: - 0.088 MB of 0.089 MB uploaded (0.000 MB deduped)wandb: \ 0.088 MB of 0.089 MB uploaded (0.000 MB deduped)wandb: | 0.088 MB of 0.089 MB uploaded (0.000 MB deduped)wandb: / 0.088 MB of 0.089 MB uploaded (0.000 MB deduped)wandb: - 0.089 MB of 0.089 MB uploaded (0.000 MB deduped)wandb: \ 0.089 MB of 0.089 MB uploaded (0.000 MB deduped)wandb: | 0.089 MB of 0.089 MB uploaded (0.000 MB deduped)wandb: / 0.089 MB of 0.089 MB uploaded (0.000 MB deduped)wandb: - 0.089 MB of 0.089 MB uploaded (0.000 MB deduped)wandb: \ 0.089 MB of 0.089 MB uploaded (0.000 MB deduped)wandb:                                                                                
+wandb: 
+wandb: Run history:
+wandb:          outer_iteration ▁▁▁▁▂▂▂▂▂▃▃▃▃▃▃▄▄▄▄▄▅▅▅▅▅▅▆▆▆▆▆▆▇▇▇▇▇███
+wandb:                train/ess ▂▃▅▆▆█▃▄▃▁▄▃▄▄▄▃▄▄▄▄▄▄▄▄▄▃▄▃▄▃▄▃▃▄▄▄▄▄▃▄
+wandb:                train/eta ██▆▅▃▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:   train/gamma_mechanical ▁▄██████████████████████████████████████
+wandb:       train/gamma_safety ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb: train/mean_mechanical_ok ▁▆▇█▇██▇▇▇▅▆▅▃▆▃▄▅▇▅▆▆▄▅▅▇▂▃▅▆▅▄▇▆▇▆▅▅▇▅
+wandb:        train/mean_reward ▁▂▃▄▆▇██████████████████████████████████
+wandb:        train/mean_safety ▁███████████████████████████████████████
+wandb:       train/omega_mean_0 ▁▄▆▆███▇▆▆▆▆▆▆▆▅▅▅▅▅▅▅▄▄▄▄▄▅▄▄▄▄▄▄▄▄▄▄▅▅
+wandb:       train/omega_mean_1 ▁▂▂▃▂▂▃▃▅▅▆▆▆▆▇▇▇▇▇▇▇▇███▇▇▇████████████
+wandb:       train/omega_mean_2 █▇▇▆█▇▇▆▅▅▃▄▃▃▂▂▁▁▂▂▂▂▁▁▂▁▂▂▂▂▂▂▁▂▂▂▂▂▂▂
+wandb:       train/omega_mean_3 █▅▃▃▁▁▂▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃
+wandb:       train/omega_mean_4 ▆▇██▅▅▂▂▁▁▁▁▁▁▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▂▁▁▂▂▂▁
+wandb:       train/omega_mean_5 ▁▂▃▃▄▅▅▆▆▇▇▇▇▇███▇▇▇▇▇▆▆▆▆▆▆▆▆▇▇▇█▇▇▇▇█▇
+wandb:        train/omega_std_0 █▆▄▂▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:        train/omega_std_1 █▇▆▆▅▅▄▃▃▃▂▂▂▂▂▂▂▂▁▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:        train/omega_std_2 ██▇▆▆▆▆▅▆▇▆▅▅▅▅▄▃▂▂▂▂▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▂▁▁
+wandb:        train/omega_std_3 █▇▃▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:        train/omega_std_4 ▇██▇▅▅▃▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:        train/omega_std_5 ▆▇█▇▅▆▄▃▃▃▂▁▂▁▂▂▃▂▃▄▃▃▃▄▅▄▅▄▄▄▄▃▃▃▂▂▂▂▂▃
+wandb:     train/solver_success ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb: 
+wandb: Run summary:
+wandb:          outer_iteration 59
+wandb:                train/ess 54.67714
+wandb:                train/eta 0.01161
+wandb:   train/gamma_mechanical -0.00476
+wandb:       train/gamma_safety 0.0
+wandb: train/mean_mechanical_ok 0.84896
+wandb:        train/mean_reward 3.58269
+wandb:        train/mean_safety 1.0
+wandb:       train/omega_mean_0 0.31057
+wandb:       train/omega_mean_1 0.70082
+wandb:       train/omega_mean_2 -0.57382
+wandb:       train/omega_mean_3 -0.42038
+wandb:       train/omega_mean_4 -0.4908
+wandb:       train/omega_mean_5 1.0189
+wandb:        train/omega_std_0 0.05486
+wandb:        train/omega_std_1 0.05094
+wandb:        train/omega_std_2 0.11918
+wandb:        train/omega_std_3 0.05
+wandb:        train/omega_std_4 0.06349
+wandb:        train/omega_std_5 0.33633
+wandb:     train/solver_success 1.0
+wandb: 
+wandb: Synced train_marv_creps_11273541_attempt_0: https://wandb.ai/marv_flipper_training/MARV_RL/runs/bad202dbd3896560fb4ca98d15ed86cfa123bc281a215422cfa2b47f15aa09e7
+wandb: Synced 6 W&B file(s), 0 media file(s), 0 artifact file(s) and 31 other file(s)
+wandb: Find logs at: /ws/logs/wandb/wandb/run-20260730_124440-bad202dbd3896560fb4ca98d15ed86cfa123bc281a215422cfa2b47f15aa09e7/logs
+/opt/conda/envs/isaaclab/lib/python3.10/multiprocessing/resource_tracker.py:224: UserWarning: resource_tracker: There appear to be 6 leaked semaphore objects to clean up at shutdown
+  warnings.warn('resource_tracker: There appear to be %d '

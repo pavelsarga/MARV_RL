@@ -1,0 +1,65 @@
+{
+  "evals": {
+    "MARV_RL_new": {
+      "terrain": "custom_mixed",
+      "policy": "logs/train_marv_rl_11305395/attempt_4/weights/policy_step_131072.pth",
+      "env_type_names": [
+        "raised_platform",
+        "double_trench",
+        "widening_trench",
+        "log_crossing",
+        "twin_rails",
+        "diagonal_trunk",
+        "raised_stairs",
+        "lowered_stairs",
+        "raised_stairs_2",
+        "cobblestones",
+        "cobblestones_2",
+        "rock_formation",
+        "diagonal_pyramid",
+        "half_platform",
+        "flat_patch",
+        "stump",
+        "stairs_ascent_descent"
+      ],
+      "num_env_types": 17,
+      "num_depth_cols": 10,
+      "timestamp": "2026-08-04T23:11:22.520636+00:00"
+    }
+  },
+  "terrains": {
+    "custom_mixed": {
+      "terrain": "custom_mixed",
+      "row_types": [
+        "raised_platform",
+        "double_trench",
+        "widening_trench",
+        "log_crossing",
+        "twin_rails",
+        "diagonal_trunk",
+        "raised_stairs",
+        "lowered_stairs",
+        "raised_stairs",
+        "cobblestones",
+        "cobblestones",
+        "rock_formation",
+        "diagonal_pyramid",
+        "half_platform",
+        "flat_patch",
+        "stump",
+        "stairs_ascent_descent"
+      ],
+      "n_rows": 17,
+      "repeats": 10,
+      "tile_width": 8.8,
+      "tile_depth": 3.333333333333,
+      "cell_size": 0.05,
+      "border_width": 2.0,
+      "gen_config": "terrain/gen_config/custom_mixed.yaml",
+      "plot_svg": "terrain/plot/custom_mixed.svg",
+      "birth": "terrain/birth/custom_mixed.json",
+      "map_config": "terrain/config/custom_mixed.yaml",
+      "plot_png": "terrain/plot/custom_mixed.png"
+    }
+  }
+}

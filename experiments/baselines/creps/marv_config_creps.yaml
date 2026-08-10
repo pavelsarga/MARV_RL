@@ -22,12 +22,15 @@ use_tensorboard: false
 seed: 42
 device: cuda
 
-num_robots: 192          # total parallel envs = num_omega_samples(64) * num_executions_with_same_omega(3)
+num_robots: 384          # total parallel envs = num_omega_samples(128) * num_executions_with_same_omega(3)
 task: Ftr-Crossing-Direct-v0
 # Single raised_platform pallet obstacle (src/FTR-Bench-terrain-gen/terrain_config_pecka_pallet.yaml)
 # — matches the paper's Fig. 3 task (a single low pallet: climb up, cross, descend).
 terrain: pecka_pallet
-num_iterations: 30        # K, paper: 10-30
+num_iterations: 60        # K, paper: 10-30 -- doubled: attempt_0 (30 iters) plateaued at
+                          # ~35% crossing progress (0% eval success) with omega_std collapsing
+                          # hard by iter ~15, suggesting premature convergence rather than
+                          # having actually run out of useful iterations to explore in.
 
 # eta's KL bound (exploration/exploitation trade-off — paper's toy example used 0.1, but
 # the real flipper experiment's value isn't stated numerically; this is a genuinely open
@@ -39,10 +42,14 @@ mechanical_delta: 0.9    # lower bound on expected mechanical-limit compliance (
 # Initial upper-level Gaussian q(omega) = N(initial_omega_mean, diag(initial_omega_std^2)).
 # omega = [front_bias, front_pitch_coef, front_height_coef, rear_bias, rear_pitch_coef, rear_height_coef].
 initial_omega_mean: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
-initial_omega_std: [0.3, 0.3, 0.3, 0.3, 0.3, 0.3]
+initial_omega_std: [0.6, 0.6, 0.6, 0.6, 0.6, 0.6]  # doubled from 0.3 -- wider initial search
 
 eval_and_save_every: 2
-cov_min_std: 0.001
+# Doubled from 0.001 -- attempt_0's per-dim std shrank to ~0.01-0.05 by iter 30 (e.g.
+# omega_std_0: 0.26->0.011), collapsing the search distribution around a stuck-at-the-edge
+# local optimum well before training ended. A meaningfully larger floor keeps exploration
+# alive for the full run instead of letting it converge away this early.
+cov_min_std: 0.05
 solver_eta_init: 1.0
 # Reference implementation's CREPSParameters defaults/config
 # (paper_repos/tradr-simulation/safe_exploration/src/constrained_reps/constrained_reps.py,
@@ -106,7 +113,7 @@ env_cfg_overrides:
   marv_flipper_back_up_deg: 90.0
   marv_flipper_back_down_deg: 90.0
   spawn_yaw_range: 0.0
-  flipper_material_friction: 3.0
-  wheel_material_friction: 6.0
-  terrain_static_friction: 0.9
-  terrain_dynamic_friction: 0.7
+  flipper_material_friction: 6.0
+  wheel_material_friction: 40.0
+  terrain_static_friction: 1.2
+  terrain_dynamic_friction: 0.9

@@ -1,0 +1,33 @@
+{
+  "evals": {
+    "CREPS": {
+      "terrain": "pecka_pallet",
+      "policy": "logs/train_marv_creps_11273541/attempt_0/weights/creps_state_final.pth",
+      "env_type_names": [
+        "raised_platform"
+      ],
+      "num_env_types": 1,
+      "num_depth_cols": 10,
+      "timestamp": "2026-07-30T14:04:22.802332+00:00"
+    }
+  },
+  "terrains": {
+    "pecka_pallet": {
+      "terrain": "pecka_pallet",
+      "row_types": [
+        "raised_platform"
+      ],
+      "n_rows": 1,
+      "repeats": 10,
+      "tile_width": 6.0,
+      "tile_depth": 3.0,
+      "cell_size": 0.05,
+      "border_width": 2.0,
+      "gen_config": "terrain/gen_config/pecka_pallet.yaml",
+      "plot_svg": "terrain/plot/pecka_pallet.svg",
+      "birth": "terrain/birth/pecka_pallet.json",
+      "map_config": "terrain/config/pecka_pallet.yaml",
+      "plot_png": "terrain/plot/pecka_pallet.png"
+    }
+  }
+}
