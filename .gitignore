@@ -54,3 +54,6 @@ htmlcov/
 containers/*.sif
 
 CLAUDE.md
+
+# CTRAC stage-1 dataset shards (regenerable, ~580 MB each - exceeds GitHub 100 MB limit)
+experiments/baselines/ctrac/ctrac_dataset/ctrac_stage1_shards/
