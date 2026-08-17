@@ -1,0 +1,2258 @@
+########################################################################
+Job ID: 11335881
+Running on node: g08
+Script arguments: --rundir logs/train_marv_rl_11323742/attempt_6/ --num_envs 256 --repeats 15 --eval_id marv_rl
+########################################################################
+Wed Aug 12 10:31:56 2026       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 550.54.14              Driver Version: 550.54.14      CUDA Version: 12.4     |
+|-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA A100-SXM4-40GB          On  |   00000000:41:00.0 Off |                    0 |
+| N/A   30C    P0             55W /  400W |       0MiB /  40960MiB |      0%      Default |
+|                                         |                        |             Disabled |
++-----------------------------------------+------------------------+----------------------+
+                                                                                         
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI        PID   Type   Process name                              GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|  No running processes found                                                             |
++-----------------------------------------------------------------------------------------+
+Detected module_name: marv_rl
+Dispatching to: /ws/src/flipper_training/marv_rl_training/training/eval_ftr.py
+Weights: policy_final.pth  +  vecnorm_final.pth
+Auto output_dir: /ws/logs/eval_auto_11335881
+Executing:
+apptainer exec --nv     --bind /home/sargapav/robot_rodeo_gym_ws:/ws     --bind /home/sargapav/robot_rodeo_gym_ws/experiments/eval_top3_averaged/weights:/ws/experiments/eval_top3_averaged/weights     --env OMNI_KIT_ACCEPT_EULA=Y     --env SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt     --env REQUESTS_CA_BUNDLE=/etc/ssl/certs/ca-certificates.crt     --env CURL_CA_BUNDLE=/etc/ssl/certs/ca-certificates.crt     /home/sargapav/robot_rodeo_gym_ws/containers/isaaclab_optuna.sif     conda run -n isaaclab --no-capture-output     env PYTHONPATH=/ws/src/FTR-Benchmark:/ws/src/flipper_training     python /ws/src/flipper_training/marv_rl_training/training/eval_ftr.py     --headless --max_steps 2000 --output_dir /ws/logs/eval_auto_11335881 --rundir logs/train_marv_rl_11323742/attempt_6/ --num_envs 256 --repeats 15 --eval_id marv_rl
+------------------------------------------------------------------------
+[Warning] [omni.isaac.kit.simulation_app] Modules: ['omni.kit_app'] were loaded before SimulationApp was started and might not be loaded correctly.
+[Warning] [omni.isaac.kit.simulation_app] Please check to make sure no extra omniverse or pxr modules are imported before the call to SimulationApp(...)
+[Info] [carb] Logging to file: /opt/conda/envs/isaaclab/lib/python3.10/site-packages/omni/logs/Kit/Isaac-Sim/4.2/kit_20260812_103200.log
+2026-08-12 08:32:00 [0ms] [Warning] [omni.kit.app.plugin] No crash reporter present, dumps uploading isn't available.
+2026-08-12 08:32:00 [3ms] [Warning] [omni.ext.plugin] [ext: experiments] Extensions config 'extension.toml' doesn't exist '/home/sargapav/robot_rodeo_gym_ws/experiments' or '/home/sargapav/robot_rodeo_gym_ws/experiments/config'
+2026-08-12 08:32:00 [3ms] [Warning] [omni.ext.plugin] [ext: containers] Extensions config 'extension.toml' doesn't exist '/home/sargapav/robot_rodeo_gym_ws/containers' or '/home/sargapav/robot_rodeo_gym_ws/containers/config'
+2026-08-12 08:32:00 [3ms] [Warning] [omni.ext.plugin] [ext: optuna] Extensions config 'extension.toml' doesn't exist '/home/sargapav/robot_rodeo_gym_ws/optuna' or '/home/sargapav/robot_rodeo_gym_ws/optuna/config'
+2026-08-12 08:32:00 [3ms] [Warning] [omni.ext.plugin] [ext: configs] Extensions config 'extension.toml' doesn't exist '/home/sargapav/robot_rodeo_gym_ws/configs' or '/home/sargapav/robot_rodeo_gym_ws/configs/config'
+2026-08-12 08:32:00 [3ms] [Warning] [omni.ext.plugin] [ext: scripts] Extensions config 'extension.toml' doesn't exist '/home/sargapav/robot_rodeo_gym_ws/scripts' or '/home/sargapav/robot_rodeo_gym_ws/scripts/config'
+2026-08-12 08:32:00 [3ms] [Warning] [omni.ext.plugin] [ext: wandb] Extensions config 'extension.toml' doesn't exist '/home/sargapav/robot_rodeo_gym_ws/wandb' or '/home/sargapav/robot_rodeo_gym_ws/wandb/config'
+2026-08-12 08:32:00 [3ms] [Warning] [omni.ext.plugin] [ext: logs] Extensions config 'extension.toml' doesn't exist '/home/sargapav/robot_rodeo_gym_ws/logs' or '/home/sargapav/robot_rodeo_gym_ws/logs/config'
+2026-08-12 08:32:00 [3ms] [Warning] [omni.ext.plugin] [ext: secrets] Extensions config 'extension.toml' doesn't exist '/home/sargapav/robot_rodeo_gym_ws/secrets' or '/home/sargapav/robot_rodeo_gym_ws/secrets/config'
+2026-08-12 08:32:00 [3ms] [Warning] [omni.ext.plugin] [ext: slurm] Extensions config 'extension.toml' doesn't exist '/home/sargapav/robot_rodeo_gym_ws/slurm' or '/home/sargapav/robot_rodeo_gym_ws/slurm/config'
+2026-08-12 08:32:00 [3ms] [Warning] [omni.ext.plugin] [ext: runs] Extensions config 'extension.toml' doesn't exist '/home/sargapav/robot_rodeo_gym_ws/runs' or '/home/sargapav/robot_rodeo_gym_ws/runs/config'
+2026-08-12 08:32:00 [3ms] [Warning] [omni.ext.plugin] [ext: notebooks] Extensions config 'extension.toml' doesn't exist '/home/sargapav/robot_rodeo_gym_ws/notebooks' or '/home/sargapav/robot_rodeo_gym_ws/notebooks/config'
+2026-08-12 08:32:00 [4ms] [Warning] [omni.ext.plugin] [ext: src] Extensions config 'extension.toml' doesn't exist '/home/sargapav/robot_rodeo_gym_ws/src' or '/home/sargapav/robot_rodeo_gym_ws/src/config'
+[0.212s] [ext: omni.kit.async_engine-0.0.1] startup
+[0.438s] [ext: omni.stats-1.0.1] startup
+[0.443s] [ext: omni.client-1.2.0] startup
+[0.575s] [ext: omni.gpu_foundation.shadercache.vulkan-1.0.0] startup
+[0.584s] [ext: omni.assets.plugins-0.0.0] startup
+[0.597s] [ext: omni.gpu_foundation-0.0.0] startup
+[0.718s] [ext: omni.kit.pipapi-0.0.0] startup
+[0.719s] [ext: omni.materialx.libs-1.0.4] startup
+[0.742s] [ext: omni.kit.pip_archive-0.0.0] startup
+[0.742s] [ext: omni.usd.config-1.0.4] startup
+[0.751s] [ext: omni.gpucompute.plugins-0.0.0] startup
+[0.753s] [ext: omni.usd.libs-1.0.1] startup
+[1.101s] [ext: omni.kit.telemetry-0.5.0] startup
+[1.135s] [ext: omni.usd.schema.semantics-0.0.0] startup
+[1.313s] [ext: omni.usd.schema.audio-0.0.0] startup
+[1.341s] [ext: omni.usd.schema.physx-106.1.9] startup
+[1.417s] [ext: carb.audio-0.1.0] startup
+[1.434s] [ext: omni.kvdb-106.1.9] startup
+[1.439s] [ext: omni.timeline-1.0.10] startup
+[1.444s] [ext: omni.kit.actions.core-1.0.0] startup
+[1.450s] [ext: omni.kit.audiodeviceenum-1.0.1] startup
+[1.454s] [ext: omni.localcache-106.1.9] startup
+[1.457s] [ext: omni.usd_resolver-1.0.0] startup
+[1.464s] [ext: omni.kit.commands-1.4.9] startup
+[1.472s] [ext: omni.graph.exec-0.9.4] startup
+[1.474s] [ext: omni.usd.core-1.4.1] startup
+[1.484s] [ext: omni.kit.usd_undo-0.1.8] startup
+[1.485s] [ext: omni.kit.exec.core-0.13.4] startup
+[1.491s] [ext: omni.convexdecomposition-106.1.9] startup
+[1.499s] [ext: omni.usd-1.12.2] startup
+[1.557s] [ext: omni.usdphysics-106.1.9] startup
+[1.560s] [ext: omni.physx.foundation-106.1.9] startup
+[1.571s] [ext: omni.kit.usd.layers-2.1.36] startup
+[1.587s] [ext: omni.physx.cooking-106.1.9] startup
+[1.600s] [ext: omni.blobkey-1.1.2] startup
+[1.603s] [ext: omni.datastore-0.0.0] startup
+[1.656s] [ext: omni.ujitso.default-1.0.0] startup
+[1.664s] [ext: omni.hsscclient-1.1.1] startup
+[1.675s] [ext: omni.kit.primitive.mesh-1.0.17] startup
+[1.680s] [ext: usdrt.scenegraph-7.5.0] startup
+[1.775s] [ext: omni.warp.core-1.2.1] startup
+[2.033s] [ext: omni.physx-106.1.9] startup
+[2.076s] [ext: omni.kit.stage_template.core-1.1.22] startup
+[2.078s] [ext: omni.physx.stageupdate-106.1.9] startup
+[2.082s] [ext: omni.kit.stage_templates-1.2.5] startup
+[2.085s] [ext: omni.physics.tensors-106.1.9] startup
+[2.094s] [ext: omni.isaac.version-1.1.0] startup
+[2.095s] [ext: omni.physx.tensors-106.1.9] startup
+2026-08-12 08:32:02 [2,297ms] [Warning] [omni.platforminfo.plugin] failed to open the default display.  Can't verify X Server version.
+2026-08-12 08:32:02 [2,299ms] [Warning] [omni.platforminfo.plugin] failed to load XRAndR.
+[2.573s] [ext: omni.isaac.nucleus-0.3.1] startup
+[2.574s] [ext: omni.kit.loop-isaac-1.2.0] startup
+[2.578s] [ext: omni.isaac.core-3.19.5] startup
+[5.221s] [ext: omni.physx.fabric-106.1.9] startup
+[5.233s] [ext: omni.isaac.kit-1.13.2] startup
+[5.233s] [ext: omni.isaac.cloner-0.8.1] startup
+[5.235s] [ext: isaaclab.python.headless-1.2.0] startup
+[5.236s] Simulation App Starting
+2026-08-12 08:32:05 [5,213ms] [Warning] [gpu.foundation.plugin] [ShaderCache]: Creating driver shaderCache directory failed: /opt/conda/envs/isaaclab/lib/python3.10/site-packages/omni/cache/nv_shadercache
+
+|---------------------------------------------------------------------------------------------|
+| Driver Version: 0             | Graphics API: Vulkan
+|=============================================================================================|
+| GPU | Name                             | Active | LDA | GPU Memory | Vendor-ID | LUID       |
+|     |                                  |        |     |            | Device-ID | UUID       |
+|     |                                  |        |     |            | Bus-ID    |            |
+|=============================================================================================|
+| OS: 13 (trixie) debian, Version: 13.00.0, Kernel: 4.18.0-513.9.1.el8_9.x86_64
+| Processor: AMD EPYC 7543 32-Core Processor | Cores: 64 | Logical: 128
+|---------------------------------------------------------------------------------------------|
+| Total Memory (MB): 1031894 | Free Memory: 900695
+| Total Page/Swap (MB): 0 | Free Page/Swap: 0
+|---------------------------------------------------------------------------------------------|
+2026-08-12 08:32:05 [5,730ms] [Warning] [omni.physx.foundation.plugin] PhysXFoundation: Couldn't get driver version, failed to getDeviceInfo
+2026-08-12 08:32:05 [5,730ms] [Warning] [omni.physx.foundation.plugin] PhysXFoundation: Unable to get IGpuFoundation, GpuDevices or Graphics!
+2026-08-12 08:32:05 [5,730ms] [Warning] [carb.cudainterop.plugin] CUDA_VISIBLE_DEVICES environment variable is set.
+2026-08-12 08:32:05 [5,730ms] [Warning] [carb.cudainterop.plugin] Note CUDA device enumeration and Omniverse device enumeration are different.
+2026-08-12 08:32:05 [5,730ms] [Warning] [carb.cudainterop.plugin] Setting CUDA_VISIBLE_DEVICES can lead to undesired behavior or crashes.
+[6.651s] app ready
+[6.815s] Simulation App Startup Complete
+2026-08-12 08:32:10 [10,476ms] [Warning] [pxr.Semantics] pxr.Semantics is deprecated - please use Semantics instead
+2026-08-12 08:32:12 [12,578ms] [Warning] [omni.isaac.lab.envs.direct_rl_env] Seed not set for the environment. The environment creation may not be deterministic.
+[INFO][AppLauncher]: Loading experience file: /opt/IsaacLab/source/extensions/omni.isaac.lab/omni/isaac/lab/app/../../../../../../apps/isaaclab.python.headless.kit
+Starting kit application with the following args:  ['/opt/conda/envs/isaaclab/lib/python3.10/site-packages/isaacsim/exts/omni.isaac.kit/omni/isaac/kit/simulation_app.py', '/opt/IsaacLab/source/extensions/omni.isaac.lab/omni/isaac/lab/app/../../../../../../apps/isaaclab.python.headless.kit', '--/app/tokens/exe-path=/opt/conda/envs/isaaclab/lib/python3.10/site-packages/omni', '--/persistent/app/viewport/displayOptions=3094', '--/rtx/materialDb/syncLoads=True', '--/rtx/hydra/materialSyncLoads=True', '--/omni.kit.plugin/syncUsdLoads=True', '--/app/renderer/resolution/width=1280', '--/app/renderer/resolution/height=720', '--/app/window/width=1440', '--/app/window/height=900', '--/renderer/multiGpu/enabled=True', '--/app/fastShutdown=True', '--ext-folder', '/opt/conda/envs/isaaclab/lib/python3.10/site-packages/isaacsim/exts', '--ext-folder', '/opt/conda/envs/isaaclab/lib/python3.10/site-packages/isaacsim/apps', '--/renderer/activeGpu=0', '--/physics/cudaDevice=0', '--portable', '--no-window', '--/app/window/hideUi=True']
+Passing the following args to the base kit application:  ['--headless', '--max_steps', '2000', '--output_dir', '/ws/logs/eval_auto_11335881', '--rundir', 'logs/train_marv_rl_11323742/attempt_6/', '--num_envs', '256', '--repeats', '15', '--eval_id', 'marv_rl']
+Warp 1.2.1 initialized:
+   CUDA Toolkit 11.8, Driver 12.4
+   Devices:
+     "cpu"      : "CPU"
+     "cuda:0"   : "NVIDIA A100-SXM4-40GB" (39 GiB, sm_80, mempool enabled)
+   Kernel cache:
+     /home/sargapav/.cache/warp/1.2.1
+[INFO]: Base environment:
+	Environment device    : cuda:0
+	Environment seed      : None
+	Physics step-size     : 0.005
+	Rendering step-size   : 0.025
+	Environment step-size : 0.025
+[INFO]: Time taken for scene creation : 0.522267 seconds
+[INFO]: Scene manager:  <class InteractiveScene>
+	Number of environments: 256
+	Environment spacing   : 0.0
+	Source prim name      : /World/envs/env_0
+	Global prim paths     : ['/World/terrain']
+	Replicate physics     : True
+[INFO]: Starting the simulation. This may take a few seconds. Please wait...
+[INFO]: Time taken for simulation start : 3.163957 seconds
+[INFO]: Completed setting up the environment...
+2026-08-12 10:32:16,359 [eval_ftr][[92mINFO[00m]: Seed: 42  (random ✓  numpy ✓  torch ✓  cuda ✓) (eval_ftr.py:387)
+2026-08-12 10:32:16,558 [MLPPolicyConfig][[92mINFO[00m]: Applied orthogonal initialization to the actor and value operators. (mlp_policy.py:100)
+2026-08-12 10:32:16,581 [MLPPolicyConfig][[92mINFO[00m]: Loaded weights from logs/train_marv_rl_11323742/attempt_6/weights/policy_final.pth (mlp_policy.py:109)
+     Policy Parameter Counts     
+┏━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━┓
+┃        Component ┃ Parameters ┃
+┡━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━┩
+│    Actor Encoder │    258,816 │
+│       Actor Head │     34,572 │
+│    Value Encoder │    258,816 │
+│       Value Head │    100,097 │
+│              --- │        --- │
+│      Total Actor │    293,388 │
+│      Total Value │    358,913 │
+│              --- │        --- │
+│ Total Parameters │    652,301 │
+└──────────────────┴────────────┘
+2026-08-12 10:32:16,909 [eval_ftr][[92mINFO[00m]: Loaded vecnorm weights. (eval_ftr.py:424)
+2026-08-12 10:32:16,925 [eval_ftr][[92mINFO[00m]: Per-env tracking enabled → CSV output: /ws/logs/eval_auto_11335881  eval_id=marv_rl (eval_ftr.py:447)
+2026-08-12 10:32:17,110 [eval_ftr][[92mINFO[00m]: Terrain 'custom_mixed': 17 env types x 10 depth cols → assets copied to /ws/logs/eval_auto_11335881/terrain (eval_ftr.py:453)
+2026-08-12 10:32:17,110 [eval_ftr][[92mINFO[00m]: Running eval rollout 1/15 (max_steps=2000) ... (eval_ftr.py:462)
+
+============================================================
+Repeat 1/15
+============================================================
+  clearance/height                              0.049739
+  clearance/height_max                          0.236739
+  clearance/height_min                          -0.064041
+  eval/explosion_rate                           0.000000
+  eval/failure_rate                             0.114799
+  eval/max_step_reward                          25.634964
+  eval/mean_step_reward                         -0.018174
+  eval/min_step_reward                          -8.816586
+  eval/pct_terminated                           0.001313
+  eval/pct_truncated                            0.000100
+  eval/rollout_steps                            2000.000000
+  eval/success_rate                             0.814661
+  observations/ang_vel_x_max                    12.096015
+  observations/ang_vel_x_mean                   -0.002018
+  observations/ang_vel_x_min                    -12.651706
+  observations/ang_vel_x_std                    0.995687
+  observations/ang_vel_y_max                    11.792685
+  observations/ang_vel_y_mean                   0.000165
+  observations/ang_vel_y_min                    -10.395302
+  observations/ang_vel_y_std                    0.993032
+  observations/ang_vel_z_max                    7.678638
+  observations/ang_vel_z_mean                   0.001876
+  observations/ang_vel_z_min                    -8.251306
+  observations/ang_vel_z_std                    0.999411
+  observations/flipper_fl_max                   3.689830
+  observations/flipper_fl_mean                  0.028152
+  observations/flipper_fl_min                   -4.134521
+  observations/flipper_fl_std                   0.987524
+  observations/flipper_fr_max                   4.179461
+  observations/flipper_fr_mean                  -0.021603
+  observations/flipper_fr_min                   -5.109182
+  observations/flipper_fr_std                   0.994687
+  observations/flipper_rl_max                   2.757211
+  observations/flipper_rl_mean                  0.069743
+  observations/flipper_rl_min                   -3.258752
+  observations/flipper_rl_std                   1.004897
+  observations/flipper_rr_max                   3.988706
+  observations/flipper_rr_mean                  0.020050
+  observations/flipper_rr_min                   -3.168494
+  observations/flipper_rr_std                   1.002102
+  observations/goal_x_max                       36.678223
+  observations/goal_x_mean                      -0.020321
+  observations/goal_x_min                       -41.110035
+  observations/goal_x_std                       0.955135
+  observations/goal_y_max                       85.329842
+  observations/goal_y_mean                      -0.010286
+  observations/goal_y_min                       -63.673717
+  observations/goal_y_std                       0.922030
+  observations/goal_z_max                       7.406769
+  observations/goal_z_mean                      0.001653
+  observations/goal_z_min                       -4.535265
+  observations/goal_z_std                       0.998022
+  observations/heightmap_max                    6.650548
+  observations/heightmap_mean                   0.002649
+  observations/heightmap_min                    -14.220874
+  observations/heightmap_std                    0.994231
+  observations/lin_vel_x_max                    3.592875
+  observations/lin_vel_x_mean                   0.025302
+  observations/lin_vel_x_min                    -4.249820
+  observations/lin_vel_x_std                    0.991807
+  observations/lin_vel_y_max                    12.193030
+  observations/lin_vel_y_mean                   0.000581
+  observations/lin_vel_y_min                    -10.377935
+  observations/lin_vel_y_std                    0.997713
+  observations/lin_vel_z_max                    7.028127
+  observations/lin_vel_z_mean                   -0.000350
+  observations/lin_vel_z_min                    -10.522790
+  observations/lin_vel_z_std                    0.998372
+  observations/pitch_max                        6.603551
+  observations/pitch_mean                       -0.010625
+  observations/pitch_min                        -4.293745
+  observations/pitch_std                        0.986396
+  observations/roll_max                         6.956940
+  observations/roll_mean                        -0.014156
+  observations/roll_min                         -15.388509
+  observations/roll_std                         0.990773
+  rew/action_bonus                              9.016171
+  rew/clearance                                 -0.012736
+  rew/flipper_action_bonus                      0.104335
+  rew/joint_ang_from_flat_penalty               -0.102863
+  rew/joint_angle_var_penalty                   -0.083941
+  rew/pitch_penalty                             -0.060586
+  rew/pitch_rate_penalty                        -0.135362
+  rew/roll_penalty                              -0.014506
+  rew/roll_rate_penalty                         -0.162212
+  rew/shaping                                   1.958650
+  rew/shock_penalty                             -0.118071
+  rew/step_penalty                              -0.118978
+  rew/terminal_bonus                            0.144164
+  rew/total_reward                              10.412500
+  shock/accel_magnitude                         2.630276
+  shock/accel_magnitude_max                     21.643029
+  shock/accel_magnitude_min                     0.249341
+  shock/accel_p90                               2.880050
+  shock/accel_p95                               2.970539
+  shock/accel_p99                               3.145239
+  shock/shock_normalised                        0.007871
+  shock/shock_normalised_max                    0.811327
+  shock/shock_normalised_min                    0.000000
+  state/ang_velocity                            0.242038
+  state/ang_velocity_max                        2.045832
+  state/ang_velocity_min                        0.015549
+  state/lin_velocity                            0.451608
+  state/lin_velocity_max                        1.009902
+  state/lin_velocity_min                        0.027030
+  state/pitch                                   -0.027707
+  state/pitch_max                               0.444625
+  state/pitch_min                               -0.340042
+  state/roll                                    -0.020848
+  state/roll_max                                0.362353
+  state/roll_min                                -0.577362
+  state/success_lin_velocity                    0.135526
+  torque/flipper_torque_FL                      491.966631
+  torque/flipper_torque_FL_max                  1000.000000
+  torque/flipper_torque_FL_min                  3.042301
+  torque/flipper_torque_FR                      487.169806
+  torque/flipper_torque_FR_max                  1000.000000
+  torque/flipper_torque_FR_min                  3.030721
+  torque/flipper_torque_RL                      497.669086
+  torque/flipper_torque_RL_max                  1000.000000
+  torque/flipper_torque_RL_min                  3.126496
+  torque/flipper_torque_RR                      520.057359
+  torque/flipper_torque_RR_max                  1000.000000
+  torque/flipper_torque_RR_min                  3.387362
+2026-08-12 10:37:20,822 [eval_ftr][[92mINFO[00m]: Saved repeat 1 CSV → /ws/logs/eval_auto_11335881 (eval_ftr.py:533)
+2026-08-12 10:37:20,822 [eval_ftr][[92mINFO[00m]: Running eval rollout 2/15 (max_steps=2000) ... (eval_ftr.py:462)
+
+============================================================
+Repeat 2/15
+============================================================
+  clearance/height                              0.049427
+  clearance/height_max                          0.289490
+  clearance/height_min                          -0.064292
+  eval/explosion_rate                           0.000000
+  eval/failure_rate                             0.120464
+  eval/max_step_reward                          24.957766
+  eval/mean_step_reward                         -0.000446
+  eval/min_step_reward                          -7.969971
+  eval/pct_terminated                           0.001223
+  eval/pct_truncated                            0.000123
+  eval/rollout_steps                            2000.000000
+  eval/success_rate                             0.788099
+  observations/ang_vel_x_max                    12.473314
+  observations/ang_vel_x_mean                   -0.000323
+  observations/ang_vel_x_min                    -13.344225
+  observations/ang_vel_x_std                    0.999302
+  observations/ang_vel_y_max                    16.414896
+  observations/ang_vel_y_mean                   -0.001286
+  observations/ang_vel_y_min                    -11.118036
+  observations/ang_vel_y_std                    1.004981
+  observations/ang_vel_z_max                    11.358402
+  observations/ang_vel_z_mean                   -0.000333
+  observations/ang_vel_z_min                    -14.484941
+  observations/ang_vel_z_std                    1.000474
+  observations/flipper_fl_max                   3.859171
+  observations/flipper_fl_mean                  0.005134
+  observations/flipper_fl_min                   -4.566429
+  observations/flipper_fl_std                   1.001833
+  observations/flipper_fr_max                   3.867813
+  observations/flipper_fr_mean                  -0.011254
+  observations/flipper_fr_min                   -5.449832
+  observations/flipper_fr_std                   1.003877
+  observations/flipper_rl_max                   2.012623
+  observations/flipper_rl_mean                  0.012171
+  observations/flipper_rl_min                   -3.482571
+  observations/flipper_rl_std                   0.995729
+  observations/flipper_rr_max                   4.065094
+  observations/flipper_rr_mean                  0.025573
+  observations/flipper_rr_min                   -3.598095
+  observations/flipper_rr_std                   1.002894
+  observations/goal_x_max                       38.599781
+  observations/goal_x_mean                      -0.046713
+  observations/goal_x_min                       -39.628952
+  observations/goal_x_std                       0.984227
+  observations/goal_y_max                       55.622452
+  observations/goal_y_mean                      -0.012011
+  observations/goal_y_min                       -81.388527
+  observations/goal_y_std                       0.941807
+  observations/goal_z_max                       5.250473
+  observations/goal_z_mean                      0.005205
+  observations/goal_z_min                       -5.068047
+  observations/goal_z_std                       0.996734
+  observations/heightmap_max                    6.730148
+  observations/heightmap_mean                   0.004375
+  observations/heightmap_min                    -17.471453
+  observations/heightmap_std                    1.001276
+  observations/lin_vel_x_max                    6.721929
+  observations/lin_vel_x_mean                   0.002813
+  observations/lin_vel_x_min                    -4.047939
+  observations/lin_vel_x_std                    1.000456
+  observations/lin_vel_y_max                    13.312888
+  observations/lin_vel_y_mean                   0.000078
+  observations/lin_vel_y_min                    -10.094265
+  observations/lin_vel_y_std                    0.999781
+  observations/lin_vel_z_max                    6.919330
+  observations/lin_vel_z_mean                   -0.001331
+  observations/lin_vel_z_min                    -11.121871
+  observations/lin_vel_z_std                    1.001244
+  observations/pitch_max                        12.636150
+  observations/pitch_mean                       0.004227
+  observations/pitch_min                        -5.075772
+  observations/pitch_std                        1.000339
+  observations/roll_max                         11.102862
+  observations/roll_mean                        0.000857
+  observations/roll_min                         -12.497186
+  observations/roll_std                         0.998205
+  rew/action_bonus                              8.670724
+  rew/clearance                                 -0.011607
+  rew/flipper_action_bonus                      0.105975
+  rew/joint_ang_from_flat_penalty               -0.111138
+  rew/joint_angle_var_penalty                   -0.099253
+  rew/pitch_penalty                             -0.067426
+  rew/pitch_rate_penalty                        -0.132124
+  rew/roll_penalty                              -0.016570
+  rew/roll_rate_penalty                         -0.158297
+  rew/shaping                                   1.922641
+  rew/shock_penalty                             -0.116324
+  rew/step_penalty                              -0.118978
+  rew/terminal_bonus                            0.132526
+  rew/total_reward                              9.998615
+  shock/accel_magnitude                         2.580774
+  shock/accel_magnitude_max                     21.623295
+  shock/accel_magnitude_min                     0.243354
+  shock/accel_p90                               2.835139
+  shock/accel_p95                               2.931683
+  shock/accel_p99                               3.185171
+  shock/shock_normalised                        0.007755
+  shock/shock_normalised_max                    0.810952
+  shock/shock_normalised_min                    0.000000
+  state/ang_velocity                            0.237288
+  state/ang_velocity_max                        2.060066
+  state/ang_velocity_min                        0.015394
+  state/lin_velocity                            0.427496
+  state/lin_velocity_max                        1.025653
+  state/lin_velocity_min                        0.024398
+  state/pitch                                   -0.039637
+  state/pitch_max                               0.435369
+  state/pitch_min                               -0.355592
+  state/roll                                    -0.027781
+  state/roll_max                                0.375775
+  state/roll_min                                -0.573601
+  state/success_lin_velocity                    0.140746
+  torque/flipper_torque_FL                      490.911398
+  torque/flipper_torque_FL_max                  1000.000000
+  torque/flipper_torque_FL_min                  3.145126
+  torque/flipper_torque_FR                      487.270978
+  torque/flipper_torque_FR_max                  1000.000000
+  torque/flipper_torque_FR_min                  2.939505
+  torque/flipper_torque_RL                      494.840793
+  torque/flipper_torque_RL_max                  1000.000000
+  torque/flipper_torque_RL_min                  2.895472
+  torque/flipper_torque_RR                      521.849668
+  torque/flipper_torque_RR_max                  1000.000000
+  torque/flipper_torque_RR_min                  3.223122
+2026-08-12 10:42:21,758 [eval_ftr][[92mINFO[00m]: Saved repeat 2 CSV → /ws/logs/eval_auto_11335881 (eval_ftr.py:533)
+2026-08-12 10:42:21,759 [eval_ftr][[92mINFO[00m]: Running eval rollout 3/15 (max_steps=2000) ... (eval_ftr.py:462)
+
+============================================================
+Repeat 3/15
+============================================================
+  clearance/height                              0.048367
+  clearance/height_max                          0.264367
+  clearance/height_min                          -0.067290
+  eval/explosion_rate                           0.000000
+  eval/failure_rate                             0.105740
+  eval/max_step_reward                          24.820065
+  eval/mean_step_reward                         -0.006412
+  eval/min_step_reward                          -6.454656
+  eval/pct_terminated                           0.001162
+  eval/pct_truncated                            0.000131
+  eval/rollout_steps                            2000.000000
+  eval/success_rate                             0.793051
+  observations/ang_vel_x_max                    14.226491
+  observations/ang_vel_x_mean                   0.000814
+  observations/ang_vel_x_min                    -13.575943
+  observations/ang_vel_x_std                    0.998940
+  observations/ang_vel_y_max                    17.468384
+  observations/ang_vel_y_mean                   0.000668
+  observations/ang_vel_y_min                    -12.009354
+  observations/ang_vel_y_std                    0.992177
+  observations/ang_vel_z_max                    9.419269
+  observations/ang_vel_z_mean                   -0.000370
+  observations/ang_vel_z_min                    -10.662816
+  observations/ang_vel_z_std                    0.999167
+  observations/flipper_fl_max                   3.262321
+  observations/flipper_fl_mean                  0.002120
+  observations/flipper_fl_min                   -4.187534
+  observations/flipper_fl_std                   0.994738
+  observations/flipper_fr_max                   3.743465
+  observations/flipper_fr_mean                  -0.004249
+  observations/flipper_fr_min                   -4.889581
+  observations/flipper_fr_std                   0.994941
+  observations/flipper_rl_max                   2.043952
+  observations/flipper_rl_mean                  0.000946
+  observations/flipper_rl_min                   -3.513043
+  observations/flipper_rl_std                   0.998368
+  observations/flipper_rr_max                   3.727340
+  observations/flipper_rr_mean                  0.004365
+  observations/flipper_rr_min                   -3.700592
+  observations/flipper_rr_std                   0.991981
+  observations/goal_x_max                       38.933567
+  observations/goal_x_mean                      -0.038737
+  observations/goal_x_min                       -41.409142
+  observations/goal_x_std                       0.977465
+  observations/goal_y_max                       74.659492
+  observations/goal_y_mean                      -0.009317
+  observations/goal_y_min                       -63.364380
+  observations/goal_y_std                       0.955468
+  observations/goal_z_max                       4.713854
+  observations/goal_z_mean                      -0.002806
+  observations/goal_z_min                       -4.859015
+  observations/goal_z_std                       0.999132
+  observations/heightmap_max                    7.010938
+  observations/heightmap_mean                   -0.000880
+  observations/heightmap_min                    -17.280518
+  observations/heightmap_std                    0.998463
+  observations/lin_vel_x_max                    5.228874
+  observations/lin_vel_x_mean                   -0.008307
+  observations/lin_vel_x_min                    -3.535113
+  observations/lin_vel_x_std                    0.999407
+  observations/lin_vel_y_max                    12.075746
+  observations/lin_vel_y_mean                   0.000117
+  observations/lin_vel_y_min                    -11.187788
+  observations/lin_vel_y_std                    1.000317
+  observations/lin_vel_z_max                    6.805279
+  observations/lin_vel_z_mean                   0.000623
+  observations/lin_vel_z_min                    -11.878561
+  observations/lin_vel_z_std                    0.996927
+  observations/pitch_max                        13.015292
+  observations/pitch_mean                       -0.005846
+  observations/pitch_min                        -4.869489
+  observations/pitch_std                        0.993497
+  observations/roll_max                         12.782144
+  observations/roll_mean                        -0.000081
+  observations/roll_min                         -12.226603
+  observations/roll_std                         1.003644
+  rew/action_bonus                              8.497794
+  rew/clearance                                 -0.010724
+  rew/flipper_action_bonus                      0.107597
+  rew/joint_ang_from_flat_penalty               -0.109175
+  rew/joint_angle_var_penalty                   -0.096073
+  rew/pitch_penalty                             -0.069167
+  rew/pitch_rate_penalty                        -0.128613
+  rew/roll_penalty                              -0.016061
+  rew/roll_rate_penalty                         -0.152443
+  rew/shaping                                   1.915868
+  rew/shock_penalty                             -0.110182
+  rew/step_penalty                              -0.118978
+  rew/terminal_bonus                            0.128733
+  rew/total_reward                              9.837323
+  shock/accel_magnitude                         2.512658
+  shock/accel_magnitude_max                     21.064292
+  shock/accel_magnitude_min                     0.219967
+  shock/accel_p90                               2.764857
+  shock/accel_p95                               2.851936
+  shock/accel_p99                               3.068366
+  shock/shock_normalised                        0.007345
+  shock/shock_normalised_max                    0.793275
+  shock/shock_normalised_min                    0.000000
+  state/ang_velocity                            0.230028
+  state/ang_velocity_max                        2.003886
+  state/ang_velocity_min                        0.014535
+  state/lin_velocity                            0.411649
+  state/lin_velocity_max                        1.002732
+  state/lin_velocity_min                        0.022003
+  state/pitch                                   -0.044220
+  state/pitch_max                               0.442035
+  state/pitch_min                               -0.363338
+  state/roll                                    -0.030640
+  state/roll_max                                0.348254
+  state/roll_min                                -0.567441
+  state/success_lin_velocity                    0.130812
+  torque/flipper_torque_FL                      493.255266
+  torque/flipper_torque_FL_max                  1000.000000
+  torque/flipper_torque_FL_min                  3.041380
+  torque/flipper_torque_FR                      490.823169
+  torque/flipper_torque_FR_max                  1000.000000
+  torque/flipper_torque_FR_min                  3.067758
+  torque/flipper_torque_RL                      504.277996
+  torque/flipper_torque_RL_max                  1000.000000
+  torque/flipper_torque_RL_min                  3.102795
+  torque/flipper_torque_RR                      528.415002
+  torque/flipper_torque_RR_max                  1000.000000
+  torque/flipper_torque_RR_min                  3.458913
+2026-08-12 10:47:24,380 [eval_ftr][[92mINFO[00m]: Saved repeat 3 CSV → /ws/logs/eval_auto_11335881 (eval_ftr.py:533)
+2026-08-12 10:47:24,381 [eval_ftr][[92mINFO[00m]: Running eval rollout 4/15 (max_steps=2000) ... (eval_ftr.py:462)
+
+============================================================
+Repeat 4/15
+============================================================
+  clearance/height                              0.048401
+  clearance/height_max                          0.244770
+  clearance/height_min                          -0.066751
+  eval/explosion_rate                           0.000000
+  eval/failure_rate                             0.109568
+  eval/max_step_reward                          25.798967
+  eval/mean_step_reward                         0.001280
+  eval/min_step_reward                          -6.407210
+  eval/pct_terminated                           0.001123
+  eval/pct_truncated                            0.000143
+  eval/rollout_steps                            2000.000000
+  eval/success_rate                             0.777778
+  observations/ang_vel_x_max                    12.647434
+  observations/ang_vel_x_mean                   -0.000251
+  observations/ang_vel_x_min                    -13.737568
+  observations/ang_vel_x_std                    0.999610
+  observations/ang_vel_y_max                    16.243921
+  observations/ang_vel_y_mean                   0.000707
+  observations/ang_vel_y_min                    -10.530212
+  observations/ang_vel_y_std                    1.000934
+  observations/ang_vel_z_max                    7.563437
+  observations/ang_vel_z_mean                   -0.000028
+  observations/ang_vel_z_min                    -11.890986
+  observations/ang_vel_z_std                    1.000034
+  observations/flipper_fl_max                   3.574448
+  observations/flipper_fl_mean                  -0.002693
+  observations/flipper_fl_min                   -5.098692
+  observations/flipper_fl_std                   1.002492
+  observations/flipper_fr_max                   3.965479
+  observations/flipper_fr_mean                  -0.014642
+  observations/flipper_fr_min                   -5.503268
+  observations/flipper_fr_std                   0.999934
+  observations/flipper_rl_max                   2.100044
+  observations/flipper_rl_mean                  0.006129
+  observations/flipper_rl_min                   -3.185133
+  observations/flipper_rl_std                   1.000266
+  observations/flipper_rr_max                   3.967685
+  observations/flipper_rr_mean                  0.013217
+  observations/flipper_rr_min                   -3.417818
+  observations/flipper_rr_std                   1.002485
+  observations/goal_x_max                       39.843155
+  observations/goal_x_mean                      -0.042304
+  observations/goal_x_min                       -48.436157
+  observations/goal_x_std                       0.975458
+  observations/goal_y_max                       56.148289
+  observations/goal_y_mean                      -0.011309
+  observations/goal_y_min                       -72.103973
+  observations/goal_y_std                       0.929047
+  observations/goal_z_max                       5.010039
+  observations/goal_z_mean                      -0.001506
+  observations/goal_z_min                       -5.507710
+  observations/goal_z_std                       0.999022
+  observations/heightmap_max                    6.485090
+  observations/heightmap_mean                   -0.001186
+  observations/heightmap_min                    -16.304941
+  observations/heightmap_std                    0.999702
+  observations/lin_vel_x_max                    6.260952
+  observations/lin_vel_x_mean                   0.004579
+  observations/lin_vel_x_min                    -3.794727
+  observations/lin_vel_x_std                    1.000921
+  observations/lin_vel_y_max                    11.419114
+  observations/lin_vel_y_mean                   -0.000437
+  observations/lin_vel_y_min                    -10.279740
+  observations/lin_vel_y_std                    0.999331
+  observations/lin_vel_z_max                    6.041724
+  observations/lin_vel_z_mean                   -0.000259
+  observations/lin_vel_z_min                    -10.773963
+  observations/lin_vel_z_std                    0.999358
+  observations/pitch_max                        11.835770
+  observations/pitch_mean                       0.002659
+  observations/pitch_min                        -5.148678
+  observations/pitch_std                        1.002851
+  observations/roll_max                         8.939487
+  observations/roll_mean                        0.000444
+  observations/roll_min                         -11.368557
+  observations/roll_std                         0.999018
+  rew/action_bonus                              8.422757
+  rew/clearance                                 -0.011053
+  rew/flipper_action_bonus                      0.106501
+  rew/joint_ang_from_flat_penalty               -0.109028
+  rew/joint_angle_var_penalty                   -0.099038
+  rew/pitch_penalty                             -0.071278
+  rew/pitch_rate_penalty                        -0.127925
+  rew/roll_penalty                              -0.014759
+  rew/roll_rate_penalty                         -0.152970
+  rew/shaping                                   1.910391
+  rew/shock_penalty                             -0.114479
+  rew/step_penalty                              -0.118978
+  rew/terminal_bonus                            0.123361
+  rew/total_reward                              9.742220
+  shock/accel_magnitude                         2.518265
+  shock/accel_magnitude_max                     21.389690
+  shock/accel_magnitude_min                     0.241059
+  shock/accel_p90                               2.758975
+  shock/accel_p95                               2.858330
+  shock/accel_p99                               3.128061
+  shock/shock_normalised                        0.007632
+  shock/shock_normalised_max                    0.810180
+  shock/shock_normalised_min                    0.000000
+  state/ang_velocity                            0.229967
+  state/ang_velocity_max                        1.977476
+  state/ang_velocity_min                        0.015329
+  state/lin_velocity                            0.407092
+  state/lin_velocity_max                        1.001173
+  state/lin_velocity_min                        0.024716
+  state/pitch                                   -0.049002
+  state/pitch_max                               0.429325
+  state/pitch_min                               -0.368367
+  state/roll                                    -0.029388
+  state/roll_max                                0.363357
+  state/roll_min                                -0.559750
+  state/success_lin_velocity                    0.130418
+  torque/flipper_torque_FL                      494.005170
+  torque/flipper_torque_FL_max                  1000.000000
+  torque/flipper_torque_FL_min                  3.178667
+  torque/flipper_torque_FR                      491.100729
+  torque/flipper_torque_FR_max                  1000.000000
+  torque/flipper_torque_FR_min                  3.158026
+  torque/flipper_torque_RL                      501.750138
+  torque/flipper_torque_RL_max                  1000.000000
+  torque/flipper_torque_RL_min                  2.967620
+  torque/flipper_torque_RR                      526.841795
+  torque/flipper_torque_RR_max                  1000.000000
+  torque/flipper_torque_RR_min                  3.389370
+2026-08-12 10:52:29,210 [eval_ftr][[92mINFO[00m]: Saved repeat 4 CSV → /ws/logs/eval_auto_11335881 (eval_ftr.py:533)
+2026-08-12 10:52:29,211 [eval_ftr][[92mINFO[00m]: Running eval rollout 5/15 (max_steps=2000) ... (eval_ftr.py:462)
+
+============================================================
+Repeat 5/15
+============================================================
+  clearance/height                              0.046685
+  clearance/height_max                          0.237454
+  clearance/height_min                          -0.065569
+  eval/explosion_rate                           0.000000
+  eval/failure_rate                             0.081967
+  eval/max_step_reward                          25.773527
+  eval/mean_step_reward                         -0.002321
+  eval/min_step_reward                          -6.385701
+  eval/pct_terminated                           0.001189
+  eval/pct_truncated                            0.000121
+  eval/rollout_steps                            2000.000000
+  eval/success_rate                             0.825633
+  observations/ang_vel_x_max                    12.166541
+  observations/ang_vel_x_mean                   -0.001064
+  observations/ang_vel_x_min                    -13.365080
+  observations/ang_vel_x_std                    1.001383
+  observations/ang_vel_y_max                    17.171576
+  observations/ang_vel_y_mean                   -0.000928
+  observations/ang_vel_y_min                    -11.328520
+  observations/ang_vel_y_std                    1.001807
+  observations/ang_vel_z_max                    8.771525
+  observations/ang_vel_z_mean                   0.000916
+  observations/ang_vel_z_min                    -7.498180
+  observations/ang_vel_z_std                    1.000498
+  observations/flipper_fl_max                   3.396979
+  observations/flipper_fl_mean                  -0.000277
+  observations/flipper_fl_min                   -4.454397
+  observations/flipper_fl_std                   1.000029
+  observations/flipper_fr_max                   4.195698
+  observations/flipper_fr_mean                  -0.002047
+  observations/flipper_fr_min                   -5.059202
+  observations/flipper_fr_std                   1.002418
+  observations/flipper_rl_max                   2.021843
+  observations/flipper_rl_mean                  -0.001860
+  observations/flipper_rl_min                   -3.759615
+  observations/flipper_rl_std                   1.001477
+  observations/flipper_rr_max                   3.771961
+  observations/flipper_rr_mean                  0.002962
+  observations/flipper_rr_min                   -3.219162
+  observations/flipper_rr_std                   0.998620
+  observations/goal_x_max                       46.997417
+  observations/goal_x_mean                      -0.038709
+  observations/goal_x_min                       -43.224998
+  observations/goal_x_std                       0.979766
+  observations/goal_y_max                       102.804596
+  observations/goal_y_mean                      -0.006746
+  observations/goal_y_min                       -61.031357
+  observations/goal_y_std                       0.959317
+  observations/goal_z_max                       4.964227
+  observations/goal_z_mean                      0.002631
+  observations/goal_z_min                       -4.785457
+  observations/goal_z_std                       1.003431
+  observations/heightmap_max                    6.562243
+  observations/heightmap_mean                   -0.000268
+  observations/heightmap_min                    -16.637403
+  observations/heightmap_std                    0.999712
+  observations/lin_vel_x_max                    4.976386
+  observations/lin_vel_x_mean                   -0.003784
+  observations/lin_vel_x_min                    -4.169752
+  observations/lin_vel_x_std                    0.998319
+  observations/lin_vel_y_max                    12.447872
+  observations/lin_vel_y_mean                   0.000368
+  observations/lin_vel_y_min                    -11.545841
+  observations/lin_vel_y_std                    0.999968
+  observations/lin_vel_z_max                    6.332923
+  observations/lin_vel_z_mean                   0.001960
+  observations/lin_vel_z_min                    -10.960577
+  observations/lin_vel_z_std                    1.001634
+  observations/pitch_max                        11.347865
+  observations/pitch_mean                       0.002421
+  observations/pitch_min                        -4.204518
+  observations/pitch_std                        1.000969
+  observations/roll_max                         7.219881
+  observations/roll_mean                        0.000655
+  observations/roll_min                         -12.712613
+  observations/roll_std                         0.994637
+  rew/action_bonus                              8.489559
+  rew/clearance                                 -0.009884
+  rew/flipper_action_bonus                      0.107532
+  rew/joint_ang_from_flat_penalty               -0.108211
+  rew/joint_angle_var_penalty                   -0.098319
+  rew/pitch_penalty                             -0.070463
+  rew/pitch_rate_penalty                        -0.129842
+  rew/roll_penalty                              -0.012183
+  rew/roll_rate_penalty                         -0.154157
+  rew/shaping                                   1.926214
+  rew/shock_penalty                             -0.114650
+  rew/step_penalty                              -0.118978
+  rew/terminal_bonus                            0.136947
+  rew/total_reward                              9.842572
+  shock/accel_magnitude                         2.517392
+  shock/accel_magnitude_max                     21.187680
+  shock/accel_magnitude_min                     0.221245
+  shock/accel_p90                               2.760391
+  shock/accel_p95                               2.853793
+  shock/accel_p99                               3.044967
+  shock/shock_normalised                        0.007643
+  shock/shock_normalised_max                    0.814443
+  shock/shock_normalised_min                    0.000000
+  state/ang_velocity                            0.232192
+  state/ang_velocity_max                        1.988389
+  state/ang_velocity_min                        0.014410
+  state/lin_velocity                            0.413932
+  state/lin_velocity_max                        1.002311
+  state/lin_velocity_min                        0.023564
+  state/pitch                                   -0.048305
+  state/pitch_max                               0.426010
+  state/pitch_min                               -0.351554
+  state/roll                                    -0.025793
+  state/roll_max                                0.348941
+  state/roll_min                                -0.473436
+  state/success_lin_velocity                    0.142811
+  torque/flipper_torque_FL                      493.002398
+  torque/flipper_torque_FL_max                  1000.000000
+  torque/flipper_torque_FL_min                  3.008918
+  torque/flipper_torque_FR                      490.106460
+  torque/flipper_torque_FR_max                  1000.000000
+  torque/flipper_torque_FR_min                  3.091324
+  torque/flipper_torque_RL                      503.544604
+  torque/flipper_torque_RL_max                  1000.000000
+  torque/flipper_torque_RL_min                  3.199366
+  torque/flipper_torque_RR                      527.522886
+  torque/flipper_torque_RR_max                  1000.000000
+  torque/flipper_torque_RR_min                  3.571169
+2026-08-12 10:57:29,422 [eval_ftr][[92mINFO[00m]: Saved repeat 5 CSV → /ws/logs/eval_auto_11335881 (eval_ftr.py:533)
+2026-08-12 10:57:29,422 [eval_ftr][[92mINFO[00m]: Running eval rollout 6/15 (max_steps=2000) ... (eval_ftr.py:462)
+
+============================================================
+Repeat 6/15
+============================================================
+  clearance/height                              0.047098
+  clearance/height_max                          0.240755
+  clearance/height_min                          -0.064500
+  eval/explosion_rate                           0.000000
+  eval/failure_rate                             0.115326
+  eval/max_step_reward                          25.191555
+  eval/mean_step_reward                         -0.001969
+  eval/min_step_reward                          -6.581662
+  eval/pct_terminated                           0.001150
+  eval/pct_truncated                            0.000137
+  eval/rollout_steps                            2000.000000
+  eval/success_rate                             0.778452
+  observations/ang_vel_x_max                    13.819877
+  observations/ang_vel_x_mean                   0.000247
+  observations/ang_vel_x_min                    -13.566125
+  observations/ang_vel_x_std                    0.999063
+  observations/ang_vel_y_max                    11.201343
+  observations/ang_vel_y_mean                   0.000954
+  observations/ang_vel_y_min                    -10.635426
+  observations/ang_vel_y_std                    0.998202
+  observations/ang_vel_z_max                    7.224840
+  observations/ang_vel_z_mean                   -0.001002
+  observations/ang_vel_z_min                    -7.935007
+  observations/ang_vel_z_std                    0.999535
+  observations/flipper_fl_max                   3.440404
+  observations/flipper_fl_mean                  -0.000565
+  observations/flipper_fl_min                   -4.879151
+  observations/flipper_fl_std                   0.996801
+  observations/flipper_fr_max                   3.931376
+  observations/flipper_fr_mean                  -0.008297
+  observations/flipper_fr_min                   -4.854309
+  observations/flipper_fr_std                   0.997311
+  observations/flipper_rl_max                   2.101811
+  observations/flipper_rl_mean                  0.007766
+  observations/flipper_rl_min                   -3.393045
+  observations/flipper_rl_std                   0.996407
+  observations/flipper_rr_max                   3.965315
+  observations/flipper_rr_mean                  0.009681
+  observations/flipper_rr_min                   -3.457017
+  observations/flipper_rr_std                   1.000811
+  observations/goal_x_max                       39.319344
+  observations/goal_x_mean                      -0.043192
+  observations/goal_x_min                       -41.118805
+  observations/goal_x_std                       0.970279
+  observations/goal_y_max                       60.393372
+  observations/goal_y_mean                      -0.010302
+  observations/goal_y_min                       -66.229210
+  observations/goal_y_std                       0.937871
+  observations/goal_z_max                       4.777417
+  observations/goal_z_mean                      -0.002802
+  observations/goal_z_min                       -5.351478
+  observations/goal_z_std                       0.998094
+  observations/heightmap_max                    6.674337
+  observations/heightmap_mean                   -0.001312
+  observations/heightmap_min                    -13.697961
+  observations/heightmap_std                    0.998850
+  observations/lin_vel_x_max                    3.497219
+  observations/lin_vel_x_mean                   0.001120
+  observations/lin_vel_x_min                    -4.613307
+  observations/lin_vel_x_std                    1.000535
+  observations/lin_vel_y_max                    14.037497
+  observations/lin_vel_y_mean                   0.000325
+  observations/lin_vel_y_min                    -11.098422
+  observations/lin_vel_y_std                    1.000561
+  observations/lin_vel_z_max                    6.187496
+  observations/lin_vel_z_mean                   -0.000808
+  observations/lin_vel_z_min                    -11.386539
+  observations/lin_vel_z_std                    0.998682
+  observations/pitch_max                        6.451282
+  observations/pitch_mean                       0.001547
+  observations/pitch_min                        -4.408348
+  observations/pitch_std                        0.997188
+  observations/roll_max                         11.823273
+  observations/roll_mean                        -0.009341
+  observations/roll_min                         -14.518610
+  observations/roll_std                         1.014640
+  rew/action_bonus                              8.475268
+  rew/clearance                                 -0.010726
+  rew/flipper_action_bonus                      0.107602
+  rew/joint_ang_from_flat_penalty               -0.109667
+  rew/joint_angle_var_penalty                   -0.096447
+  rew/pitch_penalty                             -0.070511
+  rew/pitch_rate_penalty                        -0.129962
+  rew/roll_penalty                              -0.016323
+  rew/roll_rate_penalty                         -0.153525
+  rew/shaping                                   1.916471
+  rew/shock_penalty                             -0.114037
+  rew/step_penalty                              -0.118978
+  rew/terminal_bonus                            0.125346
+  rew/total_reward                              9.803151
+  shock/accel_magnitude                         2.516859
+  shock/accel_magnitude_max                     21.179154
+  shock/accel_magnitude_min                     0.234699
+  shock/accel_p90                               2.755046
+  shock/accel_p95                               2.838464
+  shock/accel_p99                               3.001780
+  shock/shock_normalised                        0.007602
+  shock/shock_normalised_max                    0.804049
+  shock/shock_normalised_min                    0.000000
+  state/ang_velocity                            0.232137
+  state/ang_velocity_max                        1.993045
+  state/ang_velocity_min                        0.015255
+  state/lin_velocity                            0.412262
+  state/lin_velocity_max                        0.998354
+  state/lin_velocity_min                        0.024739
+  state/pitch                                   -0.044231
+  state/pitch_max                               0.434743
+  state/pitch_min                               -0.366504
+  state/roll                                    -0.031844
+  state/roll_max                                0.336118
+  state/roll_min                                -0.602585
+  state/success_lin_velocity                    0.130291
+  torque/flipper_torque_FL                      494.687248
+  torque/flipper_torque_FL_max                  1000.000000
+  torque/flipper_torque_FL_min                  3.138506
+  torque/flipper_torque_FR                      490.604779
+  torque/flipper_torque_FR_max                  1000.000000
+  torque/flipper_torque_FR_min                  3.067580
+  torque/flipper_torque_RL                      503.049197
+  torque/flipper_torque_RL_max                  1000.000000
+  torque/flipper_torque_RL_min                  3.079175
+  torque/flipper_torque_RR                      527.999267
+  torque/flipper_torque_RR_max                  1000.000000
+  torque/flipper_torque_RR_min                  3.383061
+2026-08-12 11:02:33,612 [eval_ftr][[92mINFO[00m]: Saved repeat 6 CSV → /ws/logs/eval_auto_11335881 (eval_ftr.py:533)
+2026-08-12 11:02:33,612 [eval_ftr][[92mINFO[00m]: Running eval rollout 7/15 (max_steps=2000) ... (eval_ftr.py:462)
+
+============================================================
+Repeat 7/15
+============================================================
+  clearance/height                              0.047585
+  clearance/height_max                          0.264822
+  clearance/height_min                          -0.064401
+  eval/explosion_rate                           0.000000
+  eval/failure_rate                             0.118003
+  eval/max_step_reward                          25.777872
+  eval/mean_step_reward                         0.001355
+  eval/min_step_reward                          -6.538044
+  eval/pct_terminated                           0.001150
+  eval/pct_truncated                            0.000141
+  eval/rollout_steps                            2000.000000
+  eval/success_rate                             0.773071
+  observations/ang_vel_x_max                    12.942500
+  observations/ang_vel_x_mean                   0.000845
+  observations/ang_vel_x_min                    -12.693612
+  observations/ang_vel_x_std                    0.999256
+  observations/ang_vel_y_max                    16.391991
+  observations/ang_vel_y_mean                   -0.000563
+  observations/ang_vel_y_min                    -10.260771
+  observations/ang_vel_y_std                    1.003832
+  observations/ang_vel_z_max                    7.856276
+  observations/ang_vel_z_mean                   0.000404
+  observations/ang_vel_z_min                    -8.312545
+  observations/ang_vel_z_std                    1.000420
+  observations/flipper_fl_max                   3.600800
+  observations/flipper_fl_mean                  -0.005146
+  observations/flipper_fl_min                   -4.085031
+  observations/flipper_fl_std                   1.000544
+  observations/flipper_fr_max                   3.867935
+  observations/flipper_fr_mean                  -0.011115
+  observations/flipper_fr_min                   -5.434286
+  observations/flipper_fr_std                   1.004128
+  observations/flipper_rl_max                   2.042705
+  observations/flipper_rl_mean                  0.003618
+  observations/flipper_rl_min                   -3.471948
+  observations/flipper_rl_std                   1.000258
+  observations/flipper_rr_max                   4.094751
+  observations/flipper_rr_mean                  0.016882
+  observations/flipper_rr_min                   -3.530719
+  observations/flipper_rr_std                   1.001349
+  observations/goal_x_max                       39.681332
+  observations/goal_x_mean                      -0.045830
+  observations/goal_x_min                       -43.285480
+  observations/goal_x_std                       0.984868
+  observations/goal_y_max                       62.558113
+  observations/goal_y_mean                      -0.007011
+  observations/goal_y_min                       -89.838539
+  observations/goal_y_std                       0.929282
+  observations/goal_z_max                       5.805748
+  observations/goal_z_mean                      0.003046
+  observations/goal_z_min                       -5.287899
+  observations/goal_z_std                       0.997935
+  observations/heightmap_max                    6.412158
+  observations/heightmap_mean                   0.002135
+  observations/heightmap_min                    -16.825247
+  observations/heightmap_std                    1.001633
+  observations/lin_vel_x_max                    6.136122
+  observations/lin_vel_x_mean                   0.003271
+  observations/lin_vel_x_min                    -4.417505
+  observations/lin_vel_x_std                    1.000116
+  observations/lin_vel_y_max                    10.663143
+  observations/lin_vel_y_mean                   -0.000498
+  observations/lin_vel_y_min                    -10.732039
+  observations/lin_vel_y_std                    0.999499
+  observations/lin_vel_z_max                    6.644906
+  observations/lin_vel_z_mean                   -0.000402
+  observations/lin_vel_z_min                    -10.739676
+  observations/lin_vel_z_std                    1.002689
+  observations/pitch_max                        11.690993
+  observations/pitch_mean                       0.004797
+  observations/pitch_min                        -3.838287
+  observations/pitch_std                        1.003597
+  observations/roll_max                         7.623146
+  observations/roll_mean                        0.005855
+  observations/roll_min                         -13.777037
+  observations/roll_std                         0.982998
+  rew/action_bonus                              8.475307
+  rew/clearance                                 -0.010634
+  rew/flipper_action_bonus                      0.106135
+  rew/joint_ang_from_flat_penalty               -0.109509
+  rew/joint_angle_var_penalty                   -0.098009
+  rew/pitch_penalty                             -0.067769
+  rew/pitch_rate_penalty                        -0.128890
+  rew/roll_penalty                              -0.014831
+  rew/roll_rate_penalty                         -0.154284
+  rew/shaping                                   1.905487
+  rew/shock_penalty                             -0.113115
+  rew/step_penalty                              -0.118978
+  rew/terminal_bonus                            0.124723
+  rew/total_reward                              9.794216
+  shock/accel_magnitude                         2.533543
+  shock/accel_magnitude_max                     21.610451
+  shock/accel_magnitude_min                     0.239503
+  shock/accel_p90                               2.769858
+  shock/accel_p95                               2.846603
+  shock/accel_p99                               3.043031
+  shock/shock_normalised                        0.007541
+  shock/shock_normalised_max                    0.800137
+  shock/shock_normalised_min                    0.000000
+  state/ang_velocity                            0.231821
+  state/ang_velocity_max                        2.029087
+  state/ang_velocity_min                        0.015347
+  state/lin_velocity                            0.410901
+  state/lin_velocity_max                        1.018032
+  state/lin_velocity_min                        0.025126
+  state/pitch                                   -0.042069
+  state/pitch_max                               0.440648
+  state/pitch_min                               -0.344463
+  state/roll                                    -0.027685
+  state/roll_max                                0.346471
+  state/roll_min                                -0.512892
+  state/success_lin_velocity                    0.136150
+  torque/flipper_torque_FL                      493.223850
+  torque/flipper_torque_FL_max                  1000.000000
+  torque/flipper_torque_FL_min                  3.153204
+  torque/flipper_torque_FR                      489.229898
+  torque/flipper_torque_FR_max                  1000.000000
+  torque/flipper_torque_FR_min                  3.106705
+  torque/flipper_torque_RL                      500.495815
+  torque/flipper_torque_RL_max                  1000.000000
+  torque/flipper_torque_RL_min                  2.987846
+  torque/flipper_torque_RR                      526.950288
+  torque/flipper_torque_RR_max                  1000.000000
+  torque/flipper_torque_RR_min                  3.352140
+2026-08-12 11:07:34,436 [eval_ftr][[92mINFO[00m]: Saved repeat 7 CSV → /ws/logs/eval_auto_11335881 (eval_ftr.py:533)
+2026-08-12 11:07:34,436 [eval_ftr][[92mINFO[00m]: Running eval rollout 8/15 (max_steps=2000) ... (eval_ftr.py:462)
+
+============================================================
+Repeat 8/15
+============================================================
+  clearance/height                              0.046728
+  clearance/height_max                          0.234478
+  clearance/height_min                          -0.064521
+  eval/explosion_rate                           0.000000
+  eval/failure_rate                             0.092125
+  eval/max_step_reward                          25.098856
+  eval/mean_step_reward                         -0.004704
+  eval/min_step_reward                          -6.525149
+  eval/pct_terminated                           0.001180
+  eval/pct_truncated                            0.000135
+  eval/rollout_steps                            2000.000000
+  eval/success_rate                             0.805349
+  observations/ang_vel_x_max                    13.904423
+  observations/ang_vel_x_mean                   -0.000736
+  observations/ang_vel_x_min                    -13.363331
+  observations/ang_vel_x_std                    0.999326
+  observations/ang_vel_y_max                    12.446092
+  observations/ang_vel_y_mean                   0.000246
+  observations/ang_vel_y_min                    -11.198641
+  observations/ang_vel_y_std                    0.994820
+  observations/ang_vel_z_max                    10.499937
+  observations/ang_vel_z_mean                   -0.000184
+  observations/ang_vel_z_min                    -9.350124
+  observations/ang_vel_z_std                    0.999982
+  observations/flipper_fl_max                   3.338742
+  observations/flipper_fl_mean                  0.003099
+  observations/flipper_fl_min                   -4.276722
+  observations/flipper_fl_std                   0.994995
+  observations/flipper_fr_max                   3.816630
+  observations/flipper_fr_mean                  -0.001791
+  observations/flipper_fr_min                   -4.571939
+  observations/flipper_fr_std                   0.993979
+  observations/flipper_rl_max                   2.128214
+  observations/flipper_rl_mean                  0.000449
+  observations/flipper_rl_min                   -3.914436
+  observations/flipper_rl_std                   0.998071
+  observations/flipper_rr_max                   3.617757
+  observations/flipper_rr_mean                  -0.001118
+  observations/flipper_rr_min                   -3.753028
+  observations/flipper_rr_std                   0.993917
+  observations/goal_x_max                       42.413437
+  observations/goal_x_mean                      -0.040160
+  observations/goal_x_min                       -45.196438
+  observations/goal_x_std                       0.974121
+  observations/goal_y_max                       88.192642
+  observations/goal_y_mean                      -0.008906
+  observations/goal_y_min                       -78.304039
+  observations/goal_y_std                       0.944613
+  observations/goal_z_max                       6.507601
+  observations/goal_z_mean                      -0.003572
+  observations/goal_z_min                       -4.879128
+  observations/goal_z_std                       1.002484
+  observations/heightmap_max                    6.935426
+  observations/heightmap_mean                   -0.001705
+  observations/heightmap_min                    -13.851408
+  observations/heightmap_std                    0.998229
+  observations/lin_vel_x_max                    3.565938
+  observations/lin_vel_x_mean                   -0.006563
+  observations/lin_vel_x_min                    -4.032815
+  observations/lin_vel_x_std                    0.998852
+  observations/lin_vel_y_max                    11.596503
+  observations/lin_vel_y_mean                   -0.000043
+  observations/lin_vel_y_min                    -11.620135
+  observations/lin_vel_y_std                    1.000040
+  observations/lin_vel_z_max                    6.619118
+  observations/lin_vel_z_mean                   0.002604
+  observations/lin_vel_z_min                    -11.191958
+  observations/lin_vel_z_std                    0.997132
+  observations/pitch_max                        7.248844
+  observations/pitch_mean                       -0.007668
+  observations/pitch_min                        -4.033507
+  observations/pitch_std                        0.995741
+  observations/roll_max                         8.138966
+  observations/roll_mean                        0.000196
+  observations/roll_min                         -14.326102
+  observations/roll_std                         1.006057
+  rew/action_bonus                              8.534641
+  rew/clearance                                 -0.010195
+  rew/flipper_action_bonus                      0.107637
+  rew/joint_ang_from_flat_penalty               -0.109047
+  rew/joint_angle_var_penalty                   -0.094032
+  rew/pitch_penalty                             -0.074687
+  rew/pitch_rate_penalty                        -0.129653
+  rew/roll_penalty                              -0.013540
+  rew/roll_rate_penalty                         -0.151786
+  rew/shaping                                   1.932751
+  rew/shock_penalty                             -0.112200
+  rew/step_penalty                              -0.118978
+  rew/terminal_bonus                            0.133502
+  rew/total_reward                              9.893299
+  shock/accel_magnitude                         2.500921
+  shock/accel_magnitude_max                     21.203936
+  shock/accel_magnitude_min                     0.206691
+  shock/accel_p90                               2.740690
+  shock/accel_p95                               2.819954
+  shock/accel_p99                               3.031594
+  shock/shock_normalised                        0.007480
+  shock/shock_normalised_max                    0.799157
+  shock/shock_normalised_min                    0.000000
+  state/ang_velocity                            0.230257
+  state/ang_velocity_max                        1.986897
+  state/ang_velocity_min                        0.013274
+  state/lin_velocity                            0.416537
+  state/lin_velocity_max                        1.006383
+  state/lin_velocity_min                        0.022755
+  state/pitch                                   -0.050221
+  state/pitch_max                               0.430309
+  state/pitch_min                               -0.366037
+  state/roll                                    -0.026081
+  state/roll_max                                0.359293
+  state/roll_min                                -0.524894
+  state/success_lin_velocity                    0.129600
+  torque/flipper_torque_FL                      494.049291
+  torque/flipper_torque_FL_max                  1000.000000
+  torque/flipper_torque_FL_min                  3.201012
+  torque/flipper_torque_FR                      490.481540
+  torque/flipper_torque_FR_max                  1000.000000
+  torque/flipper_torque_FR_min                  3.029463
+  torque/flipper_torque_RL                      502.758743
+  torque/flipper_torque_RL_max                  1000.000000
+  torque/flipper_torque_RL_min                  3.152652
+  torque/flipper_torque_RR                      526.541784
+  torque/flipper_torque_RR_max                  1000.000000
+  torque/flipper_torque_RR_min                  3.504007
+2026-08-12 11:12:34,400 [eval_ftr][[92mINFO[00m]: Saved repeat 8 CSV → /ws/logs/eval_auto_11335881 (eval_ftr.py:533)
+2026-08-12 11:12:34,400 [eval_ftr][[92mINFO[00m]: Running eval rollout 9/15 (max_steps=2000) ... (eval_ftr.py:462)
+
+============================================================
+Repeat 9/15
+============================================================
+  clearance/height                              0.045512
+  clearance/height_max                          0.273758
+  clearance/height_min                          -0.066346
+  eval/explosion_rate                           0.000000
+  eval/failure_rate                             0.104863
+  eval/max_step_reward                          25.648550
+  eval/mean_step_reward                         0.001436
+  eval/min_step_reward                          -6.360310
+  eval/pct_terminated                           0.001150
+  eval/pct_truncated                            0.000135
+  eval/rollout_steps                            2000.000000
+  eval/success_rate                             0.790274
+  observations/ang_vel_x_max                    13.165747
+  observations/ang_vel_x_mean                   0.000140
+  observations/ang_vel_x_min                    -13.288007
+  observations/ang_vel_x_std                    1.001353
+  observations/ang_vel_y_max                    17.115597
+  observations/ang_vel_y_mean                   0.000089
+  observations/ang_vel_y_min                    -10.933057
+  observations/ang_vel_y_std                    1.004538
+  observations/ang_vel_z_max                    8.963890
+  observations/ang_vel_z_mean                   0.000707
+  observations/ang_vel_z_min                    -15.777337
+  observations/ang_vel_z_std                    1.000054
+  observations/flipper_fl_max                   3.623242
+  observations/flipper_fl_mean                  -0.000539
+  observations/flipper_fl_min                   -4.980201
+  observations/flipper_fl_std                   1.003033
+  observations/flipper_fr_max                   4.523064
+  observations/flipper_fr_mean                  -0.012280
+  observations/flipper_fr_min                   -5.175678
+  observations/flipper_fr_std                   1.001393
+  observations/flipper_rl_max                   2.128330
+  observations/flipper_rl_mean                  0.005346
+  observations/flipper_rl_min                   -3.547227
+  observations/flipper_rl_std                   1.001806
+  observations/flipper_rr_max                   4.265209
+  observations/flipper_rr_mean                  0.015740
+  observations/flipper_rr_min                   -3.401161
+  observations/flipper_rr_std                   1.002648
+  observations/goal_x_max                       45.521049
+  observations/goal_x_mean                      -0.042695
+  observations/goal_x_min                       -47.475433
+  observations/goal_x_std                       0.980369
+  observations/goal_y_max                       55.123001
+  observations/goal_y_mean                      -0.010794
+  observations/goal_y_min                       -71.514259
+  observations/goal_y_std                       0.934389
+  observations/goal_z_max                       4.889756
+  observations/goal_z_mean                      0.002634
+  observations/goal_z_min                       -5.216878
+  observations/goal_z_std                       0.997010
+  observations/heightmap_max                    6.661063
+  observations/heightmap_mean                   0.001373
+  observations/heightmap_min                    -17.452616
+  observations/heightmap_std                    1.001606
+  observations/lin_vel_x_max                    5.926211
+  observations/lin_vel_x_mean                   0.005806
+  observations/lin_vel_x_min                    -3.498131
+  observations/lin_vel_x_std                    1.000884
+  observations/lin_vel_y_max                    12.404750
+  observations/lin_vel_y_mean                   -0.000151
+  observations/lin_vel_y_min                    -10.668851
+  observations/lin_vel_y_std                    0.999930
+  observations/lin_vel_z_max                    6.526290
+  observations/lin_vel_z_mean                   -0.000439
+  observations/lin_vel_z_min                    -11.019614
+  observations/lin_vel_z_std                    1.001607
+  observations/pitch_max                        13.024462
+  observations/pitch_mean                       0.009538
+  observations/pitch_min                        -4.771525
+  observations/pitch_std                        1.002668
+  observations/roll_max                         8.084762
+  observations/roll_mean                        -0.004497
+  observations/roll_min                         -10.727921
+  observations/roll_std                         0.999802
+  rew/action_bonus                              8.490154
+  rew/clearance                                 -0.010182
+  rew/flipper_action_bonus                      0.107242
+  rew/joint_ang_from_flat_penalty               -0.109524
+  rew/joint_angle_var_penalty                   -0.098492
+  rew/pitch_penalty                             -0.068753
+  rew/pitch_rate_penalty                        -0.130541
+  rew/roll_penalty                              -0.013994
+  rew/roll_rate_penalty                         -0.153866
+  rew/shaping                                   1.915679
+  rew/shock_penalty                             -0.115318
+  rew/step_penalty                              -0.118978
+  rew/terminal_bonus                            0.127526
+  rew/total_reward                              9.819695
+  shock/accel_magnitude                         2.536721
+  shock/accel_magnitude_max                     21.293579
+  shock/accel_magnitude_min                     0.238595
+  shock/accel_p90                               2.788127
+  shock/accel_p95                               2.892673
+  shock/accel_p99                               3.100402
+  shock/shock_normalised                        0.007688
+  shock/shock_normalised_max                    0.803971
+  shock/shock_normalised_min                    0.000000
+  state/ang_velocity                            0.233053
+  state/ang_velocity_max                        2.011054
+  state/ang_velocity_min                        0.015268
+  state/lin_velocity                            0.413104
+  state/lin_velocity_max                        1.008718
+  state/lin_velocity_min                        0.022288
+  state/pitch                                   -0.043228
+  state/pitch_max                               0.426501
+  state/pitch_min                               -0.361345
+  state/roll                                    -0.029092
+  state/roll_max                                0.363477
+  state/roll_min                                -0.534053
+  state/success_lin_velocity                    0.137957
+  torque/flipper_torque_FL                      492.972771
+  torque/flipper_torque_FL_max                  1000.000000
+  torque/flipper_torque_FL_min                  2.999100
+  torque/flipper_torque_FR                      489.449908
+  torque/flipper_torque_FR_max                  1000.000000
+  torque/flipper_torque_FR_min                  3.244149
+  torque/flipper_torque_RL                      502.136366
+  torque/flipper_torque_RL_max                  1000.000000
+  torque/flipper_torque_RL_min                  3.051774
+  torque/flipper_torque_RR                      526.703235
+  torque/flipper_torque_RR_max                  1000.000000
+  torque/flipper_torque_RR_min                  3.403514
+2026-08-12 11:17:40,208 [eval_ftr][[92mINFO[00m]: Saved repeat 9 CSV → /ws/logs/eval_auto_11335881 (eval_ftr.py:533)
+2026-08-12 11:17:40,208 [eval_ftr][[92mINFO[00m]: Running eval rollout 10/15 (max_steps=2000) ... (eval_ftr.py:462)
+
+============================================================
+Repeat 10/15
+============================================================
+  clearance/height                              0.047948
+  clearance/height_max                          0.241121
+  clearance/height_min                          -0.065019
+  eval/explosion_rate                           0.000000
+  eval/failure_rate                             0.109145
+  eval/max_step_reward                          25.291859
+  eval/mean_step_reward                         -0.003714
+  eval/min_step_reward                          -6.563059
+  eval/pct_terminated                           0.001215
+  eval/pct_truncated                            0.000109
+  eval/rollout_steps                            2000.000000
+  eval/success_rate                             0.808260
+  observations/ang_vel_x_max                    12.991141
+  observations/ang_vel_x_mean                   -0.000770
+  observations/ang_vel_x_min                    -13.253485
+  observations/ang_vel_x_std                    0.999476
+  observations/ang_vel_y_max                    12.409859
+  observations/ang_vel_y_mean                   -0.001149
+  observations/ang_vel_y_min                    -11.437640
+  observations/ang_vel_y_std                    0.996380
+  observations/ang_vel_z_max                    10.608187
+  observations/ang_vel_z_mean                   -0.000323
+  observations/ang_vel_z_min                    -10.872295
+  observations/ang_vel_z_std                    0.999805
+  observations/flipper_fl_max                   3.241278
+  observations/flipper_fl_mean                  -0.002873
+  observations/flipper_fl_min                   -4.686955
+  observations/flipper_fl_std                   0.997155
+  observations/flipper_fr_max                   3.838016
+  observations/flipper_fr_mean                  -0.003002
+  observations/flipper_fr_min                   -4.774186
+  observations/flipper_fr_std                   1.000110
+  observations/flipper_rl_max                   1.997651
+  observations/flipper_rl_mean                  -0.001305
+  observations/flipper_rl_min                   -3.638897
+  observations/flipper_rl_std                   0.998123
+  observations/flipper_rr_max                   3.843704
+  observations/flipper_rr_mean                  0.000260
+  observations/flipper_rr_min                   -3.365474
+  observations/flipper_rr_std                   0.994709
+  observations/goal_x_max                       36.862206
+  observations/goal_x_mean                      -0.041084
+  observations/goal_x_min                       -50.771263
+  observations/goal_x_std                       0.979855
+  observations/goal_y_max                       79.140587
+  observations/goal_y_mean                      -0.004771
+  observations/goal_y_min                       -62.868279
+  observations/goal_y_std                       0.957802
+  observations/goal_z_max                       4.935884
+  observations/goal_z_mean                      0.003028
+  observations/goal_z_min                       -4.795267
+  observations/goal_z_std                       1.004755
+  observations/heightmap_max                    6.712509
+  observations/heightmap_mean                   -0.000151
+  observations/heightmap_min                    -14.575185
+  observations/heightmap_std                    0.997469
+  observations/lin_vel_x_max                    3.515174
+  observations/lin_vel_x_mean                   -0.007474
+  observations/lin_vel_x_min                    -4.809944
+  observations/lin_vel_x_std                    0.999032
+  observations/lin_vel_y_max                    12.186409
+  observations/lin_vel_y_mean                   0.000574
+  observations/lin_vel_y_min                    -10.251992
+  observations/lin_vel_y_std                    0.999950
+  observations/lin_vel_z_max                    6.434900
+  observations/lin_vel_z_mean                   0.001013
+  observations/lin_vel_z_min                    -10.535393
+  observations/lin_vel_z_std                    0.999031
+  observations/pitch_max                        7.117802
+  observations/pitch_mean                       -0.006180
+  observations/pitch_min                        -4.396371
+  observations/pitch_std                        1.000451
+  observations/roll_max                         7.481565
+  observations/roll_mean                        -0.001735
+  observations/roll_min                         -13.983183
+  observations/roll_std                         0.993764
+  rew/action_bonus                              8.564565
+  rew/clearance                                 -0.010028
+  rew/flipper_action_bonus                      0.107769
+  rew/joint_ang_from_flat_penalty               -0.109521
+  rew/joint_angle_var_penalty                   -0.096339
+  rew/pitch_penalty                             -0.068864
+  rew/pitch_rate_penalty                        -0.130814
+  rew/roll_penalty                              -0.015491
+  rew/roll_rate_penalty                         -0.154748
+  rew/shaping                                   1.926988
+  rew/shock_penalty                             -0.114579
+  rew/step_penalty                              -0.118978
+  rew/terminal_bonus                            0.134318
+  rew/total_reward                              9.912936
+  shock/accel_magnitude                         2.524665
+  shock/accel_magnitude_max                     21.281626
+  shock/accel_magnitude_min                     0.234778
+  shock/accel_p90                               2.778298
+  shock/accel_p95                               2.866558
+  shock/accel_p99                               3.049513
+  shock/shock_normalised                        0.007639
+  shock/shock_normalised_max                    0.806503
+  shock/shock_normalised_min                    0.000000
+  state/ang_velocity                            0.233398
+  state/ang_velocity_max                        2.032572
+  state/ang_velocity_min                        0.015225
+  state/lin_velocity                            0.418444
+  state/lin_velocity_max                        1.013672
+  state/lin_velocity_min                        0.023670
+  state/pitch                                   -0.043955
+  state/pitch_max                               0.452965
+  state/pitch_min                               -0.360310
+  state/roll                                    -0.027913
+  state/roll_max                                0.383630
+  state/roll_min                                -0.553630
+  state/success_lin_velocity                    0.136788
+  torque/flipper_torque_FL                      493.357547
+  torque/flipper_torque_FL_max                  1000.000000
+  torque/flipper_torque_FL_min                  3.059701
+  torque/flipper_torque_FR                      489.952620
+  torque/flipper_torque_FR_max                  1000.000000
+  torque/flipper_torque_FR_min                  3.166196
+  torque/flipper_torque_RL                      502.710379
+  torque/flipper_torque_RL_max                  1000.000000
+  torque/flipper_torque_RL_min                  3.015732
+  torque/flipper_torque_RR                      526.219705
+  torque/flipper_torque_RR_max                  1000.000000
+  torque/flipper_torque_RR_min                  3.426423
+2026-08-12 11:22:41,631 [eval_ftr][[92mINFO[00m]: Saved repeat 10 CSV → /ws/logs/eval_auto_11335881 (eval_ftr.py:533)
+2026-08-12 11:22:41,632 [eval_ftr][[92mINFO[00m]: Running eval rollout 11/15 (max_steps=2000) ... (eval_ftr.py:462)
+
+============================================================
+Repeat 11/15
+============================================================
+  clearance/height                              0.047946
+  clearance/height_max                          0.255672
+  clearance/height_min                          -0.065058
+  eval/explosion_rate                           0.000000
+  eval/failure_rate                             0.122754
+  eval/max_step_reward                          25.060877
+  eval/mean_step_reward                         0.001157
+  eval/min_step_reward                          -6.444252
+  eval/pct_terminated                           0.001166
+  eval/pct_truncated                            0.000139
+  eval/rollout_steps                            2000.000000
+  eval/success_rate                             0.770958
+  observations/ang_vel_x_max                    14.976757
+  observations/ang_vel_x_mean                   0.000529
+  observations/ang_vel_x_min                    -12.638988
+  observations/ang_vel_x_std                    0.999406
+  observations/ang_vel_y_max                    14.895568
+  observations/ang_vel_y_mean                   0.000769
+  observations/ang_vel_y_min                    -11.374452
+  observations/ang_vel_y_std                    0.997463
+  observations/ang_vel_z_max                    12.370305
+  observations/ang_vel_z_mean                   -0.000880
+  observations/ang_vel_z_min                    -7.930665
+  observations/ang_vel_z_std                    0.999863
+  observations/flipper_fl_max                   3.524929
+  observations/flipper_fl_mean                  -0.003408
+  observations/flipper_fl_min                   -4.697657
+  observations/flipper_fl_std                   1.000934
+  observations/flipper_fr_max                   3.945967
+  observations/flipper_fr_mean                  -0.016659
+  observations/flipper_fr_min                   -5.079787
+  observations/flipper_fr_std                   0.999816
+  observations/flipper_rl_max                   2.167963
+  observations/flipper_rl_mean                  0.005184
+  observations/flipper_rl_min                   -4.071404
+  observations/flipper_rl_std                   1.001061
+  observations/flipper_rr_max                   4.159451
+  observations/flipper_rr_mean                  0.015495
+  observations/flipper_rr_min                   -3.365346
+  observations/flipper_rr_std                   1.005045
+  observations/goal_x_max                       35.265835
+  observations/goal_x_mean                      -0.045056
+  observations/goal_x_min                       -46.851280
+  observations/goal_x_std                       0.977231
+  observations/goal_y_max                       59.441563
+  observations/goal_y_mean                      -0.012690
+  observations/goal_y_min                       -75.002777
+  observations/goal_y_std                       0.938509
+  observations/goal_z_max                       4.758492
+  observations/goal_z_mean                      -0.003116
+  observations/goal_z_min                       -5.281340
+  observations/goal_z_std                       0.994906
+  observations/heightmap_max                    6.441961
+  observations/heightmap_mean                   -0.000609
+  observations/heightmap_min                    -17.203773
+  observations/heightmap_std                    0.999738
+  observations/lin_vel_x_max                    6.956877
+  observations/lin_vel_x_mean                   0.006380
+  observations/lin_vel_x_min                    -4.329038
+  observations/lin_vel_x_std                    1.000187
+  observations/lin_vel_y_max                    11.692273
+  observations/lin_vel_y_mean                   -0.000284
+  observations/lin_vel_y_min                    -11.612988
+  observations/lin_vel_y_std                    0.999817
+  observations/lin_vel_z_max                    6.639703
+  observations/lin_vel_z_mean                   -0.000477
+  observations/lin_vel_z_min                    -10.498851
+  observations/lin_vel_z_std                    0.999038
+  observations/pitch_max                        12.803616
+  observations/pitch_mean                       0.006286
+  observations/pitch_min                        -4.476402
+  observations/pitch_std                        0.994727
+  observations/roll_max                         10.958035
+  observations/roll_mean                        0.000737
+  observations/roll_min                         -12.050079
+  observations/roll_std                         1.011943
+  rew/action_bonus                              8.581737
+  rew/clearance                                 -0.011471
+  rew/flipper_action_bonus                      0.106620
+  rew/joint_ang_from_flat_penalty               -0.110021
+  rew/joint_angle_var_penalty                   -0.097059
+  rew/pitch_penalty                             -0.070032
+  rew/pitch_rate_penalty                        -0.130399
+  rew/roll_penalty                              -0.016509
+  rew/roll_rate_penalty                         -0.153717
+  rew/shaping                                   1.916481
+  rew/shock_penalty                             -0.112458
+  rew/step_penalty                              -0.118978
+  rew/terminal_bonus                            0.125501
+  rew/total_reward                              9.908190
+  shock/accel_magnitude                         2.531806
+  shock/accel_magnitude_max                     21.147237
+  shock/accel_magnitude_min                     0.235864
+  shock/accel_p90                               2.785545
+  shock/accel_p95                               2.883348
+  shock/accel_p99                               3.085121
+  shock/shock_normalised                        0.007497
+  shock/shock_normalised_max                    0.796597
+  shock/shock_normalised_min                    0.000000
+  state/ang_velocity                            0.232567
+  state/ang_velocity_max                        1.999484
+  state/ang_velocity_min                        0.015050
+  state/lin_velocity                            0.419738
+  state/lin_velocity_max                        1.006992
+  state/lin_velocity_min                        0.024114
+  state/pitch                                   -0.040839
+  state/pitch_max                               0.436672
+  state/pitch_min                               -0.359350
+  state/roll                                    -0.028700
+  state/roll_max                                0.367975
+  state/roll_min                                -0.552697
+  state/success_lin_velocity                    0.131181
+  torque/flipper_torque_FL                      491.962131
+  torque/flipper_torque_FL_max                  1000.000000
+  torque/flipper_torque_FL_min                  3.145904
+  torque/flipper_torque_FR                      490.130269
+  torque/flipper_torque_FR_max                  1000.000000
+  torque/flipper_torque_FR_min                  3.214112
+  torque/flipper_torque_RL                      500.806790
+  torque/flipper_torque_RL_max                  1000.000000
+  torque/flipper_torque_RL_min                  2.969191
+  torque/flipper_torque_RR                      525.151293
+  torque/flipper_torque_RR_max                  1000.000000
+  torque/flipper_torque_RR_min                  3.458804
+2026-08-12 11:27:44,595 [eval_ftr][[92mINFO[00m]: Saved repeat 11 CSV → /ws/logs/eval_auto_11335881 (eval_ftr.py:533)
+2026-08-12 11:27:44,595 [eval_ftr][[92mINFO[00m]: Running eval rollout 12/15 (max_steps=2000) ... (eval_ftr.py:462)
+
+============================================================
+Repeat 12/15
+============================================================
+  clearance/height                              0.048464
+  clearance/height_max                          0.302161
+  clearance/height_min                          -0.066914
+  eval/explosion_rate                           0.000000
+  eval/failure_rate                             0.116592
+  eval/max_step_reward                          25.695490
+  eval/mean_step_reward                         -0.002938
+  eval/min_step_reward                          -7.799849
+  eval/pct_terminated                           0.001184
+  eval/pct_truncated                            0.000123
+  eval/rollout_steps                            2000.000000
+  eval/success_rate                             0.789238
+  observations/ang_vel_x_max                    15.773700
+  observations/ang_vel_x_mean                   -0.000544
+  observations/ang_vel_x_min                    -13.445345
+  observations/ang_vel_x_std                    1.000045
+  observations/ang_vel_y_max                    17.074795
+  observations/ang_vel_y_mean                   -0.000793
+  observations/ang_vel_y_min                    -12.420922
+  observations/ang_vel_y_std                    1.004317
+  observations/ang_vel_z_max                    10.377923
+  observations/ang_vel_z_mean                   0.001109
+  observations/ang_vel_z_min                    -16.587664
+  observations/ang_vel_z_std                    1.000258
+  observations/flipper_fl_max                   3.449832
+  observations/flipper_fl_mean                  0.004676
+  observations/flipper_fl_min                   -4.043678
+  observations/flipper_fl_std                   0.999357
+  observations/flipper_fr_max                   4.000918
+  observations/flipper_fr_mean                  -0.004688
+  observations/flipper_fr_min                   -4.852264
+  observations/flipper_fr_std                   0.999939
+  observations/flipper_rl_max                   2.171149
+  observations/flipper_rl_mean                  -0.000013
+  observations/flipper_rl_min                   -3.609009
+  observations/flipper_rl_std                   1.000567
+  observations/flipper_rr_max                   3.801453
+  observations/flipper_rr_mean                  0.003216
+  observations/flipper_rr_min                   -3.264417
+  observations/flipper_rr_std                   0.997498
+  observations/goal_x_max                       40.415874
+  observations/goal_x_mean                      -0.036462
+  observations/goal_x_min                       -47.762577
+  observations/goal_x_std                       0.978851
+  observations/goal_y_max                       90.273483
+  observations/goal_y_mean                      -0.006457
+  observations/goal_y_min                       -62.080532
+  observations/goal_y_std                       0.954177
+  observations/goal_z_max                       4.898143
+  observations/goal_z_mean                      0.002522
+  observations/goal_z_min                       -4.883566
+  observations/goal_z_std                       1.002633
+  observations/heightmap_max                    6.684365
+  observations/heightmap_mean                   -0.000168
+  observations/heightmap_min                    -16.815327
+  observations/heightmap_std                    1.001581
+  observations/lin_vel_x_max                    5.825006
+  observations/lin_vel_x_mean                   -0.005931
+  observations/lin_vel_x_min                    -4.067305
+  observations/lin_vel_x_std                    0.999580
+  observations/lin_vel_y_max                    12.646024
+  observations/lin_vel_y_mean                   -0.000116
+  observations/lin_vel_y_min                    -10.610084
+  observations/lin_vel_y_std                    1.000075
+  observations/lin_vel_z_max                    6.224571
+  observations/lin_vel_z_mean                   0.000396
+  observations/lin_vel_z_min                    -10.130658
+  observations/lin_vel_z_std                    1.001880
+  observations/pitch_max                        11.973993
+  observations/pitch_mean                       -0.005836
+  observations/pitch_min                        -4.359745
+  observations/pitch_std                        1.003163
+  observations/roll_max                         15.008397
+  observations/roll_mean                        -0.001081
+  observations/roll_min                         -15.962306
+  observations/roll_std                         0.984413
+  rew/action_bonus                              8.507150
+  rew/clearance                                 -0.011257
+  rew/flipper_action_bonus                      0.107928
+  rew/joint_ang_from_flat_penalty               -0.108715
+  rew/joint_angle_var_penalty                   -0.098438
+  rew/pitch_penalty                             -0.068492
+  rew/pitch_rate_penalty                        -0.130336
+  rew/roll_penalty                              -0.014504
+  rew/roll_rate_penalty                         -0.155320
+  rew/shaping                                   1.916637
+  rew/shock_penalty                             -0.112490
+  rew/step_penalty                              -0.118978
+  rew/terminal_bonus                            0.129024
+  rew/total_reward                              9.840804
+  shock/accel_magnitude                         2.527180
+  shock/accel_magnitude_max                     21.343931
+  shock/accel_magnitude_min                     0.245889
+  shock/accel_p90                               2.790784
+  shock/accel_p95                               2.880452
+  shock/accel_p99                               3.121364
+  shock/shock_normalised                        0.007499
+  shock/shock_normalised_max                    0.807357
+  shock/shock_normalised_min                    0.000000
+  state/ang_velocity                            0.233547
+  state/ang_velocity_max                        2.069760
+  state/ang_velocity_min                        0.015363
+  state/lin_velocity                            0.412923
+  state/lin_velocity_max                        1.009658
+  state/lin_velocity_min                        0.023409
+  state/pitch                                   -0.045466
+  state/pitch_max                               0.431233
+  state/pitch_min                               -0.357498
+  state/roll                                    -0.030992
+  state/roll_max                                0.372870
+  state/roll_min                                -0.555574
+  state/success_lin_velocity                    0.130930
+  torque/flipper_torque_FL                      492.768747
+  torque/flipper_torque_FL_max                  1000.000000
+  torque/flipper_torque_FL_min                  3.145538
+  torque/flipper_torque_FR                      490.731215
+  torque/flipper_torque_FR_max                  1000.000000
+  torque/flipper_torque_FR_min                  3.191697
+  torque/flipper_torque_RL                      503.076108
+  torque/flipper_torque_RL_max                  1000.000000
+  torque/flipper_torque_RL_min                  3.108259
+  torque/flipper_torque_RR                      530.058565
+  torque/flipper_torque_RR_max                  1000.000000
+  torque/flipper_torque_RR_min                  3.400192
+2026-08-12 11:32:47,333 [eval_ftr][[92mINFO[00m]: Saved repeat 12 CSV → /ws/logs/eval_auto_11335881 (eval_ftr.py:533)
+2026-08-12 11:32:47,334 [eval_ftr][[92mINFO[00m]: Running eval rollout 13/15 (max_steps=2000) ... (eval_ftr.py:462)
+
+============================================================
+Repeat 13/15
+============================================================
+  clearance/height                              0.047473
+  clearance/height_max                          0.250029
+  clearance/height_min                          -0.064558
+  eval/explosion_rate                           0.000000
+  eval/failure_rate                             0.124620
+  eval/max_step_reward                          25.216639
+  eval/mean_step_reward                         -0.000910
+  eval/min_step_reward                          -6.451120
+  eval/pct_terminated                           0.001148
+  eval/pct_truncated                            0.000139
+  eval/rollout_steps                            2000.000000
+  eval/success_rate                             0.768997
+  observations/ang_vel_x_max                    13.147268
+  observations/ang_vel_x_mean                   0.000345
+  observations/ang_vel_x_min                    -15.210649
+  observations/ang_vel_x_std                    0.999836
+  observations/ang_vel_y_max                    17.178709
+  observations/ang_vel_y_mean                   0.001995
+  observations/ang_vel_y_min                    -11.038418
+  observations/ang_vel_y_std                    0.995219
+  observations/ang_vel_z_max                    9.380739
+  observations/ang_vel_z_mean                   -0.000797
+  observations/ang_vel_z_min                    -8.154127
+  observations/ang_vel_z_std                    0.999043
+  observations/flipper_fl_max                   3.399287
+  observations/flipper_fl_mean                  -0.006920
+  observations/flipper_fl_min                   -4.957390
+  observations/flipper_fl_std                   0.995728
+  observations/flipper_fr_max                   3.982219
+  observations/flipper_fr_mean                  -0.009668
+  observations/flipper_fr_min                   -5.039221
+  observations/flipper_fr_std                   0.996593
+  observations/flipper_rl_max                   2.028068
+  observations/flipper_rl_mean                  0.005868
+  observations/flipper_rl_min                   -3.553640
+  observations/flipper_rl_std                   0.996778
+  observations/flipper_rr_max                   3.874756
+  observations/flipper_rr_mean                  0.009851
+  observations/flipper_rr_min                   -3.618393
+  observations/flipper_rr_std                   0.997806
+  observations/goal_x_max                       37.433853
+  observations/goal_x_mean                      -0.041606
+  observations/goal_x_min                       -52.696774
+  observations/goal_x_std                       0.980116
+  observations/goal_y_max                       62.997715
+  observations/goal_y_mean                      -0.009355
+  observations/goal_y_min                       -64.661423
+  observations/goal_y_std                       0.937602
+  observations/goal_z_max                       4.689261
+  observations/goal_z_mean                      -0.002952
+  observations/goal_z_min                       -5.409297
+  observations/goal_z_std                       0.998440
+  observations/heightmap_max                    6.581529
+  observations/heightmap_mean                   -0.002062
+  observations/heightmap_min                    -17.439627
+  observations/heightmap_std                    0.997793
+  observations/lin_vel_x_max                    5.439895
+  observations/lin_vel_x_mean                   0.002432
+  observations/lin_vel_x_min                    -3.458004
+  observations/lin_vel_x_std                    0.999650
+  observations/lin_vel_y_max                    10.918193
+  observations/lin_vel_y_mean                   0.000341
+  observations/lin_vel_y_min                    -11.796701
+  observations/lin_vel_y_std                    0.999919
+  observations/lin_vel_z_max                    8.424960
+  observations/lin_vel_z_mean                   -0.000209
+  observations/lin_vel_z_min                    -12.692419
+  observations/lin_vel_z_std                    0.997680
+  observations/pitch_max                        12.705780
+  observations/pitch_mean                       0.002637
+  observations/pitch_min                        -3.997157
+  observations/pitch_std                        0.996335
+  observations/roll_max                         8.308619
+  observations/roll_mean                        -0.001521
+  observations/roll_min                         -13.290969
+  observations/roll_std                         1.012073
+  rew/action_bonus                              8.468308
+  rew/clearance                                 -0.009577
+  rew/flipper_action_bonus                      0.108128
+  rew/joint_ang_from_flat_penalty               -0.109409
+  rew/joint_angle_var_penalty                   -0.098131
+  rew/pitch_penalty                             -0.076002
+  rew/pitch_rate_penalty                        -0.129559
+  rew/roll_penalty                              -0.012606
+  rew/roll_rate_penalty                         -0.152229
+  rew/shaping                                   1.905769
+  rew/shock_penalty                             -0.112177
+  rew/step_penalty                              -0.118978
+  rew/terminal_bonus                            0.123224
+  rew/total_reward                              9.785290
+  shock/accel_magnitude                         2.512694
+  shock/accel_magnitude_max                     21.256389
+  shock/accel_magnitude_min                     0.235993
+  shock/accel_p90                               2.769966
+  shock/accel_p95                               2.867331
+  shock/accel_p99                               3.136120
+  shock/shock_normalised                        0.007478
+  shock/shock_normalised_max                    0.797427
+  shock/shock_normalised_min                    0.000000
+  state/ang_velocity                            0.230800
+  state/ang_velocity_max                        1.998232
+  state/ang_velocity_min                        0.015379
+  state/lin_velocity                            0.411748
+  state/lin_velocity_max                        1.001305
+  state/lin_velocity_min                        0.024446
+  state/pitch                                   -0.048028
+  state/pitch_max                               0.441677
+  state/pitch_min                               -0.362370
+  state/roll                                    -0.028563
+  state/roll_max                                0.340965
+  state/roll_min                                -0.510066
+  state/success_lin_velocity                    0.132083
+  torque/flipper_torque_FL                      493.794413
+  torque/flipper_torque_FL_max                  1000.000000
+  torque/flipper_torque_FL_min                  3.165003
+  torque/flipper_torque_FR                      490.555612
+  torque/flipper_torque_FR_max                  1000.000000
+  torque/flipper_torque_FR_min                  3.202351
+  torque/flipper_torque_RL                      503.913920
+  torque/flipper_torque_RL_max                  1000.000000
+  torque/flipper_torque_RL_min                  3.016749
+  torque/flipper_torque_RR                      528.760158
+  torque/flipper_torque_RR_max                  1000.000000
+  torque/flipper_torque_RR_min                  3.423592
+2026-08-12 11:37:51,418 [eval_ftr][[92mINFO[00m]: Saved repeat 13 CSV → /ws/logs/eval_auto_11335881 (eval_ftr.py:533)
+2026-08-12 11:37:51,418 [eval_ftr][[92mINFO[00m]: Running eval rollout 14/15 (max_steps=2000) ... (eval_ftr.py:462)
+
+============================================================
+Repeat 14/15
+============================================================
+  clearance/height                              0.046457
+  clearance/height_max                          0.255235
+  clearance/height_min                          -0.068436
+  eval/explosion_rate                           0.000000
+  eval/failure_rate                             0.094891
+  eval/max_step_reward                          25.713324
+  eval/mean_step_reward                         -0.000006
+  eval/min_step_reward                          -6.478334
+  eval/pct_terminated                           0.001211
+  eval/pct_truncated                            0.000127
+  eval/rollout_steps                            2000.000000
+  eval/success_rate                             0.810219
+  observations/ang_vel_x_max                    13.011756
+  observations/ang_vel_x_mean                   0.000346
+  observations/ang_vel_x_min                    -12.514432
+  observations/ang_vel_x_std                    1.000327
+  observations/ang_vel_y_max                    17.532904
+  observations/ang_vel_y_mean                   -0.002299
+  observations/ang_vel_y_min                    -11.187613
+  observations/ang_vel_y_std                    1.004979
+  observations/ang_vel_z_max                    9.009748
+  observations/ang_vel_z_mean                   0.000149
+  observations/ang_vel_z_min                    -12.578973
+  observations/ang_vel_z_std                    1.000290
+  observations/flipper_fl_max                   3.710738
+  observations/flipper_fl_mean                  -0.006103
+  observations/flipper_fl_min                   -4.489609
+  observations/flipper_fl_std                   1.006682
+  observations/flipper_fr_max                   4.075822
+  observations/flipper_fr_mean                  -0.010770
+  observations/flipper_fr_min                   -5.335032
+  observations/flipper_fr_std                   1.003770
+  observations/flipper_rl_max                   2.091207
+  observations/flipper_rl_mean                  0.001422
+  observations/flipper_rl_min                   -3.466426
+  observations/flipper_rl_std                   1.001868
+  observations/flipper_rr_max                   4.055603
+  observations/flipper_rr_mean                  0.018177
+  observations/flipper_rr_min                   -3.564966
+  observations/flipper_rr_std                   1.003861
+  observations/goal_x_max                       39.695736
+  observations/goal_x_mean                      -0.040441
+  observations/goal_x_min                       -43.204063
+  observations/goal_x_std                       0.983696
+  observations/goal_y_max                       62.908382
+  observations/goal_y_mean                      -0.008939
+  observations/goal_y_min                       -87.709816
+  observations/goal_y_std                       0.944755
+  observations/goal_z_max                       4.895342
+  observations/goal_z_mean                      0.004297
+  observations/goal_z_min                       -5.375312
+  observations/goal_z_std                       0.998415
+  observations/heightmap_max                    6.744961
+  observations/heightmap_mean                   0.002808
+  observations/heightmap_min                    -16.870295
+  observations/heightmap_std                    1.001097
+  observations/lin_vel_x_max                    5.697616
+  observations/lin_vel_x_mean                   0.001916
+  observations/lin_vel_x_min                    -5.207935
+  observations/lin_vel_x_std                    0.999940
+  observations/lin_vel_y_max                    11.775814
+  observations/lin_vel_y_mean                   -0.000099
+  observations/lin_vel_y_min                    -12.192595
+  observations/lin_vel_y_std                    1.000375
+  observations/lin_vel_z_max                    6.855175
+  observations/lin_vel_z_mean                   -0.000227
+  observations/lin_vel_z_min                    -11.246287
+  observations/lin_vel_z_std                    1.002977
+  observations/pitch_max                        12.824697
+  observations/pitch_mean                       0.005541
+  observations/pitch_min                        -4.350700
+  observations/pitch_std                        1.003390
+  observations/roll_max                         11.893885
+  observations/roll_mean                        0.002837
+  observations/roll_min                         -14.208599
+  observations/roll_std                         0.987460
+  rew/action_bonus                              8.514612
+  rew/clearance                                 -0.010534
+  rew/flipper_action_bonus                      0.106606
+  rew/joint_ang_from_flat_penalty               -0.110256
+  rew/joint_angle_var_penalty                   -0.099123
+  rew/pitch_penalty                             -0.069569
+  rew/pitch_rate_penalty                        -0.129439
+  rew/roll_penalty                              -0.013491
+  rew/roll_rate_penalty                         -0.154997
+  rew/shaping                                   1.925028
+  rew/shock_penalty                             -0.116400
+  rew/step_penalty                              -0.118978
+  rew/terminal_bonus                            0.136615
+  rew/total_reward                              9.858891
+  shock/accel_magnitude                         2.537544
+  shock/accel_magnitude_max                     21.488808
+  shock/accel_magnitude_min                     0.238291
+  shock/accel_p90                               2.784986
+  shock/accel_p95                               2.883042
+  shock/accel_p99                               3.107407
+  shock/shock_normalised                        0.007760
+  shock/shock_normalised_max                    0.813781
+  shock/shock_normalised_min                    0.000000
+  state/ang_velocity                            0.232678
+  state/ang_velocity_max                        1.984706
+  state/ang_velocity_min                        0.015630
+  state/lin_velocity                            0.416273
+  state/lin_velocity_max                        1.006148
+  state/lin_velocity_min                        0.025058
+  state/pitch                                   -0.047773
+  state/pitch_max                               0.424828
+  state/pitch_min                               -0.356674
+  state/roll                                    -0.025705
+  state/roll_max                                0.354728
+  state/roll_min                                -0.515197
+  state/success_lin_velocity                    0.147899
+  torque/flipper_torque_FL                      492.645911
+  torque/flipper_torque_FL_max                  1000.000000
+  torque/flipper_torque_FL_min                  3.057588
+  torque/flipper_torque_FR                      488.870342
+  torque/flipper_torque_FR_max                  1000.000000
+  torque/flipper_torque_FR_min                  3.027857
+  torque/flipper_torque_RL                      499.223223
+  torque/flipper_torque_RL_max                  1000.000000
+  torque/flipper_torque_RL_min                  3.026115
+  torque/flipper_torque_RR                      523.884803
+  torque/flipper_torque_RR_max                  1000.000000
+  torque/flipper_torque_RR_min                  3.200705
+2026-08-12 11:42:56,307 [eval_ftr][[92mINFO[00m]: Saved repeat 14 CSV → /ws/logs/eval_auto_11335881 (eval_ftr.py:533)
+2026-08-12 11:42:56,307 [eval_ftr][[92mINFO[00m]: Running eval rollout 15/15 (max_steps=2000) ... (eval_ftr.py:462)
+
+============================================================
+Repeat 15/15
+============================================================
+  clearance/height                              0.047042
+  clearance/height_max                          0.257427
+  clearance/height_min                          -0.065124
+  eval/explosion_rate                           0.000000
+  eval/failure_rate                             0.094737
+  eval/max_step_reward                          25.258167
+  eval/mean_step_reward                         -0.006790
+  eval/min_step_reward                          -6.576392
+  eval/pct_terminated                           0.001168
+  eval/pct_truncated                            0.000131
+  eval/rollout_steps                            2000.000000
+  eval/success_rate                             0.804511
+  observations/ang_vel_x_max                    15.037149
+  observations/ang_vel_x_mean                   -0.000826
+  observations/ang_vel_x_min                    -12.691701
+  observations/ang_vel_x_std                    0.998102
+  observations/ang_vel_y_max                    11.069818
+  observations/ang_vel_y_mean                   0.001565
+  observations/ang_vel_y_min                    -11.176031
+  observations/ang_vel_y_std                    0.994060
+  observations/ang_vel_z_max                    9.902236
+  observations/ang_vel_z_mean                   0.000395
+  observations/ang_vel_z_min                    -13.294165
+  observations/ang_vel_z_std                    0.999791
+  observations/flipper_fl_max                   3.292395
+  observations/flipper_fl_mean                  0.008846
+  observations/flipper_fl_min                   -4.384582
+  observations/flipper_fl_std                   0.994039
+  observations/flipper_fr_max                   3.938644
+  observations/flipper_fr_mean                  0.000429
+  observations/flipper_fr_min                   -4.770517
+  observations/flipper_fr_std                   0.996765
+  observations/flipper_rl_max                   2.173702
+  observations/flipper_rl_mean                  -0.000378
+  observations/flipper_rl_min                   -3.367549
+  observations/flipper_rl_std                   1.000164
+  observations/flipper_rr_max                   3.670256
+  observations/flipper_rr_mean                  0.001871
+  observations/flipper_rr_min                   -3.390901
+  observations/flipper_rr_std                   0.997615
+  observations/goal_x_max                       47.175179
+  observations/goal_x_mean                      -0.040775
+  observations/goal_x_min                       -45.560055
+  observations/goal_x_std                       0.971956
+  observations/goal_y_max                       77.459000
+  observations/goal_y_mean                      -0.009928
+  observations/goal_y_min                       -66.704834
+  observations/goal_y_std                       0.950934
+  observations/goal_z_max                       4.707413
+  observations/goal_z_mean                      -0.004419
+  observations/goal_z_min                       -4.880950
+  observations/goal_z_std                       1.001389
+  observations/heightmap_max                    6.403099
+  observations/heightmap_mean                   -0.002905
+  observations/heightmap_min                    -14.255766
+  observations/heightmap_std                    0.999515
+  observations/lin_vel_x_max                    3.397625
+  observations/lin_vel_x_mean                   -0.006005
+  observations/lin_vel_x_min                    -4.473741
+  observations/lin_vel_x_std                    0.999602
+  observations/lin_vel_y_max                    11.351978
+  observations/lin_vel_y_mean                   0.000183
+  observations/lin_vel_y_min                    -11.735170
+  observations/lin_vel_y_std                    0.998721
+  observations/lin_vel_z_max                    6.665614
+  observations/lin_vel_z_mean                   0.001092
+  observations/lin_vel_z_min                    -10.880445
+  observations/lin_vel_z_std                    0.996529
+  observations/pitch_max                        6.707939
+  observations/pitch_mean                       -0.002302
+  observations/pitch_min                        -4.245859
+  observations/pitch_std                        0.997420
+  observations/roll_max                         9.058487
+  observations/roll_mean                        -0.002839
+  observations/roll_min                         -11.563085
+  observations/roll_std                         1.009499
+  rew/action_bonus                              8.474466
+  rew/clearance                                 -0.009939
+  rew/flipper_action_bonus                      0.108031
+  rew/joint_ang_from_flat_penalty               -0.107740
+  rew/joint_angle_var_penalty                   -0.095826
+  rew/pitch_penalty                             -0.074517
+  rew/pitch_rate_penalty                        -0.129298
+  rew/roll_penalty                              -0.013286
+  rew/roll_rate_penalty                         -0.151876
+  rew/shaping                                   1.928355
+  rew/shock_penalty                             -0.111851
+  rew/step_penalty                              -0.118978
+  rew/terminal_bonus                            0.131672
+  rew/total_reward                              9.828091
+  shock/accel_magnitude                         2.491951
+  shock/accel_magnitude_max                     21.199849
+  shock/accel_magnitude_min                     0.223563
+  shock/accel_p90                               2.757678
+  shock/accel_p95                               2.839385
+  shock/accel_p99                               3.071058
+  shock/shock_normalised                        0.007457
+  shock/shock_normalised_max                    0.798599
+  shock/shock_normalised_min                    0.000000
+  state/ang_velocity                            0.230349
+  state/ang_velocity_max                        1.996764
+  state/ang_velocity_min                        0.015009
+  state/lin_velocity                            0.413113
+  state/lin_velocity_max                        1.001825
+  state/lin_velocity_min                        0.022583
+  state/pitch                                   -0.051306
+  state/pitch_max                               0.431297
+  state/pitch_min                               -0.371893
+  state/roll                                    -0.025989
+  state/roll_max                                0.358927
+  state/roll_min                                -0.479891
+  state/success_lin_velocity                    0.134478
+  torque/flipper_torque_FL                      493.553887
+  torque/flipper_torque_FL_max                  1000.000000
+  torque/flipper_torque_FL_min                  3.200957
+  torque/flipper_torque_FR                      490.932102
+  torque/flipper_torque_FR_max                  1000.000000
+  torque/flipper_torque_FR_min                  3.039762
+  torque/flipper_torque_RL                      504.357155
+  torque/flipper_torque_RL_max                  1000.000000
+  torque/flipper_torque_RL_min                  3.040552
+  torque/flipper_torque_RR                      527.889609
+  torque/flipper_torque_RR_max                  1000.000000
+  torque/flipper_torque_RR_min                  3.557548
+2026-08-12 11:47:57,443 [eval_ftr][[92mINFO[00m]: Saved repeat 15 CSV → /ws/logs/eval_auto_11335881 (eval_ftr.py:533)
+
+============================================================
+AVERAGE over 15 repeats
+============================================================
+  clearance/height                              0.047658
+  clearance/height_max                          0.256552
+  clearance/height_min                          -0.065521
+  eval/explosion_rate                           0.000000
+  eval/failure_rate                             0.108373
+  eval/max_step_reward                          25.395898
+  eval/mean_step_reward                         -0.002877
+  eval/min_step_reward                          -6.823486
+  eval/pct_terminated                           0.001182
+  eval/pct_truncated                            0.000129
+  eval/rollout_steps                            2000.000000
+  eval/success_rate                             0.793237
+  observations/ang_vel_x_max                    13.492008
+  observations/ang_vel_x_mean                   -0.000218
+  observations/ang_vel_x_min                    -13.289346
+  observations/ang_vel_x_std                    0.999407
+  observations/ang_vel_y_max                    15.093876
+  observations/ang_vel_y_mean                   0.000009
+  observations/ang_vel_y_min                    -11.136293
+  observations/ang_vel_y_std                    0.999116
+  observations/ang_vel_z_max                    9.399023
+  observations/ang_vel_z_mean                   0.000109
+  observations/ang_vel_z_min                    -10.905409
+  observations/ang_vel_z_std                    0.999908
+  observations/flipper_fl_max                   3.493626
+  observations/flipper_fl_mean                  0.001567
+  observations/flipper_fl_min                   -4.528170
+  observations/flipper_fl_std                   0.998392
+  observations/flipper_fr_max                   3.991501
+  observations/flipper_fr_mean                  -0.008776
+  observations/flipper_fr_min                   -5.059886
+  observations/flipper_fr_std                   0.999311
+  observations/flipper_rl_max                   2.131098
+  observations/flipper_rl_mean                  0.007672
+  observations/flipper_rl_min                   -3.548846
+  observations/flipper_rl_std                   0.999723
+  observations/flipper_rr_max                   3.924603
+  observations/flipper_rr_mean                  0.010415
+  observations/flipper_rr_min                   -3.454372
+  observations/flipper_rr_std                   0.999556
+  observations/goal_x_max                       40.322399
+  observations/goal_x_mean                      -0.040272
+  observations/goal_x_min                       -45.182097
+  observations/goal_x_std                       0.976893
+  observations/goal_y_max                       71.536835
+  observations/goal_y_mean                      -0.009255
+  observations/goal_y_min                       -71.098377
+  observations/goal_y_std                       0.942507
+  observations/goal_z_max                       5.214028
+  observations/goal_z_mean                      0.000256
+  observations/goal_z_min                       -5.074441
+  observations/goal_z_std                       0.999493
+  observations/heightmap_max                    6.646025
+  observations/heightmap_mean                   0.000140
+  observations/heightmap_min                    -16.060159
+  observations/heightmap_std                    0.999393
+  observations/lin_vel_x_max                    5.115913
+  observations/lin_vel_x_mean                   0.001037
+  observations/lin_vel_x_min                    -4.180338
+  observations/lin_vel_x_std                    0.999286
+  observations/lin_vel_y_max                    12.048082
+  observations/lin_vel_y_mean                   0.000063
+  observations/lin_vel_y_min                    -11.053636
+  observations/lin_vel_y_std                    0.999733
+  observations/lin_vel_z_max                    6.690008
+  observations/lin_vel_z_mean                   0.000212
+  observations/lin_vel_z_min                    -11.038640
+  observations/lin_vel_z_std                    0.999652
+  observations/pitch_max                        10.532536
+  observations/pitch_mean                       0.000080
+  observations/pitch_min                        -4.431340
+  observations/pitch_std                        0.998582
+  observations/roll_max                         9.692030
+  observations/roll_mean                        -0.001578
+  observations/roll_min                         -13.240091
+  observations/roll_std                         0.999262
+  rew/action_bonus                              8.545548
+  rew/clearance                                 -0.010703
+  rew/flipper_action_bonus                      0.107042
+  rew/joint_ang_from_flat_penalty               -0.108921
+  rew/joint_angle_var_penalty                   -0.096568
+  rew/pitch_penalty                             -0.069874
+  rew/pitch_rate_penalty                        -0.130184
+  rew/roll_penalty                              -0.014577
+  rew/roll_rate_penalty                         -0.154429
+  rew/shaping                                   1.921561
+  rew/shock_penalty                             -0.113889
+  rew/step_penalty                              -0.118978
+  rew/terminal_bonus                            0.130479
+  rew/total_reward                              9.885186
+  shock/accel_magnitude                         2.531550
+  shock/accel_magnitude_max                     21.327530
+  shock/accel_magnitude_min                     0.233922
+  shock/accel_p90                               2.781359
+  shock/accel_p95                               2.872273
+  shock/accel_p99                               3.087946
+  shock/shock_normalised                        0.007593
+  shock/shock_normalised_max                    0.804517
+  shock/shock_normalised_min                    0.000000
+  state/ang_velocity                            0.232808
+  state/ang_velocity_max                        2.011817
+  state/ang_velocity_min                        0.015068
+  state/lin_velocity                            0.417121
+  state/lin_velocity_max                        1.007524
+  state/lin_velocity_min                        0.023993
+  state/pitch                                   -0.044399
+  state/pitch_max                               0.435216
+  state/pitch_min                               -0.359022
+  state/roll                                    -0.027801
+  state/roll_max                                0.358876
+  state/roll_min                                -0.539538
+  state/success_lin_velocity                    0.135178
+  torque/flipper_torque_FL                      493.077111
+  torque/flipper_torque_FL_max                  1000.000000
+  torque/flipper_torque_FL_min                  3.112194
+  torque/flipper_torque_FR                      489.827295
+  torque/flipper_torque_FR_max                  1000.000000
+  torque/flipper_torque_FR_min                  3.105147
+  torque/flipper_torque_RL                      501.640687
+  torque/flipper_torque_RL_max                  1000.000000
+  torque/flipper_torque_RL_min                  3.049320
+  torque/flipper_torque_RR                      526.323028
+  torque/flipper_torque_RR_max                  1000.000000
+  torque/flipper_torque_RR_min                  3.409328
+2026-08-12 11:47:57,444 [eval_ftr][[92mINFO[00m]: Eval complete. Results saved to /ws/logs/eval_auto_11335881  (eval_id=marv_rl) (eval_ftr.py:540)
+########################################################################
+Eval finished with exit status: 0
+########################################################################
