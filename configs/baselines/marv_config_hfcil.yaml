@@ -1,0 +1,72 @@
+# hfcil_azayev_zimmermann
+#
+# HFC-IL: imitation-learn ONLY the SDSM state-transition classifier from human
+# demonstrations recorded via marv_flipper_eval's hfcil_recorder (mode 8 on the real
+# reactive controller / sim). This is the paper's own training method (Eq. 2) -- an earlier
+# version of this project trained the whole controller (classifier + roll-stabilization
+# gains + escape-maneuver magnitudes) via PPO instead (see marv_config_hfc.yaml); that did
+# not work out and has been dropped. kp/kd/escape magnitudes are now FIXED constants
+# (rl_modules/hfc/hfc_policy.py's DEFAULT_KP_RAD/DEFAULT_KD_RAD/DEFAULT_ESCAPE_RAD, sourced
+# from the real deployed reference controller in paper_repos/augmented_robot_trackers, paper
+# where it conflicts) -- nothing here trains them, and rl_modules/hfcil/hfcil_policy.py's
+# HFCActionDecoder reuse is what actually applies them at rollout, unchanged by this config.
+#
+# Pure PyTorch, CPU-runnable, no Isaac Sim -- see
+# marv_rl_training/training/train_hfcil.py's own docstring for the training method (episode-
+# wise split, transition oversampling for the ~99%-stay class imbalance, per-edge recall as
+# the real metric).
+#
+#     python -m marv_rl_training.training.train_hfcil --config configs/baselines/marv_config_hfcil.yaml
+#
+# hm_hidden/hm_out/fusion_hidden/hidden_dim below must match whatever eventually loads this
+# checkpoint into rl_modules/hfcil/hfcil_policy.py's HFCILActorNet for rollout/eval -- there
+# is no HFCILPolicyConfig/train_ftr.py wiring for that yet (only training exists so far).
+# That future rollout config would also need front_up_deg/front_down_deg/back_up_deg/
+# back_down_deg = 60/80/60/80 and kp=1.4/kd=0.0, matching hfc_policy.py's
+# DEFAULT_KP_RAD/DEFAULT_KD_RAD and MARV's real flipper limits -- not set here since
+# HFCILPretrainConfig (this file's schema) has no such fields and the decoder is never
+# instantiated during classifier training.
+
+# dataset_path/output_path are resolved against this workspace's root if relative (see
+# train_hfcil.py's _resolve_ws_path) -- dataset_path MUST be overridden to point at an actual
+# recorded+validated session (or --dataset on the command line); this default does not exist.
+dataset_path: /home/robot/workspaces/flipper_eval_marv/recordings/hfcil_merged_20260817_4
+output_path: experiments/baselines/hfcil/classifier.pt
+
+# Architecture -- must match HFCILActorNet's encoder/classifier if a checkpoint from here is
+# ever loaded into one for rollout.
+hm_hidden: 32
+hm_out: 4
+fusion_hidden: 32
+hidden_dim: 64
+
+total_epochs: 40
+batch_size: 256
+val_episode_frac: 0.2
+seed: 42
+device: cpu
+
+optimizer_opts:
+  lr: 0.001
+  weight_decay: 0.0001
+
+# Class imbalance is extreme and structural (~99% of pairs are "stay") -- see
+# train_hfcil.py's module docstring for why this and class_weighting are not optional.
+# class_weighting: balanced_edges (not the global "balanced") -- normalizes per
+# (current_state, next_state) edge so each state's own branching decision (e.g. AF's
+# N/AS/AR choice) is balanced against itself, not against the whole dataset's global
+# state frequencies. See train_hfcil.py's HFCILPretrainConfig docstring for why "balanced"
+# actively fights rare abort edges like AF->N/DF->N instead of helping them.
+#
+# transition_oversample=1.0 (i.e. OFF): balanced_edges already fixes the transition-vs-stay
+# imbalance at the loss level (each source state's own "stay" edge is just one more edge
+# competing for equal loss mass against its transitions), so the sampler's job is now
+# redundant. Swept 0.5/1/2/3/5/15/30 on this dataset with the corrected sqrt(acc_transitions
+# * acc_stay) selection score (see train()) -- 1.0 won outright (0.75 vs 0.72 at 2.0, falling
+# to 0.33 by 30.0). Stacking both oversampling AND balanced_edges double-compensates: at the
+# old default of 50.0 the classifier fired a transition on 92% of true-stay pairs
+# (acc_stay=0.08) despite looking great on the old acc_transitions-only selection metric.
+transition_oversample: 1.0
+class_weighting: balanced_edges
+
+early_stop_patience: 8

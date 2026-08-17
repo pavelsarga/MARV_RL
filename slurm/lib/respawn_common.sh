@@ -127,41 +127,49 @@ _latest_attempt_dir() {
         | awk -v d="$1" 'NF { print d "/attempt_" $0 }'
 }
 
-# Highest frame count among the checkpoints an attempt wrote (0 when it wrote none).
+# Lowest / highest frame count among the checkpoints an attempt wrote (empty when it wrote none).
 _attempt_step_frames() {
     ls "$1"/weights/policy_step_*.pth 2>/dev/null \
         | sed 's/.*policy_step_\([0-9]*\)\.pth/\1/' | sort -n | tail -1
 }
 
+_attempt_first_step_frames() {
+    ls "$1"/weights/policy_step_*.pth 2>/dev/null \
+        | sed 's/.*policy_step_\([0-9]*\)\.pth/\1/' | sort -n | head -1
+}
+
 # Call after an attempt exits. Sets ATTEMPT_PROGRESS to the frames it added (0 if it produced
 # nothing) and folds them into FRAMES_DONE.
 #
-# The trainers normally restart their frame counter at 0 on a respawn, so an attempt's own
-# checkpoints count what it alone collected and the totals add up. Should the trainer manage to
-# restore its training_state.pth (which also carries the cumulative frame count), the counter
-# continues instead — recognisable by the attempt reporting more frames than it was asked for —
-# and the number is already absolute.
+# Checkpoints are named `policy_step_<frames>.pth`, but which frame count that is depends on whether
+# the trainer restored its training_state.pth: with a restore the counter carries on from the
+# previous attempt and the names are absolute; without one it restarts at 0 and the names are
+# per-attempt. Tell the two apart by the attempt's FIRST checkpoint — a restarted counter writes its
+# first one at one save interval (well below what the job has already done), a continued one writes
+# it just above. Comparing the LAST checkpoint against the frames requested does not work: a
+# continued counter that crashes early still reports a number below the request.
 #
 # Attempts that die on an unhandled exception resume from policy_crash.pth, which carries no frame
 # count in its name; that progress is not counted here, so the job may overshoot the budget by up
 # to one save interval. Overshooting is the safe direction.
 attempt_record_progress() {
-    local logdir="$1" asked="$2"
-    local dir step
+    local logdir="$1"
+    local dir first last
     dir=$(_latest_attempt_dir "$logdir")
     ATTEMPT_DIR="$dir"
     ATTEMPT_PROGRESS=0
     if [ -z "$dir" ]; then
         return 0
     fi
-    step=$(_attempt_step_frames "$dir")
-    step=${step:-0}
-    if [ -n "$asked" ] && [ "$step" -gt "$asked" ]; then
-        ATTEMPT_PROGRESS=$((step - FRAMES_DONE))
-        FRAMES_DONE=$step
-    else
-        ATTEMPT_PROGRESS=$step
-        FRAMES_DONE=$((FRAMES_DONE + step))
+    first=$(_attempt_first_step_frames "$dir")
+    last=$(_attempt_step_frames "$dir")
+    [ -n "$last" ] || return 0
+    if [ "$first" -gt "$FRAMES_DONE" ]; then      # counter continued — the names are absolute
+        ATTEMPT_PROGRESS=$((last - FRAMES_DONE))
+        FRAMES_DONE=$last
+    else                                          # counter restarted — the names are per-attempt
+        ATTEMPT_PROGRESS=$last
+        FRAMES_DONE=$((FRAMES_DONE + last))
     fi
     [ "$ATTEMPT_PROGRESS" -lt 0 ] && ATTEMPT_PROGRESS=0
     return 0

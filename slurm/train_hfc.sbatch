@@ -127,7 +127,7 @@ while true; do
     echo "Python script finished with exit status: $EXIT_STATUS"
     echo "########################################################################"
 
-    attempt_record_progress "$LOGDIR" "$REMAINING"
+    attempt_record_progress "$LOGDIR"
     echo "Attempt collected $ATTEMPT_PROGRESS frames (job total: $FRAMES_DONE${FRAME_BUDGET:+ / $FRAME_BUDGET})."
 
     # Exit code 75 = CUDA/W&B error, should respawn and auto-resume from crash checkpoint

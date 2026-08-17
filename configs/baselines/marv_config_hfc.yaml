@@ -82,16 +82,10 @@ policy_opts:
   track_vel: 0.4
   init_log_std: -1.0
   # Must match env_cfg_overrides.marv_flipper_*_deg below.
-  # Down limits raised 80 -> 85 so DESCENDING_FRONT reaches +85/-85: that pose sits at the
-  # fraction extremes (1.0, -1.0), so it maps to exactly (front_down_deg, -back_down_deg)
-  # and could not exceed 80 while the limit was 80 (ftr_env.py clamps the integrated angle
-  # to these same bounds). Side effect: every DOWN-direction pose is a fraction OF this
-  # scale, so raising it also deepens UP_STAIRS and ASCENDING_REAR slightly — see the
-  # comment in env_cfg_overrides below.
   front_up_deg: 60.0
-  front_down_deg: 85.0
+  front_down_deg: 80.0
   back_up_deg: 60.0
-  back_down_deg: 85.0
+  back_down_deg: 80.0
   hm_hidden: 32
   hm_out: 4
   fusion_hidden: 32
@@ -169,12 +163,9 @@ env_cfg_overrides:
   shock_scale: 4
   # Asymmetric per-direction MARV flipper limits (degrees) — must match policy_opts above.
   marv_flipper_front_up_deg: 60.0
-  # 85, matching policy_opts above (they MUST agree — the policy normalises its pose
-  # templates against these same numbers). This widens the flippers' reachable down range,
-  # so it changes the action space, not just the poses.
-  marv_flipper_front_down_deg: 85.0
+  marv_flipper_front_down_deg: 80.0
   marv_flipper_back_up_deg: 60.0
-  marv_flipper_back_down_deg: 85.0
+  marv_flipper_back_down_deg: 80.0
   spawn_yaw_range: 0.0
   flipper_material_friction: 6.0
   wheel_material_friction: 4.0
