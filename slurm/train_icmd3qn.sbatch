@@ -4,8 +4,8 @@
 #SBATCH --nodes=1
 #SBATCH --tasks-per-node=1
 #SBATCH --gres=gpu:1
-#SBATCH --partition=amdgpulong
-#SBATCH --job-name=train_marv_icmd3qn
+#SBATCH --partition=amdgpu
+#SBATCH --job-name=train_icmd3qn
 #SBATCH --output=/home/sargapav/robot_rodeo_gym_ws/logs/%x_%j/%x_%j.out
 #SBATCH --error=/home/sargapav/robot_rodeo_gym_ws/logs/%x_%j/%x_%j.err
 
@@ -20,7 +20,10 @@ echo "########################################################################"
 echo "Setting up environment..."
 WS=/home/sargapav/robot_rodeo_gym_ws
 SIF=$WS/containers/isaaclab_optuna.sif
-CONFIG=baselines/marv_config_icmd3qn.yaml
+# Config is selectable at launch:  sbatch slurm/train_icmd3qn.sbatch --config baselines/<file>.yaml
+# Defaults to the adapted arm below. See slurm/lib/config_arg.sh.
+source $WS/slurm/lib/config_arg.sh
+parse_config_arg baselines/marv_config_icmd3qn.yaml icmd3qn "$@"
 LOGDIR=$WS/logs/${SLURM_JOB_NAME}_${SLURM_JOB_ID}
 cp $WS/configs/$CONFIG $LOGDIR/
 
@@ -110,7 +113,7 @@ while true; do
         env PYTHONPATH=/ws/src/FTR-Benchmark:/ws/src/flipper_training \
         python /ws/src/flipper_training/marv_rl_training/training/train_icmd3qn.py \
         --config /ws/configs/$CONFIG \
-        --headless $FRAME_ARGS $@"
+        --headless $FRAME_ARGS ${EXTRA_ARGS[*]}"
 
     echo "########################################################################"
     if [ -n "$REMAINING" ]; then

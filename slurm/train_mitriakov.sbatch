@@ -4,8 +4,8 @@
 #SBATCH --nodes=1
 #SBATCH --tasks-per-node=1
 #SBATCH --gres=gpu:1
-#SBATCH --partition=amdgpulong
-#SBATCH --job-name=train_marv_mitriakov
+#SBATCH --partition=amdgpu
+#SBATCH --job-name=train_mitriakov
 #SBATCH --output=/home/sargapav/robot_rodeo_gym_ws/logs/%x_%j/%x_%j.out
 #SBATCH --error=/home/sargapav/robot_rodeo_gym_ws/logs/%x_%j/%x_%j.err
 
