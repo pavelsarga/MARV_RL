@@ -1,5 +1,8 @@
-name: icmd3qn_marv_asym
+name: icmd3qn_marv_paper
 comment: >-
+  BUG-FIXES-ONLY ablation of ICM-D3QN: the paper's reward semantics throughout, with
+  none of the MARV-morphology adaptations. See the module_cfg_overrides block at the
+  end of this file for exactly what is and is not applied.
   ICM-D3QN (Pan et al. 2023, "...Urban Rescuing Environments") flipper policy, reusing
   marv_asym_limits.yaml's robot/terrain/reward parameters. Front/rear flipper pairs only
   (2-DOF, 9-action discrete space) — requires sync_flipper_control: true below, which
@@ -14,9 +17,8 @@ training_dtype: ${dtype:float32}
 num_robots: 1024
 task: Ftr-Crossing-Direct-v0
 terrain: pan_symmetric
-# Doubled from x6 (31.5M). Neither method had plateaued at 31.5M: AT-D3QN's greedy eval
-# was still climbing at +0.065/10M in job 11382142 (0.398 -> 0.667) and ICM-D3QN at
-# +0.031/10M in 11381131, so 31.5M measured a floor rather than a converged value.
+# Matched to the adapted arms' doubled budget (62.9M) so the ablation compares like
+# with like; neither method had plateaued at 31.5M.
 total_frames: ${mul:5242880,12}
 time_steps_per_batch: 128
 eval_and_save_every: 8
@@ -121,7 +123,7 @@ env_cfg_overrides:
   # override is a defense-in-depth backstop, not a behavior change, so it must match
   # policy_opts.track_vel above.
   fixed_forward_vel: 0.6
-  
+
   robot_type: marv
   goal_reached_reward: 2
   failed_reward: -2
@@ -138,9 +140,60 @@ env_cfg_overrides:
   marv_flipper_back_up_deg: 90.0
   marv_flipper_back_down_deg: 80.0
   spawn_yaw_range: 0.0
-  flipper_material_friction: 10.0
-  wheel_material_friction: 8.0
+  flipper_material_friction: 6.0
+  wheel_material_friction: 4.0
   body_material_friction: 0.1
-  terrain_static_friction: 2
-  terrain_dynamic_friction: 1.5
+  terrain_static_friction: 1.2
+  terrain_dynamic_friction: 0.9
   shock_fail_limit: null
+
+  # ---- Reproduction fidelity: BUG FIXES ONLY -----------------------------------------
+  # This config is the ICM-D3QN ablation baseline: the corrected implementation of the
+  # paper's own equations, with none of the MARV-morphology adaptations enabled. Pair it
+  # with marv_config_icmd3qn.yaml to separate "the reproduction was buggy" from
+  # "the paper's reward assumes a robot with main tracks".
+  #
+  # STILL APPLIED — corrections to the reproduction, not changes to the method (see
+  # rl_modules/pan_shared.py). There is no switch for these; the previous behaviour was
+  # simply wrong:
+  #   * R_flipper is Eq. 4, -lambda_1 * |theta_f1 - theta*_f1|, not -lambda_1 * theta*_f1.
+  #     The old form went POSITIVE whenever theta* was negative and dominated the return.
+  #   * theta*_f1 is computed from the heightmap bins AHEAD of the front hinge. Row 0 of
+  #     the map is the front, so the old `hmap_x_increasing: true` + `[half:n]` slice was
+  #     reading the rear of the robot.
+  #   * One frame throughout: the heightmap is already relative to the plane under the
+  #     drive wheels, so the hinge goes in that frame instead of mixing in an absolute z.
+  #   * theta* is converted from the gravity-aligned [L] frame to the chassis [R] frame,
+  #     and from the papers' "up = positive" convention to MARV's (front up = negative).
+  #   * Hinge offset and terrain-expansion radius come from MARV's articulation and wheel
+  #     radii, not the FTR literals robot_wheel_base_length: 0.5 / robot_wheel_diam: 0.24.
+  #
+  # NOT APPLIED — the MARV-morphology adaptations, all disabled here:
+  module_cfg_overrides:
+    # Paper shapes the FRONT flipper only (its rear flipper is auxiliary; MARV's rear pair
+    # is drivetrain).
+    rear_flipper_shaping: false
+    # Paper-literal: theta* is computed in the papers' CHASSIS-centred [L] frame. On their
+    # six-track robot the main tracks pin the chassis height, so that frame is well-defined;
+    # on MARV the flippers set the ride height, so theta* becomes a function of the robot's
+    # own action and has a runaway fixed point (flippers down -> robot rises -> terrain looks
+    # lower -> theta* points down). Measured on flat ground, theta* = -0.048 / -0.231 / -0.400
+    # rad at ride heights 0.00 / 0.15 / 0.30 m; the sibling config's ground-referencing holds
+    # it at -0.048 throughout. Kept ON here deliberately, so this ablation arm measures that
+    # adaptation too rather than silently including it.
+    candidate_angle_ground_referenced: false
+    # Paper-literal lambda_1 = 0.1 (Table 2), i.e. saturation at Delta = 10 rad, which a
+    # +/-pi/3 flipper cannot reach -- the term floors near -0.21 and costs ~9% of the terminal
+    # reward even at a 69 deg deviation. The sibling config saturates at pi/2 so the term
+    # reaches the intended 75%. Kept literal here so this arm measures that scaling too.
+    lambda_flipper_saturation_rad: null
+    # Paper-literal: no minimum hinge-to-bin lever arm, so the bin 0.05 m from each hinge
+    # still dominates theta*'s max (the +41.7 deg mean rear target seen in job 11369833).
+    min_hinge_reach_m: 0.0
+    # Eq. 1 averaged over the full heightmap width rather than MARV's 0.36 m track
+    # footprint.
+    lateral_band_m: null
+    # Paper's R_contact proxy: |clearance| > threshold -> -1, rather than "is each flipper
+    # pair on the ground and is the belly clear". Symmetric about a nominal ride height, so
+    # it penalises riding up on the flipper tracks as hard as bellying out.
+    paper_contact_semantics: true

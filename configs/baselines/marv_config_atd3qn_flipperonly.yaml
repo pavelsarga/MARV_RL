@@ -1,5 +1,10 @@
-name: atd3qn_marv_asym
+name: atd3qn_marv_flipperonly
 comment: >-
+  AT-D3QN, MARV-adapted, but with R_contact REMOVED and R_flipper boosted 3x instead.
+  Tests whether flipper-angle shaping alone can do the job R_contact currently does --
+  keeping the robot down on its tracks rather than balanced on the flipper tips. This arm
+  is closer to AT-D3QN's published reward than marv_config_atd3qn.yaml (that paper defines
+  no R_contact at all); the deviation here is kappa_flipper, not the term set.
   AT-D3QN (Pan et al. 2023) flipper policy, reusing marv_asym_limits.yaml's
   robot/terrain/reward parameters. Front/rear flipper pairs only (2-DOF,
   9-action discrete space) — requires sync_flipper_control: true below, which
@@ -136,3 +141,31 @@ env_cfg_overrides:
   terrain_static_friction: 2
   terrain_dynamic_friction: 1.5
   shock_fail_limit: null
+
+  # ---- Flipper-only variant: no R_contact, boosted R_flipper -------------------------
+  # Why: R_contact is currently the only term constraining ride height, and it works --
+  # job 11382142 (kappa_contact 0.005) held clearance at ~0.09 and reached a 0.606 mean
+  # eval, while job 11381130 (no contact, same flipper weight) climbed monotonically to
+  # 0.194 and stalled at 0.413. The open question is whether that restoring force has to
+  # come from a contact term, or whether R_flipper simply lacked the authority to supply
+  # it: theta* is near horizontal on flat ground, so tracking it should already preclude
+  # standing on the tips.
+  #
+  # Sizing the boost. In 11381130 the flipper term was already worth 50% of the terminal
+  # reward (-0.99 per 300-step episode against +/-2) at kappa_flipper 0.005 and the policy
+  # still sat 69 deg off target, so it was paying ~1.0 to hold that pose. A 2x boost would
+  # only make that ~2.0 -- borderline against a +/-2 terminal -- so this uses 3x to make the
+  # test decisive rather than ambiguous:
+  #     kappa_flipper 0.015 x 300 steps x |R_flipper| = up to 4.5 = 225% of terminal
+  #     at the ~0.77 saturation fraction actually observed: ~3.5 = ~173%
+  #
+  # That is deliberately dominant, and it has a known failure mode: when the dense reward
+  # far exceeds the sparse one the policy can optimise posture at the expense of reaching
+  # the goal. Watch rew/terminal_bonus -- it went POSITIVE (+0.73/ep) in 11382142, which is
+  # the signature of actually succeeding. If it goes sharply negative here while
+  # flipper_penalty shrinks, the boost is too large; drop kappa_flipper to 0.010.
+  module_cfg_overrides:
+    # AT-D3QN's paper has no R_contact — off, as published.
+    kappa_contact: 0.0
+    # 3x the sibling paper's Table 2 value (0.005), the one deliberate deviation here.
+    kappa_flipper: 0.015
