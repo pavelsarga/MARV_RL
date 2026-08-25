@@ -146,7 +146,7 @@ _attempt_first_step_frames() {
 # previous attempt and the names are absolute; without one it restarts at 0 and the names are
 # per-attempt. Tell the two apart by the attempt's FIRST checkpoint — a restarted counter writes its
 # first one at one save interval (well below what the job has already done), a continued one writes
-# it just above. Comparing the LAST checkpoint against the frames requested does not work: a
+# it AT or just above (exactly at, when it resumed on a save-interval boundary — hence -ge below). Comparing the LAST checkpoint against the frames requested does not work: a
 # continued counter that crashes early still reports a number below the request.
 #
 # Attempts that die on an unhandled exception resume from policy_crash.pth, which carries no frame
@@ -164,7 +164,16 @@ attempt_record_progress() {
     first=$(_attempt_first_step_frames "$dir")
     last=$(_attempt_step_frames "$dir")
     [ -n "$last" ] || return 0
-    if [ "$first" -gt "$FRAMES_DONE" ]; then      # counter continued — the names are absolute
+    # -ge, not -gt: a trainer that resumes mid-run checkpoints immediately at the iteration
+    # it resumed from, so its FIRST checkpoint EQUALS FRAMES_DONE rather than exceeding it.
+    # With -gt that equality fell through to the per-attempt branch below and ADDED an
+    # already-cumulative figure, double-counting the resume point on every respawn (seen on
+    # job 11365624: attempt_1 resumed at 6,881,280 and reached 18,415,616, but was recorded
+    # as 6,881,280 + 18,415,616 = 25,296,896, so the budget ran out ~6.9M frames early and
+    # the error compounded with each further respawn). -ge stays correct for a fresh run
+    # (first=65,536 >= FRAMES_DONE=0) and for genuinely per-attempt runs, whose first
+    # checkpoint restarts well below FRAMES_DONE.
+    if [ "$first" -ge "$FRAMES_DONE" ]; then      # counter continued — the names are absolute
         ATTEMPT_PROGRESS=$((last - FRAMES_DONE))
         FRAMES_DONE=$last
     else                                          # counter restarted — the names are per-attempt
