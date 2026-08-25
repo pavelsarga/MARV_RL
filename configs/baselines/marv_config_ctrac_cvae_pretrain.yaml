@@ -19,11 +19,15 @@ output_path: experiments/baselines/ctrac/ctrac_dataset/ctrac_cvae_stage1.pth
 max_dataset_rows: 1000000
 total_steps: 20000
 batch_size: 256
-history_len: 8          # must match marv_config_ctrac.yaml's policy_opts.history_len
+history_len: 16         # must match marv_config_ctrac.yaml's policy_opts.history_len (raised 8 -> 16 there)
 latent_dim: 32
 encoder_hidden: [512, 256, 128]
 decoder_hidden: [128, 256, 128]
-vae_beta: 1.0
+# Must stay consistent with marv_config_ctrac.yaml's cvae_vae_beta/cvae_free_bits -- Stage II
+# continues training this very checkpoint, so a Stage I trained under a different KL weight
+# either arrives already collapsed or gets pulled apart by the change in objective.
+vae_beta: 0.01
+free_bits: 0.5
 prob_weight: 1.0
 est_weight: 1.0
 geo_weight: 1.0

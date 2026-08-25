@@ -31,7 +31,7 @@ episode_repeats: 100
 log_every_n_steps: 20
 shard_size_steps: 50
 output_path: experiments/baselines/ctrac/ctrac_dataset/ctrac_stage1_shards
-cvae_history_len: 8   # must match marv_config_ctrac.yaml's policy_opts.history_len
+cvae_history_len: 16  # must match marv_config_ctrac.yaml's policy_opts.history_len (raised 8 -> 16 there)
 
 marv_rl_policy_opts:
   share_encoder: false
@@ -58,8 +58,8 @@ marv_rl_vecnorm_opts:
 # VecNorm, so the demonstrator needs its matching normalization stats, not just its policy
 # weights (see CTRACDatasetCollectionConfig's docstring: unnormalized input gives near-
 # garbage actions from an otherwise-competent policy).
-marv_rl_weights_path: experiments/baselines/marv_rl/weights/policy_step_131072.pth
-marv_rl_vecnorm_weights_path: experiments/baselines/marv_rl/weights/vecnorm_step_131072.pth
+marv_rl_weights_path: experiments/baselines/marv_rl_2/weights/policy_final.pth
+marv_rl_vecnorm_weights_path: experiments/baselines/marv_rl_2/weights/vecnorm_final.pth
 
 robot_max_linear_velocity: 10.0
 robot_max_angular_velocity: 720.0
