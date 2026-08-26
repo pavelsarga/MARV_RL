@@ -186,13 +186,18 @@ env_cfg_overrides:
   # there. mitriakov's traversal_reward instead sums to 1.0 over the WHOLE episode (Eq. 3)
   # and direction_penalty uses K_D=K_W=0.5 against physical quantities that are typically
   # 0.05-0.2 (COG deviation in meters / pitch velocity in rad/s), i.e. per-step magnitudes
-  # around 0.01-0.1 — reusing marv_rl's 0.2997 verbatim would swamp both (max 0.3/step,
-  # every step, vs ~0.003/step traversal reward). Scaled down to sit in the same per-step
-  # range as K_D/K_W's typical contribution instead. Not in the paper (Eq. 5/6 only cover
-  # COG deviation and pitch velocity, both well-defined regardless of a main track); added
-  # because MARV has no continuous main-track hull-to-ground contact to fall back on
-  # (mitriakov_module.py's get_reward_components() docstring / clearance_reward comment).
-  clearance_coef: 0.1
+  # around 0.01-0.1.
+  #
+  # 0.1 (ungated) was STILL too strong: logs/train_mitriakov_11399538 measured
+  # rew/clearance_reward averaging 0.052/step — ~17x traversal_reward (~0.003/step) and
+  # ~7x direction_penalty (~0.007/step), because it paid out for the whole episode, not
+  # just the staircase span. The policy learned to stand permanently on its flipper tips
+  # (reckless on descent, stuck on ascent) rather than climb, since that collects more
+  # reward than actually finishing the traversal. Now gated to _on_staircase() in
+  # mitriakov_module.py (matching direction_penalty's own scope) AND cut 5x further, so
+  # its on-stair per-step contribution sits at or below K_D/K_W's typical range instead
+  # of dwarfing it.
+  clearance_coef: 0.02
   spawn_yaw_range: 0.0
   flipper_material_friction: 6.0
   wheel_material_friction: 4.0
