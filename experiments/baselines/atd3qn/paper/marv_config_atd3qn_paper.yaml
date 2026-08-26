@@ -1,0 +1,193 @@
+name: atd3qn_marv_paper
+comment: >-
+  BUG-FIXES-ONLY ablation of AT-D3QN: the paper's reward semantics throughout, with
+  none of the MARV-morphology adaptations. See the module_cfg_overrides block at the
+  end of this file for exactly what is and is not applied.
+  AT-D3QN (Pan et al. 2023) flipper policy, reusing marv_asym_limits.yaml's
+  robot/terrain/reward parameters. Front/rear flipper pairs only (2-DOF,
+  9-action discrete space) — requires sync_flipper_control: true below, which
+  deviates from marv_asym_limits.yaml's 4-independent-flipper default. If you
+  need true per-corner MARV control, the Q-network's action space (currently
+  3x3=9) needs extending to 3^4=81 and is out of scope for this config.
+use_wandb: true
+use_tensorboard: false
+seed: 42
+device: cuda
+training_dtype: ${dtype:float32}
+num_robots: 1024
+task: Ftr-Crossing-Direct-v0
+terrain: pan_symmetric
+# Matched to the adapted arms' doubled budget (62.9M) so the ablation compares like
+# with like; neither method had plateaued at 31.5M.
+total_frames: ${mul:5242880,12}
+time_steps_per_batch: 128
+eval_and_save_every: 8
+eval_repeats: 2
+eval_repeats_after_training: 20
+max_grad_norm: 0.697298401413678
+clip_grad_norm_p: 2
+
+# ---- Off-policy replay + optimisation ----
+replay_buffer_capacity: 2000000   # transitions kept, persists across iterations (unlike PPO's on-policy buffer)
+min_replay_size: 131072           # ~1 iteration (time_steps_per_batch * num_robots) before updates start
+batch_size: 8192
+updates_per_batch: 64             # gradient steps performed per collected iteration
+gamma: 0.995
+target_update_interval: 1000      # gradient steps between hard target-network syncs
+
+# ---- Epsilon-greedy exploration schedule (linear decay) ----
+epsilon_start: 1.0
+epsilon_end: 0.05
+epsilon_decay_iters: null   # null = decay over the full run
+
+optimizer: ${cls:torch.optim.AdamW}
+optimizer_opts:
+  lr: 0.001
+  weight_decay: 0.0001
+scheduler: ${cls:torch.optim.lr_scheduler.LinearLR}
+scheduler_opts:
+  start_factor: 1.0
+  end_factor: 0.8
+  total_iters: ${intdiv:${total_frames},${mul:${time_steps_per_batch},${num_robots}}}
+# No step_penalty_scheduler / action_bonus_coef_scheduler: FtrD3QNTrainer doesn't support
+# them, and neither step_penalty nor action_bonus_coef is read by
+# ATD3QNModule.get_reward_components() at all.
+
+data_collector_opts:
+  split_trajs: false
+
+# ATD3QNPolicy kwargs — track_vel is the constant forward speed driving the tracks
+# (the paper assumes an external operator/planner, not the D3QN network, controls this);
+# hm_hidden/hm_out/fusion_hidden must match ftr_obs_encoder_opts below (same architecture,
+# two separate instantiation points: FtrTorchRLEnv's Observation bookkeeping vs the actual
+# training policy).
+policy_opts:
+  track_vel: 0.6
+  hm_hidden: 32
+  hm_out: 4
+  fusion_hidden: 16
+
+# Observation encoder opts for ATD3QNObservation.get_encoder()
+# (18-D input: 15 terrain + 3 state = {theta_f1, theta_f2, theta_R}, Eq. 2)
+ftr_obs_encoder_opts:
+  hm_hidden: 32
+  hm_out: 4
+  fusion_hidden: 16
+
+vecnorm_opts:
+  decay: 0.99
+  eps: 0.0001
+# Off: none of the reproduced papers use reward normalisation, and every non-marv_rl
+# observation class already sets supports_vecnorm = False, so VecNorm reduces to a no-op
+# here (verified: VecNorm with empty in_keys passes the tensordict through unchanged).
+# Reward scale is load-bearing for these methods' own literal reward constants.
+vecnorm_on_reward: false
+extra_env_transforms: []
+
+# Cold start — no warm-start policy available for this architecture yet.
+policy_weights_path: null
+vecnorm_weights_path: null
+
+robot_max_linear_velocity: 10.0
+robot_max_angular_velocity: 720.0
+physx_gpu_heap_capacity: 2147483648
+physx_gpu_temp_buffer_capacity: 1073741824
+physx_gpu_max_num_partitions: 8
+solver_position_iterations: 5
+solver_velocity_iterations: 1
+max_depenetration_velocity: 0.12354395702544713
+sim_dt: 0.005
+decimation: 20
+
+env_cfg_overrides:
+  # Routes FtrEnv's observations/rewards through ATD3QNModule (rl_modules/registry.py)
+  # instead of the default marv_rl module — required for the 18-D obs this policy expects.
+  module_name: atd3qn
+  # 2-DOF front/rear flipper pairs, matching the paper's action space (see comment above).
+  sync_flipper_control: true
+  # Incremental flipper control: each discrete action {-1, 0, +1} steps the flipper by a
+  # fixed ±flipper_angle_increment_deg per control step (matching AT-D3QN's ±π/12 CW/hold/CCW
+  # design), integrated onto the current angle and clamped to the asymmetric MARV limits below.
+  flipper_control_mode: increment
+  flipper_angle_increment_deg: 15.0   # π/12
+  # ATD3QNPolicy already always emits this same constant for track_v itself (the paper's
+  # action space has no velocity component — see atd3qn_policy.py's docstring); this
+  # override is a defense-in-depth backstop, not a behavior change, so it must match
+  # policy_opts.track_vel above.
+  fixed_forward_vel: 0.6
+
+  robot_type: marv
+  goal_reached_reward: 2
+  failed_reward: -2
+  timeout_penalty: -2
+  # ATD3QNModule always computes flipper_penalty and pitch_penalty (Eq. 4 / Eq. 6); their
+  # lambda/kappa values and the MARV-morphology switches live in
+  # rl_modules/atd3qn/atd3qn_module.yaml, so no enable-flag is needed here. See
+  # rl_modules/pan_shared.py for what those switches change and why.
+  shock_scale: 4
+  # Asymmetric per-direction MARV flipper limits (degrees).
+  # Front: up = negative angle, down = positive angle.
+  # Rear:  up = positive angle, down = negative angle.
+  marv_flipper_front_up_deg: 90.0
+  marv_flipper_front_down_deg: 80.0
+  marv_flipper_back_up_deg: 90.0
+  marv_flipper_back_down_deg: 80.0
+  spawn_yaw_range: 0.0
+  flipper_material_friction: 6.0
+  wheel_material_friction: 4.0
+  body_material_friction: 0.1
+  terrain_static_friction: 1.2
+  terrain_dynamic_friction: 0.9
+  shock_fail_limit: null
+
+  # ---- Reproduction fidelity: BUG FIXES ONLY -----------------------------------------
+  # This config is the AT-D3QN ablation baseline: the corrected implementation of the
+  # paper's own equations, with none of the MARV-morphology adaptations enabled. Pair it
+  # with marv_config_atd3qn.yaml to separate "the reproduction was buggy" from
+  # "the paper's reward assumes a robot with main tracks".
+  #
+  # STILL APPLIED — corrections to the reproduction, not changes to the method (see
+  # rl_modules/pan_shared.py). There is no switch for these; the previous behaviour was
+  # simply wrong:
+  #   * R_flipper is Eq. 4, -lambda_1 * |theta_f1 - theta*_f1|, not -lambda_1 * theta*_f1.
+  #     The old form went POSITIVE whenever theta* was negative and dominated the return.
+  #   * theta*_f1 is computed from the heightmap bins AHEAD of the front hinge. Row 0 of
+  #     the map is the front, so the old `hmap_x_increasing: true` + `[half:n]` slice was
+  #     reading the rear of the robot.
+  #   * One frame throughout: the heightmap is already relative to the plane under the
+  #     drive wheels, so the hinge goes in that frame instead of mixing in an absolute z.
+  #   * theta* is converted from the gravity-aligned [L] frame to the chassis [R] frame,
+  #     and from the papers' "up = positive" convention to MARV's (front up = negative).
+  #   * Hinge offset and terrain-expansion radius come from MARV's articulation and wheel
+  #     radii, not the FTR literals robot_wheel_base_length: 0.5 / robot_wheel_diam: 0.24.
+  #
+  # NOT APPLIED — the MARV-morphology adaptations, all disabled here:
+  module_cfg_overrides:
+    # Paper shapes the FRONT flipper only (its rear flipper is auxiliary; MARV's rear pair
+    # is drivetrain).
+    rear_flipper_shaping: false
+    # Paper-literal: theta* is computed in the papers' CHASSIS-centred [L] frame. On their
+    # six-track robot the main tracks pin the chassis height, so that frame is well-defined;
+    # on MARV the flippers set the ride height, so theta* becomes a function of the robot's
+    # own action and has a runaway fixed point (flippers down -> robot rises -> terrain looks
+    # lower -> theta* points down). Measured on flat ground, theta* = -0.048 / -0.231 / -0.400
+    # rad at ride heights 0.00 / 0.15 / 0.30 m; the sibling config's ground-referencing holds
+    # it at -0.048 throughout. Kept ON here deliberately, so this ablation arm measures that
+    # adaptation too rather than silently including it.
+    candidate_angle_ground_referenced: false
+    # Paper-literal lambda_1 = 0.1 (Table 2), i.e. saturation at Delta = 10 rad, which a
+    # +/-pi/3 flipper cannot reach -- the term floors near -0.21 and costs ~9% of the terminal
+    # reward even at a 69 deg deviation. The sibling config saturates at pi/2 so the term
+    # reaches the intended 75%. Kept literal here so this arm measures that scaling too.
+    lambda_flipper_saturation_rad: null
+    # Paper-literal: no minimum hinge-to-bin lever arm, so the bin 0.05 m from each hinge
+    # still dominates theta*'s max (the +41.7 deg mean rear target seen in job 11369833).
+    min_hinge_reach_m: 0.0
+    # Eq. 1 averaged over the full heightmap width rather than MARV's 0.36 m track
+    # footprint.
+    lateral_band_m: null
+    # AT-D3QN's paper has no R_contact; kappa_contact is already 0.0 in
+    # rl_modules/atd3qn/atd3qn_module.yaml. Set both explicitly so the ablation is
+    # self-describing rather than relying on that default.
+    kappa_contact: 0.0
+    paper_contact_semantics: true

@@ -25,7 +25,7 @@ training_dtype: ${dtype:float32}
 num_robots: 1024
 task: Ftr-Crossing-Direct-v0
 terrain: mitriakov_stairs
-total_frames: ${mul:5242880,4}
+total_frames: 20971520
 time_steps_per_batch: 128
 epochs_per_batch: 5
 frames_per_sub_batch: 4096
@@ -40,7 +40,7 @@ scheduler: ${cls:torch.optim.lr_scheduler.LinearLR}
 scheduler_opts:
   start_factor: 1.0
   end_factor: 0.8
-  total_iters: ${intdiv:${total_frames},${mul:${time_steps_per_batch},${num_robots}}}
+  total_iters: 160
 gae_opts:
   gamma: 0.995
   lmbda: 0.95
@@ -69,13 +69,15 @@ policy_opts:
   front_down_deg: 90.0
   back_up_deg: 90.0
   back_down_deg: 90.0
-  mitriakov_limit_front_deg: 60.0
-  mitriakov_limit_rear_deg: 60.0
+  mitriakov_limit_front_deg: 5.0
+  mitriakov_limit_rear_deg: 5.0
+  mitriakov_trail_down_front_deg: 45.0
+  mitriakov_trail_down_rear_deg: 45.0
 ftr_obs_encoder_opts: {}
 vecnorm_opts:
   decay: 0.99
   eps: 0.0001
-vecnorm_on_reward: true
+vecnorm_on_reward: false
 extra_env_transforms: []
 policy_weights_path: null
 vecnorm_weights_path: null
@@ -90,6 +92,7 @@ max_depenetration_velocity: 0.12354395702544713
 sim_dt: 0.005
 decimation: 20
 env_cfg_overrides:
+  fixed_forward_vel: 0.6
   module_name: mitriakov
   sync_flipper_control: true
   flipper_control_mode: position
@@ -104,6 +107,7 @@ env_cfg_overrides:
   marv_flipper_front_down_deg: 90.0
   marv_flipper_back_up_deg: 90.0
   marv_flipper_back_down_deg: 90.0
+  clearance_coef: 0.02
   spawn_yaw_range: 0.0
   flipper_material_friction: 6.0
   wheel_material_friction: 4.0

@@ -83,10 +83,23 @@ policy_opts:
   front_down_deg: 90.0
   back_up_deg: 90.0
   back_down_deg: 90.0
-  # Tighter inner constraint (paper's psi_s in [-pi/4, 0]): rear during ascent, front
-  # during descent, selected per env from the is_ascending observation feature.
-  mitriakov_limit_front_deg: 60.0
-  mitriakov_limit_rear_deg: 60.0
+  # Tighter inner constraint: rear during ascent, front during descent, selected per env
+  # from the is_ascending observation feature. The paper's own range is psi_s in
+  # [-pi/4, 0] — NEVER raise the trailing flipper above neutral (tip-over safety: "overly
+  # raising the rear flippers while ascending... combined with acceleration, can produce
+  # a tip-over"), but it may dip down to -45 deg. mitriakov_limit_*_deg (the up edge) is
+  # therefore kept near 0, matching the paper exactly, with a small 5 deg control margin
+  # rather than the paper's hard 0 — NOT raised to 75, which would re-permit the
+  # tip-over-prone raising motion the paper forbids. mitriakov_trail_down_*_deg (45 deg)
+  # matches the paper's -pi/4 down allowance; MARV has no continuous main track (base_link
+  # is a bare, low-friction hull — see marv.py) so the trailing flipper's wheels are its
+  # only ground contact during that phase, making this down-side reach load-bearing here
+  # in a way it wasn't for the paper's tracked chassis (see mitriakov_policy.py's
+  # MitriakovFlipperBounds docstring).
+  mitriakov_limit_front_deg: 5.0
+  mitriakov_limit_rear_deg: 5.0
+  mitriakov_trail_down_front_deg: 45.0
+  mitriakov_trail_down_rear_deg: 45.0
 
 # MitriakovEncoder takes no meaningful options (identity passthrough — see
 # mitriakov_observation.py).
@@ -95,7 +108,11 @@ ftr_obs_encoder_opts: {}
 vecnorm_opts:
   decay: 0.99
   eps: 0.0001
-vecnorm_on_reward: true
+# Off: none of the reproduced papers use reward normalisation, and every non-marv_rl
+# observation class already sets supports_vecnorm = False, so VecNorm reduces to a no-op
+# here (verified: VecNorm with empty in_keys passes the tensordict through unchanged).
+# Reward scale is load-bearing for these methods' own literal reward constants.
+vecnorm_on_reward: false
 extra_env_transforms: []
 
 policy_weights_path: null
@@ -113,6 +130,16 @@ sim_dt: 0.005
 decimation: 20
 
 env_cfg_overrides:
+  # Constant forward velocity (ftr_env.py's _apply_action substitutes this for
+  # actions[:, 0] at the physics layer regardless of what the policy outputs) — same
+  # mechanism/value atd3qn/icmd3qn/hfc already use. Added after eval --print_actions on a
+  # trained checkpoint showed a[0] (track_v) had converged to a deterministic step-to-step
+  # sign-flipping oscillation (mean ~0, no sustained direction) while a[2]/a[3] (front/
+  # rear) locked into a fixed extreme posture within ~30 steps — the policy was rocking in
+  # place with flipper torque pinned near its effort limit rather than driving forward.
+  # Fixing v removes that failure mode entirely and leaves the policy to learn only the
+  # flipper angles, which is what's actually load-bearing for the staircase task.
+  fixed_forward_vel: 0.6
   # Routes FtrEnv's observations/rewards through MitriakovModule (rl_modules/registry.py).
   module_name: mitriakov
   # Front/rear flipper pairs, matching the paper's psi^front/psi^rear (no per-side
@@ -149,8 +176,31 @@ env_cfg_overrides:
   marv_flipper_front_down_deg: 90.0
   marv_flipper_back_up_deg: 90.0
   marv_flipper_back_down_deg: 90.0
+  # Clearance REWARD (formula ported from marv_config_marv_rl.yaml's clearance_penalty,
+  # sign flipped — see mitriakov_module.py's clearance_reward comment for why: without a
+  # continuous main track, MARV can only clear a stair tread by the flippers actively
+  # lifting/bridging it, so rewarding clearance pushes toward that instead of a low,
+  # belly-scraping posture). Coefficient is NOT reused verbatim from marv_rl — marv_rl's
+  # reward lives on an O(1-100) scale (shaping_coef: 72.5, goal_reached_reward: 129.5), so
+  # its clearance_coef: 0.2997 (max 0.3/step, sigmoid saturates at 1) is a minor term
+  # there. mitriakov's traversal_reward instead sums to 1.0 over the WHOLE episode (Eq. 3)
+  # and direction_penalty uses K_D=K_W=0.5 against physical quantities that are typically
+  # 0.05-0.2 (COG deviation in meters / pitch velocity in rad/s), i.e. per-step magnitudes
+  # around 0.01-0.1.
+  #
+  # 0.1 (ungated) was STILL too strong: logs/train_mitriakov_11399538 measured
+  # rew/clearance_reward averaging 0.052/step — ~17x traversal_reward (~0.003/step) and
+  # ~7x direction_penalty (~0.007/step), because it paid out for the whole episode, not
+  # just the staircase span. The policy learned to stand permanently on its flipper tips
+  # (reckless on descent, stuck on ascent) rather than climb, since that collects more
+  # reward than actually finishing the traversal. Now gated to _on_staircase() in
+  # mitriakov_module.py (matching direction_penalty's own scope) AND cut 5x further, so
+  # its on-stair per-step contribution sits at or below K_D/K_W's typical range instead
+  # of dwarfing it.
+  clearance_coef: 0.02
   spawn_yaw_range: 0.0
   flipper_material_friction: 6.0
   wheel_material_friction: 4.0
+  body_material_friction: 0.1
   terrain_static_friction: 1.2
   terrain_dynamic_friction: 0.9

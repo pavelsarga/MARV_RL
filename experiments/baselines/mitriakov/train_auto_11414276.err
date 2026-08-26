@@ -1,0 +1,448 @@
+2026-08-25 20:07:29 [1,288ms] [Error] [omni.ext.plugin] Could not load the dynamic library from /opt/conda/envs/isaaclab/lib/python3.10/site-packages/isaacsim/extscache/omni.usd.libs-1.0.1+10a4b5c0.lx64.r.cp310/bin/libMaterialXRenderHw.so. Error: libXt.so.6: cannot open shared object file: No such file or directory (note that this may be caused by a dependent library)
+2026-08-25 20:07:29 [1,292ms] [Error] [omni.ext.plugin] Could not load the dynamic library from /opt/conda/envs/isaaclab/lib/python3.10/site-packages/isaacsim/extscache/omni.usd.libs-1.0.1+10a4b5c0.lx64.r.cp310/bin/libMaterialXRenderGlsl.so. Error: libXt.so.6: cannot open shared object file: No such file or directory (note that this may be caused by a dependent library)
+2026-08-25 20:07:29 [1,295ms] [Error] [omni.ext.plugin] Could not load the dynamic library from /opt/conda/envs/isaaclab/lib/python3.10/site-packages/isaacsim/extscache/omni.usd.libs-1.0.1+10a4b5c0.lx64.r.cp310/bin/libusdBakeMtlx.so. Error: libXt.so.6: cannot open shared object file: No such file or directory (note that this may be caused by a dependent library)
+2026-08-25 20:07:30 [2,243ms] [Error] [omni.datastore] Failed to acquire exclusive lock to data store (64>=64)
+2026-08-25 20:07:30 [2,243ms] [Error] [omni.datastore] Failed to create local file data store at '/opt/conda/envs/isaaclab/lib/python3.10/site-packages/omni/cache/Kit/106.1/10a4b5c0/PhysXLocalMeshCache/LocalDS0'
+2026-08-25 20:07:31 [2,571ms] [Error] [omni.kit.stage_templates.new_stage] Failed to create directory /opt/conda/envs/isaaclab/lib/python3.10/site-packages/omni/data/documents/Kit/apps/Isaac-Sim/scripts/new_stage
+2026-08-25 20:07:35 [6,875ms] [Error] [omni.kit.app.plugin] failed to open file '/opt/conda/envs/isaaclab/lib/python3.10/site-packages/omni/data/Kit/Isaac-Sim/4.2/user.config.json' - unable to save the dictionary
+2026-08-25 20:07:36 [7,891ms] [Error] [gpu.foundation.plugin] No device could be created. Some known system issues:
+- The driver is not installed properly and requires a clean re-install.
+- Your GPUs do not support RayTracing: DXR or Vulkan ray_tracing, or hardware is excluded due to performance.
+- The driver cannot enumerate any GPU: driver, display, TCC mode or a docker issue. For Vulkan, test it with Vulkaninfo tool from Vulkan SDK, instead of nvidia-smi.
+- For Ubuntu, it requires server-xorg-core 1.20.7+ and a display to work without --no-window.
+- For Linux dockers, the setup is not complete. Install the latest driver, xServer and NVIDIA container runtime.
+
+2026-08-25 20:07:36 [7,893ms] [Error] [gpu.foundation.plugin] Invalid getDeviceInfo parameters.
+2026-08-25 20:07:37 [8,876ms] [Error] [omni.kvdb.plugin] Unexpected key-value database error
+2026-08-25 20:07:37 [8,913ms] [Error] [omni.kit.app.plugin] failed to open file '/opt/conda/envs/isaaclab/lib/python3.10/site-packages/omni/data/Kit/Isaac-Sim/4.2/user.config.json' - unable to save the dictionary
+/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torchrl/data/replay_buffers/samplers.py:34: UserWarning: Failed to import torchrl C++ binaries. Some modules (eg, prioritized replay buffers) may not work with your installation. This is likely due to a discrepancy between your package version and the PyTorch version. Make sure both are compatible. Usually, torchrl majors follow the pytorch majors within a few days around the release. For instance, TorchRL 0.5 requires PyTorch 2.4.0, and TorchRL 0.6 requires PyTorch 2.5.0.
+  warnings.warn(EXTENSION_WARNING)
+/opt/conda/envs/isaaclab/lib/python3.10/site-packages/wandb/sdk/internal/internal_api.py:13: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import parse_version
+2026-08-25 20:07:44 [16,516ms] [Error] [omni.kit.app.plugin] failed to open file '/opt/conda/envs/isaaclab/lib/python3.10/site-packages/omni/data/Kit/Isaac-Sim/4.2/user.config.json' - unable to save the dictionary
+2026-08-25 20:08:03 [34,563ms] [Error] [omni.kvdb.plugin] Unexpected key-value database error
+2026-08-25 20:08:03 [34,578ms] [Error] [omni.kit.app.plugin] failed to open file '/opt/conda/envs/isaaclab/lib/python3.10/site-packages/omni/data/Kit/Isaac-Sim/4.2/user.config.json' - unable to save the dictionary
+wandb: Currently logged in as: sargapav (marv_flipper_training). Use `wandb login --relogin` to force relogin
+/opt/conda/envs/isaaclab/lib/python3.10/site-packages/wandb/sdk/internal/internal_api.py:13: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import parse_version
+wandb: wandb version 0.28.2 is available!  To upgrade, please run:
+wandb:  $ pip install wandb --upgrade
+wandb: Tracking run with wandb version 0.12.21
+wandb: Run data is saved locally in /ws/logs/wandb/wandb/run-20260825_220803-e1878153e24bb626b66fc75996ab5423c9c927ace6feb902a7370b6d005c5c39
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run train_mitriakov_11414276_attempt_0
+wandb: ⭐️ View project at https://wandb.ai/marv_flipper_training/MARV_RL
+wandb: 🚀 View run at https://wandb.ai/marv_flipper_training/MARV_RL/runs/e1878153e24bb626b66fc75996ab5423c9c927ace6feb902a7370b6d005c5c39
+/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torchrl/envs/transforms/transforms.py:6557: FutureWarning: The VecNorm class is to be deprecated in favor of `torchrl.envs.VecNormV2` and will be replaced by that class in v0.10. You can adapt to these changes by using the `new_api` argument or importing the `VecNormV2` class from `torchrl.envs`.
+  warnings.warn(
+/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torchrl/envs/transforms/transforms.py:6648: FutureWarning: This class is to be deprecated in favor of :class:`~torchrl.envs.VecNormV2`.
+  warnings.warn(
+FTR PPO Training:   0% 0/20971520 [00:00<?, ?frames/s]2026-08-25 20:09:22 [114,186ms] [Error] [omni.physx.tensors.plugin] CUDA error: an illegal memory access was encountered: ../../../extensions/runtime/source/omni.physx.tensors/plugins/gpu/GpuArticulationView.cpp: 749
+2026-08-25 20:09:22 [114,268ms] [Error] [ftr_ppo_train] Training failed: CUDA error: an illegal memory access was encountered
+CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.
+For debugging consider passing CUDA_LAUNCH_BLOCKING=1
+Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
+
+Traceback (most recent call last):
+  File "/ws/src/flipper_training/marv_rl_training/training/train_ftr.py", line 523, in train
+    self._train()
+  File "/ws/src/flipper_training/marv_rl_training/training/train_ftr.py", line 587, in _train
+    for i, tensordict_data in enumerate(self.collector):
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torchrl/collectors/collectors.py", line 327, in __iter__
+    yield from self.iterator()
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torchrl/collectors/collectors.py", line 1206, in iterator
+    tensordict_out = self.rollout()
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torchrl/_utils.py", line 601, in unpack_rref_and_invoke_function
+    return func(self, *args, **kwargs)
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torch/utils/_contextlib.py", line 116, in decorate_context
+    return func(*args, **kwargs)
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torchrl/collectors/collectors.py", line 1458, in rollout
+    env_output, env_next_output = self.env.step_and_maybe_reset(env_input)
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torchrl/envs/common.py", line 3585, in step_and_maybe_reset
+    tensordict = self.step(tensordict)
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torchrl/envs/common.py", line 2031, in step
+    next_tensordict = self._step(tensordict)
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torchrl/envs/transforms/transforms.py", line 1129, in _step
+    next_tensordict = self.base_env._step(tensordict_in)
+  File "/ws/src/flipper_training/marv_rl_training/environment/ftr_env_adapter.py", line 160, in _step
+    obs_dict, reward, terminated, truncated, _info = self.ftr_env.step(action)
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/gymnasium/wrappers/order_enforcing.py", line 56, in step
+    return self.env.step(action)
+  File "/opt/IsaacLab/source/extensions/omni.isaac.lab/omni/isaac/lab/envs/direct_rl_env.py", line 322, in step
+    self.scene.write_data_to_sim()
+  File "/opt/IsaacLab/source/extensions/omni.isaac.lab/omni/isaac/lab/scene/interactive_scene.py", line 349, in write_data_to_sim
+    articulation.write_data_to_sim()
+  File "/opt/IsaacLab/source/extensions/omni.isaac.lab/omni/isaac/lab/assets/articulation/articulation.py", line 198, in write_data_to_sim
+    self.root_physx_view.set_dof_position_targets(self._joint_pos_target_sim, self._ALL_INDICES)
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/isaacsim/extsPhysics/omni.physics.tensors/omni/physics/tensors/impl/api.py", line 479, in set_dof_position_targets
+    indices = self._frontend.as_contiguous_uint32(indices)
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/isaacsim/extsPhysics/omni.physics.tensors/omni/physics/tensors/impl/frontend_torch.py", line 88, in as_contiguous_uint32
+    return tensor.to(torch.int32).contiguous()
+RuntimeError: CUDA error: an illegal memory access was encountered
+CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.
+For debugging consider passing CUDA_LAUNCH_BLOCKING=1
+Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
+
+ERROR conda.cli.main_run:execute(142): `conda run env PYTHONPATH=/ws/src/FTR-Benchmark:/ws/src/flipper_training python /ws/src/flipper_training/marv_rl_training/training/train_ftr.py --config /ws/configs/baselines/marv_config_mitriakov.yaml --headless total_frames=20971520 scheduler_opts.total_iters=160` failed. (See above for error)
+INFO:    Terminating squashfuse_ll after timeout
+INFO:    Timeouts can be caused by a running background process
+srun: error: g11: task 0: Exited with exit code 75
+2026-08-25 20:09:36 [1,204ms] [Error] [omni.ext.plugin] Could not load the dynamic library from /opt/conda/envs/isaaclab/lib/python3.10/site-packages/isaacsim/extscache/omni.usd.libs-1.0.1+10a4b5c0.lx64.r.cp310/bin/libMaterialXRenderHw.so. Error: libXt.so.6: cannot open shared object file: No such file or directory (note that this may be caused by a dependent library)
+2026-08-25 20:09:37 [1,208ms] [Error] [omni.ext.plugin] Could not load the dynamic library from /opt/conda/envs/isaaclab/lib/python3.10/site-packages/isaacsim/extscache/omni.usd.libs-1.0.1+10a4b5c0.lx64.r.cp310/bin/libMaterialXRenderGlsl.so. Error: libXt.so.6: cannot open shared object file: No such file or directory (note that this may be caused by a dependent library)
+2026-08-25 20:09:37 [1,211ms] [Error] [omni.ext.plugin] Could not load the dynamic library from /opt/conda/envs/isaaclab/lib/python3.10/site-packages/isaacsim/extscache/omni.usd.libs-1.0.1+10a4b5c0.lx64.r.cp310/bin/libusdBakeMtlx.so. Error: libXt.so.6: cannot open shared object file: No such file or directory (note that this may be caused by a dependent library)
+2026-08-25 20:09:37 [2,113ms] [Error] [omni.datastore] Failed to acquire exclusive lock to data store (64>=64)
+2026-08-25 20:09:37 [2,113ms] [Error] [omni.datastore] Failed to create local file data store at '/opt/conda/envs/isaaclab/lib/python3.10/site-packages/omni/cache/Kit/106.1/10a4b5c0/PhysXLocalMeshCache/LocalDS0'
+2026-08-25 20:09:38 [2,422ms] [Error] [omni.kit.stage_templates.new_stage] Failed to create directory /opt/conda/envs/isaaclab/lib/python3.10/site-packages/omni/data/documents/Kit/apps/Isaac-Sim/scripts/new_stage
+2026-08-25 20:09:42 [6,493ms] [Error] [omni.kit.app.plugin] failed to open file '/opt/conda/envs/isaaclab/lib/python3.10/site-packages/omni/data/Kit/Isaac-Sim/4.2/user.config.json' - unable to save the dictionary
+2026-08-25 20:09:43 [7,342ms] [Error] [gpu.foundation.plugin] No device could be created. Some known system issues:
+- The driver is not installed properly and requires a clean re-install.
+- Your GPUs do not support RayTracing: DXR or Vulkan ray_tracing, or hardware is excluded due to performance.
+- The driver cannot enumerate any GPU: driver, display, TCC mode or a docker issue. For Vulkan, test it with Vulkaninfo tool from Vulkan SDK, instead of nvidia-smi.
+- For Ubuntu, it requires server-xorg-core 1.20.7+ and a display to work without --no-window.
+- For Linux dockers, the setup is not complete. Install the latest driver, xServer and NVIDIA container runtime.
+
+2026-08-25 20:09:43 [7,344ms] [Error] [gpu.foundation.plugin] Invalid getDeviceInfo parameters.
+2026-08-25 20:09:44 [8,230ms] [Error] [omni.kvdb.plugin] Unexpected key-value database error
+2026-08-25 20:09:44 [8,268ms] [Error] [omni.kit.app.plugin] failed to open file '/opt/conda/envs/isaaclab/lib/python3.10/site-packages/omni/data/Kit/Isaac-Sim/4.2/user.config.json' - unable to save the dictionary
+/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torchrl/data/replay_buffers/samplers.py:34: UserWarning: Failed to import torchrl C++ binaries. Some modules (eg, prioritized replay buffers) may not work with your installation. This is likely due to a discrepancy between your package version and the PyTorch version. Make sure both are compatible. Usually, torchrl majors follow the pytorch majors within a few days around the release. For instance, TorchRL 0.5 requires PyTorch 2.4.0, and TorchRL 0.6 requires PyTorch 2.5.0.
+  warnings.warn(EXTENSION_WARNING)
+/opt/conda/envs/isaaclab/lib/python3.10/site-packages/wandb/sdk/internal/internal_api.py:13: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import parse_version
+2026-08-25 20:09:51 [15,344ms] [Error] [omni.kit.app.plugin] failed to open file '/opt/conda/envs/isaaclab/lib/python3.10/site-packages/omni/data/Kit/Isaac-Sim/4.2/user.config.json' - unable to save the dictionary
+2026-08-25 20:10:08 [32,562ms] [Error] [omni.kvdb.plugin] Unexpected key-value database error
+2026-08-25 20:10:08 [32,577ms] [Error] [omni.kit.app.plugin] failed to open file '/opt/conda/envs/isaaclab/lib/python3.10/site-packages/omni/data/Kit/Isaac-Sim/4.2/user.config.json' - unable to save the dictionary
+wandb: Currently logged in as: sargapav (marv_flipper_training). Use `wandb login --relogin` to force relogin
+/opt/conda/envs/isaaclab/lib/python3.10/site-packages/wandb/sdk/internal/internal_api.py:13: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import parse_version
+wandb: wandb version 0.28.2 is available!  To upgrade, please run:
+wandb:  $ pip install wandb --upgrade
+wandb: Tracking run with wandb version 0.12.21
+wandb: Run data is saved locally in /ws/logs/wandb/wandb/run-20260825_221009-7ec983de6aad2c0d61a070217e2134054c015d84de4ad2e65e46ae31fb818351
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run train_mitriakov_11414276_attempt_1
+wandb: ⭐️ View project at https://wandb.ai/marv_flipper_training/MARV_RL
+wandb: 🚀 View run at https://wandb.ai/marv_flipper_training/MARV_RL/runs/7ec983de6aad2c0d61a070217e2134054c015d84de4ad2e65e46ae31fb818351
+/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torchrl/envs/transforms/transforms.py:6557: FutureWarning: The VecNorm class is to be deprecated in favor of `torchrl.envs.VecNormV2` and will be replaced by that class in v0.10. You can adapt to these changes by using the `new_api` argument or importing the `VecNormV2` class from `torchrl.envs`.
+  warnings.warn(
+/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torchrl/envs/transforms/transforms.py:6648: FutureWarning: This class is to be deprecated in favor of :class:`~torchrl.envs.VecNormV2`.
+  warnings.warn(
+FTR PPO Training:   0% 0/20971520 [00:00<?, ?frames/s]FTR PPO Training:   1% 131072/20971520 [01:39<4:22:54, 1321.19frames/s]/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torchrl/envs/transforms/transforms.py:6989: UserWarning: Querying state_dict on an uninitialized VecNorm transform will return a `None` value for the summary statistics. Loading such a state_dict on an initialized VecNorm will result in an error.
+  warnings.warn(
+FTR PPO Training:   1% 131072/20971520 [01:50<4:22:54, 1321.19frames/s]FTR PPO Training:   1% 262144/20971520 [03:11<4:11:08, 1374.38frames/s]FTR PPO Training:   1% 262144/20971520 [03:30<4:11:08, 1374.38frames/s]FTR PPO Training:   2% 393216/20971520 [04:43<4:04:38, 1401.95frames/s]FTR PPO Training:   2% 393216/20971520 [05:00<4:04:38, 1401.95frames/s]FTR PPO Training:   2% 524288/20971520 [06:13<3:59:40, 1421.87frames/s]FTR PPO Training:   2% 524288/20971520 [06:30<3:59:40, 1421.87frames/s]FTR PPO Training:   3% 655360/20971520 [07:43<3:56:39, 1430.72frames/s]FTR PPO Training:   3% 655360/20971520 [08:00<3:56:39, 1430.72frames/s]FTR PPO Training:   4% 786432/20971520 [09:14<3:54:22, 1435.40frames/s]FTR PPO Training:   4% 786432/20971520 [09:30<3:54:22, 1435.40frames/s]FTR PPO Training:   4% 917504/20971520 [10:46<3:53:18, 1432.61frames/s]FTR PPO Training:   4% 917504/20971520 [11:00<3:53:18, 1432.61frames/s]FTR PPO Training:   5% 1048576/20971520 [12:27<3:59:28, 1386.61frames/s]FTR PPO Training:   5% 1048576/20971520 [12:40<3:59:28, 1386.61frames/s]FTR PPO Training:   6% 1179648/20971520 [14:00<3:56:47, 1393.09frames/s]FTR PPO Training:   6% 1179648/20971520 [14:20<3:56:47, 1393.09frames/s]FTR PPO Training:   6% 1310720/20971520 [15:33<3:54:22, 1398.10frames/s]FTR PPO Training:   6% 1310720/20971520 [15:50<3:54:22, 1398.10frames/s]FTR PPO Training:   7% 1441792/20971520 [17:06<3:51:51, 1403.81frames/s]FTR PPO Training:   7% 1441792/20971520 [17:20<3:51:51, 1403.81frames/s]FTR PPO Training:   8% 1572864/20971520 [32:11<13:59:13, 385.25frames/s]FTR PPO Training:   8% 1572864/20971520 [32:30<13:59:13, 385.25frames/s]FTR PPO Training:   8% 1703936/20971520 [33:41<10:47:50, 495.69frames/s]FTR PPO Training:   8% 1703936/20971520 [34:00<10:47:50, 495.69frames/s]FTR PPO Training:   9% 1835008/20971520 [35:10<8:35:13, 619.03frames/s] FTR PPO Training:   9% 1835008/20971520 [35:30<8:35:13, 619.03frames/s]FTR PPO Training:   9% 1966080/20971520 [36:41<7:03:29, 747.96frames/s]FTR PPO Training:   9% 1966080/20971520 [37:00<7:03:29, 747.96frames/s]FTR PPO Training:  10% 2097152/20971520 [38:12<5:59:54, 874.04frames/s]FTR PPO Training:  10% 2097152/20971520 [38:30<5:59:54, 874.04frames/s]FTR PPO Training:  11% 2228224/20971520 [39:43<5:14:35, 992.99frames/s]FTR PPO Training:  11% 2228224/20971520 [40:00<5:14:35, 992.99frames/s]FTR PPO Training:  11% 2359296/20971520 [41:13<4:43:01, 1096.06frames/s]FTR PPO Training:  11% 2359296/20971520 [41:30<4:43:01, 1096.06frames/s]FTR PPO Training:  12% 2490368/20971520 [42:46<4:21:42, 1176.96frames/s]FTR PPO Training:  12% 2490368/20971520 [43:00<4:21:42, 1176.96frames/s]FTR PPO Training:  12% 2621440/20971520 [44:17<4:06:07, 1242.57frames/s]FTR PPO Training:  12% 2621440/20971520 [44:30<4:06:07, 1242.57frames/s]FTR PPO Training:  13% 2752512/20971520 [45:48<3:54:22, 1295.56frames/s]FTR PPO Training:  13% 2752512/20971520 [46:01<3:54:22, 1295.56frames/s]FTR PPO Training:  14% 2883584/20971520 [1:01:02<13:13:10, 380.07frames/s]FTR PPO Training:  14% 2883584/20971520 [1:01:21<13:13:10, 380.07frames/s]FTR PPO Training:  14% 3014656/20971520 [1:02:37<10:16:39, 485.33frames/s]FTR PPO Training:  14% 3014656/20971520 [1:02:51<10:16:39, 485.33frames/s]FTR PPO Training:  15% 3145728/20971520 [1:04:09<8:10:37, 605.55frames/s] FTR PPO Training:  15% 3145728/20971520 [1:04:21<8:10:37, 605.55frames/s]FTR PPO Training:  16% 3276800/20971520 [1:05:42<6:43:41, 730.53frames/s]FTR PPO Training:  16% 3276800/20971520 [1:06:01<6:43:41, 730.53frames/s]FTR PPO Training:  16% 3407872/20971520 [1:07:14<5:42:05, 855.72frames/s]FTR PPO Training:  16% 3407872/20971520 [1:07:31<5:42:05, 855.72frames/s]FTR PPO Training:  17% 3538944/20971520 [1:08:54<5:04:45, 953.35frames/s]FTR PPO Training:  17% 3538944/20971520 [1:09:11<5:04:45, 953.35frames/s]FTR PPO Training:  18% 3670016/20971520 [1:10:26<4:31:58, 1060.21frames/s]FTR PPO Training:  18% 3670016/20971520 [1:10:41<4:31:58, 1060.21frames/s]FTR PPO Training:  18% 3801088/20971520 [1:11:57<4:08:29, 1151.67frames/s]FTR PPO Training:  18% 3801088/20971520 [1:12:12<4:08:29, 1151.67frames/s]FTR PPO Training:  19% 3932160/20971520 [1:13:29<3:52:57, 1219.07frames/s]FTR PPO Training:  19% 3932160/20971520 [1:13:42<3:52:57, 1219.07frames/s]FTR PPO Training:  19% 4063232/20971520 [1:15:01<3:40:34, 1277.61frames/s]FTR PPO Training:  19% 4063232/20971520 [1:15:12<3:40:34, 1277.61frames/s]FTR PPO Training:  20% 4194304/20971520 [1:30:03<12:10:43, 382.66frames/s]FTR PPO Training:  20% 4194304/20971520 [1:30:22<12:10:43, 382.66frames/s]FTR PPO Training:  21% 4325376/20971520 [1:31:35<9:25:54, 490.25frames/s] FTR PPO Training:  21% 4325376/20971520 [1:31:52<9:25:54, 490.25frames/s]FTR PPO Training:  21% 4456448/20971520 [1:33:07<7:30:50, 610.52frames/s]FTR PPO Training:  21% 4456448/20971520 [1:33:22<7:30:50, 610.52frames/s]FTR PPO Training:  22% 4587520/20971520 [1:34:37<6:09:35, 738.85frames/s]FTR PPO Training:  22% 4587520/20971520 [1:34:52<6:09:35, 738.85frames/s]FTR PPO Training:  22% 4718592/20971520 [1:36:08<5:13:08, 865.04frames/s]FTR PPO Training:  22% 4718592/20971520 [1:36:22<5:13:08, 865.04frames/s]FTR PPO Training:  23% 4849664/20971520 [1:37:39<4:33:13, 983.41frames/s]FTR PPO Training:  23% 4849664/20971520 [1:37:52<4:33:13, 983.41frames/s]FTR PPO Training:  24% 4980736/20971520 [1:39:08<4:04:12, 1091.30frames/s]FTR PPO Training:  24% 4980736/20971520 [1:39:22<4:04:12, 1091.30frames/s]FTR PPO Training:  24% 5111808/20971520 [1:40:38<3:43:54, 1180.52frames/s]FTR PPO Training:  24% 5111808/20971520 [1:40:52<3:43:54, 1180.52frames/s]FTR PPO Training:  25% 5242880/20971520 [1:42:07<3:28:54, 1254.87frames/s]FTR PPO Training:  25% 5242880/20971520 [1:42:22<3:28:54, 1254.87frames/s]FTR PPO Training:  26% 5373952/20971520 [1:43:38<3:19:04, 1305.88frames/s]FTR PPO Training:  26% 5373952/20971520 [1:43:52<3:19:04, 1305.88frames/s]FTR PPO Training:  26% 5505024/20971520 [1:58:41<11:10:50, 384.25frames/s]FTR PPO Training:  26% 5505024/20971520 [1:58:52<11:10:50, 384.25frames/s]FTR PPO Training:  27% 5636096/20971520 [2:00:10<8:37:44, 493.66frames/s] FTR PPO Training:  27% 5636096/20971520 [2:00:22<8:37:44, 493.66frames/s]FTR PPO Training:  28% 5767168/20971520 [2:01:40<6:51:39, 615.57frames/s]FTR PPO Training:  28% 5767168/20971520 [2:01:52<6:51:39, 615.57frames/s]FTR PPO Training:  28% 5898240/20971520 [2:03:10<5:37:02, 745.37frames/s]FTR PPO Training:  28% 5898240/20971520 [2:03:22<5:37:02, 745.37frames/s]FTR PPO Training:  29% 6029312/20971520 [2:04:40<4:45:09, 873.31frames/s]FTR PPO Training:  29% 6029312/20971520 [2:04:52<4:45:09, 873.31frames/s]FTR PPO Training:  29% 6160384/20971520 [2:06:17<4:12:54, 976.06frames/s]FTR PPO Training:  29% 6160384/20971520 [2:06:32<4:12:54, 976.06frames/s]FTR PPO Training:  30% 6291456/20971520 [2:07:47<3:45:52, 1083.23frames/s]FTR PPO Training:  30% 6291456/20971520 [2:08:02<3:45:52, 1083.23frames/s]FTR PPO Training:  31% 6422528/20971520 [2:09:17<3:26:37, 1173.52frames/s]FTR PPO Training:  31% 6422528/20971520 [2:09:32<3:26:37, 1173.52frames/s]FTR PPO Training:  31% 6553600/20971520 [2:10:47<3:12:38, 1247.35frames/s]FTR PPO Training:  31% 6553600/20971520 [2:11:02<3:12:38, 1247.35frames/s]FTR PPO Training:  32% 6684672/20971520 [2:12:16<3:02:12, 1306.87frames/s]FTR PPO Training:  32% 6684672/20971520 [2:12:32<3:02:12, 1306.87frames/s]FTR PPO Training:  32% 6815744/20971520 [2:27:23<10:16:18, 382.81frames/s]FTR PPO Training:  32% 6815744/20971520 [2:27:43<10:16:18, 382.81frames/s]FTR PPO Training:  33% 6946816/20971520 [2:28:53<7:55:19, 491.76frames/s] FTR PPO Training:  33% 6946816/20971520 [2:29:03<7:55:19, 491.76frames/s]FTR PPO Training:  34% 7077888/20971520 [2:30:29<6:20:32, 608.51frames/s]FTR PPO Training:  34% 7077888/20971520 [2:30:43<6:20:32, 608.51frames/s]FTR PPO Training:  34% 7208960/20971520 [2:32:00<5:11:37, 736.08frames/s]FTR PPO Training:  34% 7208960/20971520 [2:32:13<5:11:37, 736.08frames/s]FTR PPO Training:  35% 7340032/20971520 [2:33:30<4:23:01, 863.75frames/s]FTR PPO Training:  35% 7340032/20971520 [2:33:43<4:23:01, 863.75frames/s]FTR PPO Training:  36% 7471104/20971520 [2:35:00<3:48:54, 982.97frames/s]FTR PPO Training:  36% 7471104/20971520 [2:35:13<3:48:54, 982.97frames/s]FTR PPO Training:  36% 7602176/20971520 [2:36:31<3:25:01, 1086.77frames/s]FTR PPO Training:  36% 7602176/20971520 [2:36:43<3:25:01, 1086.77frames/s]FTR PPO Training:  37% 7733248/20971520 [2:38:03<3:08:39, 1169.51frames/s]FTR PPO Training:  37% 7733248/20971520 [2:38:23<3:08:39, 1169.51frames/s]FTR PPO Training:  38% 7864320/20971520 [2:39:35<2:56:27, 1238.03frames/s]FTR PPO Training:  38% 7864320/20971520 [2:39:53<2:56:27, 1238.03frames/s]FTR PPO Training:  38% 7995392/20971520 [2:41:05<2:46:53, 1295.85frames/s]FTR PPO Training:  38% 7995392/20971520 [2:41:23<2:46:53, 1295.85frames/s]FTR PPO Training:  39% 8126464/20971520 [2:56:15<9:21:30, 381.27frames/s] FTR PPO Training:  39% 8126464/20971520 [2:56:34<9:21:30, 381.27frames/s]FTR PPO Training:  39% 8257536/20971520 [2:57:46<7:13:17, 489.04frames/s]FTR PPO Training:  39% 8257536/20971520 [2:58:04<7:13:17, 489.04frames/s]FTR PPO Training:  40% 8388608/20971520 [2:59:17<5:43:44, 610.09frames/s]FTR PPO Training:  40% 8388608/20971520 [2:59:34<5:43:44, 610.09frames/s]FTR PPO Training:  41% 8519680/20971520 [3:00:48<4:41:15, 737.84frames/s]FTR PPO Training:  41% 8519680/20971520 [3:01:04<4:41:15, 737.84frames/s]FTR PPO Training:  41% 8650752/20971520 [3:02:20<3:58:04, 862.51frames/s]FTR PPO Training:  41% 8650752/20971520 [3:02:34<3:58:04, 862.51frames/s]FTR PPO Training:  42% 8781824/20971520 [3:03:52<3:27:35, 978.63frames/s]FTR PPO Training:  42% 8781824/20971520 [3:04:04<3:27:35, 978.63frames/s]FTR PPO Training:  42% 8912896/20971520 [3:05:22<3:05:09, 1085.45frames/s]FTR PPO Training:  42% 8912896/20971520 [3:05:34<3:05:09, 1085.45frames/s]FTR PPO Training:  43% 9043968/20971520 [3:06:51<2:49:03, 1175.83frames/s]FTR PPO Training:  43% 9043968/20971520 [3:07:04<2:49:03, 1175.83frames/s]FTR PPO Training:  44% 9175040/20971520 [3:08:25<2:39:03, 1236.10frames/s]FTR PPO Training:  44% 9175040/20971520 [3:08:44<2:39:03, 1236.10frames/s]FTR PPO Training:  44% 9306112/20971520 [3:09:59<2:32:04, 1278.52frames/s]FTR PPO Training:  44% 9306112/20971520 [3:10:14<2:32:04, 1278.52frames/s]FTR PPO Training:  45% 9437184/20971520 [3:25:16<8:28:45, 377.86frames/s] FTR PPO Training:  45% 9437184/20971520 [3:25:34<8:28:45, 377.86frames/s]FTR PPO Training:  46% 9568256/20971520 [3:26:48<6:31:57, 484.87frames/s]FTR PPO Training:  46% 9568256/20971520 [3:27:04<6:31:57, 484.87frames/s]FTR PPO Training:  46% 9699328/20971520 [3:28:26<5:13:19, 599.59frames/s]FTR PPO Training:  46% 9699328/20971520 [3:28:44<5:13:19, 599.59frames/s]FTR PPO Training:  47% 9830400/20971520 [3:30:00<4:16:38, 723.53frames/s]FTR PPO Training:  47% 9830400/20971520 [3:30:14<4:16:38, 723.53frames/s]FTR PPO Training:  48% 9961472/20971520 [3:31:31<3:35:53, 849.95frames/s]FTR PPO Training:  48% 9961472/20971520 [3:31:44<3:35:53, 849.95frames/s]FTR PPO Training:  48% 10092544/20971520 [3:33:02<3:06:56, 969.92frames/s]FTR PPO Training:  48% 10092544/20971520 [3:33:14<3:06:56, 969.92frames/s]FTR PPO Training:  49% 10223616/20971520 [3:34:31<2:46:06, 1078.46frames/s]FTR PPO Training:  49% 10223616/20971520 [3:34:44<2:46:06, 1078.46frames/s]FTR PPO Training:  49% 10354688/20971520 [3:36:03<2:32:07, 1163.12frames/s]FTR PPO Training:  49% 10354688/20971520 [3:36:14<2:32:07, 1163.12frames/s]FTR PPO Training:  50% 10485760/20971520 [3:37:34<2:21:31, 1234.90frames/s]FTR PPO Training:  50% 10485760/20971520 [3:37:54<2:21:31, 1234.90frames/s]FTR PPO Training:  51% 10616832/20971520 [3:39:05<2:13:44, 1290.42frames/s]FTR PPO Training:  51% 10616832/20971520 [3:39:24<2:13:44, 1290.42frames/s]FTR PPO Training:  51% 10747904/20971520 [3:54:20<7:29:23, 379.17frames/s] FTR PPO Training:  51% 10747904/20971520 [3:54:34<7:29:23, 379.17frames/s]FTR PPO Training:  52% 10878976/20971520 [3:55:51<5:45:25, 486.95frames/s]FTR PPO Training:  52% 10878976/20971520 [3:56:04<5:45:25, 486.95frames/s]FTR PPO Training:  52% 11010048/20971520 [3:57:21<4:33:00, 608.12frames/s]FTR PPO Training:  52% 11010048/20971520 [3:57:34<4:33:00, 608.12frames/s]FTR PPO Training:  53% 11141120/20971520 [3:58:53<3:42:50, 735.21frames/s]FTR PPO Training:  53% 11141120/20971520 [3:59:04<3:42:50, 735.21frames/s]FTR PPO Training:  54% 11272192/20971520 [4:00:24<3:07:33, 861.90frames/s]FTR PPO Training:  54% 11272192/20971520 [4:00:34<3:07:33, 861.90frames/s]FTR PPO Training:  54% 11403264/20971520 [4:01:54<2:42:23, 981.97frames/s]FTR PPO Training:  54% 11403264/20971520 [4:02:04<2:42:23, 981.97frames/s]FTR PPO Training:  55% 11534336/20971520 [4:03:23<2:24:21, 1089.53frames/s]FTR PPO Training:  55% 11534336/20971520 [4:03:34<2:24:21, 1089.53frames/s]FTR PPO Training:  56% 11665408/20971520 [4:04:54<2:11:55, 1175.75frames/s]FTR PPO Training:  56% 11665408/20971520 [4:05:04<2:11:55, 1175.75frames/s]FTR PPO Training:  56% 11796480/20971520 [4:06:24<2:02:34, 1247.61frames/s]FTR PPO Training:  56% 11796480/20971520 [4:06:34<2:02:34, 1247.61frames/s]FTR PPO Training:  57% 11927552/20971520 [4:07:54<1:55:38, 1303.36frames/s]FTR PPO Training:  57% 11927552/20971520 [4:08:04<1:55:38, 1303.36frames/s]FTR PPO Training:  57% 12058624/20971520 [4:23:02<6:28:19, 382.54frames/s] FTR PPO Training:  57% 12058624/20971520 [4:23:15<6:28:19, 382.54frames/s]FTR PPO Training:  58% 12189696/20971520 [4:24:32<4:58:04, 491.03frames/s]FTR PPO Training:  58% 12189696/20971520 [4:24:45<4:58:04, 491.03frames/s]FTR PPO Training:  59% 12320768/20971520 [4:26:03<3:55:30, 612.21frames/s]FTR PPO Training:  59% 12320768/20971520 [4:26:15<3:55:30, 612.21frames/s]FTR PPO Training:  59% 12451840/20971520 [4:27:41<3:14:08, 731.42frames/s]FTR PPO Training:  59% 12451840/20971520 [4:27:55<3:14:08, 731.42frames/s]FTR PPO Training:  60% 12582912/20971520 [4:29:11<2:42:45, 859.00frames/s]FTR PPO Training:  60% 12582912/20971520 [4:29:25<2:42:45, 859.00frames/s]FTR PPO Training:  61% 12713984/20971520 [4:30:43<2:21:10, 974.90frames/s]FTR PPO Training:  61% 12713984/20971520 [4:30:55<2:21:10, 974.90frames/s]FTR PPO Training:  61% 12845056/20971520 [4:32:16<2:05:49, 1076.39frames/s]FTR PPO Training:  61% 12845056/20971520 [4:32:35<2:05:49, 1076.39frames/s]FTR PPO Training:  62% 12976128/20971520 [4:33:46<1:54:18, 1165.76frames/s]FTR PPO Training:  62% 12976128/20971520 [4:34:05<1:54:18, 1165.76frames/s]FTR PPO Training:  62% 13107200/20971520 [4:35:17<1:45:58, 1236.85frames/s]FTR PPO Training:  62% 13107200/20971520 [4:35:35<1:45:58, 1236.85frames/s]FTR PPO Training:  63% 13238272/20971520 [4:36:51<1:40:41, 1280.08frames/s]FTR PPO Training:  63% 13238272/20971520 [4:37:05<1:40:41, 1280.08frames/s]FTR PPO Training:  64% 13369344/20971520 [4:52:06<5:34:41, 378.57frames/s] FTR PPO Training:  64% 13369344/20971520 [4:52:25<5:34:41, 378.57frames/s]FTR PPO Training:  64% 13500416/20971520 [4:53:40<4:17:01, 484.45frames/s]FTR PPO Training:  64% 13500416/20971520 [4:53:56<4:17:01, 484.45frames/s]FTR PPO Training:  65% 13631488/20971520 [4:55:10<3:21:44, 606.41frames/s]FTR PPO Training:  65% 13631488/20971520 [4:55:26<3:21:44, 606.41frames/s]FTR PPO Training:  66% 13762560/20971520 [4:56:40<2:43:33, 734.61frames/s]FTR PPO Training:  66% 13762560/20971520 [4:56:56<2:43:33, 734.61frames/s]FTR PPO Training:  66% 13893632/20971520 [4:58:09<2:16:31, 864.10frames/s]FTR PPO Training:  66% 13893632/20971520 [4:58:26<2:16:31, 864.10frames/s]FTR PPO Training:  67% 14024704/20971520 [4:59:39<1:57:31, 985.13frames/s]FTR PPO Training:  67% 14024704/20971520 [4:59:56<1:57:31, 985.13frames/s]FTR PPO Training:  68% 14155776/20971520 [5:01:07<1:43:46, 1094.57frames/s]FTR PPO Training:  68% 14155776/20971520 [5:01:26<1:43:46, 1094.57frames/s]FTR PPO Training:  68% 14286848/20971520 [5:02:39<1:34:28, 1179.36frames/s]FTR PPO Training:  68% 14286848/20971520 [5:02:56<1:34:28, 1179.36frames/s]FTR PPO Training:  69% 14417920/20971520 [5:04:08<1:27:09, 1253.20frames/s]FTR PPO Training:  69% 14417920/20971520 [5:04:26<1:27:09, 1253.20frames/s]FTR PPO Training:  69% 14548992/20971520 [5:05:37<1:21:31, 1313.05frames/s]FTR PPO Training:  69% 14548992/20971520 [5:05:56<1:21:31, 1313.05frames/s]FTR PPO Training:  70% 14680064/20971520 [5:20:33<4:31:01, 386.90frames/s] FTR PPO Training:  70% 14680064/20971520 [5:20:46<4:31:01, 386.90frames/s]FTR PPO Training:  71% 14811136/20971520 [5:22:02<3:26:40, 496.77frames/s]FTR PPO Training:  71% 14811136/20971520 [5:22:16<3:26:40, 496.77frames/s]FTR PPO Training:  71% 14942208/20971520 [5:23:33<2:42:28, 618.49frames/s]FTR PPO Training:  71% 14942208/20971520 [5:23:46<2:42:28, 618.49frames/s]FTR PPO Training:  72% 15073280/20971520 [5:25:03<2:11:30, 747.50frames/s]FTR PPO Training:  72% 15073280/20971520 [5:25:16<2:11:30, 747.50frames/s]FTR PPO Training:  72% 15204352/20971520 [5:26:32<1:49:41, 876.28frames/s]FTR PPO Training:  72% 15204352/20971520 [5:26:46<1:49:41, 876.28frames/s]FTR PPO Training:  73% 15335424/20971520 [5:28:02<1:34:25, 994.78frames/s]FTR PPO Training:  73% 15335424/20971520 [5:28:16<1:34:25, 994.78frames/s]FTR PPO Training:  74% 15466496/20971520 [5:29:32<1:23:27, 1099.36frames/s]FTR PPO Training:  74% 15466496/20971520 [5:29:47<1:23:27, 1099.36frames/s]FTR PPO Training:  74% 15597568/20971520 [5:31:01<1:15:11, 1191.24frames/s]FTR PPO Training:  74% 15597568/20971520 [5:31:17<1:15:11, 1191.24frames/s]FTR PPO Training:  75% 15728640/20971520 [5:32:33<1:09:44, 1253.02frames/s]FTR PPO Training:  75% 15728640/20971520 [5:32:47<1:09:44, 1253.02frames/s]FTR PPO Training:  76% 15859712/20971520 [5:34:01<1:04:49, 1314.37frames/s]FTR PPO Training:  76% 15859712/20971520 [5:34:17<1:04:49, 1314.37frames/s]FTR PPO Training:  76% 15990784/20971520 [5:48:54<3:33:46, 388.33frames/s] FTR PPO Training:  76% 15990784/20971520 [5:49:07<3:33:46, 388.33frames/s]FTR PPO Training:  77% 16121856/20971520 [5:50:24<2:42:31, 497.33frames/s]FTR PPO Training:  77% 16121856/20971520 [5:50:37<2:42:31, 497.33frames/s]FTR PPO Training:  78% 16252928/20971520 [5:51:56<2:07:05, 618.76frames/s]FTR PPO Training:  78% 16252928/20971520 [5:52:07<2:07:05, 618.76frames/s]FTR PPO Training:  78% 16384000/20971520 [5:53:24<1:41:53, 750.41frames/s]FTR PPO Training:  78% 16384000/20971520 [5:53:37<1:41:53, 750.41frames/s]FTR PPO Training:  79% 16515072/20971520 [5:54:50<1:24:03, 883.61frames/s]FTR PPO Training:  79% 16515072/20971520 [5:55:07<1:24:03, 883.61frames/s]FTR PPO Training:  79% 16646144/20971520 [5:56:17<1:11:22, 1010.02frames/s]FTR PPO Training:  79% 16646144/20971520 [5:56:27<1:11:22, 1010.02frames/s]FTR PPO Training:  80% 16777216/20971520 [5:57:44<1:02:22, 1120.72frames/s]FTR PPO Training:  80% 16777216/20971520 [5:57:57<1:02:22, 1120.72frames/s]FTR PPO Training:  81% 16908288/20971520 [5:59:14<56:11, 1205.33frames/s]  FTR PPO Training:  81% 16908288/20971520 [5:59:27<56:11, 1205.33frames/s]FTR PPO Training:  81% 17039360/20971520 [6:00:42<51:21, 1275.95frames/s]FTR PPO Training:  81% 17039360/20971520 [6:00:57<51:21, 1275.95frames/s]FTR PPO Training:  82% 17170432/20971520 [6:02:11<47:34, 1331.70frames/s]FTR PPO Training:  82% 17170432/20971520 [6:02:27<47:34, 1331.70frames/s]FTR PPO Training:  82% 17301504/20971520 [6:16:57<2:36:11, 391.61frames/s]FTR PPO Training:  82% 17301504/20971520 [6:17:07<2:36:11, 391.61frames/s]FTR PPO Training:  83% 17432576/20971520 [6:18:25<1:57:24, 502.36frames/s]FTR PPO Training:  83% 17432576/20971520 [6:18:37<1:57:24, 502.36frames/s]FTR PPO Training:  84% 17563648/20971520 [6:19:54<1:30:37, 626.69frames/s]FTR PPO Training:  84% 17563648/20971520 [6:20:07<1:30:37, 626.69frames/s]FTR PPO Training:  84% 17694720/20971520 [6:21:22<1:12:01, 758.18frames/s]FTR PPO Training:  84% 17694720/20971520 [6:21:37<1:12:01, 758.18frames/s]FTR PPO Training:  85% 17825792/20971520 [6:22:49<58:53, 890.29frames/s]  FTR PPO Training:  85% 17825792/20971520 [6:23:07<58:53, 890.29frames/s]FTR PPO Training:  86% 17956864/20971520 [6:24:19<49:45, 1009.77frames/s]FTR PPO Training:  86% 17956864/20971520 [6:24:37<49:45, 1009.77frames/s]FTR PPO Training:  86% 18087936/20971520 [6:25:47<43:03, 1116.37frames/s]FTR PPO Training:  86% 18087936/20971520 [6:25:57<43:03, 1116.37frames/s]FTR PPO Training:  87% 18219008/20971520 [6:27:16<38:05, 1204.15frames/s]FTR PPO Training:  87% 18219008/20971520 [6:27:27<38:05, 1204.15frames/s]FTR PPO Training:  88% 18350080/20971520 [6:28:45<34:16, 1274.51frames/s]FTR PPO Training:  88% 18350080/20971520 [6:28:58<34:16, 1274.51frames/s]FTR PPO Training:  88% 18481152/20971520 [6:30:16<31:26, 1320.27frames/s]FTR PPO Training:  88% 18481152/20971520 [6:30:28<31:26, 1320.27frames/s]FTR PPO Training:  89% 18612224/20971520 [6:45:10<1:41:19, 388.09frames/s]FTR PPO Training:  89% 18612224/20971520 [6:45:28<1:41:19, 388.09frames/s]FTR PPO Training:  89% 18743296/20971520 [6:46:42<1:14:48, 496.38frames/s]FTR PPO Training:  89% 18743296/20971520 [6:46:58<1:14:48, 496.38frames/s]FTR PPO Training:  90% 18874368/20971520 [6:48:12<56:29, 618.78frames/s]  FTR PPO Training:  90% 18874368/20971520 [6:48:28<56:29, 618.78frames/s]FTR PPO Training:  91% 19005440/20971520 [6:49:44<43:56, 745.60frames/s]FTR PPO Training:  91% 19005440/20971520 [6:49:58<43:56, 745.60frames/s]FTR PPO Training:  91% 19136512/20971520 [6:51:14<35:00, 873.54frames/s]FTR PPO Training:  91% 19136512/20971520 [6:51:28<35:00, 873.54frames/s]FTR PPO Training:  92% 19267584/20971520 [6:52:43<28:35, 993.28frames/s]FTR PPO Training:  92% 19267584/20971520 [6:52:58<28:35, 993.28frames/s]FTR PPO Training:  92% 19398656/20971520 [6:54:16<24:00, 1091.92frames/s]FTR PPO Training:  92% 19398656/20971520 [6:54:28<24:00, 1091.92frames/s]FTR PPO Training:  93% 19529728/20971520 [6:55:44<20:16, 1185.18frames/s]FTR PPO Training:  93% 19529728/20971520 [6:55:58<20:16, 1185.18frames/s]FTR PPO Training:  94% 19660800/20971520 [6:57:14<17:22, 1257.00frames/s]FTR PPO Training:  94% 19660800/20971520 [6:57:28<17:22, 1257.00frames/s]FTR PPO Training:  94% 19791872/20971520 [6:58:47<15:09, 1296.92frames/s]FTR PPO Training:  94% 19791872/20971520 [6:58:58<15:09, 1296.92frames/s]FTR PPO Training:  95% 19922944/20971520 [7:13:36<45:00, 388.35frames/s] FTR PPO Training:  95% 19922944/20971520 [7:13:48<45:00, 388.35frames/s]FTR PPO Training:  96% 20054016/20971520 [7:15:06<30:42, 498.00frames/s]FTR PPO Training:  96% 20054016/20971520 [7:15:18<30:42, 498.00frames/s]FTR PPO Training:  96% 20185088/20971520 [7:16:35<21:04, 621.90frames/s]FTR PPO Training:  96% 20185088/20971520 [7:16:48<21:04, 621.90frames/s]FTR PPO Training:  97% 20316160/20971520 [7:18:03<14:29, 753.58frames/s]FTR PPO Training:  97% 20316160/20971520 [7:18:18<14:29, 753.58frames/s]FTR PPO Training:  98% 20447232/20971520 [7:19:31<09:53, 883.85frames/s]FTR PPO Training:  98% 20447232/20971520 [7:19:48<09:53, 883.85frames/s]FTR PPO Training:  98% 20578304/20971520 [7:21:03<06:34, 997.84frames/s]FTR PPO Training:  98% 20578304/20971520 [7:21:18<06:34, 997.84frames/s]FTR PPO Training:  99% 20709376/20971520 [7:22:32<03:57, 1104.98frames/s]FTR PPO Training:  99% 20709376/20971520 [7:22:48<03:57, 1104.98frames/s]FTR PPO Training:  99% 20840448/20971520 [7:24:02<01:50, 1190.20frames/s]FTR PPO Training:  99% 20840448/20971520 [7:24:19<01:50, 1190.20frames/s]FTR PPO Training: 100% 20971520/20971520 [7:25:31<00:00, 1263.74frames/s]                                                                         wandb: Waiting for W&B process to finish... (success).
+wandb: - 0.896 MB of 0.896 MB uploaded (0.000 MB deduped)wandb: \ 0.896 MB of 0.896 MB uploaded (0.000 MB deduped)wandb: | 0.896 MB of 0.933 MB uploaded (0.000 MB deduped)wandb: / 0.896 MB of 0.933 MB uploaded (0.000 MB deduped)wandb: - 0.896 MB of 0.933 MB uploaded (0.000 MB deduped)wandb: \ 0.925 MB of 0.933 MB uploaded (0.000 MB deduped)wandb: | 0.933 MB of 0.933 MB uploaded (0.000 MB deduped)wandb: / 0.933 MB of 0.933 MB uploaded (0.000 MB deduped)wandb: - 0.933 MB of 0.933 MB uploaded (0.000 MB deduped)wandb: \ 0.933 MB of 0.933 MB uploaded (0.000 MB deduped)wandb: | 0.933 MB of 0.933 MB uploaded (0.000 MB deduped)wandb: / 0.933 MB of 0.933 MB uploaded (0.000 MB deduped)wandb: - 0.933 MB of 0.933 MB uploaded (0.000 MB deduped)wandb:                                                                                
+wandb: 
+wandb: Run history:
+wandb:                         action/flipper_front_mean █▇▄▃▄▄▄▄▄▃▃▂▂▂▃▂▂▃▃▃▂▂▂▂▂▃▃▂▂▂▂▃▃▁▁▂▂▂▂▂
+wandb:                          action/flipper_front_std █▅▄▃▃▂▁▁▁▁▂▂▂▃▂▂▂▂▂▂▂▃▃▃▃▂▃▃▂▃▃▄▃▃▃▃▃▄▄▃
+wandb:                          action/flipper_rear_mean ▆▁▁▃▅▅▇▅▆▇▆██▆▆▅▇▅▅▃▂▆▄▄▄▂▄▃▃▂▂▂▁▄▃▂▂▂▂▂
+wandb:                           action/flipper_rear_std ▁▇▃▃▅▇▄▅▃▆▇▄▆▄▆█▅▆▄▇█▄▆▄▆▇▄▆▄▅▆▃▄▃▄▅▃▄▂▂
+wandb:                                     action/v_mean ▂▃▃▃▃▄▇▅▅▆▄▅▅▅▄▁▁▃▃▃▅▅▅▄▄▅▃▃▃▅▆▆▅▆▆▇█▅▄▃
+wandb:                                      action/v_std █▇▇▆▆▆▅▅▅▅▅▅▄▄▄▄▃▃▃▂▂▂▁▂▂▂▃▄▃▃▃▃▃▂▂▂▂▂▂▁
+wandb:                                     action/w_mean ▂▂▃▃▂▃▃▆█▄▃▃▃▄▆▄▃▂▃▅▃▃▁▁▄▆▅▃▂▃▄▆▆▆▃▃▄▄▅▆
+wandb:                                      action/w_std █▇▆▅▃▃▄▅▄▄▃▄▃▃▃▃▃▂▁▂▁▃▃▂▂▂▁▁▂▂▃▂▂▂▃▂▂▃▃▂
+wandb:                                  clearance/height ▂▂▅▄▃▂▂▁▂▃▃▄▅▅▅▅▆▅▅▅▆▆▆▇▇▆▆▆▇▇▇▇▇██▆█▇▇▇
+wandb:                              clearance/height_max ▇█▇▆█▄▄▅▃▄▂▄▄▂▄▁▃▃▂▄▁▃▃▂▃▁▃▃▂▃▂▃▅▂▄▂▄▃▃▄
+wandb:                              clearance/height_min ▁▁▄▄▇▇▅▅▄▅▇▆▅▇▅▇▆▆▇▆█▅▅▇▆█▆▅▇▆█▆▆▇▅▇▆▅▇▄
+wandb:                                  collected_frames ▁▁▁▂▂▂▂▂▂▃▃▃▃▃▃▄▄▄▄▄▅▅▅▅▅▅▆▆▆▆▆▆▇▇▇▇▇███
+wandb:                                  env/failure_rate ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                                  env/success_rate █▂▂▁▂▁▃▂▁▂▁▃▂▁▂▁▃▂▁▂▁▃▂▁▂▂▃▂▁▂▂▃▂▁▂▂▃▂▁▂
+wandb:                              eval/accel_magnitude ▆▁▄▃▁▂▂▂▁▁▂▅▇█▆
+wandb:                                    eval/accel_p90 █▁▃▃▁▂▂▂▂▁▂▅▆▇▇
+wandb:                                    eval/accel_p95 █▁▃▄▅▅▅▄▂▃▄▆▇▇▇
+wandb:                                    eval/accel_p99 █▁▆▃▄▂▁▂▁▂▄▃▅▆▄
+wandb:                               eval/explosion_rate ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                                 eval/failure_rate ▁███▁▁▁▁▁▁▁▁▁▁▁
+wandb:                              eval/max_step_reward ▂▁▂▁▂▃▄▃▄█▆▅▅▆▅
+wandb:                             eval/mean_step_reward ▂▁▁▁▁▂▃▅▅▅▆▇█▇█
+wandb:                              eval/min_step_reward ▄▅▄▄▄▁▃▄▃▄▇█▁▅▆
+wandb:                               eval/pct_terminated ▁██████▇▇▆▅▃▁▁▁
+wandb:                                eval/pct_truncated ▂▇▇▇██▇▇▇▆▆▄▂▂▁
+wandb:                                eval/rollout_steps ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                             eval/shock_normalised ▇▁▁▁▁▁▁▂▂▂▄▅▇▇█
+wandb:                         eval/shock_p90_normalised █▁▃▃▁▂▂▂▂▁▂▅▆▇▇
+wandb:                         eval/shock_p95_normalised █▁▃▄▅▅▅▄▂▃▄▆▇▇▇
+wandb:                         eval/shock_p99_normalised █▁▆▃▄▂▁▂▁▂▄▃▅▆▄
+wandb:                                 eval/success_rate ▁▇▇████▇▇▆▅▃▁▁▁
+wandb: eval_per_env/stairs_ascent_descent_2_success_rate ▁▇▇███▇▆▆▅▄▂▁▁▁
+wandb:   eval_per_env/stairs_ascent_descent_success_rate ▁█▇█▇███▇▆▆▄▁▁▂
+wandb:                            explosion/pct_exploded ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                       explosion/post_ang_vel_high ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                        explosion/post_ang_vel_nan ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                       explosion/post_lin_vel_high ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                        explosion/post_lin_vel_nan ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                         explosion/post_orient_nan ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                            explosion/post_pos_nan ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                            explosion/post_pos_out ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                        explosion/pre_ang_vel_high ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                        explosion/pre_lin_vel_high ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                         explosion/pre_lin_vel_nan ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                             explosion/pre_obs_nan ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                             explosion/pre_pos_nan ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                             explosion/pre_pos_out ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                             explosions/dirty_envs ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                                   explosions/rate ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                        explosions/skipped_updates ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                   explosions/skipped_updates_frac ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                              failure/out_of_range ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                                  failure/rollover ▁▁▁▁▁█▁▁▁▁█▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                                failure/shock_high ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                     grad_contrib/clearance_reward █▆▁▂▁▁▃▂▂▂▂▂▂▃▃▂▂▂▂▄▂▂▂▂▂▂▂▂▂▂▂▂▁▂▂▂▅▂▂▂
+wandb:                    grad_contrib/direction_penalty ▁▁▇███▅█████████████████████████████▁███
+wandb:                       grad_contrib/terminal_bonus ▇▁▄▃▂▇█
+wandb:                     grad_contrib/traversal_reward ▁▂▄▃▂▂█▂▂▂▂▂▂▂▁▂▂▂▂▁▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▃▂▂▂
+wandb:                              rew/clearance_reward █▆▂▁▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                             rew/direction_penalty ▁▄▇█▇▇██████████████████████████████████
+wandb:                                rew/terminal_bonus ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                                  rew/total_reward ▁▄▇█████████████████████████████████████
+wandb:                              rew/traversal_reward ▁█▄▄▅▇▄▅▃▅▇▄▅▃▅▇▄▅▃▅▇▄▅▃▅▇▄▅▃▅▇▄▅▄▅▇▄▅▄▅
+wandb:                             shock/accel_magnitude ▁▆▇▇▇█▆▇▆▇▇▇▇▆▇█▇▇▆▇█▇▇▆▇█▇▇▆▇█▇▇▇██▇▇▆▇
+wandb:                         shock/accel_magnitude_max ▁▅▆▆█▅▆▆▅▇▄▆▆▄▆▄▅▅▄▆▅▅▅▅▆▄▆▆▅▆▅▆▆▅▆▅▆▇▅▇
+wandb:                         shock/accel_magnitude_min ▁▄▆▇▇█▅▅▅▆▇▆▆▆▆▇▇▇▆▆█▇▆▆▇▇▇▇▇▇▇██▇▇▇▇█▆▇
+wandb:                                   shock/accel_p90 ▁▅▆▅▆▇▅▅▄▅▇▅▅▄▅▇▅▅▄▅█▅▅▅▆█▅▅▅▆█▅▅▅▆█▆▆▅▅
+wandb:                                   shock/accel_p95 ▁▅▅▅▅█▅▄▄▅▇▅▅▄▄▇▄▅▄▅█▄▄▄▅▇▅▅▄▅█▅▅▄▅█▅▅▅▄
+wandb:                                   shock/accel_p99 ▁▅▅▄▅█▄▄▄▅▇▄▄▄▄▇▄▄▄▄▇▅▄▅▅▇▅▅▅▅█▅▅▅▅▇▅▄▅▄
+wandb:                            shock/shock_normalised ▁▃▄▅█▇▄▅▃▆▄▄▄▃▄▄▃▄▃▅▅▄▃▄▄▅▄▄▄▅▅▅▆▃▅▅▄▅▅▅
+wandb:                        shock/shock_normalised_max ▁▃▅▅█▆▅▅▃▆▄▄▄▃▄▃▄▄▃▄▄▄▄▄▅▄▄▄▄▅▃▅▆▃▅▄▄▆▅▅
+wandb:                        shock/shock_normalised_min ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                        shock/shock_p90_normalised ▁▅▆▅▆▇▅▅▄▅▇▅▅▄▅▇▅▅▄▅█▅▅▅▆█▅▅▅▆█▅▅▅▆█▆▆▅▅
+wandb:                        shock/shock_p95_normalised ▁▅▅▅▅█▅▄▄▅▇▅▅▄▄▇▄▅▄▅█▄▄▄▅▇▅▅▄▅█▅▅▄▅█▅▅▅▅
+wandb:                        shock/shock_p99_normalised ▁▅▅▄▅█▄▄▄▅▇▄▄▄▄▇▄▄▄▄▇▅▄▅▅▇▅▅▅▅█▅▅▆▅▇▅▄▅▄
+wandb:                                 state/ang_vel_max ▅█▇▆▇▁▅▅▃▄▁▄▄▃▃▂▃▄▂▃▁▄▃▃▄▁▄▄▃▄▂▅▄▄▅▃▅▆▅▆
+wandb:                                state/ang_vel_mean ▁▇█▇█▆▇▇▆▇▆▇▇▆▇▆▇▇▇▇▆▇▇▆█▇▇█▇█▇▇█▇█▇▇█▇█
+wandb:                                 state/ang_vel_min ▁▁▃█▅▄▆▆▇▆▅▆▆▇▆▅▅▆▆▆▅▅▆▇█▅▅▇▇▆▆▇▆▆▄▆▆▇▇▇
+wandb:                                state/ang_velocity ▁▇▇▇▇█▇▇▆▇█▆▇▆▇█▆▇▆▇█▆▇▆▇█▇▇▆▇█▇▇▆▇█▇█▇▇
+wandb:                            state/ang_velocity_max ▄█▇▅▆▃▄▄▂▃▂▃▃▁▃▁▃▃▁▂▁▃▃▂▃▂▃▃▂▄▃▄▄▄▅▄▄▅▄▆
+wandb:                            state/ang_velocity_min ▁▁▃▇▅▄▅▅▇▅█▅▅▆▆▆▄▅▅▅▅▅▅▆▇▆▅▆▆▆▅▆▆▅▄▇▆▆▆▆
+wandb:                               state/approach_frac ▆█▂▂▃▇▂▃▂▃▆▂▃▁▂▆▁▂▁▂▅▁▃▁▂▄▁▂▁▂▅▁▂▂▂▅▂▂▁▂
+wandb:                               state/clearance_max ▇█▇▇█▁▆▆▅▆▁▆▆▄▆▂▅▅▅▆▂▅▅▅▅▂▅▅▅▅▂▅▆▅▅▂▅▅▅▆
+wandb:                              state/clearance_mean ▂▂▅▄▃▁▂▁▂▃▃▄▅▅▅▅▆▅▅▅▆▆▆▇▇▆▆▆▇▇▇▇▇██▆█▇▇▇
+wandb:                               state/clearance_min ▁▁▄▄▆▇▅▅▄▅▇▆▅▆▅▇▅▆▆▆▇▅▅▇▆▇▆▅▇▆█▆▆▆▅█▆▅▆▄
+wandb:                                state/dist_to_goal ▁▃▇█▇▇▇▇█▇▇▇▇█▇▇▇▇█▇▇▇▇▇▆▇▇▇▇▆▇▇▇▇▆▇▆▆▇▆
+wandb:                             state/heading_err_deg ▃▅▃▅▅█▆▅▅▅▆▅▆▅▃▅▄▅▅▅▄▆▅▃▅▄▆▅▅▅▆▇▅▅▆▆▅▄▁▂
+wandb:                         state/heading_err_deg_max █▁▅▁▇▂▄▁▁▁▂▁▁▁▇▃▁▁▁▁▁▁▁▆▁▃▄▁▁▁▂▆▁▁▇▄▁▁█▇
+wandb:                        state/heading_err_deg_mean ▅▃▄▂█▁▄▂▁▂▂▃▃▂▆▃▃▃▂▃▃▃▃▅▄▄▄▃▂▄▄▅▄▂█▅▃▄▅▇
+wandb:                         state/heading_err_deg_min ▁█▄█▂█████████▂█████▅██▃██████████▅███▁▂
+wandb:                                 state/lin_vel_max ▁▄▅▄▆▄▆▇▆▇▃▆▇▆▇▄▇▇▆▆▄▇▇▆▇▄▇▇▆▇▃▆▇▆▇▃▆█▆█
+wandb:                                state/lin_vel_mean ▁█▅▅▆▆▅▆▄▆▇▅▆▅▆▇▅▆▅▆▇▆▇▅▇▇▅▇▅▇▇▆▇▅▇▆▆▇▅▆
+wandb:                                 state/lin_vel_min ▁▂▃▃▂▇▂▂▂▂█▂▃▂▃█▂▃▂▃█▃▃▃▃█▂▃▃▃█▃▃▃▃█▃▃▃▃
+wandb:                                state/lin_velocity ▁█▅▅▆█▅▆▄▆█▅▆▄▆█▅▆▅▆█▅▆▅▇█▅▆▅▆█▅▆▅▆█▆▆▅▆
+wandb:                            state/lin_velocity_max ▁▄▅▄▆▄▆▇▆▇▅▆▇▆▇▅▇▇▆▆▄▇▇▆▇▅▇▇▆▇▄▆▇▆▇▅▆█▆█
+wandb:                            state/lin_velocity_min ▁▃▅▅▅▅▄▅▃▄▆▄▅▅▆█▄▆▄▅█▆▆▆▆▇▄▅▆▆▆▆▅▇▇▇▇▇▇▆
+wandb:                                 state/pct_healthy ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                                       state/pitch ▁▆▇▇██▇█▇▇▇▆▆▆▆▆▅▆▆▇▇▆▆▆▆▇▆▆▅▆▆▆▆▅▅▇▆▆▆▆
+wandb:                               state/pitch_deg_max ▅████▁▆▆▆▅▁▅▅▅▅▁▅▅▅▅▁▅▅▅▅▁▅▅▄▅▂▅▆▄▅▂▅▅▅▅
+wandb:                              state/pitch_deg_mean █▅▂▂▂▁▂▁▂▃▂▄▄▄▄▃▄▄▃▃▃▄▄▄▄▂▃▃▄▄▃▄▄▅▅▃▄▄▄▄
+wandb:                               state/pitch_deg_min ▁▁▁▁▁▅▁▁▁▁▆▁▁▁▁▇▁▁▁▁▆▁▁▁▁▅▁▁▁▁▇▁▁▂▁█▁▁▁▁
+wandb:                                   state/pitch_max ▁▇██▇▄▅▅▅▅▃▄▅▄▄▃▄▄▃▄▃▃▄▄▄▂▄▄▃▄▃▄▅▃▄▃▄▄▄▄
+wandb:                                   state/pitch_min ▂▁▃▆▆▂▃▃▄██▇▇▇▄██▇▃▆██▇▄▇██▇▇▇██▂▇▇▅▂▇▇▇
+wandb:                             state/pitch_rate_mean ▁█▆▅▆▃▅▆▄▆▃▅▆▄▆▃▅▅▄▅▃▅▆▄▆▄▅▆▄▆▄▅▆▅▆▄▅▆▅▆
+wandb:                                        state/roll █▆▂▂▃▂▂▂▂▂▂▃▂▂▂▂▃▃▃▂▂▂▂▂▂▂▂▂▂▂▂▂▂▁▂▁▂▂▂▂
+wandb:                                state/roll_deg_max ▅█▇▄▇▄▆▄▂▄▅▅▄▅▇▅▆▄▃▄▂▆▅▂▅▂▆▃▄█▂▅▅▂▅▁▅▄▂▅
+wandb:                               state/roll_deg_mean ██▄▄▄▁▄▄▄▄▂▄▄▄▅▂▄▄▃▄▂▄▄▃▄▁▄▄▃▄▁▃▄▂▃▁▃▃▃▃
+wandb:                                state/roll_deg_min ▇▅▄▄▅▂▄▆▇█▂▅▇▃▇▂▄▆█▃▂▇▆▄▃▁▇▅▄▄▁▃▆▅▅▁▃▅▇▃
+wandb:                                    state/roll_max ▃█▅▃▅█▄▂▂▃▂▃▃▂▅▃▃▄▂▄▂▃▄▃▄▃▄▂▄▄▃▂▃▁▅▁▄▄▃▅
+wandb:                                    state/roll_min ▃▅▄▅▃█▃▅▇▅▆▅▅▃▂▅▄▅▅▆▆▃▅▇▄▇▃▅▆▁▆▃▄▆▄▃▄▇█▆
+wandb:                              state/roll_rate_mean ▁▄▇▇▇█▇▇▆▆█▆▆▆▆█▆▆▇▇█▇▇▇▇█▇▇▇▇▇▇▇▆▆█▇▇▇▇
+wandb:                        state/success_lin_velocity ▁▅█▆▇▃▆█▅▇▃▆█▅▇▃▆▇▆▆▂▅▆▅▇▃▅▇▅▆▃▄▇▄▆▃▆▇▄█
+wandb:                               state/v_toward_mean ▁█▄▃▅▇▄▅▃▅▇▄▅▃▅▇▄▅▃▅▇▄▅▃▅▇▄▅▃▅▆▄▅▃▅▆▄▅▃▅
+wandb:                                state/vel_fwd_mean ▁█▄▃▅▇▄▅▃▅▇▄▅▃▅▇▄▅▃▅▇▄▅▃▅▇▄▅▃▅▆▄▅▃▅▆▄▅▃▅
+wandb:                            state/vel_lat_abs_mean ▁▅▇█████▇▇█▇▇▇▇█▇▇▇▇▇▇▇▇▇█▇▇▇▇▇▇▇▇▇█▇▇▇▇
+wandb:                                    state/yaw_rate ▃▂▁▇▂▃▃▃▄▅▄▃▃▅▆▅▄▃▅▃▄▆▃▃▅▆▆▅▅▄▅█▅▇▆▁▄▄█▅
+wandb:                                state/yaw_rate_max ▁██▇█▄▇█▃▄▄▅▅▅▃▄▄▆▄▆▃▄▅▂▃▄▆▅▃▆▃▄▅▅▄▃▃▇▅▆
+wandb:                               state/yaw_rate_mean ▁▂▇▇▇▆▇▆▇▇▇▇▇▇▇█▇▇▇▇█▇▇█▇▇▇▇████▇██▇█▇█▇
+wandb:                                state/yaw_rate_min █▁▂▃▂▅▂▁▄▄▂▄▅▃▄▆▃▃▄▄▅▄▄▅▅▃▂▄▅▄▄▄▃▄▄▃▅▃▅▄
+wandb:                          torque/flipper_torque_FL █▆▆▆▅▄▄▃▄▃▂▃▂▃▂▁▂▂▃▂▁▂▂▃▁▁▂▂▂▂▁▃▂▂▁▂▂▂▃▂
+wandb:                      torque/flipper_torque_FL_max ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                      torque/flipper_torque_FL_min █▅▃▃▃▂▃▂▂▂▂▂▂▂▂▁▂▂▂▁▁▁▁▂▁▂▂▂▂▁▂▂▂▂▁▂▂▁▂▂
+wandb:                          torque/flipper_torque_FR █▆▆▆▅▄▄▃▄▃▂▃▂▃▂▁▂▂▃▂▁▂▂▃▁▁▂▂▂▂▁▃▂▂▁▂▂▂▃▂
+wandb:                      torque/flipper_torque_FR_max ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                      torque/flipper_torque_FR_min █▅▄▃▂▂▃▂▂▁▂▁▁▂▁▂▁▁▁▁▁▂▁▂▁▂▁▁▂▁▁▂▁▁▁▂▁▁▂▁
+wandb:                          torque/flipper_torque_RL █▇▅▅▄▄▃▃▂▃▂▁▂▂▃▃▂▃▂▃▃▃▃▃▃▃▃▃▂▃▃▃▃▃▃▃▃▄▄▃
+wandb:                      torque/flipper_torque_RL_max ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                      torque/flipper_torque_RL_min ██▅▆▄▃▅▄▂▃▃▃▂▁▃▄▃▄▅▃▆▅▅▅▄▃▁▄▄▂▅▂▃▂▄▅▄▅▄▄
+wandb:                          torque/flipper_torque_RR █▇▅▅▃▄▃▃▂▂▂▁▂▂▃▃▂▃▂▃▃▃▃▃▃▃▂▃▂▃▃▃▃▃▃▃▃▃▃▃
+wandb:                      torque/flipper_torque_RR_max ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                      torque/flipper_torque_RR_min █▇▆▅▆▃▃▃▂▃▃▂▂▂▃▃▃▃▂▃▄▄▃▄▂▅▁▃▂▄▄▃▃▄▂▄▄▄▄▄
+wandb:                           train/action_bonus_coef ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                 train/mean_action_sample_log_prob ▁▁▂▂▃▃▃▃▄▄▅▅▆▅▆▇▆▆▅▅▇▆▆▆▇▇▅▆▇▇▇▆▆██▇▇▇▆▆
+wandb:                              train/mean_advantage ▁▇██████████████████████████████████████
+wandb:                          train/mean_advantage_GAE ▁▇██████████████████████████████████████
+wandb:                          train/mean_clip_fraction ▇▇▄█▄▄▆▃▄▇▁▂▄▄▂▂▅▄▂▃▄▁▃▇▄▄▅▃▄▇▄▁▃▃▇▂▁▄▅▆
+wandb:                            train/mean_critic_loss ▄█▃▂▂▂▁▁▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                                train/mean_entropy █▇▇▇▆▆▆▆▅▅▄▄▄▄▄▃▄▃▄▃▃▃▄▃▂▃▄▃▃▃▂▃▃▁▂▂▂▂▄▃
+wandb:                           train/mean_entropy_loss ▁▂▂▂▃▃▃▃▄▄▅▅▅▅▅▆▅▆▅▆▆▆▅▆▇▆▅▆▆▆▇▆▆█▇▇▇▇▅▆
+wandb:                              train/mean_kl_approx █▅▄▆▅▆▃▁▅█▃▆▆▃▄▄▅▃▃▃▄▂▁▆▆▄▇▄▄▇▄▁▂▂▇▄▂▆▄█
+wandb:                         train/mean_objective_loss ▆▁▅▅▃▂▃▅▄▄▃▃▇▅▃▃▄▄▆▄▅▆▆▃▂▅▅▂▅▆▅▄▃▅▄▄▄▄█▄
+wandb:                                 train/mean_reward ▁▄▇█████████████████████████████████████
+wandb:                            train/mean_state_value ▇▁▇▇▇▇▇▇▇▇▇█████████████████████████████
+wandb:                          train/policy_operator_lr ███▇▇▇▇▇▇▆▆▆▆▆▆▅▅▅▅▅▄▄▄▄▄▄▃▃▃▃▃▃▂▂▂▂▂▁▁▁
+wandb:                               train/std_advantage ▇█▄▂▂▂▂▂▂▁▂▁▁▁▁▂▁▁▁▁▁▁▁▁▁▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                                train/step_penalty ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                             train/total_grad_norm ▁▁▁▂▃▃▁▅▂▄▃▄▅▂▂▆▄▃▃▄▅▂▆▄▆▆▄▅▃▇▆▅▃▅▆▅▄█▅▇
+wandb:                          train/value_minus_reward ▇▁▇▇▇▇▇▇▇▇▇█████████████████████████████
+wandb:                           train/value_operator_lr ███▇▇▇▇▇▇▆▆▆▆▆▆▅▅▅▅▅▄▄▄▄▄▄▃▃▃▃▃▃▂▂▂▂▂▁▁▁
+wandb:                       var_decomp/clearance_reward █▅▅▂▁▂▄▃▃▄▄▄▅▅▅▄▄▄▅▄▃▅▅▄▄▄▄▄▅▄▄▄▃▄▄▄▄▅▄▅
+wandb:                      var_decomp/direction_penalty ▃▄▅▄▅▆▇▅▁▆▆█▅▁▆▆█▅▁▆▇█▆▁▆▇█▅▂▆▇█▅▂▆▇█▅▃▅
+wandb:                         var_decomp/terminal_bonus █▁▂▁▁▁▇
+wandb:                       var_decomp/traversal_reward ▅▅▃▆▄▄▂▄█▃▃▁▄█▃▃▁▄▇▃▃▁▃█▃▂▁▄▇▃▂▁▄▇▃▂▁▄▆▄
+wandb: 
+wandb: Run summary:
+wandb:                         action/flipper_front_mean -0.31603
+wandb:                          action/flipper_front_std 0.55424
+wandb:                          action/flipper_rear_mean -0.23937
+wandb:                           action/flipper_rear_std 0.27948
+wandb:                                     action/v_mean -0.00403
+wandb:                                      action/v_std 0.54992
+wandb:                                     action/w_mean 0.01861
+wandb:                                      action/w_std 0.56512
+wandb:                                  clearance/height 0.1329
+wandb:                              clearance/height_max 0.28289
+wandb:                              clearance/height_min -0.04493
+wandb:                                  collected_frames 20971520
+wandb:                                  env/failure_rate 0.0
+wandb:                                  env/success_rate 0.48568
+wandb:                              eval/accel_magnitude 0.93668
+wandb:                                    eval/accel_p90 1.32305
+wandb:                                    eval/accel_p95 1.55188
+wandb:                                    eval/accel_p99 2.36544
+wandb:                               eval/explosion_rate 0.0
+wandb:                                 eval/failure_rate 0.0
+wandb:                              eval/max_step_reward 0.05296
+wandb:                             eval/mean_step_reward -0.00336
+wandb:                              eval/min_step_reward -1.5883
+wandb:                               eval/pct_terminated 0.00303
+wandb:                                eval/pct_truncated 0.00203
+wandb:                                eval/rollout_steps 600.0
+wandb:                             eval/shock_normalised 0.00021
+wandb:                         eval/shock_p90_normalised 0.16389
+wandb:                         eval/shock_p95_normalised 0.19159
+wandb:                         eval/shock_p99_normalised 0.28735
+wandb:                                 eval/success_rate 0.59878
+wandb: eval_per_env/stairs_ascent_descent_2_success_rate 0.59788
+wandb:   eval_per_env/stairs_ascent_descent_success_rate 0.59968
+wandb:                            explosion/pct_exploded 0.0
+wandb:                       explosion/post_ang_vel_high 0.0
+wandb:                        explosion/post_ang_vel_nan 0.0
+wandb:                       explosion/post_lin_vel_high 0.0
+wandb:                        explosion/post_lin_vel_nan 0.0
+wandb:                         explosion/post_orient_nan 0.0
+wandb:                            explosion/post_pos_nan 0.0
+wandb:                            explosion/post_pos_out 0.0
+wandb:                        explosion/pre_ang_vel_high 0.0
+wandb:                        explosion/pre_lin_vel_high 0.0
+wandb:                         explosion/pre_lin_vel_nan 0.0
+wandb:                             explosion/pre_obs_nan 0.0
+wandb:                             explosion/pre_pos_nan 0.0
+wandb:                             explosion/pre_pos_out 0.0
+wandb:                             explosions/dirty_envs 0
+wandb:                                   explosions/rate 0.0
+wandb:                        explosions/skipped_updates 0
+wandb:                   explosions/skipped_updates_frac 0.0
+wandb:                              failure/out_of_range 0.0
+wandb:                                  failure/rollover 0.0
+wandb:                                failure/shock_high 0.0
+wandb:                     grad_contrib/clearance_reward -0.01028
+wandb:                    grad_contrib/direction_penalty 0.98952
+wandb:                       grad_contrib/terminal_bonus 0.00273
+wandb:                     grad_contrib/traversal_reward 0.0002
+wandb:                              rew/clearance_reward 7e-05
+wandb:                             rew/direction_penalty -0.00628
+wandb:                                rew/terminal_bonus 0.0
+wandb:                                  rew/total_reward -0.00318
+wandb:                              rew/traversal_reward 0.00302
+wandb:                             shock/accel_magnitude 1.27311
+wandb:                         shock/accel_magnitude_max 11.19227
+wandb:                         shock/accel_magnitude_min 0.07426
+wandb:                                   shock/accel_p90 1.35339
+wandb:                                   shock/accel_p95 1.36409
+wandb:                                   shock/accel_p99 1.38831
+wandb:                            shock/shock_normalised 0.00025
+wandb:                        shock/shock_normalised_max 0.19758
+wandb:                        shock/shock_normalised_min 0.0
+wandb:                        shock/shock_p90_normalised 0.16758
+wandb:                        shock/shock_p95_normalised 0.16888
+wandb:                        shock/shock_p99_normalised 0.17182
+wandb:                                 state/ang_vel_max 2.46353
+wandb:                                state/ang_vel_mean 0.25937
+wandb:                                 state/ang_vel_min 0.01321
+wandb:                                state/ang_velocity 0.25937
+wandb:                            state/ang_velocity_max 2.46353
+wandb:                            state/ang_velocity_min 0.01321
+wandb:                               state/approach_frac 0.32579
+wandb:                               state/clearance_max 0.28289
+wandb:                              state/clearance_mean 0.1329
+wandb:                               state/clearance_min -0.04493
+wandb:                                state/dist_to_goal 3.42115
+wandb:                             state/heading_err_deg 0.01779
+wandb:                         state/heading_err_deg_max 122.51002
+wandb:                        state/heading_err_deg_mean 0.57986
+wandb:                         state/heading_err_deg_min -122.3116
+wandb:                                 state/lin_vel_max 1.87812
+wandb:                                state/lin_vel_mean 0.20115
+wandb:                                 state/lin_vel_min 0.00562
+wandb:                                state/lin_velocity 0.20115
+wandb:                            state/lin_velocity_max 1.87812
+wandb:                            state/lin_velocity_min 0.00562
+wandb:                                 state/pct_healthy 1.0
+wandb:                                       state/pitch -0.10175
+wandb:                               state/pitch_deg_max 44.01752
+wandb:                              state/pitch_deg_mean 13.0998
+wandb:                               state/pitch_deg_min 0.00798
+wandb:                                   state/pitch_max 0.76825
+wandb:                                   state/pitch_min -0.44756
+wandb:                             state/pitch_rate_mean 0.15677
+wandb:                                        state/roll 0.00012
+wandb:                                state/roll_deg_max 2.60556
+wandb:                               state/roll_deg_mean 0.08671
+wandb:                                state/roll_deg_min 9e-05
+wandb:                                    state/roll_max 0.03812
+wandb:                                    state/roll_min -0.03423
+wandb:                              state/roll_rate_mean 0.12566
+wandb:                        state/success_lin_velocity 0.47924
+wandb:                               state/v_toward_mean 0.14283
+wandb:                                state/vel_fwd_mean 0.14312
+wandb:                            state/vel_lat_abs_mean 0.02381
+wandb:                                    state/yaw_rate -0.00027
+wandb:                                state/yaw_rate_max 0.72214
+wandb:                               state/yaw_rate_mean 0.08271
+wandb:                                state/yaw_rate_min -0.6167
+wandb:                          torque/flipper_torque_FL 935.14242
+wandb:                      torque/flipper_torque_FL_max 1000.0
+wandb:                      torque/flipper_torque_FL_min 6.87142
+wandb:                          torque/flipper_torque_FR 934.6825
+wandb:                      torque/flipper_torque_FR_max 1000.0
+wandb:                      torque/flipper_torque_FR_min 6.66754
+wandb:                          torque/flipper_torque_RL 931.55601
+wandb:                      torque/flipper_torque_RL_max 1000.0
+wandb:                      torque/flipper_torque_RL_min 6.25603
+wandb:                          torque/flipper_torque_RR 931.32543
+wandb:                      torque/flipper_torque_RR_max 1000.0
+wandb:                      torque/flipper_torque_RR_min 7.16954
+wandb:                           train/action_bonus_coef 0.0
+wandb:                 train/mean_action_sample_log_prob -0.83521
+wandb:                              train/mean_advantage -0.00055
+wandb:                          train/mean_advantage_GAE -0.00055
+wandb:                          train/mean_clip_fraction 0.03101
+wandb:                            train/mean_critic_loss 0.00979
+wandb:                                train/mean_entropy 0.81504
+wandb:                           train/mean_entropy_loss -0.00815
+wandb:                              train/mean_kl_approx 0.00593
+wandb:                         train/mean_objective_loss -0.00043
+wandb:                                 train/mean_reward -0.00318
+wandb:                            train/mean_state_value -0.32538
+wandb:                          train/policy_operator_lr 0.00024
+wandb:                               train/std_advantage 0.13784
+wandb:                                train/step_penalty 0.0
+wandb:                             train/total_grad_norm 0.34882
+wandb:                          train/value_minus_reward -0.3222
+wandb:                           train/value_operator_lr 0.0008
+wandb:                       var_decomp/clearance_reward -0.01113
+wandb:                      var_decomp/direction_penalty 1.01345
+wandb:                         var_decomp/terminal_bonus 0.0019
+wandb:                       var_decomp/traversal_reward -0.00232
+wandb: 
+wandb: Synced train_mitriakov_11414276_attempt_1: https://wandb.ai/marv_flipper_training/MARV_RL/runs/7ec983de6aad2c0d61a070217e2134054c015d84de4ad2e65e46ae31fb818351
+wandb: Synced 6 W&B file(s), 0 media file(s), 0 artifact file(s) and 37 other file(s)
+wandb: Find logs at: /ws/logs/wandb/wandb/run-20260825_221009-7ec983de6aad2c0d61a070217e2134054c015d84de4ad2e65e46ae31fb818351/logs
+/opt/conda/envs/isaaclab/lib/python3.10/multiprocessing/resource_tracker.py:224: UserWarning: resource_tracker: There appear to be 11 leaked semaphore objects to clean up at shutdown
+  warnings.warn('resource_tracker: There appear to be %d '
