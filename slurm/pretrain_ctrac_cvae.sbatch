@@ -1,10 +1,10 @@
 #!/bin/bash
-#SBATCH --mem=48G
+#SBATCH --mem=96G
 #SBATCH --cpus-per-task=8
 #SBATCH --nodes=1
 #SBATCH --tasks-per-node=1
 #SBATCH --partition=cpufast
-#SBATCH --time=4:00:00
+#SBATCH --time=8:00:00
 #SBATCH --job-name=pretrain_ctrac_cvae
 #SBATCH --output=/home/sargapav/robot_rodeo_gym_ws/logs/%x_%j/%x_%j.out
 #SBATCH --error=/home/sargapav/robot_rodeo_gym_ws/logs/%x_%j/%x_%j.err

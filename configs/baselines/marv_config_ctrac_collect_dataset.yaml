@@ -20,7 +20,19 @@ terrain: custom_mixed
 # episode_repeats=100 -> 30000 control steps -> 30000 x num_robots transitions, with every
 # env completing ~100 full episode resets (distinct start/target draws + DR noise) instead
 # of the ~6-7 a flat total_steps=2000 would have given.
-episode_repeats: 100
+# 200, doubled from 100. Overfitting — not information content, and not the C-VAE's
+# bottleneck — is what caps contact-existence accuracy: a plain MLP with no latent at all
+# tops out in the same range, and injecting EXTRA input noise raises held-out accuracy
+# (0.712 -> 0.750 at sigma 0.15), the textbook signature. More distinct episodes is the
+# fix with real headroom left.
+#
+# ⚠ DISK/RAM COST, and its interaction with cvae_history_len below. A row is
+# (cvae_history_len*251 + 1227*2) * 4 B:
+#     H=16, 100 repeats (old) -> 1.54M rows, 25.3 KiB/row -> 39 GB
+#     H=16, 200 repeats       -> 3.07M rows, 25.3 KiB/row -> 78 GB
+#     H=4,  200 repeats       -> 3.07M rows, 13.5 KiB/row -> 41 GB   <- same as the old size
+# Doubling the episodes is only free if cvae_history_len drops with it; see the note there.
+episode_repeats: 200
 # Dataset size, independent of episode_repeats above (which drives DIVERSITY — logging
 # every one of the 30000 x 1024 transitions those repeats produce would be ~550 GB held in
 # RAM before a single final save, an instant OOM). log_every_n_steps subsamples which
@@ -31,7 +43,27 @@ episode_repeats: 100
 log_every_n_steps: 20
 shard_size_steps: 50
 output_path: experiments/baselines/ctrac/ctrac_dataset/ctrac_stage1_shards
-cvae_history_len: 16  # must match marv_config_ctrac.yaml's policy_opts.history_len (raised 8 -> 16 there)
+# MUST match marv_config_ctrac.yaml's policy_opts.history_len.
+#
+# ⚠ Measured, held out, 6000 steps, 150k training rows — the 16-frame window earns nothing
+# on any C-VAE objective, and costs 63% of every stored transition:
+#     H    KiB/row   contact acc   L_prob    L_recon
+#      1     10.6       0.7228     0.5304    0.01441
+#      2     11.5       0.7270     0.5276    0.01438
+#      4     13.5       0.7299     0.5226    0.01530
+#      8     17.4       0.7327     0.5403    0.01507
+#     16     25.3       0.7307     0.5647    0.01561   <- worst L_prob AND worst L_recon
+# Longer history makes reconstruction WORSE on held-out data (more input width, more
+# overfitting), and contact accuracy is flat within noise from H=2 up. The spatial argument
+# in marv_config_ctrac.yaml that motivated 16 ("a 16-step window spans 0.46 m, covering the
+# 0.4 m blind zone") does not survive measurement either: splitting the dataset by window
+# reach, samples whose window spans <0.20 m score 0.8195 against 0.7158 for those spanning
+# >0.80 m — contact existence is read off proprioception, not terrain memory.
+#
+# NOT lowered here yet: only the four supervised losses were measured. In Stage II the same
+# z also feeds the actor, and whether the history earns its place for CONTROL is untested.
+# Drop to 4 in all three ctrac configs together when you are ready to test that.
+cvae_history_len: 16
 
 marv_rl_policy_opts:
   share_encoder: false
