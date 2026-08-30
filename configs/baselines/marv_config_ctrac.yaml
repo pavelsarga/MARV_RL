@@ -193,6 +193,11 @@ cvae_prob_weight: 1.0
 cvae_est_weight: 1.0
 cvae_geo_weight: 1.0
 cvae_max_reach: 0.8
+# Exclude episode-boundary transitions from the C-VAE update (see train_sac.py's
+# _cvae_update). Backstop for ftr_env._refresh_state_after_reset, and independently correct:
+# o_{t+1} across a reset belongs to a different episode, and a reset row's obs_history is 16
+# copies of one frame.
+cvae_skip_reset_frames: true
 
 eval_and_save_every: 8
 eval_repeats: 2
@@ -209,7 +214,12 @@ optimizer_opts:
 # UP rather than down (see the comment block above / this config's top-level comment).
 scheduler: ${cls:torch.optim.lr_scheduler.LinearLR}
 scheduler_opts:
-  start_factor: 0.1
+  # 0.5, raised from 0.1. The ramp exists to protect the Stage-I warm start from a large
+  # early step; at start_factor 0.1 on top of the old 1e-4 base that meant starting at 1e-5,
+  # which the measurements in cvae_optimizer_opts show is below the rate at which this
+  # objective learns contact existence at all. 0.5 x 3e-4 = 1.5e-4 still opens gentler than
+  # the paper's flat 3e-4 while staying inside the range that demonstrably trains.
+  start_factor: 0.5
   end_factor: 1.0
   total_iters: ${intdiv:${total_frames},${mul:${time_steps_per_batch},${num_robots}}}
 
@@ -223,7 +233,17 @@ policy_opts:
   qvalue_optimizer_opts:
     lr: 0.0003
   cvae_optimizer_opts:
-    lr: 0.0001                     # low starting point — scaled up by the rising schedule above
+    # 3e-4 = the paper's Adam lr. Raised from 1e-4 (which, with the rising schedule's
+    # start_factor, began at 1e-5) after measuring what that cost. From random init on the
+    # Stage-I shards, 4000 steps, contact-existence accuracy (chance = 55.8%):
+    #     lr 3e-4, uncleaned data ......... 73.7%
+    #     lr 1e-5, CLEANED data ........... 71.5%
+    #     lr 1e-5, uncleaned data ......... 56.5%   <- never learns
+    # The episode-boundary corruption is only survivable if the step is large enough to
+    # punch through it. Both are fixed now (ftr_env._refresh_state_after_reset at the source,
+    # cvae_skip_reset_frames as backstop), but there is no reason to keep the C-VAE 30x
+    # below the rate the paper specifies and Stage I demonstrably trains at.
+    lr: 0.0003
   history_len: 16   # 16, raised from 8. At the run's measured 0.287 m/s and a 0.1 s control step the
   # robot covers 0.029 m/step, so an 8-step history spanned only 0.23 m — while the
   # local heightmap h^l_t starts 0.40 m AHEAD. Terrain now under the flippers was last
