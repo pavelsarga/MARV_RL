@@ -5,10 +5,14 @@
 #SBATCH --tasks-per-node=1
 #SBATCH --gres=gpu:1
 #SBATCH --partition=amdgpu
-#SBATCH --time=8:00:00
+# 16 h, raised from 8. Measured on job 11445067: 6052 of 30000 control steps in 1:07:53,
+# i.e. ~5.6 h for the 30000 steps that episode_repeats=100 produces (~11.2 min per 51200-row
+# shard) plus ~12 min of Isaac startup. episode_repeats=200 doubles that to ~11.4 h, which
+# the old 8 h limit would have cut off around shard 42 of 60.
+#SBATCH --time=16:00:00
 #SBATCH --job-name=collect_ctrac_dataset
-#SBATCH --output=/home/sargapav/robot_rodeo_gym_ws/logs/%x_%j/%x_%j.out
-#SBATCH --error=/home/sargapav/robot_rodeo_gym_ws/logs/%x_%j/%x_%j.err
+#SBATCH --output=/mnt/personal/sargapav/MARV_RL_ws/logs/%x_%j/%x_%j.out
+#SBATCH --error=/mnt/personal/sargapav/MARV_RL_ws/logs/%x_%j/%x_%j.err
 
 # Stage 0 for C-TRAC: collects the Stage I C-VAE pretraining dataset by rolling out an
 # already-trained marv_rl policy through the CTRAC-configured env (collect_ctrac_dataset.py).
@@ -20,7 +24,7 @@ echo "Job ID: $SLURM_JOB_ID"
 echo "Running on node: $SLURMD_NODENAME"
 echo "########################################################################"
 
-WS=/home/sargapav/robot_rodeo_gym_ws
+WS=/mnt/personal/sargapav/MARV_RL_ws
 SIF=$WS/containers/isaaclab_optuna.sif
 CONFIG=baselines/marv_config_ctrac_collect_dataset.yaml
 LOGDIR=$WS/logs/${SLURM_JOB_NAME}_${SLURM_JOB_ID}
