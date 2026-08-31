@@ -5,14 +5,6 @@
 #SBATCH --tasks-per-node=1
 #SBATCH --gres=gpu:1
 #SBATCH --partition=amdgpu
-# ⚠ Job 11446322 ran EXACTLY 8:00:17 and died "DUE TO TIME LIMIT" at 43 of 60 shards,
-# because the version on the cluster had no --time at all and took the amdgpu partition
-# default. Check `scontrol show partition amdgpu | grep -o 'MaxTime=[^ ]*'` before trusting
-# the value below: if MaxTime is 8h this request is capped or rejected, and the options are
-# to lower episode_repeats (~140 fits 8h at the measured 1.48 steps/s) or to accept the
-# truncation. Truncating is HARMLESS -- shards are flushed incrementally, so a killed job
-# simply yields fewer of them and _load_dataset globs whatever is there.
-#SBATCH --time=16:00:00
 #SBATCH --job-name=collect_ctrac_dataset
 #SBATCH --output=/mnt/personal/sargapav/MARV_RL_ws/logs/%x_%j/%x_%j.out
 #SBATCH --error=/mnt/personal/sargapav/MARV_RL_ws/logs/%x_%j/%x_%j.err
