@@ -5,10 +5,13 @@
 #SBATCH --tasks-per-node=1
 #SBATCH --gres=gpu:1
 #SBATCH --partition=amdgpu
-# 16 h, raised from 8. Measured on job 11445067: 6052 of 30000 control steps in 1:07:53,
-# i.e. ~5.6 h for the 30000 steps that episode_repeats=100 produces (~11.2 min per 51200-row
-# shard) plus ~12 min of Isaac startup. episode_repeats=200 doubles that to ~11.4 h, which
-# the old 8 h limit would have cut off around shard 42 of 60.
+# ⚠ Job 11446322 ran EXACTLY 8:00:17 and died "DUE TO TIME LIMIT" at 43 of 60 shards,
+# because the version on the cluster had no --time at all and took the amdgpu partition
+# default. Check `scontrol show partition amdgpu | grep -o 'MaxTime=[^ ]*'` before trusting
+# the value below: if MaxTime is 8h this request is capped or rejected, and the options are
+# to lower episode_repeats (~140 fits 8h at the measured 1.48 steps/s) or to accept the
+# truncation. Truncating is HARMLESS -- shards are flushed incrementally, so a killed job
+# simply yields fewer of them and _load_dataset globs whatever is there.
 #SBATCH --time=16:00:00
 #SBATCH --job-name=collect_ctrac_dataset
 #SBATCH --output=/mnt/personal/sargapav/MARV_RL_ws/logs/%x_%j/%x_%j.out
