@@ -198,6 +198,24 @@ cvae_max_reach: 0.8
 # o_{t+1} across a reset belongs to a different episode, and a reset row's obs_history is 16
 # copies of one frame.
 cvae_skip_reset_frames: true
+# Carry the Stage-I C-VAE through Stage II unchanged: same forward pass, same logged
+# metrics, no gradient step. false = the paper's joint optimisation.
+#
+# Why this exists. On run 11449348 -- with the episode-boundary corruption fixed at source
+# and the C-VAE lr raised to 1.5e-4 -> 3e-4 -- the contact head still collapsed: the gap
+# between its BCE and the base-rate predictor went +0.0998 nats at 0.07M frames to +0.0016
+# by 1.25M and averaged +0.0045 over the run, statistically identical to run 11426609's
+# +0.0042 before either fix. The Stage-I checkpoint transfers correctly and is then
+# destroyed within ~1.2M frames of joint training. Pretraining now reaches prob 0.434
+# against a 0.686 floor, so there is a real capability to preserve.
+#
+# ⚠ This is a workaround, not the fix. It does not explain why joint optimisation destroys
+# the head, and it silently hides one failure mode it cannot address: if the Stage-I
+# encoder goes stale as SAC's state distribution drifts from the marv_rl trajectories it
+# was fitted on, the frozen estimate degrades too, just without the loss curve showing a
+# gradient step to blame. That is exactly why the metrics are still logged when frozen --
+# watch cvae_loss_prob against cvae_prob_baseline for the whole run, not just its start.
+freeze_cvae: true
 
 eval_and_save_every: 8
 eval_repeats: 2
