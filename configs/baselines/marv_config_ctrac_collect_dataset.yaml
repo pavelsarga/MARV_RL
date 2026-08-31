@@ -26,12 +26,14 @@ terrain: custom_mixed
 # (0.712 -> 0.750 at sigma 0.15), the textbook signature. More distinct episodes is the
 # fix with real headroom left.
 #
-# ⚠ DISK/RAM COST, and its interaction with cvae_history_len below. A row is
-# (cvae_history_len*251 + 1227*2) * 4 B:
+# ⚠ The binding cost is pretraining RAM, not disk. pretrain_ctrac_cvae.py holds the whole
+# (subsampled) dataset resident — _load_dataset bounds peak at the dataset size itself, but
+# that size is the number below. A row is (cvae_history_len*251 + 1227*2) * 4 B:
 #     H=16, 100 repeats (old) -> 1.54M rows, 25.3 KiB/row -> 39 GB
-#     H=16, 200 repeats       -> 3.07M rows, 25.3 KiB/row -> 78 GB
-#     H=4,  200 repeats       -> 3.07M rows, 13.5 KiB/row -> 41 GB   <- same as the old size
-# Doubling the episodes is only free if cvae_history_len drops with it; see the note there.
+#     H=16, 200 repeats       -> 3.07M rows, 25.3 KiB/row -> 78 GB  <- needs the 96G --mem
+#     H=4,  200 repeats       -> 3.07M rows, 13.5 KiB/row -> 41 GB
+# Keep slurm/pretrain_ctrac_cvae.sbatch's --mem comfortably above whichever row applies,
+# and see the cvae_history_len note below for why H=16 is buying none of that cost.
 episode_repeats: 200
 # Dataset size, independent of episode_repeats above (which drives DIVERSITY — logging
 # every one of the 30000 x 1024 transitions those repeats produce would be ~550 GB held in
