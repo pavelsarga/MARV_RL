@@ -201,21 +201,22 @@ cvae_skip_reset_frames: true
 # Carry the Stage-I C-VAE through Stage II unchanged: same forward pass, same logged
 # metrics, no gradient step. false = the paper's joint optimisation.
 #
-# Why this exists. On run 11449348 -- with the episode-boundary corruption fixed at source
-# and the C-VAE lr raised to 1.5e-4 -> 3e-4 -- the contact head still collapsed: the gap
-# between its BCE and the base-rate predictor went +0.0998 nats at 0.07M frames to +0.0016
-# by 1.25M and averaged +0.0045 over the run, statistically identical to run 11426609's
-# +0.0042 before either fix. The Stage-I checkpoint transfers correctly and is then
-# destroyed within ~1.2M frames of joint training. Pretraining now reaches prob 0.434
-# against a 0.686 floor, so there is a real capability to preserve.
+# ⚠ SET BACK TO false, and here is why the flag still exists. It was added as a workaround
+# for "joint training destroys the contact head", which was real -- the gap to
+# cvae_prob_baseline went +0.0998 nats at 0.07M frames to +0.0016 by 1.25M on run 11449348
+# -- but the diagnosis was wrong. The C-VAE was not being destroyed by its gradients. It
+# was being fed a CONSTANT: every one of the 189,696 obs_history rows in that run's replay
+# buffer is all zeros, 16 identical frames, one distinct value shared across the whole
+# buffer (_CTRACActorTDModule.forward has the root cause and the measurements). With a
+# constant input the only minimiser of L_prob is the base rate, which is exactly where it
+# went.
 #
-# ⚠ This is a workaround, not the fix. It does not explain why joint optimisation destroys
-# the head, and it silently hides one failure mode it cannot address: if the Stage-I
-# encoder goes stale as SAC's state distribution drifts from the marv_rl trajectories it
-# was fitted on, the frozen estimate degrades too, just without the loss curve showing a
-# gradient step to blame. That is exactly why the metrics are still logged when frozen --
-# watch cvae_loss_prob against cvae_prob_baseline for the whole run, not just its start.
-freeze_cvae: true
+# So joint optimisation has never actually been tried on real input. Freezing now would
+# pin weights that were fitted on marv_rl trajectories AND hide whether the fix worked, so
+# the next run should be joint. Flip to true only if the gap decays again with real
+# windows in the buffer -- and check that first, by confirming
+# obs_history[:, -1] == obs[:PARTIAL_DIM] on a sampled batch.
+freeze_cvae: false
 
 eval_and_save_every: 8
 eval_repeats: 2
