@@ -1,0 +1,396 @@
+name: ctrac_pan2025_fixedvel_highalpha
+comment: >-
+  C-TRAC with a FIXED 0.6 m/s chassis velocity AND a raised entropy floor (alpha_min 0.5).
+  Identical to marv_config_ctrac_fixedvel.yaml apart from alpha_min. Tests whether more
+  exploration pressure escapes the ~0.35 plateau every C-TRAC run converges to. See the
+  alpha_min comment for a measurement that argues it will not.
+
+  C-TRAC (Pan et al. 2025, "C-TRAC: Terrain-Adaptive Control for Articulated Tracked
+  Robots via Contact-Aware Reinforcement Learning") — Stage II, joint asymmetric SAC +
+  C-VAE training (rl_modules/ctrac/{ctrac_module,ctrac_observation,ctrac_contact,
+  ctrac_cvae,ctrac_policy}.py, src/flipper_training/marv_rl_training/training/train_sac.py).
+  Ground-truth per-flipper contact points/existence come from a real IsaacLab
+  ContactSensor + wheel-radius geometric projection (ftr_env.py's _setup_scene, gated on
+  module_name: ctrac — see ctrac_contact.py). Two deliberate departures from the paper,
+  both explicit user decisions: (1) terrain is this project's existing custom_mixed asset,
+  not the paper's per-episode procedural stair/stepfield/terrace/ramp curriculum; (2) the
+  C-VAE's Stage I pretraining dataset (marv_config_ctrac_cvae_pretrain.yaml) is collected
+  by rolling out this project's already-trained marv_rl policy through this CTRAC-configured
+  env (collect_ctrac_dataset.py), not the paper's own from-scratch terrain-specific
+  policies (unavailable here) — reasoning: an untrained/barely-trained policy can't cross
+  most obstacles, starving the dataset of exactly the contact-pattern diversity the C-VAE
+  needs. cvae_weights_path below warm-starts (not freezes) the C-VAE from that Stage I
+  checkpoint; it keeps training jointly through Stage II via its own optimizer with a
+  RISING learning-rate schedule (scheduler/scheduler_opts below — the inverse of every
+  other schedule in this project), deliberately blunting its influence early while SAC's
+  rollout distribution is still far from the Stage I marv_rl-driven demonstrations, then
+  ramping up as training converges closer to it.
+use_wandb: true
+use_tensorboard: false
+seed: 42
+device: cuda
+training_dtype: ${dtype:float32}
+num_robots: 512
+task: Ftr-Crossing-Direct-v0
+terrain: custom_mixed
+total_frames: ${mul:5242880,10}
+time_steps_per_batch: 128
+
+# ---- Off-policy replay + optimisation ----
+# Lowered from 2,000,000 (copied from the D3QN configs without reconsidering CTRAC's much
+# heavier per-transition footprint — see train_sac.py's replay-buffer comment; the
+# original value OOM-killed a real run). Now disk-backed (LazyMemmapStorage) so this
+# mainly controls disk usage / replay staleness, not RAM. Measured footprint, which is
+# dominated by obs_history (76% of a transition at H=16): the packed 1227-D observation is
+# stored twice (obs + next_obs) and the (H, 251) history twice as well (root +
+# ("next","obs_history"), which train_sac.py adds so SACLoss's target-action evaluation
+# gets a real window instead of the ring buffer's constant-frame fallback).
+#   H=8  -> 25.4 KB/transition -> ~13 GB at this capacity
+#   H=16 -> 41.1 KB/transition -> ~21 GB at this capacity   <-- current
+# If scratch space is tight, halve this capacity before touching history_len.
+replay_buffer_capacity: 500000
+# Carry the buffer across respawns. A crash otherwise discards all 500k transitions
+# while the respawn helper keeps decrementing the frame budget, which is what turned
+# the crash cluster at 31.0-36.2M frames in run 11416521 into a real regression
+# (eval success 0.417 -> 0.341). Zero-copy: the buffer is memmapped at
+# <job_dir>/replay_buffer and checkpointed in place, so this writes metadata only.
+# ~21 GB of disk (at history_len 16, per the footprint table above) for the whole job —
+# previously up to that much PER attempt, so this is a net saving.
+persist_replay_buffer: true
+min_replay_size: 65536
+batch_size: 256                    # Table (paper): batch_size 256
+updates_per_batch: 32
+# 0.995, raised from the paper Table's 0.99. At 0.99 the effective horizon 1/(1-gamma) is
+# 100 steps = 10 s, but an episode is 300 steps = 30 s (episode_length_s 30 / 0.1 s control
+# step), so for the first two thirds of every episode the goal lay beyond the horizon the
+# critic could see. 0.995 gives 200 steps = 20 s and raises the weight the value estimate
+# puts on the terminal outcome at episode start from gamma^300 = 0.049 to 0.222 — a 4.5x
+# increase in how visible reaching the goal is. Not pushed to 0.999 (100 s horizon): that
+# would put gamma^300 at 0.741 but sharply increases return variance, and this critic is
+# already slow to converge (loss_actor climbed monotonically for 22M frames on run
+# 11362192). Revisit if 0.995 still shows the timeout-dominated pattern.
+gamma: 0.995
+tau: 0.01                          # paper Table: target network update rate 0.01
+
+# ---- SAC entropy: paper says "entropy coefficient (1.5)" and states the implementation
+# "leverages the SAC framework from the Stable-Baselines3 RL library". In SB3's SAC,
+# ent_coef defaults to "auto" (auto-tuned, initial value 1.0) and an initial value is
+# spelled "auto_1.5"; a bare float means a FIXED coefficient. 1.5 is a natural tweak of
+# SB3's 1.0 auto-init and an unusual fixed value, so "entropy coefficient (1.5)" reads as
+# the auto-tuning initial value — which is what alpha_init + fixed_alpha: false gives.
+#
+# Reading it as fixed (the original setting here) produced a policy that never left the
+# max-entropy prior: after 19M frames the actor's loc was ~0.05 and its scale ~0.92, i.e.
+# near-uniform over the tanh range, so actions averaged to ~0 and the robot thrashed in
+# place (action/v_mean ~0.05 while lin_vel_mean was 0.31 — motion without displacement,
+# dist_to_goal 7.03 -> 6.55 over the whole run). With alpha pinned at 1.5, SAC's Boltzmann
+# optimum pi ~ exp(Q/alpha) is near-uniform unless Q varies by more than ~1.5 across
+# actions, and this reward's per-step action-dependent Q spread is far smaller than that.
+# Auto-tuning drives alpha down until the policy hits target_entropy instead.
+alpha_init: 1.5
+# Floor for the auto-tuned temperature — see train_sac.py's alpha_min. alpha collapsed to
+# 0.0248 and was still falling at 28M frames on run 11365624, which turns entropy
+# regularisation off entirely. Belt-and-braces alongside the target_entropy change below:
+# target_entropy -3.0 should let alpha settle on its own, this guarantees it cannot vanish.
+# 0.1, raised from 0.05. On run 11369835 alpha decayed straight to the 0.05 floor at ~24M
+# frames and stayed pinned there for the remaining 28M, because policy entropy sat ~2.6 nats
+# ABOVE target_entropy the whole run and never descended. So the floor — not the auto-tuner —
+# is what actually regulates exploration here, and it is the knob worth tuning. Pinning at
+# 0.05 coincided with success climbing out of the ~12% band into 19-23%, so more entropy
+# pressure is the direction to probe.
+# 0.2, raised from 0.1. Run 11400127: alpha fell 1.486 -> the 0.1 floor by 18.7M frames (38%
+# of the run) and sat pinned there for the remaining 30M. Policy entropy held at -0.2 to -0.7
+# nats the whole time, i.e. 2.3-2.8 nats ABOVE target_entropy -3.0, so the tuner's gradient
+# points down at every single step and alpha can only ever descend. The floor is not a safety
+# net here, it IS the exploration setting.
+#
+# NOTE the interaction with the ctrac_module.yaml reward rescale landing in the same run: the
+# dense per-step total went -0.840 -> -0.034, which shrinks the action-dependent spread of Q
+# and therefore RAISES the effective temperature on its own (pi ~ exp(Q/alpha) is near-uniform
+# unless Q varies by more than ~alpha across actions). Both changes push the policy toward
+# stochastic, so this is a deliberately moderate 2x rather than the 3-5x the alpha trace alone
+# would suggest. Escalate only after seeing action/v_mean hold up.
+# 0.5, raised from 0.2 — deliberately the highest value with any argument behind it.
+# Bounded above by hard evidence: alpha pinned at the paper's 1.5 left the actor at
+# loc ~0.05 / scale ~0.92, i.e. near-uniform over the tanh range, and the robot thrashed
+# in place for 19M frames (dist_to_goal 7.03 -> 6.55). 0.5 also matches
+# goal_velocity_weight, the largest per-step action-dependent reward the agent can earn,
+# so it is the scale at which entropy and the reward signal are nominally comparable.
+# The progression here has been 0.05 -> 0.1 -> 0.2, each coinciding with an improvement.
+#
+# ⚠ MEASURED PREDICTION: this should do nothing, and the run exists to test that. Loading
+# the joint run's trained qvalue_final.pth and probing it on 2000 real states from this
+# terrain, Q varies 26x more across STATES than across ACTIONS:
+#     Q(s, a=0) across states           std = 0.0577
+#     Q(s, .) across 512 random actions std = 0.00218   (median over 300 states)
+#     Q over 4 extreme action corners   range = 0.00568
+# SAC picks actions by pi ~ exp(Q/alpha), so at alpha 0.2 the best action is already only
+# 1.011x more likely than a typical one, and at 0.5 that becomes 1.004x. Both are uniform
+# for practical purposes. A 3x preference would need alpha ~ 0.002.
+#
+# The implication is that the plateau is NOT over-exploitation of a local optimum — the
+# critic has largely learned V(s) rather than Q(s,a), and the entropy term already
+# dominates action selection outright. If that reading is right, this run lands on the
+# same ~0.35 as every other, and the experiment worth running afterwards is alpha_min
+# BELOW 0.01, where the critic's preferences start to bite.
+alpha_min: 0.5
+fixed_alpha: false
+# MUST be explicit: "auto" is broken in this torchrl version. SACLoss.target_entropy
+# computes -action_spec.shape[len(container_shape):].numel() after wrapping the spec in a
+# Composite, so it measures the *container's* shape, not the action's — it returns -1.0 for
+# both a bare Bounded(6,) and a Composite(action=(512,6)) (both verified). A target of -1.0
+# for a 6-D action is barely more deterministic than the max-entropy prior we're trying to
+# escape, so leaving this on "auto" would have silently reproduced the same failure.
+#
+# -5.0 = SB3's literal -dim(action_space) rule for this 6-D action, restored after the
+# heightmap fix (see ctrac_module.py's _crop_and_pad). It was loosened to -3.0 on the
+# evidence below, but that evidence was gathered while the policy could not see forward.
+#
+# What was measured at -5.0 (run train_ctrac_11311704, 49M frames): final policy entropy
+# H = -3.485 nats. Since alpha's gradient is -(log_pi + target_entropy), alpha only rises
+# when H < target; with H = -3.485 > -5.0 the target was unreachable from above, so alpha
+# fell monotonically 1.486 -> 0.0065 and entropy regularisation switched itself off. The
+# actor then optimised Q alone and drove |loc| to 0.92, deep into tanh saturation.
+#
+# Why that no longer justifies -3.0: _crop_and_pad was sampling the MIRROR of the paper's
+# heightmap ranges, so the actor's local map showed 0.4-1.0 m BEHIND the robot instead of
+# ahead. Per-lane success then came out near-identical (r = 0.94-0.996) across runs at
+# -5.0 AND at -3.0, plateauing at ~0.13 with every "climb up" lane at exactly 0.000 — a
+# ceiling set by missing forward vision, not by exploration. H = -3.485 is what a
+# forward-blind policy converged to; a policy that can see the obstacle it is about to
+# mount has no reason to settle at the same entropy. Keeping -3.0 would change two
+# variables at once and make the heightmap fix impossible to attribute.
+#
+# So: back to the literal SB3 value for the first post-fix run. Note the env's action is
+# 6-D while Eq. 3's is 5-D — ctrac_policy.py pins the unused w (yaw-rate) dim at loc=0,
+# scale=exp(-4), contributing a constant ~-2.58 nats, so the 5 real dims settle near -0.48
+# each rather than SB3's nominal -1.0.
+#
+# If alpha again decays monotonically toward 0 (watch train/alpha in the first ~5M frames),
+# the target is still unreachable from above and -3.0 is the right correction — but decide
+# that from a run where the policy can actually see ahead.
+# -3.0, lowered from the literal SB3 -dim(action) value of -5.0 on measured evidence, now
+# that both confounds the earlier -5.0 decision rested on are gone (the _crop_and_pad
+# heightmap mirroring AND the C-VAE posterior collapse are both fixed).
+#
+# Measured on run 11365624 by inverting torchrl's alpha loss
+# (alpha_loss = -log_alpha * (log_pi + target_entropy), so H = -log_pi):
+#   policy entropy H fell   +0.84 -> -0.41 nats  over 28M frames and was still falling
+#   alpha fell              1.486 -> 0.0248     monotonically, no sign of stabilising
+# H sits ~4.6 nats ABOVE -5.0, and alpha only rises when H < target, so the target is
+# unreachable from above: alpha decays to 0, entropy regularisation switches itself off,
+# and the actor optimises Q alone with no exploration pressure left.
+#
+# -3.0 is reachable and -5.0 is not, on this project's own evidence: the earlier 49M-frame
+# run 11311704 converged to H = -3.485, i.e. BELOW -3.0 but well ABOVE -5.0. Setting the
+# target inside the range the policy actually reaches lets alpha settle instead of collapsing.
+#
+# Note the env's action is 6-D while Eq. 3's is 5-D: ctrac_policy.py pins the unused w
+# (yaw-rate) dim at loc=0, scale=exp(-4), contributing a constant -2.58 nats. So -3.0 total
+# asks the 5 real dims for -0.42 nats combined (~-0.08 each), a modest tightening from the
+# +0.43/dim they currently sit at — whereas -5.0 demanded -0.48 each.
+#
+# -0.5, raised from -3.0. -3.0 was unreachable and that is WHY alpha ran away: the pinned w dim
+# contributes a constant -2.58 nats, so -3.0 asked the 5 real dims for -0.42 combined (~-0.08
+# each) while run 11400127 measured them at ~+0.48 each. Total H held at -0.2 to -0.7 against a
+# -3.0 target for all 48M frames, so (log_pi + target_entropy) never changed sign, alpha's
+# gradient pointed down at every step, and it pinned to the floor at 18.7M and stayed. Closing
+# that gap needs Q to discriminate between actions, which is exactly what is not happening.
+#
+# -0.5 sits just below the measured operating point, so the tuner can actually equilibrate
+# there instead of running away — alpha becomes self-regulating and alpha_min goes back to
+# being the safety net it was meant to be. It also slows the early descent ~3x: the error term
+# is 1.2 nats instead of 3.7. In the pinned-w accounting, -0.5 asks the 5 real dims for +2.08
+# combined (~+0.42 each), i.e. essentially hold the entropy they already have rather than
+# demanding a tightening the critic cannot deliver.
+target_entropy: -0.5
+alpha_optimizer_opts:
+  lr: 0.0003
+loss_function: smooth_l1
+
+# ---- C-VAE alternating update (Fig. 2: "1 SAC iteration : 5 C-VAE refinement iterations") ----
+cvae_updates_per_sac_step: 5
+# Paper Table says KL weight 1.0. Deliberately NOT used: at 1.0 the KL term dwarfs this
+# project's reconstruction loss (natural MSE scale ~0.08 on the partial-obs slice) and the
+# C-VAE posterior-collapses to the prior within ~300k frames -- measured on the 22M-frame
+# run logs/train_ctrac_11362192/attempt_14, where cvae_loss_kl fell 3.06 -> ~1e-7 and stayed
+# there, leaving the actor with 44 constant input dims and no contact estimate at all.
+cvae_vae_beta: 0.01
+cvae_free_bits: 0.5                # per-latent-dim KL floor (nats); 0.0 = old behaviour
+cvae_prob_weight: 1.0
+cvae_est_weight: 1.0
+cvae_geo_weight: 1.0
+cvae_max_reach: 0.8
+# Exclude episode-boundary transitions from the C-VAE update (see train_sac.py's
+# _cvae_update). Backstop for ftr_env._refresh_state_after_reset, and independently correct:
+# o_{t+1} across a reset belongs to a different episode, and a reset row's obs_history is 16
+# copies of one frame.
+cvae_skip_reset_frames: true
+# Carry the Stage-I C-VAE through Stage II unchanged: same forward pass, same logged
+# metrics, no gradient step. false = the paper's joint optimisation.
+#
+# ⚠ SET BACK TO false, and here is why the flag still exists. It was added as a workaround
+# for "joint training destroys the contact head", which was real -- the gap to
+# cvae_prob_baseline went +0.0998 nats at 0.07M frames to +0.0016 by 1.25M on run 11449348
+# -- but the diagnosis was wrong. The C-VAE was not being destroyed by its gradients. It
+# was being fed a CONSTANT: every one of the 189,696 obs_history rows in that run's replay
+# buffer is all zeros, 16 identical frames, one distinct value shared across the whole
+# buffer (_CTRACActorTDModule.forward has the root cause and the measurements). With a
+# constant input the only minimiser of L_prob is the base rate, which is exactly where it
+# went.
+#
+# So joint optimisation has never actually been tried on real input. Freezing now would
+# pin weights that were fitted on marv_rl trajectories AND hide whether the fix worked, so
+# the next run should be joint. Flip to true only if the gap decays again with real
+# windows in the buffer -- and check that first, by confirming
+# obs_history[:, -1] == obs[:PARTIAL_DIM] on a sampled batch.
+freeze_cvae: false
+
+eval_and_save_every: 8
+eval_repeats: 2
+eval_repeats_after_training: 20
+max_grad_norm: 0.5                 # paper Table: gradient clipping threshold 0.5
+clip_grad_norm_p: 2
+
+optimizer: ${cls:torch.optim.Adam}
+optimizer_opts:
+  lr: 0.0003                       # paper Table: Adam lr 3e-4
+# Rising schedule for the C-VAE's own optimizer ONLY (train_sac.py's cvae_scheduler) — actor/
+# qvalue optimizers use a flat lr (optimizer_opts above), matching the paper's single Adam
+# lr with no schedule mentioned. LinearLR with start_factor < end_factor deliberately ramps
+# UP rather than down (see the comment block above / this config's top-level comment).
+scheduler: ${cls:torch.optim.lr_scheduler.LinearLR}
+scheduler_opts:
+  # 0.5, raised from 0.1. The ramp exists to protect the Stage-I warm start from a large
+  # early step; at start_factor 0.1 on top of the old 1e-4 base that meant starting at 1e-5,
+  # which the measurements in cvae_optimizer_opts show is below the rate at which this
+  # objective learns contact existence at all. 0.5 x 3e-4 = 1.5e-4 still opens gentler than
+  # the paper's flat 3e-4 while staying inside the range that demonstrably trains.
+  start_factor: 0.5
+  end_factor: 1.0
+  total_iters: ${intdiv:${total_frames},${mul:${time_steps_per_batch},${num_robots}}}
+
+data_collector_opts:
+  split_trajs: false
+
+# CTRACPolicyConfig kwargs (rl_modules/ctrac/ctrac_policy.py).
+policy_opts:
+  actor_optimizer_opts:
+    lr: 0.0003
+  qvalue_optimizer_opts:
+    lr: 0.0003
+  cvae_optimizer_opts:
+    # 3e-4 = the paper's Adam lr. Raised from 1e-4 (which, with the rising schedule's
+    # start_factor, began at 1e-5) after measuring what that cost. From random init on the
+    # Stage-I shards, 4000 steps, contact-existence accuracy (chance = 55.8%):
+    #     lr 3e-4, uncleaned data ......... 73.7%
+    #     lr 1e-5, CLEANED data ........... 71.5%
+    #     lr 1e-5, uncleaned data ......... 56.5%   <- never learns
+    # The episode-boundary corruption is only survivable if the step is large enough to
+    # punch through it. Both are fixed now (ftr_env._refresh_state_after_reset at the source,
+    # cvae_skip_reset_frames as backstop), but there is no reason to keep the C-VAE 30x
+    # below the rate the paper specifies and Stage I demonstrably trains at.
+    lr: 0.0003
+  history_len: 16   # 16, raised from 8. At the run's measured 0.287 m/s and a 0.1 s control step the
+  # robot covers 0.029 m/step, so an 8-step history spanned only 0.23 m — while the
+  # local heightmap h^l_t starts 0.40 m AHEAD. Terrain now under the flippers was last
+  # visible 14-35 steps ago, i.e. outside the window: the C-VAE was estimating contact
+  # under a footprint it had never observed. (Before the _crop_and_pad fix the 'local'
+  # map showed 0.4-1.0 m BEHIND the robot, needing no memory at all — which is why
+  # cvae_loss_est's median was ~20x lower on the mirrored, wrong map.) 16 steps = 0.46 m
+  # covers the near edge. MUST match the other two ctrac configs.
+  latent_dim: 32
+  actor_hidden: [512, 128]         # paper Fig. 2 actor sizes
+  qvalue_hidden: [512, 256, 128]   # paper Fig. 2 critic sizes
+  cvae_encoder_hidden: [512, 256, 128]
+  cvae_decoder_hidden: [128, 256, 128]
+  w_log_std: -4.0
+  # Stage I checkpoint from pretrain_ctrac_cvae.py (marv_config_ctrac_cvae_pretrain.yaml's
+  # output_path). null = cold start (matches "C-TRAC w/o Pretrained", the paper's own
+  # ablation shape) — set this once Stage I has actually run.
+  cvae_weights_path:  experiments/baselines/ctrac/ctrac_dataset/ctrac_cvae_stage1.pth
+
+ftr_obs_encoder_opts: {}
+
+vecnorm_opts:
+  decay: 0.99
+  eps: 0.0001
+# MUST stay false for SAC with a fixed entropy coefficient. The paper's alpha (1.5) is
+# calibrated against its RAW reward scale (per-step ~-2, terminal +-150/-225); SAC's actor
+# loss is alpha*log_pi - Q, so normalising the reward rescales Q while alpha stays fixed and
+# the entropy term takes over. Observed in run train_ctrac_11305386: normalised reward came
+# out ~-0.005 vs a raw ~-1.8, i.e. ~360x smaller than alpha assumes -> loss_actor diverged
+# monotonically (-2 -> -84 over 29M frames) as the policy maximised entropy unopposed, std
+# blew up, and the deterministic-eval mean action collapsed to ~0 (v_mean ~0.008): the robot
+# standing still. The paper uses SB3 SAC on unnormalised rewards; this flag is inherited from
+# the PPO trainer, where advantage normalisation makes reward scale far less critical.
+vecnorm_on_reward: false
+extra_env_transforms: []
+
+policy_weights_path: null
+vecnorm_weights_path: null
+
+robot_max_linear_velocity: 10.0
+robot_max_angular_velocity: 720.0
+physx_gpu_heap_capacity: 2147483648
+physx_gpu_temp_buffer_capacity: 1073741824
+physx_gpu_max_num_partitions: 8
+solver_position_iterations: 5
+solver_velocity_iterations: 1
+max_depenetration_velocity: 0.12354395702544713
+sim_dt: 0.005
+decimation: 20
+
+env_cfg_overrides:
+  # Routes FtrEnv's observations/reward through CTRACModule and attaches the ContactSensor
+  # (ftr_env.py's _setup_scene, gated on this) — see rl_modules/registry.py.
+  module_name: ctrac
+  # 4 independent flippers — Eq. 3's action is per-flipper.
+  sync_flipper_control: false
+  # "velocity" (the env's default) integrates a continuous, magnitude-proportional
+  # per-step delta onto the current flipper angle — exactly the paper's continuous
+  # delta-rotation-angle action (Eq. 3), unlike atd3qn/icmd3qn's discrete ±-only
+  # "increment" mode.
+  flipper_control_mode: velocity
+
+  # ---- THE ONLY DIFFERENCE FROM marv_config_ctrac.yaml ----
+  # Chassis velocity pinned at 0.6 m/s instead of being learned. This IS a deviation from
+  # the paper: Eq. 3's action is [v_t, dtheta x4], with desired velocity as a learned
+  # output. It matches every other baseline in this project though — hfc, atd3qn,
+  # icmd3qn, mitriakov all use 0.6 — so it makes C-TRAC comparable to them on the one
+  # axis that was previously confounded, and tests whether the paper's joint speed+posture
+  # control is what holds the method back here.
+  #
+  # Measured motivation, from the joint run 11450743 at 52.4M frames: the policy commanded
+  # v_mean 0.354 and achieved forward velocity 0.145 m/s, with dist_to_goal stuck at
+  # 4.61 m. Learning both speed and posture, it converged on going slowly.
+  #
+  # Two knock-on effects, neither breaking:
+  #   * The actor still emits a v action; _apply_action discards it and writes the applied
+  #     0.6 into last_action[:, 0], so any consumer of last_action sees what actually ran.
+  #     The dimension is dead weight for exploration, but alpha is pinned at alpha_min
+  #     anyway so the entropy accounting barely notices.
+  #   * ctrac_module.yaml's flipper_activity `blocked` gate is
+  #     (v_cmd > blocked_v_cmd_min) AND (v_toward < blocked_v_toward_max). With v_cmd
+  #     constant at 0.6 the first clause is always true, so the gate cleanly reduces to
+  #     "commanded to move but not approaching" — which is what it was always trying to
+  #     express.
+  fixed_forward_vel: 0.6
+
+  robot_type: marv
+  goal_reached_reward: 150     # Eq. 8
+  failed_reward: -150          # Eq. 8 (tipover)
+  timeout_penalty: -225        # Eq. 8 (t >= 200)
+  step_penalty: 0.0
+  # Asymmetric per-direction MARV flipper limits (degrees) — same values as hfc/creps.
+  marv_flipper_front_up_deg: 60.0
+  marv_flipper_front_down_deg: 80.0
+  marv_flipper_back_up_deg: 60.0
+  marv_flipper_back_down_deg: 80.0
+  spawn_yaw_range: 0.0
+  flipper_material_friction: 10.0
+  wheel_material_friction: 8.0
+  body_material_friction: 0.1
+  terrain_static_friction: 2
+  terrain_dynamic_friction: 1.5
+  shock_fail_limit: null
