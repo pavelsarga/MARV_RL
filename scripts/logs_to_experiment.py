@@ -15,10 +15,14 @@ experiments/baselines/atd3qn for a hand-made example):
     single representative attempt only -- the last one (highest attempt_N) -- flattened straight
     into the output dir. No attempt_N/ nesting is kept; the rest of the attempts only contribute
     their csv rows.
-  - The representative attempt's weights/ is pruned to just the final checkpoint
-    (policy_final.pth + vecnorm_final.pth, renamed up from the highest
-    policy_step_*.pth/vecnorm_step_*.pth if no *_final.pth was ever written) plus
-    training_state.pth, dropping the many intermediate step checkpoints.
+  - The representative attempt's weights/ is pruned to ONE consistent final snapshot --
+    every weight component the trainer wrote, renamed up to <component>_final.pth from the
+    highest step all components share if no *_final.pth exists -- plus training_state.pth,
+    dropping the many intermediate step checkpoints. Components are discovered from the
+    filenames, so this covers policy/vecnorm (PPO, D3QN), qvalue and cvae (SAC / C-TRAC),
+    icm (ICM-D3QN) and creps_state (CREPS) without naming any of them. Crash dumps
+    (*_crash.pth) and a persisted replay buffer are skipped: neither is needed to evaluate
+    or resume, and the buffer is tens of GB.
 
 The source logs/ dir is only ever read, never modified.
 
@@ -39,7 +43,17 @@ import sys
 from pathlib import Path
 
 ATTEMPT_RE = re.compile(r"^attempt_(\d+)$")
-STEP_RE = re.compile(r"^(policy|vecnorm)_step_(\d+)\.pth$")
+# Any "<component>_step_<frames>.pth" / "<component>_final.pth", NOT a fixed component list.
+# The trainers in this project write different sets: PPO/D3QN write policy+vecnorm, SAC/C-TRAC
+# adds qvalue+cvae, ICM-D3QN adds icm, CREPS adds creps_state. Hardcoding (policy|vecnorm) --
+# which this did -- silently dropped every non-PPO component on the way into experiments/,
+# so a curated C-TRAC dir had no C-VAE and could not be evaluated or resumed at all.
+STEP_RE = re.compile(r"^(?P<component>.+)_step_(?P<frames>\d+)\.pth$")
+FINAL_RE = re.compile(r"^(?P<component>.+)_final\.pth$")
+# Written next to the weights but deliberately not carried over: crash dumps are debugging
+# artifacts, and a persisted replay buffer is tens of GB of training-only state.
+SKIP_WEIGHT_NAMES = {"replay_buffer.pt"}
+SKIP_EXTRA_NAMES = {"replay_buffer"}
 
 
 def find_attempts(log_dir: Path) -> list[Path]:
@@ -48,29 +62,67 @@ def find_attempts(log_dir: Path) -> list[Path]:
 
 
 def copy_pruned_weights(src: Path, dst: Path, dry_run: bool, log) -> None:
+    """Keep one consistent snapshot of EVERY weight component, plus training_state.pth.
+
+    Components are discovered from the filenames rather than hardcoded, so a trainer that
+    starts writing a new one is picked up with no change here.
+
+    "Consistent" is the load-bearing word: the components of a snapshot must all come from
+    the same moment. Pairing, say, a policy from 52.4M frames with a C-VAE from 51.9M gives
+    an actor whose embedded encoder is not the one it was trained against. So the selection
+    is, in order:
+      1. every component has a *_final.pth  -> use those
+      2. otherwise the highest step number present for ALL step-based components
+      3. otherwise (no shared step) fall back per component, loudly
+    """
     if not src.is_dir():
         return
     if not dry_run:
         dst.mkdir(parents=True, exist_ok=True)
 
-    final_policy, final_vecnorm = src / "policy_final.pth", src / "vecnorm_final.pth"
-    if final_policy.is_file() and final_vecnorm.is_file():
-        chosen = {"policy_final.pth": final_policy, "vecnorm_final.pth": final_vecnorm}
+    steps: dict[str, dict[int, Path]] = {}
+    finals: dict[str, Path] = {}
+    for f in sorted(src.glob("*.pth")):
+        if f.name in SKIP_WEIGHT_NAMES or f.name == "training_state.pth" or f.name.endswith("_crash.pth"):
+            continue
+        if (m := STEP_RE.match(f.name)):
+            steps.setdefault(m.group("component"), {})[int(m.group("frames"))] = f
+        elif (m := FINAL_RE.match(f.name)):
+            finals[m.group("component")] = f
+
+    components = sorted(set(steps) | set(finals))
+    if not components:
+        log(f"  WARNING: no weight components found in {src}")
+        return
+
+    chosen: dict[str, Path] = {}
+    if components and all(c in finals for c in components):
+        log(f"  components {components}: using *_final.pth for all")
+        chosen = {f"{c}_final.pth": finals[c] for c in components}
     else:
-        policies, vecnorms = {}, {}
-        for f in src.glob("policy_step_*.pth"):
-            if (m := STEP_RE.match(f.name)):
-                policies[int(m.group(2))] = f
-        for f in src.glob("vecnorm_step_*.pth"):
-            if (m := STEP_RE.match(f.name)):
-                vecnorms[int(m.group(2))] = f
-        common = sorted(set(policies) & set(vecnorms))
-        if not common:
-            log(f"  WARNING: no weights found in {src}")
-            return
-        n = common[-1]
-        log(f"  no *_final.pth in {src}, using highest step {n} -> policy_final.pth/vecnorm_final.pth")
-        chosen = {"policy_final.pth": policies[n], "vecnorm_final.pth": vecnorms[n]}
+        shared = None
+        for c in components:
+            if c not in steps:
+                continue
+            shared = set(steps[c]) if shared is None else shared & set(steps[c])
+        if shared:
+            n = max(shared)
+            log(f"  components {components}: using shared step {n} -> *_final.pth")
+            for c in components:
+                if c in steps and n in steps[c]:
+                    chosen[f"{c}_final.pth"] = steps[c][n]
+                elif c in finals:
+                    chosen[f"{c}_final.pth"] = finals[c]
+        else:
+            log(f"  WARNING: components {components} share no common step in {src}; "
+                f"falling back per component -- the snapshot may be INCONSISTENT")
+            for c in components:
+                if c in finals:
+                    chosen[f"{c}_final.pth"] = finals[c]
+                elif steps.get(c):
+                    n = max(steps[c])
+                    log(f"    {c}: highest step {n}")
+                    chosen[f"{c}_final.pth"] = steps[c][n]
 
     training_state = src / "training_state.pth"
     if training_state.is_file():
@@ -114,7 +166,7 @@ def merge_csvs(attempts: list[Path], out_dir: Path, dry_run: bool, log) -> None:
 def copy_extra_entries(src: Path, dst: Path, skip_names: set, dry_run: bool, log) -> None:
     """Copy everything in src except CSVs, weights/, and config.yaml (handled separately)."""
     for entry in src.iterdir():
-        if entry.name in skip_names or entry.suffix == ".csv":
+        if entry.name in skip_names or entry.name in SKIP_EXTRA_NAMES or entry.suffix == ".csv":
             continue
         dest = dst / entry.name
         log(f"  copy {entry} -> {dest}")
