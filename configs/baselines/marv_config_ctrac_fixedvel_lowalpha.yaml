@@ -112,23 +112,34 @@ alpha_init: 1.5
 # unless Q varies by more than ~alpha across actions). Both changes push the policy toward
 # stochastic, so this is a deliberately moderate 2x rather than the 3-5x the alpha trace alone
 # would suggest. Escalate only after seeing action/v_mean hold up.
-# 0.002, lowered from 0.2 — chosen from a measurement, not by taste.
+# 0.002, lowered from 0.2 — chosen from a measurement that later turned out to be wrong.
+# Corrected below, together with what the run actually did.
 #
-# Probing the joint run's trained qvalue_final.pth on 2000 real states from this terrain,
-# the critic is 26x more sensitive to state than to action:
-#     Q(s, a=0) across states           std = 0.0577
-#     Q(s, .) across 512 random actions std = 0.00218   (median over 300 states)
-# SAC samples by pi ~ exp(Q/alpha), so the best action is preferred over a typical one by
-# only 1.011x at alpha 0.2. 0.002 is the value at which that preference becomes ~3x
-# (exp(0.00218/0.002) = 2.97), i.e. the point where the critic's opinion starts to matter
-# at all. The same number falls out of the gradient view: |grad_a Q| ~ 0.00568/2 ~ 0.003
-# per dim against alpha * |grad_a log pi| ~ alpha * 2, which balance near alpha ~ 0.0015.
+# ⚠ The original figure came from qvalue_final.pth, which is NOT the trained critic.
+# SACLoss stacks qvalue into a (2, ...) twin ensemble; the stacking allocates new storage
+# and therefore cannot alias the source module, so qvalue_operator kept its random
+# initialisation for the entire run (train_sac.py's _qvalue_state_dict now fixes the save).
+# Re-measured on the REAL critic, from training_state.pth's loss_module_state_dict, over
+# the same 2000 states:
+#     Q(s, a=0) across states            std = 22.1     (mis-measured as 0.058)
+#     Q(s, .) across 512 random actions  std = 0.267    (mis-measured as 0.00218)
+# The critic discriminates actions far more strongly than the original numbers suggested:
+# the best action is preferred 3.79x at alpha 0.2 and 1.70x at alpha 0.5, not 1.011x and
+# 1.004x. So 0.002 is not "the point where the critic's opinion starts to matter" — it is
+# far past it, and makes the policy effectively deterministic.
 #
-# ⚠ This is a real regime change: at 0.002 the entropy bonus is essentially off and SAC
-# behaves close to a deterministic actor-critic. That is the point — but it risks the
-# opposite failure, where too little exploration means the critic never sees diverse
-# actions and so never learns to discriminate them, which would be self-fulfilling. The
-# early schedule below is what guards against it.
+# ⚠ It is a real regime change either way: at this floor the entropy bonus is essentially
+# off and SAC behaves like a deterministic actor-critic. The risk is that too little
+# exploration means the critic never sees diverse actions and never learns to discriminate
+# them, which would be self-fulfilling. The faster early schedule below is the guard.
+#
+# RESULT: alpha never reached this floor. The auto-tuner equilibrated at ~0.015-0.027,
+# where policy entropy meets target_entropy -0.5 — the first C-TRAC run where alpha is set
+# by the entropy objective rather than pinned at a floor (loss_alpha oscillates about zero
+# instead of staying negative). Eval dipped to 0.304 in the 12-15M bin while alpha was
+# collapsing, then recovered fully: 0.389 -> 0.428 -> 0.506 by 21-24M, matching the
+# alpha 0.2 and 0.5 runs. Entropy across a 250x range changes the transient, not the
+# outcome.
 alpha_min: 0.002
 fixed_alpha: false
 # MUST be explicit: "auto" is broken in this torchrl version. SACLoss.target_entropy

@@ -118,21 +118,29 @@ alpha_init: 1.5
 # so it is the scale at which entropy and the reward signal are nominally comparable.
 # The progression here has been 0.05 -> 0.1 -> 0.2, each coinciding with an improvement.
 #
-# ⚠ MEASURED PREDICTION: this should do nothing, and the run exists to test that. Loading
-# the joint run's trained qvalue_final.pth and probing it on 2000 real states from this
-# terrain, Q varies 26x more across STATES than across ACTIONS:
-#     Q(s, a=0) across states           std = 0.0577
-#     Q(s, .) across 512 random actions std = 0.00218   (median over 300 states)
-#     Q over 4 extreme action corners   range = 0.00568
-# SAC picks actions by pi ~ exp(Q/alpha), so at alpha 0.2 the best action is already only
-# 1.011x more likely than a typical one, and at 0.5 that becomes 1.004x. Both are uniform
-# for practical purposes. A 3x preference would need alpha ~ 0.002.
+# ⚠ THE NUMBERS THAT MOTIVATED THIS RUN WERE WRONG — corrected here, with the run's own
+# result below. The original argument read qvalue_final.pth, which is NOT the trained
+# critic: SACLoss stacks qvalue into a (2, ...) twin ensemble, that stacking cannot alias
+# the source module, and so qvalue_operator kept its random init for the whole run (see
+# train_sac.py's _qvalue_state_dict, which fixes the save). Measured on the REAL critic,
+# from training_state.pth's loss_module_state_dict, over the same 2000 states:
+#     Q(s, a=0) across states            std = 22.1     (mis-measured as 0.058)
+#     Q(s, .) across 512 random actions  std = 0.267    (mis-measured as 0.00218)
+#     state / action variation ratio     83x
+# So the critic DOES discriminate actions. pi ~ exp(Q/alpha) gives the best action a 3.79x
+# preference at alpha 0.2 and 1.70x at 0.5 — a real difference, not the 1.011x vs 1.004x
+# non-difference originally claimed.
 #
-# The implication is that the plateau is NOT over-exploitation of a local optimum — the
-# critic has largely learned V(s) rather than Q(s,a), and the entropy term already
-# dominates action selection outright. If that reading is right, this run lands on the
-# same ~0.35 as every other, and the experiment worth running afterwards is alpha_min
-# BELOW 0.01, where the critic's preferences start to bite.
+# The 83x ratio is not pathological either. Every reward term is computed from the
+# POST-step state, one action moves a flipper at most 5 deg out of a ~140 deg range on a
+# heavy tracked robot, and at gamma 0.995 over 300 steps a single decision owns ~1/300 of
+# the return. A small per-step advantage is what this MDP should have.
+#
+# RESULT: the prediction held anyway, for a better reason than the one given. Across a 250x
+# range of entropy floors — 0.5 here, 0.2 in the sibling config, ~0.015 self-selected in the
+# low-alpha one — eval success converged to 0.506 / 0.542 / 0.506 in the 21-24M bin. The
+# floor genuinely changed how deterministic the policy was, and changed nothing about what
+# it achieved.
 alpha_min: 0.5
 fixed_alpha: false
 # MUST be explicit: "auto" is broken in this torchrl version. SACLoss.target_entropy
