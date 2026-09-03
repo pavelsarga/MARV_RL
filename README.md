@@ -17,7 +17,15 @@ The trained policy controls all four flippers and the robot's velocity simultane
 
 ![Best vs Tuned baseline](images/evaluation/best_vs_tuned.png)
 
-The RL policy achieves **79.6% success rate** across 16 terrain types, compared to **40.2%** for a optuna-tuned baseline (`experiments/thesis/random_policy_optuna`).
+> **Outdated claim (correction 2026-08-31):** the 79.6% vs 40.2% figure below comes from
+> the pre-`rl_modules` training lineage (the `runs/TheAshape` / `runs/best_so_far` era) and is
+> **not representative of the current policies**. Do not treat `TheAshape` or `best_so_far`
+> naming as a recommendation — they are historical. The current deployable policy set lives in
+> the workspace's `rl_baselines/` directory (one run dir per baseline; see
+> `marv_flipper_control_research/VERSIONS_AND_TEST_PRIORITY.md` for what is compared and why);
+> `rl_baselines/marv_rl` is the current reference PPO policy.
+
+The RL policy achieved **79.6% success rate** across 16 terrain types, compared to **40.2%** for a optuna-tuned baseline (`experiments/thesis/random_policy_optuna`) — *pre-`rl_modules` lineage, see the correction above.*
 
 ---
 
