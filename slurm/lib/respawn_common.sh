@@ -70,11 +70,18 @@ frame_budget_init() {
     BUDGET_CONFIG="$1"
     FRAMES_DONE=0
     FRAME_BUDGET=$(_yaml_top_int "$BUDGET_CONFIG" total_frames) || FRAME_BUDGET=""
-    local steps robots
+    local steps robots chunk
     steps=$(_yaml_top_int "$BUDGET_CONFIG" time_steps_per_batch) || steps=""
     robots=$(_yaml_top_int "$BUDGET_CONFIG" num_robots) || robots=""
+    # Action-chunking configs (train_diffusion.py) collect T_a control steps per macro step,
+    # so one iteration spans steps*robots*T_a FRAMES while still being steps*robots
+    # transitions. total_frames stays in control steps, so the iteration count — and hence
+    # every total_iters we pin below — has to divide by T_a as well. Configs without the key
+    # are unaffected (chunk defaults to 1).
+    chunk=$(_yaml_top_int "$BUDGET_CONFIG" execution_horizon) || chunk=1
+    [ -n "$chunk" ] && [ "$chunk" -gt 0 ] || chunk=1
     if [ -n "$FRAME_BUDGET" ] && [ -n "$steps" ] && [ -n "$robots" ] && [ "$((steps * robots))" -gt 0 ]; then
-        BUDGET_ITER_SIZE=$((steps * robots))
+        BUDGET_ITER_SIZE=$((steps * robots * chunk))
         BUDGET_TOTAL_ITERS=$((FRAME_BUDGET / BUDGET_ITER_SIZE))
     else
         BUDGET_ITER_SIZE=""
@@ -83,7 +90,8 @@ frame_budget_init() {
 
     if [ -n "$FRAME_BUDGET" ]; then
         echo "Frame budget: ${FRAME_BUDGET} frames from ${BUDGET_CONFIG}" \
-             "(iteration size ${BUDGET_ITER_SIZE:-?}, ${BUDGET_TOTAL_ITERS:-?} iterations)"
+             "(iteration size ${BUDGET_ITER_SIZE:-?} frames, ${BUDGET_TOTAL_ITERS:-?} iterations," \
+             "execution_horizon ${chunk})"
     else
         echo "No total_frames in ${BUDGET_CONFIG} — respawning until the trainer exits cleanly" \
              "instead of until a frame budget is met."
