@@ -67,11 +67,19 @@ except BaseException:
     os._exit(1)          # 1, not 75: 75 means "transient, respawn me"
 ```
 
-**This defect is pre-existing and still present in `train_ftr.py`, `train_d3qn.py`,
-`train_icmd3qn.py`, `train_sac.py` and `train_creps.py`.** It was left alone there
-deliberately — those carry tuned baselines and were out of scope — but the same four lines
-would fix each of them, and every crashed run on those trainers is silently burning its
-allocation.
+**Where the fix already existed.** `optuna_train_ftr.py` has had exactly this guard all
+along (`except Exception: traceback.print_exception(_e); os._exit(1)`), and
+`recover_optuna_trials.py` ends with `os._exit(0 if ok else 1)` for the same reason. The
+pattern was written for the Optuna runner and never propagated to the `train_*.py` family.
+Nothing reverted it and no other mechanism covers it — there are no signal handlers, no
+`atexit` registration, no `srun --kill-on-bad-exit`, and no timeout wrapper. The respawn
+loop cannot help either: it only runs *after* `srun` returns, and `srun` never returns
+while the process is hung.
+
+The guard is now applied to all six trainers (`train_ftr.py`, `train_d3qn.py`,
+`train_icmd3qn.py`, `train_sac.py`, `train_creps.py`, `train_diffusion.py`). It catches
+`BaseException`, not `Exception`, because a `KeyboardInterrupt` or `SystemExit` escaping
+here would hang exactly the same way; a `SystemExit`'s own exit code is preserved.
 
 ## Config
 
