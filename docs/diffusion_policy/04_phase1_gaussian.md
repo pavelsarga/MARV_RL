@@ -40,6 +40,39 @@ Deltas from `train_ftr.py`:
   `|a_{t+1} - a_t|` within a chunk. That last one is the direct measurement of the temporal
   smoothness this whole exercise is after — log it from the first run.
 
+## ⚠ A crash must force-exit, or the SLURM job hangs
+
+`train_ftr.py` and every trainer forked from it call `trainer.train()` unguarded at module
+level, and reach `os._exit(0)` only on the success path. `train()` itself force-exits with
+`os._exit(75)` on CUDA/W&B errors, but **any other exception is re-raised** — and an
+uncaught exception means Python runs a normal interpreter shutdown, which triggers Isaac
+Sim's atexit handlers, which deadlock. That is the same deadlock the `os._exit(0)` at the
+bottom of the file exists to avoid; the generic error path just never got the same
+treatment.
+
+The job then holds its node until walltime instead of failing. On `amdgpulong` that is up
+to 24 h of a GPU per crash.
+
+Observed, not theorised: job `diff_smoke_11493997` crashed on a tensor-shape bug at
+00:10:20, logged `Training failed`, wrote its crash checkpoint and closed the RunLogger —
+and was still `RUNNING` 15 minutes later, doing nothing, until it was cancelled by hand.
+
+`train_diffusion.py` now wraps the top-level call:
+
+```python
+try:
+    trainer.train()
+except BaseException:
+    traceback.print_exc(); sys.stdout.flush(); sys.stderr.flush()
+    os._exit(1)          # 1, not 75: 75 means "transient, respawn me"
+```
+
+**This defect is pre-existing and still present in `train_ftr.py`, `train_d3qn.py`,
+`train_icmd3qn.py`, `train_sac.py` and `train_creps.py`.** It was left alone there
+deliberately — those carry tuned baselines and were out of scope — but the same four lines
+would fix each of them, and every crashed run on those trainers is silently burning its
+allocation.
+
 ## Config
 
 `configs/diffusion/marv_config_diffusion_p1.yaml`, copied from

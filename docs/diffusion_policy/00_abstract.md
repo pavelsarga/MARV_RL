@@ -108,6 +108,7 @@ Nothing here is settled. Update the status column as each is resolved.
 | 14 | Chunking gives ~T_a times fewer gradient steps for the same frame budget. Underfit? | watch for a still-rising curve at the end | first full Phase 1 run | open |
 | 15 | `entropy_coef` rescaled by 1/T_p because entropy is now summed over 96 dims, not 6. Is per-dimension parity the right target? | yes, by arithmetic; but `clip_fraction` hit 0.54 on the smoke run | first full Phase 1 run | open |
 | 16 | Actor LR was tuned for a 0.25M MLP head and now drives a 1.3M U-Net. Re-tune? | untouched so far | after the entropy fix, if `clip_fraction` is still high | open |
+| 17 | Should the crash force-exit be backported to the other five trainers? | it is the same four lines and they are all affected | user's call — they carry tuned baselines | open |
 
 ## Validated on the cluster (RCI, 2026-09-06)
 
@@ -131,6 +132,12 @@ Two things the run taught us:
    climbed 0.38 → 0.45 → 0.54 over the three iterations, well above the healthy 0.1-0.3
    band, which is the symptom. Three iterations at 64 envs cannot establish causation, so
    treat the fix as arithmetic (which is solid) and the diagnosis as provisional.
+
+3. **A crashed job does not terminate.** The failing run held its GPU node for 15 minutes
+   after the Python process was finished, until cancelled by hand — Isaac Sim's atexit
+   handlers deadlock on interpreter shutdown, and only the success path had an `os._exit`.
+   Fixed in `train_diffusion.py`; still present in the five other trainers. See the warning
+   in `04_phase1_gaussian.md`.
 
 `action/chunk_step_delta` read 0.73 with a max of 1.99 on a [-1, 1] action — i.e. the
 predicted chunk is near-white-noise across the horizon. That is exactly right for an
