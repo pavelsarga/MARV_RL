@@ -86,8 +86,11 @@ question 14.
 - `slurm/train_diffusion.sbatch` — pattern of `slurm/train_marv_rl.sbatch` plus
   `config_arg.sh` for config/override selection.
 - `scripts/bench_diffusion_head.py` — the sizing benchmark (see `03_network.md`).
-- `training/test_action_chunk_env.py` — the Isaac-free unit test for the wrapper and the
-  observation window.
+- `training/test_action_chunk_env.py` — Isaac-free unit test for the wrapper and the
+  observation window (24 checks).
+- `training/test_diffusion_policy_shapes.py` — Isaac-free rank/shape test for the networks,
+  ending in a real GAE call over an `[envs, time]` batch. Needs both `src/flipper_training`
+  and `src/FTR-Benchmark` on `PYTHONPATH`. See the vmap warning in `03_network.md`.
 
 **One change was needed in shared code**: `frame_budget_init` in
 `slurm/lib/respawn_common.sh` computed the iteration count as

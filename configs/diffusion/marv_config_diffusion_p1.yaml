@@ -87,7 +87,17 @@ gae_opts:
 ppo_opts:
   clip_epsilon: 0.2
   entropy_bonus: true
-  entropy_coef: 0.012062144919804764
+  # ⚠ Rescaled by 1/T_p from the baseline's 0.012062144919804764.
+  # ClipPPOLoss adds entropy_coef * entropy, and the entropy is now summed over the whole
+  # flattened T_p x A chunk (96 dims) instead of one 6-D action. Measured on the smoke run:
+  # train/mean_entropy = 64.2 nats, i.e. 0.67/dim — essentially log(2), the maximum for a
+  # TanhNormal on [-1,1] — against roughly 4 nats for the baseline's 6-D action. Keeping the
+  # baseline coefficient would therefore apply ~16x the entropy pressure relative to the
+  # policy objective. Dividing by T_p restores per-dimension parity.
+  # Watch train/mean_clip_fraction: the smoke run showed 0.38 -> 0.54 over three iterations,
+  # which is above the healthy 0.1-0.3 band and is the symptom this is meant to address.
+  # Three iterations at 64 envs is too little to be conclusive, so re-check on a real run.
+  entropy_coef: ${div:0.012062144919804764,${prediction_horizon}}
   critic_coef: 1.0
   loss_critic_type: smooth_l1
   normalize_advantage: true

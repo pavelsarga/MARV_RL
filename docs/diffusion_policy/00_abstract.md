@@ -103,9 +103,39 @@ Nothing here is settled. Update the status column as each is resolved.
 | 9 | Is the mid-chunk-termination idling artifact measurable in success rate? | assume negligible | compare `T_a=1` vs `T_a=4` | open |
 | 10 | Does the BC warm start bias the policy to the demonstrator's local optimum? | monitor | Phase 2 | open |
 | 11 | Should the critic see the whole chunk, or only `s_t`? | only `s_t` (V, not Q) | if advantages look badly biased | open |
-| 12 | Is `TanhNormal` over a 96-D flattened chunk well-behaved, or does the tanh squash kill the log-prob? | assume fine, watch `mean_action_sample_log_prob` | first Phase 1 run | open |
+| 12 | Is `TanhNormal` over a 96-D flattened chunk well-behaved? | log-prob stable at ~-64, no NaNs on the smoke run | re-check over a full run | **provisionally resolved** |
 | 13 | Phase 2's actor cost is ~12x the baseline per control step (K=8 U-Net passes). Does that matter once PhysX is counted? | probably not dominant | profile a real iteration | open |
 | 14 | Chunking gives ~T_a times fewer gradient steps for the same frame budget. Underfit? | watch for a still-rising curve at the end | first full Phase 1 run | open |
+| 15 | `entropy_coef` rescaled by 1/T_p because entropy is now summed over 96 dims, not 6. Is per-dimension parity the right target? | yes, by arithmetic; but `clip_fraction` hit 0.54 on the smoke run | first full Phase 1 run | open |
+| 16 | Actor LR was tuned for a 0.25M MLP head and now drives a 1.3M U-Net. Re-tune? | untouched so far | after the entropy fix, if `clip_fraction` is still high | open |
+
+## Validated on the cluster (RCI, 2026-09-06)
+
+Phase 1 runs end to end. Job `diff_smoke2_11494004` on `gpufast`: 64 envs, 3 iterations,
+12288 control frames, exit 0 in 1m34s, including a mid-training eval and a final eval.
+
+Confirmed working: the chunked env wrapper in real Isaac, the CatFrames window, the FiLM
+U-Net actor and critic, GAE over macro steps, the PPO update, checkpointing
+(`policy_step_4096.pth` / `policy_step_12288.pth` — correctly named in **control** frames),
+and `run_tracked_rollout` through the chunked env (`eval/rollout_steps: 20`, in macro
+steps, as designed).
+
+Two things the run taught us:
+
+1. **The encoder rank bug** (see the warning in `03_network.md`) — found only because the
+   smoke test went all the way to GAE.
+2. **`entropy_coef` needed rescaling by 1/T_p.** `train/mean_entropy` came back at 64.2
+   nats — 0.67 per dimension across the 96-D chunk, essentially log(2), the maximum for a
+   TanhNormal on [-1,1] — where the baseline's 6-D action gives about 4 nats. The same
+   coefficient would therefore apply ~16x the entropy pressure. `train/mean_clip_fraction`
+   climbed 0.38 → 0.45 → 0.54 over the three iterations, well above the healthy 0.1-0.3
+   band, which is the symptom. Three iterations at 64 envs cannot establish causation, so
+   treat the fix as arithmetic (which is solid) and the diagnosis as provisional.
+
+`action/chunk_step_delta` read 0.73 with a max of 1.99 on a [-1, 1] action — i.e. the
+predicted chunk is near-white-noise across the horizon. That is exactly right for an
+untrained policy whose sampling scale is 1.0, and it is the number that should fall as
+training proceeds. If it does not, chunking is buying nothing.
 
 ## Decisions already taken
 

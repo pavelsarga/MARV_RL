@@ -38,6 +38,45 @@ This answers the "will the network get too deep?" worry directly: the added dept
 U-Net; it does not sit between the observation encoder and anything else. There is no
 extra CNN after the observation encoder.
 
+## ⚠ The observation encoder must be agnostic to leading dimensions
+
+`ObsHistoryEncoder` is called with three different tensor ranks, and only one of them is
+obvious:
+
+| caller | `obs_history` rank |
+|---|---|
+| collector / eval rollout | `[N, T_o*966]` |
+| `ClipPPOLoss` on a flattened minibatch | `[N, T_o*966]` |
+| **GAE** — `vmap(value_net, (0,))` over an `[envs, time]` tensordict | `[envs, time, T_o*966]`, plus a vmap dim |
+
+The first version reshaped with `obs_history.view(shape[0] * T_o, obs_dim)`. That is correct
+for a single batch dim and wrong for anything else, so it passed every unit check, built the
+policy fine, collected a full rollout fine — and then died on the first GAE call with
+
+    shape '[2, 32, 966]' is invalid for input of size 989184
+
+(the `2` is the vmap dim). It cost a full smoke run to find, because nothing before GAE
+exercises that rank.
+
+The fix is to slice the last dimension and concatenate, with no reshape at all:
+
+```python
+frames = [self.frame_encoder(obs_history[..., t*obs_dim:(t+1)*obs_dim]) for t in range(T_o)]
+return torch.cat(frames, dim=-1)
+```
+
+This also hands `MarvRLCNNFlatEncoder` exactly the rank the un-chunked policy gives it,
+which is the rank its own internals (`x[..., :945].view(*x.shape[:-1], 1, 45, 21)`) are
+already known to survive under vmap. `T_o` is 2-3, so the loop costs nothing.
+
+`training/test_diffusion_policy_shapes.py` guards this, and deliberately ends with a **real
+GAE call over an `[envs, time]` batch** rather than only unit-testing the modules — that is
+the only check that would have caught it.
+
+The actor is the mirror image: its `Conv1d` head needs exactly `(N, C, L)`, so
+`ChunkGaussianActorNet` flattens any leading dims and restores them explicitly rather than
+assuming it will only ever see one batch dim.
+
 ## FiLM
 
 Per Perez et al., applied channel-wise at every conditional residual block:
@@ -54,27 +93,29 @@ rather than once per denoising step.
 
 ## Sizing — measured, not guessed
 
-`scripts/bench_diffusion_head.py`, RTX 2000 Ada laptop GPU, `T_o=2 T_p=16 T_a=4 K_infer=8`,
-batch 1024. "x" is the actor-forward cost per **control** step relative to the current
-marv_rl actor (293k params, 1.49 ms at this batch):
+`scripts/bench_diffusion_head.py`, `T_o=2 T_p=16 T_a=4 K_infer=8`, batch 1024. "x" is the
+actor-forward cost per **control** step relative to the current marv_rl actor (293k
+params). Measured on two very different GPUs — an RTX 2000 Ada laptop and an RCI V100
+(`gpufast`) — which agree closely:
 
-| `down_dims` | U-Net params | P1 ms/macro | P1 x | P2 ms/macro | P2 x |
-|---|---|---|---|---|---|
-| `[64, 128]` | 1.30M | 11.4 | **1.9** | 73.5 | 12.3 |
-| `[64, 128, 256]` | 4.75M | 26.0 | 4.4 | 190.1 | 31.9 |
-| `[128, 256, 512]` | 17.1M | 60.2 | 10.1 | 463.1 | 77.7 |
-| paper (real-world) `[256,512,1024]` | 67M | — | — | — | — |
+| `down_dims` | U-Net params | P1 x (Ada / V100) | P2 x, K=8 (Ada / V100) |
+|---|---|---|---|
+| `[64, 128]` | 1.30M | **1.9 / 1.9** | 12.3 / 12.5 |
+| `[64, 128, 256]` | 4.75M | 4.4 / 4.9 | 31.9 / 35.7 |
+| `[128, 256, 512]` | 17.1M | 10.1 / 13.5 | 77.7 / 104.6 |
+| paper (real-world) `[256,512,1024]` | 67M | — | — |
 
-**`[64, 128]` is the default**: it is the only size that meets the <=2x gate. The
-observation encoder adds 259k parameters on top (unchanged from the baseline).
+**`[64, 128]` is the default**: it is the only size that meets the <=2x gate, on both
+GPUs. The observation encoder adds 259k parameters on top (unchanged from the baseline).
 
 Two caveats before treating this as final:
 
 - These are actor-forward times **in isolation**. The PhysX step at 512-1024 envs still
   dominates total wall clock, so a 4x actor cost may be a much smaller fraction of a
-  training iteration. Re-run the benchmark on the A100 before ruling a larger head out.
+  training iteration. Profile a real iteration before ruling a larger head out.
 - The baseline actor is small enough to be partly kernel-launch-bound, which flatters the
-  ratios on a small GPU.
+  ratios; note this is *worse* on the larger GPU, not better.
+- The A100 partitions (`amdgpu`/`amdgpulong`) were not measured — `gpufast` is V100.
 
 `down_dims`, `kernel_size`, `n_groups` and `diffusion_step_embed_dim` are all config
 fields. Do not hardcode.
@@ -110,11 +151,11 @@ against the current actor. Gate for the default size:
 - projected training slowdown <= ~2x the current actor cost, and
 - `K_infer` forward passes <= `T_a * 100 ms` at batch 1 (deployment).
 
-**Measured deployment latency (batch 1, 8 DDIM steps, laptop RTX 2000 Ada):** 15 ms for
-`[64,128]`, 23 ms for `[64,128,256]`, 27 ms for `[128,256,512]` — against a 400 ms budget
-at `T_a=4`. Deployment latency is a non-issue at every size considered; roughly 25x
-headroom on hardware weaker than anything this would deploy on. Phase 2's cost lands
-entirely on training throughput.
+**Measured deployment latency (batch 1, 8 DDIM steps):** 15 / 23 / 27 ms on the laptop Ada
+and 27 / 44 / 45 ms on the V100, for `[64,128]` / `[64,128,256]` / `[128,256,512]` —
+against a 400 ms budget at `T_a=4`. Deployment latency is a non-issue at every size
+considered, with roughly 10-25x headroom. Phase 2's cost lands entirely on training
+throughput.
 
 ## Critic
 
