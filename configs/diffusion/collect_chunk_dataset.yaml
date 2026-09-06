@@ -21,9 +21,12 @@ output_path: experiments/diffusion/chunk_dataset
 prediction_horizon: 4
 history_len: 2
 
-# ⚠ Set these to a trained marv_rl run before use — there is no sensible default.
-marv_rl_weights_path: experiments/baselines/marv_rl/attempt_0/weights/policy_final.pth
-marv_rl_vecnorm_weights_path: experiments/baselines/marv_rl/attempt_0/weights/vecnorm_final.pth
+# Trained marv_rl demonstrator. experiments/baselines/marv_rl_pos/ is a POSITION-control
+# variant and would seem the more natural source, but it is not: this collector converts
+# labels from achieved angles either way, so a velocity-mode demonstrator works identically,
+# and marv_rl/ is the tuned baseline the Phase 1 comparison is against.
+marv_rl_weights_path: experiments/baselines/marv_rl/weights/policy_final.pth
+marv_rl_vecnorm_weights_path: experiments/baselines/marv_rl/weights/vecnorm_final.pth
 
 # Must match the demonstrator's own training config, or its network will not match its
 # weights. Copied from configs/baselines/marv_config_marv_rl.yaml.
