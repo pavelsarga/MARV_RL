@@ -153,11 +153,21 @@ policy_opts:
   # own sigma_k sits above the floor for most of the chain), so tune it for exploration,
   # not for stability.
   min_sampling_std: 0.02
-  # Chain-level ratio (one importance weight per macro step). Measured at a realistic
-  # Adam-sized step (3e-4) the chain-level |log w| is 0.039 nats against a 0.182 clip
-  # threshold — comfortably inside the trust region — so this is the default. Set true for
-  # per-denoising-step clipping (~4x less sensitive) if kl_approx misbehaves in practice.
-  per_step_clipping: false
+  # Per-denoising-step clipping: one importance ratio per step (spanning T_p*A = 24 dims)
+  # rather than one for the whole chain (192 dims). Measured head-to-head on 24-iteration
+  # smoke runs, identical apart from this flag:
+  #     iteration        1         12        20-24
+  #     chain-level  kl 0.062   kl 0.053   kl 0.082   clip 0.44-0.49
+  #     per-step     kl 0.010   kl 0.019   kl 0.024   clip 0.06-0.12
+  # Per-step stays under target_kl throughout; chain-level runs 2-3x over it and has its
+  # epoch loop cut short repeatedly.
+  #
+  # ⚠ A static sensitivity sweep said the opposite — that chain-level moves only 0.039 nats
+  # under a realistic step, comfortably inside the 0.182 clip threshold. That sweep
+  # perturbed eps_theta with RANDOM noise, whereas a real optimiser step is CORRELATED
+  # across parameters and moves a 192-term log-prob sum far more for the same magnitude.
+  # Trust the head-to-head run, not the perturbation estimate.
+  per_step_clipping: true
   # Critic: plain MLP on its own copy of the encoder, one value per macro step.
   value_mlp_opts:
     num_hidden: 2

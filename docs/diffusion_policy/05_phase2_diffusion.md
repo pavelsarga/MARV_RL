@@ -123,3 +123,57 @@ Log every iteration:
 Critic, GAE, the chunked env, the observation history, the reward, the terrain, and the
 frame accounting are all unchanged from Phase 1. Phase 2 is a head swap plus a loss
 change, nothing else.
+
+
+## First real run (job 11500855, 24 iterations, 64 envs)
+
+Phase 2 runs end to end against real physics: `DPPOClipLoss` selected, exit 0, mid-training
+and final eval both fine, actor 1.69M parameters.
+
+**The chain is doing real work.** `diff/chain_delta_k*` at the last iteration:
+
+```
+k0 1.032  k1 0.692  k2 0.556  k3 0.463  k4 0.370  k5 0.283  k6 0.194  k7 0.073
+```
+
+Monotonically decaying — large early corrections tapering to fine ones, which is what a
+well-formed denoising schedule should look like. No dead steps at either end, so `K_infer=8`
+is neither wasted compute nor too short. This is the diagnostic that rules out the C-TRAC
+failure mode (a component that contributes nothing while the success curve looks fine), and
+it is worth reading on every run.
+
+**`target_kl` binds**: `train/epochs_run` alternates 1 and 2, so the guard is cutting
+iterations short.
+
+**Open concern.** KL sits at 0.05-0.08 and `clip_fraction` at 0.44-0.49, higher than Phase 1
+at the same point and above the 0.03 target even with early stopping — which can only stop
+*after* an epoch exceeds, not prevent it within one. So the instinct behind the retracted
+"start at 2B" claim may have been directionally right even though the measurement supporting
+it was wrong. Test `per_step_clipping: true` and a lower actor LR before any long Phase 2
+run; both are one config line.
+
+Note the diagnostics land in `diff.csv`, not `action.csv` — RunLogger splits CSVs by the
+topic prefix before the slash.
+
+
+## Settled: use per-denoising-step clipping (2B)
+
+Head-to-head, 24-iteration smoke runs identical apart from the flag:
+
+| iteration | chain-level (2A) | per-step (2B) |
+|---|---|---|
+| 1 | kl 0.062, clip 0.44 | **kl 0.010, clip 0.06** |
+| 12 | kl 0.053, clip 0.42 | **kl 0.019, clip 0.08** |
+| 20-24 | kl 0.082, clip 0.49 | **kl 0.024, clip 0.12** |
+
+Per-step stays under `target_kl` throughout and runs its full epoch budget; chain-level sits
+2-3x over and is repeatedly cut short. `per_step_clipping: true` is now the default.
+
+**Why the earlier measurement pointed the other way, twice.** The static sweep in
+`test_dppo.py` perturbs `eps_theta` with random noise and reports the chain log-prob moving
+only 0.039 nats under a realistic step — comfortably inside the trust region. A real
+optimiser step is *correlated* across parameters, and correlated perturbations move a
+192-term log-prob sum far more than random ones of the same norm. The sweep is a lower
+bound, not an estimate. The lesson generalises: a perturbation study substitutes a
+distribution of your choosing for the one the optimiser actually produces, and when those
+differ the study is measuring the wrong thing.
