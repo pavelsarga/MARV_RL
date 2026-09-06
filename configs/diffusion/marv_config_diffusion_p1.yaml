@@ -57,13 +57,20 @@ time_steps_per_batch: 128
 #     ep=5 lr /4   clip 0.549  kl 0.046   rising
 #     ep=5 lr /2   clip 0.643  kl 0.074   rising
 #     ep=2 lr x1   clip 0.131  kl 0.010   falling
-#     ep=3 lr x1   clip 0.192  kl 0.014   falling   <- here, best in-band step count
+#     ep=3 lr x1   clip 0.192  kl 0.014   falling   (at iteration 7 — see below)
+# ⚠ ep=3 was chosen first, to buy back gradient steps, and it was WRONG. The shakedown only
+# reached iteration 7, one past where the rise begins. Over 13-20 iterations of the full run
+# ep=3 dips and then climbs steadily — candidate 0.195(it6) -> 0.324(it13), control
+# 0.179(it6) -> 0.438(it20), KL 0.015 -> 0.047 — the same direction as the broken configs,
+# just slower. ep=2 by contrast stayed flat-to-falling across all 12 of its logged
+# iterations (0.261 -> 0.112). Gradient steps are scarce here, but a stable run that
+# underfits beats an unstable one; see open question 14.
 # The lever is the NUMBER of updates, not the step size: PPO's clipped objective has zero
 # gradient outside the trust region, so at full LR the drift self-limits, while a smaller
 # LR keeps more samples INSIDE the region and lets them keep moving. Lowering the LR made
 # it worse. ep=3 keeps clip_fraction in band while buying back gradient steps, which
 # matters because chunking already costs 4x fewer iterations per frame.
-epochs_per_batch: 3
+epochs_per_batch: 2
 frames_per_sub_batch: 4096
 eval_and_save_every: 8
 eval_repeats: 2

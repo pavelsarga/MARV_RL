@@ -1,29 +1,16 @@
-name: marv_diffusion_p1_Ta1
+name: marv_diffusion_p2
 comment: >-
-  CONTROL for Phase 1 of the receding-horizon (Diffusion-Policy-style) policy: action chunking with a
-  GAUSSIAN head, no diffusion sampler yet. The network sees the last history_len
-  observations, predicts a prediction_horizon-step action trajectory, and the env wrapper
-  executes the first execution_horizon steps open-loop before re-planning. Because the head
-  is Gaussian over the flattened chunk, ClipPPOLoss and GAE apply unchanged — this isolates
-  "does chunking help?" from "does diffusion help?", which Phase 2 answers.
+  Phase 2: the DDIM diffusion actor, trained with DPPO. Same observation encoder, same
+  ConditionalUnet1D geometry and the same chunked env as Phase 1 — only the head changes,
+  from a Gaussian over the chunk to eps_theta over a denoising chain. Everything Phase 1
+  established carries over unchanged: T_p = T_a = 4, epochs_per_batch 2, position control,
+  the T_o=2 observation window, and the macro-step discount.
 
-  Everything not related to the horizon is copied verbatim from
-  configs/baselines/marv_config_marv_rl.yaml (terrain, reward coefficients, physics,
-  VecNorm, frame budget) so the comparison against that baseline means something. The two
-  deliberate exceptions are flipper_control_mode (velocity -> position) and the discount
-  bookkeeping described below.
+  Cold start. For the BC-warm-started variant set policy_weights_path to the checkpoint from
+  pretrain_diffusion_bc.py; DPPO is normally applied to a BC-pretrained model rather than
+  from scratch, so expect this config to be the harder of the two.
 
-  CONTROL ARM. Identical to marv_config_diffusion_p1.yaml except execution_horizon=1: the
-  same network predicts the same 4-step chunk, but only the first step is executed before
-  re-planning. That holds the architecture, action space, log-prob dimensionality, T_o
-  history, position control and entropy scaling all fixed, so the ONLY difference from the
-  candidate is open-loop execution length — which is the actual hypothesis. Without it, a
-  win or loss against the marv_rl baseline would be uninterpretable, since Phase 1 changes
-  six things at once. Note it also restores the baseline's 560 iterations (gae gamma and
-  total_iters both derive from execution_horizon automatically).
-
-  Run with: CONFIG=diffusion/marv_config_diffusion_p1_Ta1.yaml TRAIN_SCRIPT=train_diffusion.py
-  See docs/diffusion_policy/ for the full plan.
+  Run with: CONFIG=diffusion/marv_config_diffusion_p2.yaml TRAIN_SCRIPT=train_diffusion.py
 
 use_wandb: true
 use_tensorboard: false
@@ -46,7 +33,7 @@ terrain: custom_mixed
 # gives the tail a regression signal. (Tested directly: T_p=16 and T_p=4 gave identical
 # clip_fraction curves, so the inert tail was not the cause of the divergence either.)
 prediction_horizon: 4
-execution_horizon: 1
+execution_horizon: 4
 history_len: 2
 
 # total_frames counts CONTROL steps, not macro steps, so the frame axis stays comparable
@@ -119,18 +106,12 @@ gae_opts:
   skip_existing: false
 ppo_opts:
   clip_epsilon: 0.2
-  entropy_bonus: true
-  # ⚠ Rescaled by 1/T_p from the baseline's 0.012062144919804764.
-  # ClipPPOLoss adds entropy_coef * entropy, and the entropy is now summed over the whole
-  # flattened T_p x A chunk (96 dims) instead of one 6-D action. Measured on the smoke run:
-  # train/mean_entropy = 64.2 nats, i.e. 0.67/dim — essentially log(2), the maximum for a
-  # TanhNormal on [-1,1] — against roughly 4 nats for the baseline's 6-D action. Keeping the
-  # baseline coefficient would therefore apply ~16x the entropy pressure relative to the
-  # policy objective. Dividing by T_p restores per-dimension parity.
-  # Watch train/mean_clip_fraction: the smoke run showed 0.38 -> 0.54 over three iterations,
-  # which is above the healthy 0.1-0.3 band and is the symptom this is meant to address.
-  # Three iterations at 64 envs is too little to be conclusive, so re-check on a real run.
-  entropy_coef: ${div:0.012062144919804764,${prediction_horizon}}
+  entropy_bonus: false
+  # ⚠ MUST be false. A diffusion policy has no tractable entropy: DPPOClipLoss returns
+  # dist=None and ClipPPOLoss would call dist.entropy() on it. make_dppo_loss raises rather
+  # than letting this through, because the failure is otherwise silent until the first
+  # update. Exploration comes from policy_opts.min_sampling_std instead.
+  entropy_coef: 0.0
   critic_coef: 1.0
   loss_critic_type: smooth_l1
   normalize_advantage: true
@@ -143,7 +124,7 @@ data_collector_opts:
 
 # Receding-horizon actor-critic: shared-weight per-frame observation encoder -> FiLM-
 # conditioned 1-D temporal U-Net over the horizon axis -> Gaussian over the flat chunk.
-policy_config: ${cls:marv_rl_training.policies.diffusion_policy.DiffusionPolicyConfig}
+policy_config: ${cls:marv_rl_training.policies.diffusion_dppo.DiffusionPolicyPhase2Config}
 policy_opts:
   prediction_horizon: ${prediction_horizon}
   history_len: ${history_len}
@@ -159,6 +140,24 @@ policy_opts:
   down_dims: [64, 128]
   kernel_size: 5
   n_groups: 8
+  # ── Diffusion ────────────────────────────────────────────────────────────────
+  # K_train / K_infer per the paper (100 training steps, a short strided DDIM chain at
+  # inference). eta MUST be > 0: a deterministic DDIM has sigma=0 and therefore no
+  # log-probability, and DPPO needs each denoising step to be scoreable.
+  num_train_timesteps: 100
+  num_inference_steps: 8
+  eta: 1.0
+  # Floor on the per-step sampling sigma. This replaces entropy_coef as the exploration
+  # knob, since diffusion entropy is not tractable. Measured to be a weak lever on ratio
+  # sensitivity (0.02 -> 0.2 moved per-step |log w| only 0.007 -> 0.004 nats, because DDIM's
+  # own sigma_k sits above the floor for most of the chain), so tune it for exploration,
+  # not for stability.
+  min_sampling_std: 0.02
+  # Chain-level ratio (one importance weight per macro step). Measured at a realistic
+  # Adam-sized step (3e-4) the chain-level |log w| is 0.039 nats against a 0.182 clip
+  # threshold — comfortably inside the trust region — so this is the default. Set true for
+  # per-denoising-step clipping (~4x less sensitive) if kl_approx misbehaves in practice.
+  per_step_clipping: false
   # Critic: plain MLP on its own copy of the encoder, one value per macro step.
   value_mlp_opts:
     num_hidden: 2
@@ -249,3 +248,9 @@ env_cfg_overrides:
 
 log_raw_accel: false
 log_raw_accel_interval: 50
+
+# Bound within-iteration drift directly rather than through a fixed epoch count. Phase 1
+# needed two restarts to find a stable epochs_per_batch because log-prob sensitivity grows
+# as the policy sharpens, so a count that is right early is wrong later. A diffusion chain
+# has more places for that to happen, so the guard is on from the start here.
+target_kl: 0.03
