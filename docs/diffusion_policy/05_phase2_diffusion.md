@@ -7,8 +7,12 @@ The same `ConditionalUnet1D`, now predicting noise: `eps_theta(A^k, cond, k)` wh
 
 ## Schedule and sampler
 
-`policies/diffusion_schedule.py` — a minimal squared-cosine DDPM schedule (iDDPM, Nichol
-& Dhariwal, which the paper found worked best) plus a DDIM sampler. ~120 lines.
+`policies/diffusion_schedule.py` — **built and tested**. Squared-cosine DDPM schedule
+(iDDPM, Nichol & Dhariwal, which the paper found worked best) plus a strided DDIM sampler.
+`ddim_step` returns the transition's **(mean, std)**, not just the next sample, because DPPO
+scores each denoising step as a Gaussian. That also forces `eta > 0` — a deterministic DDIM
+has sigma=0 and no log-prob — and makes `min_sampling_std` the exploration knob replacing
+`entropy_coef`. Verified with an oracle epsilon: the chain reconstructs `x0` to 0.015.
 
 We write it rather than adding `diffusers` as a dependency: the apptainer image
 `containers/isaaclab_optuna.sif` is fixed, and rebuilding it to add a pip package is a
@@ -38,9 +42,18 @@ so the chain has a tractable likelihood.
 buffer. Fine. Log-probs are recomputed from the chain at update time so the gradient
 flows.
 
-**2A (start here).** Compute the joint chain-level log-prob, write it to
-`sample_log_prob`, and reuse **`ClipPPOLoss` verbatim**. One ratio per macro-step, exactly
-the shape PPO expects.
+**2A (start here).** ⚠ An earlier draft of this plan said `ClipPPOLoss` could be reused
+*verbatim* here. That is wrong. `ClipPPOLoss` recomputes log-probs by calling
+`actor(tensordict)` and asking the resulting distribution for `log_prob(action)` — and a
+diffusion actor cannot answer that: the quantity to score is the stored denoising chain,
+not the final action, and calling the actor again merely draws a fresh chain. There is no
+distribution object that fixes this without smuggling the network inside it.
+
+The correct minimal design is a small `ClipPPOLoss` **subclass** overriding the log-weight
+computation: read `denoise_chain` `[N, K+1, T_p, A]` from the tensordict, re-run `eps_theta`
+at each `k` on the **stored** `A^k` to get `mu_k`, sum `log N(A^{k-1}; mu_k, sigma_k)` over
+the chain, and ratio that against the stored `sample_log_prob`. Roughly 80 lines. GAE, the
+critic, the chunked env and the observation window are all untouched.
 
 **2B (only if 2A is unstable).** Per-denoising-step clipping, which is what DPPO actually
 advocates: treat each denoising transition as its own PPO sample with zero reward except

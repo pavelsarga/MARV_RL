@@ -45,7 +45,7 @@ as a warm start (see `06_bc_pretrain.md`).
 | symbol | meaning | default | source |
 |---|---|---|---|
 | `T_o` | observation history length | 2 | paper (>2 hurt their CNN variant) |
-| `T_p` | prediction horizon | 16 | paper |
+| `T_p` | prediction horizon | **4** (= `T_a`) | the paper's 16 does not transfer to RL — see below |
 | `T_a` | execution horizon | 4 | paper uses 8 at 10 Hz; MARV is on obstacles, start shorter |
 | `K_train` | training diffusion steps | 100 | paper |
 | `K_infer` | DDIM inference steps | 8 | paper quotes 10 -> 0.1 s on a 3080 |
@@ -73,6 +73,14 @@ Gaussian, so the chain has a tractable likelihood and PPO still applies.
 `marv_rl` policy, then RL fine-tuned. DPPO itself always fine-tunes a BC-pretrained
 diffusion model; a randomly initialised `eps_theta` emits noise chunks and the gradients
 through the chain are high-variance.
+
+**Why `T_p = T_a`, against the paper.** Under supervised learning the whole `T_p` chunk is
+regressed against demonstrations, so the unexecuted tail has a real training signal. Under
+pure RL it has none — a predicted step that is never executed is never scored, so it gets no
+gradient at all. `T_p > T_a` becomes meaningful again in Phase 2, where BC pretraining
+supplies that signal. Measured rather than assumed: `T_p=16` and `T_p=4` gave identical
+`clip_fraction` curves, so the inert tail was *not* the cause of the Phase 1 divergence
+either — it is pointless here, not harmful.
 
 ## Sub-plans
 
@@ -106,8 +114,10 @@ Nothing here is settled. Update the status column as each is resolved.
 | 12 | Is `TanhNormal` over a 96-D flattened chunk well-behaved? | log-prob stable at ~-64, no NaNs on the smoke run | re-check over a full run | **provisionally resolved** |
 | 13 | Phase 2's actor cost is ~12x the baseline per control step (K=8 U-Net passes). Does that matter once PhysX is counted? | probably not dominant | profile a real iteration | open |
 | 14 | Chunking gives ~T_a times fewer gradient steps for the same frame budget. Underfit? | watch for a still-rising curve at the end | first full Phase 1 run | open |
-| 15 | `entropy_coef` rescaled by 1/T_p because entropy is now summed over 96 dims, not 6. Is per-dimension parity the right target? | yes, by arithmetic; but `clip_fraction` hit 0.54 on the smoke run | first full Phase 1 run | open |
-| 16 | Actor LR was tuned for a 0.25M MLP head and now drives a 1.3M U-Net. Re-tune? | untouched so far | after the entropy fix, if `clip_fraction` is still high | open |
+| 15 | `entropy_coef` rescaled by 1/T_p — right target? | yes; entropy landed at the predicted ~16 nats for 24 dims | shakedown | **resolved** |
+| 16 | Actor LR tuned for a 0.25M MLP head now drives a 1.55M U-Net. Re-tune? | **No — LR is not the lever.** LR/4 and LR/2 were both *worse* than the unmodified run | shakedown arms A/B | **resolved** |
+| 18 | How many PPO updates per iteration can a chunked run take? | `ep=3` (96). `ep=5` (160) diverges; `ep=2` (64) is safe but wastes gradient steps | shakedown arms C/D | **resolved** |
+| 19 | Is TanhNormal saturation a problem at `scale=1`? | No. `sat_frac_099` measured 0.008, matching the analytic `P(|z| > atanh(0.99)) = 0.008` | shakedown | **resolved** |
 | 17 | Should the crash force-exit be backported to the other five trainers? | yes — done; the guard already existed in `optuna_train_ftr.py` and had not been propagated | validated by a matched crash test plus a `train_ftr.py` regression run | **resolved** |
 
 ## Validated on the cluster (RCI, 2026-09-06)

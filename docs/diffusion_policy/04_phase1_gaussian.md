@@ -105,6 +105,30 @@ Watch for it. If the flippers snap, either re-enable `joint_vel_variance_coef` (
 `null` in the baseline) or add an explicit within-chunk rate penalty. `action/chunk_step_delta`
 is the instrument. Open question 5.
 
+## ⚠ 160 PPO updates per iteration diverges — use `epochs_per_batch: 3`
+
+The shakedown's finding, and the least obvious one. With `T_a=4` the baseline's
+`epochs_per_batch: 5` (× 32 sub-batches = 160 updates per iteration) drove `clip_fraction`
+to 0.66 and KL to 0.09, both climbing monotonically, with reward flat and the policy never
+concentrating. Measured at iteration 6-7, all else equal:
+
+| config | `clip_fraction` | KL | trend |
+|---|---|---|---|
+| `ep=5`, lr ×1 | 0.662 | 0.089 | rising ✗ |
+| `ep=5`, **lr /4** | 0.549 | 0.046 | rising ✗ |
+| `ep=5`, **lr /2** | 0.643 | 0.074 | rising ✗ |
+| `ep=2`, lr ×1 | 0.131 | 0.010 | falling ✓ |
+| **`ep=3`, lr ×1** | **0.192** | **0.014** | **falling ✓** |
+
+**Lowering the learning rate made it worse, and that is the instructive part.** PPO's
+clipped objective has zero gradient for samples outside the trust region, so at full LR the
+policy reaches the clip boundary quickly and drift *self-limits* — clipped samples stop
+contributing. At a smaller LR more samples stay *inside* the region for longer, gradients
+keep flowing across all 160 updates, and cumulative drift ends up as large or larger. For
+this failure mode the lever is the update **count**; the step **size** regulates itself.
+
+`ep=3` is chosen over the safer `ep=2` because gradient steps are scarce here: see below.
+
 ## Fewer gradient steps for the same frame budget
 
 `total_frames` is held at the baseline's 73.4M **control** steps so the simulation budget
