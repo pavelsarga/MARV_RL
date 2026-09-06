@@ -56,17 +56,22 @@ if [ "$STATUS_ONLY" -eq 1 ]; then
 fi
 
 # Uncommitted work is invisible to git deploy — say so rather than silently shipping stale code.
-if git status --porcelain | grep -q .; then
+DIRTY=$(git status --porcelain | wc -l)
+if [ "$DIRTY" -gt 0 ]; then
     echo
-    echo "WARNING: uncommitted changes below will NOT be deployed:" >&2
-    git status --porcelain | sed 's/^/  /' >&2
+    echo "WARNING: $DIRTY uncommitted change(s) will NOT be deployed. Commit them first if" >&2
+    echo "         they matter — with git, unlike rsync, what is on disk is not what ships." >&2
+    git status --porcelain | head -8 | sed 's/^/  /' >&2
+    [ "$DIRTY" -gt 8 ] && echo "  ... and $((DIRTY - 8)) more (run --status, or git status)" >&2
     echo
 fi
 
 if [ "$PUSH" -eq 1 ]; then
     for s in $SUBMODULES; do
-        if [ -n "$(git -C "$s" log --oneline "origin/$BRANCH..HEAD" 2>/dev/null || true)" ] \
-           || ! git -C "$s" ls-remote --exit-code --heads origin "$BRANCH" >/dev/null 2>&1; then
+        # Push only if this submodule's HEAD is not already reachable on the remote.
+        # `submodule update` resolves the recorded SHA, not a branch, so a submodule whose
+        # commit is already on origin (e.g. still on main) needs no branch of its own.
+        if ! git -C "$s" branch -r --contains HEAD 2>/dev/null | grep -q .; then
             say "pushing submodule $(basename "$s") ($BRANCH)"
             git -C "$s" push -q origin "HEAD:$BRANCH"
         fi
