@@ -1,0 +1,71 @@
+name: marv_diffusion_chunk_dataset
+comment: >-
+  Rolls out a trained marv_rl policy and stores (obs_history, action_chunk) pairs for
+  BC-pretraining the Phase 2 diffusion actor.
+
+  The demonstrator runs in VELOCITY mode — that is how it was trained, and feeding its rate
+  outputs in as absolute position targets would produce nonsense. Only the recorded LABELS
+  are converted to position mode, by inverting the env's own [-1,1] -> [low,high] map on the
+  flipper angle the robot actually reached. That conversion is exact, which is why switching
+  Phase 1/2 to position control costs nothing at the BC stage.
+
+seed: 42
+device: cuda
+num_robots: 256
+task: Ftr-Crossing-Direct-v0
+terrain: custom_mixed
+output_path: experiments/diffusion/chunk_dataset
+
+# ⚠ Must match marv_config_diffusion_p2.yaml and bc_pretrain_p2.yaml. The pretrainer
+# asserts the dataset's shapes against its config and fails loudly on a mismatch.
+prediction_horizon: 4
+history_len: 2
+
+# ⚠ Set these to a trained marv_rl run before use — there is no sensible default.
+marv_rl_weights_path: experiments/baselines/marv_rl/attempt_0/weights/policy_final.pth
+marv_rl_vecnorm_weights_path: experiments/baselines/marv_rl/attempt_0/weights/vecnorm_final.pth
+
+# Must match the demonstrator's own training config, or its network will not match its
+# weights. Copied from configs/baselines/marv_config_marv_rl.yaml.
+marv_rl_policy_opts:
+  share_encoder: false
+  apply_baselines_init: false
+  actor_mlp_opts: {num_hidden: 2, hidden_dim: 128, layernorm: false}
+  value_mlp_opts: {num_hidden: 2, hidden_dim: 256, layernorm: true}
+  actor_optimizer_opts: {lr: 0.0005029432013813284, weight_decay: 0.0001}
+  value_optimizer_opts: {lr: 0.001699179381874355, weight_decay: 0.0001}
+ftr_obs_encoder_opts:
+  num_hidden: 3
+  hidden_dim: 256
+  output_dim: 128
+  layernorm: true
+
+# The rollout runs through the ordinary training transform stack, and env.eval() freezes
+# VecNorm so its statistics stop adapting — otherwise the recorded observations drift away
+# from both what the demonstrator was trained on and what the Phase 2 policy will see.
+vecnorm_opts: {decay: 0.99, eps: 0.0001}
+vecnorm_on_reward: true
+extra_env_transforms: []
+
+episode_repeats: 6
+shard_size_steps: 200
+
+sim_dt: 0.005
+decimation: 20
+solver_position_iterations: 5
+solver_velocity_iterations: 1
+
+env_cfg_overrides:
+  module_name: marv_rl
+  robot_type: marv
+  flipper_pos_max_deg: 90.0
+  marv_flipper_front_up_deg: 60.0
+  marv_flipper_front_down_deg: 80.0
+  marv_flipper_back_up_deg: 60.0
+  marv_flipper_back_down_deg: 80.0
+  spawn_yaw_range: 0.0
+  flipper_material_friction: 6.0
+  wheel_material_friction: 4.0
+  body_material_friction: 0.1
+  terrain_static_friction: 1.2
+  terrain_dynamic_friction: 0.9

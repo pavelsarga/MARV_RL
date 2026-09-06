@@ -1,0 +1,44 @@
+name: marv_diffusion_bc_pretrain
+
+# Shards written by collect_chunk_dataset.py.
+dataset_path: experiments/diffusion/chunk_dataset
+output_path: experiments/diffusion/bc_pretrained_actor.pth
+
+# ⚠ These four MUST match marv_config_diffusion_p2.yaml and the collector's config. The
+# pretrainer asserts the dataset's shapes against them and fails loudly on a mismatch —
+# a silently-different T_o or T_p would train eps_theta on a geometry the RL stage never
+# reproduces, which is the failure mode that cost C-TRAC its C-VAE.
+obs_dim: 966
+action_dim: 6
+prediction_horizon: 4
+history_len: 2
+
+# Must also match the Phase 2 policy_opts, or the checkpoint will not load into the actor.
+down_dims: [64, 128]
+kernel_size: 5
+n_groups: 8
+step_embed_dim: 64
+num_train_timesteps: 100
+encoder_opts:
+  num_hidden: 3
+  hidden_dim: 256
+  output_dim: 128
+  layernorm: true
+
+# Paper's CNN-variant settings: AdamW betas (0.95, 0.999), lr 1e-4, weight decay 1e-6,
+# cosine schedule with linear warmup, EMA power 0.75. The EMA weights are what get saved —
+# DDPM training is noisy per batch and the averaged weights are the better initialisation.
+lr: 0.0001
+weight_decay: 0.000001
+betas: [0.95, 0.999]
+warmup_steps: 500
+epochs: 100
+batch_size: 256
+ema_power: 0.75
+ema_max: 0.9999
+val_frac: 0.1
+
+seed: 42
+device: cuda
+log_every: 100
+max_rows: null
