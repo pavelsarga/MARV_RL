@@ -188,7 +188,23 @@ policy_opts:
     hidden_dim: 256
     layernorm: true
   actor_optimizer_opts:
-    lr: 0.0005029432013813284
+    # ⚠ 1e-5, ~50x below Phase 1's 5.029e-4. That value was tuned for a Gaussian MLP head;
+    # applied to a BC-trained diffusion network it is catastrophic. Measured on the actual
+    # pretrained checkpoint — mean |log w| per denoising step against the 0.182 clip
+    # threshold, and the fraction of steps clipping:
+    #     parameter step   sigma_floor 0.02      sigma_floor 0.10
+    #     1e-5             0.028 nats,  4%       0.015 nats,  2%
+    #     1e-4             0.174 nats, 17%       0.108 nats, 11%
+    #     5e-4             1.174 nats, 59%       0.356 nats, 50%
+    # At 5e-4, 32 sub-batch updates compound to a ~1.6e-2 parameter change — far off the
+    # right of that table. Job 11513387 duly hit kl_approx 2037 in one iteration and wiped
+    # out the BC warm start (chunk_step_delta 0.052 -> 0.63, the noise floor).
+    #
+    # Note the sigma floor is the WEAKER lever: 3.3x from 0.02 -> 0.10, against 42x from
+    # dropping the step size. An earlier sweep called it weak overall, but that used a
+    # randomly initialised network, where predictions are diffuse and DDIM's own sigma_k
+    # dominates the floor. Trained-network sensitivity is a different measurement.
+    lr: 0.00001
     weight_decay: 0.0001
   value_optimizer_opts:
     lr: 0.001699179381874355
