@@ -6,8 +6,8 @@
 #SBATCH --gres=gpu:1
 #SBATCH --partition=amdgpulong
 #SBATCH --job-name=train_marv_hfc
-#SBATCH --output=/home/sargapav/robot_rodeo_gym_ws/logs/%x_%j/%x_%j.out
-#SBATCH --error=/home/sargapav/robot_rodeo_gym_ws/logs/%x_%j/%x_%j.err
+#SBATCH --output=/mnt/personal/sargapav/MARV_RL_ws/logs/%x_%j/%x_%j.out
+#SBATCH --error=/mnt/personal/sargapav/MARV_RL_ws/logs/%x_%j/%x_%j.err
 
 echo "########################################################################"
 echo "Job ID: $SLURM_JOB_ID"
@@ -18,7 +18,7 @@ echo "########################################################################"
 
 # --- Environment Setup ---
 echo "Setting up environment..."
-WS=/home/sargapav/robot_rodeo_gym_ws
+WS=/mnt/personal/sargapav/MARV_RL_ws
 SIF=$WS/containers/isaaclab_optuna.sif
 CONFIG=baselines/marv_config_hfc.yaml
 LOGDIR=$WS/logs/${SLURM_JOB_NAME}_${SLURM_JOB_ID}

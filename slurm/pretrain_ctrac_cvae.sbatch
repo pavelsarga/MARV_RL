@@ -4,10 +4,9 @@
 #SBATCH --nodes=1
 #SBATCH --tasks-per-node=1
 #SBATCH --partition=cpufast
-#SBATCH --time=8:00:00
 #SBATCH --job-name=pretrain_ctrac_cvae
-#SBATCH --output=/home/sargapav/robot_rodeo_gym_ws/logs/%x_%j/%x_%j.out
-#SBATCH --error=/home/sargapav/robot_rodeo_gym_ws/logs/%x_%j/%x_%j.err
+#SBATCH --output=/mnt/personal/sargapav/MARV_RL_ws/logs/%x_%j/%x_%j.out
+#SBATCH --error=/mnt/personal/sargapav/MARV_RL_ws/logs/%x_%j/%x_%j.err
 
 # Stage I for C-TRAC: supervised-only C-VAE pretraining (pretrain_ctrac_cvae.py). Unlike
 # every other train_*.py/*.sbatch in this project, this needs NO GPU / Isaac Sim / --nv —
@@ -24,7 +23,7 @@ echo "Job ID: $SLURM_JOB_ID"
 echo "Running on node: $SLURMD_NODENAME"
 echo "########################################################################"
 
-WS=/home/sargapav/robot_rodeo_gym_ws
+WS=/mnt/personal/sargapav/MARV_RL_ws
 SIF=$WS/containers/isaaclab_optuna.sif
 CONFIG=baselines/marv_config_ctrac_cvae_pretrain.yaml
 LOGDIR=$WS/logs/${SLURM_JOB_NAME}_${SLURM_JOB_ID}

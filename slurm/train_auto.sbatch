@@ -6,8 +6,8 @@
 #SBATCH --gres=gpu:1
 #SBATCH --partition=amdgpu
 #SBATCH --job-name=train_auto
-#SBATCH --output=/home/sargapav/robot_rodeo_gym_ws/logs/%x_%j/%x_%j.out
-#SBATCH --error=/home/sargapav/robot_rodeo_gym_ws/logs/%x_%j/%x_%j.err
+#SBATCH --output=/mnt/personal/sargapav/MARV_RL_ws/logs/%x_%j/%x_%j.out
+#SBATCH --error=/mnt/personal/sargapav/MARV_RL_ws/logs/%x_%j/%x_%j.err
 
 # Auto-dispatching training job: reads env_cfg_overrides.module_name from the config given
 # with --config and runs the matching train_*.py, so one submit command works for every
@@ -49,7 +49,7 @@ echo "########################################################################"
 
 # --- Environment Setup ---
 echo "Setting up environment..."
-WS=/home/sargapav/robot_rodeo_gym_ws
+WS=/mnt/personal/sargapav/MARV_RL_ws
 SIF=$WS/containers/isaaclab_optuna.sif
 
 # --- Argument parsing: --config is ours, everything else goes to the trainer ---

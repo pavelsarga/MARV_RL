@@ -7,8 +7,8 @@
 #SBATCH --partition=amdgpufast
 #SBATCH --time=4:00:00
 #SBATCH --job-name=eval_rand
-#SBATCH --output=/home/sargapav/robot_rodeo_gym_ws/logs/%x_%j/%x_%j.out
-#SBATCH --error=/home/sargapav/robot_rodeo_gym_ws/logs/%x_%j/%x_%j.err
+#SBATCH --output=/mnt/personal/sargapav/MARV_RL_ws/logs/%x_%j/%x_%j.out
+#SBATCH --error=/mnt/personal/sargapav/MARV_RL_ws/logs/%x_%j/%x_%j.err
 
 # Evaluate the random policy baseline on the cluster.
 #
@@ -38,7 +38,7 @@ echo "Running on node: $SLURMD_NODENAME"
 echo "Script arguments: $@"
 echo "########################################################################"
 
-WS=/home/sargapav/robot_rodeo_gym_ws
+WS=/mnt/personal/sargapav/MARV_RL_ws
 
 LOGDIR=$WS/logs/${SLURM_JOB_NAME}_${SLURM_JOB_ID}
 mkdir -p "$LOGDIR"

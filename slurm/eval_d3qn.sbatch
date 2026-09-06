@@ -7,8 +7,8 @@
 #SBATCH --partition=amdgpufast
 #SBATCH --time=4:00:00
 #SBATCH --job-name=eval_d3qn
-#SBATCH --output=/home/sargapav/robot_rodeo_gym_ws/logs/%x_%j/%x_%j.out
-#SBATCH --error=/home/sargapav/robot_rodeo_gym_ws/logs/%x_%j/%x_%j.err
+#SBATCH --output=/mnt/personal/sargapav/MARV_RL_ws/logs/%x_%j/%x_%j.out
+#SBATCH --error=/mnt/personal/sargapav/MARV_RL_ws/logs/%x_%j/%x_%j.err
 
 # Evaluate a trained AT-D3QN / ICM-D3QN policy from a run directory.
 #
@@ -25,7 +25,7 @@
 # Paths under $WS are automatically rewritten to /ws/... inside the container.
 #
 # Examples:
-#   sbatch slurm/eval_d3qn.sbatch --rundir /home/sargapav/robot_rodeo_gym_ws/logs/train_marv_atd3qn_11196914/attempt_4
+#   sbatch slurm/eval_d3qn.sbatch --rundir /mnt/personal/sargapav/MARV_RL_ws/logs/train_marv_atd3qn_11196914/attempt_4
 #   sbatch slurm/eval_d3qn.sbatch --rundir /ws/logs/train_marv_atd3qn_11196914/attempt_4 --num_envs 256 --repeats 30
 #   sbatch slurm/eval_d3qn.sbatch --rundir /ws/logs/train_marv_icmd3qn_.../attempt_0 --policy policy_step_50462720.pth --vecnorm vecnorm_step_50462720.pth
 #   sbatch slurm/eval_d3qn.sbatch --rundir /ws/logs/.../attempt_0 --output_dir /ws/logs/policy_eval --eval_id atd3qn_a4
@@ -43,7 +43,7 @@ echo "Running on node: $SLURMD_NODENAME"
 echo "Script arguments: $@"
 echo "########################################################################"
 
-WS=/home/sargapav/robot_rodeo_gym_ws
+WS=/mnt/personal/sargapav/MARV_RL_ws
 SIF=$WS/containers/isaaclab_optuna.sif
 
 LOGDIR=$WS/logs/${SLURM_JOB_NAME}_${SLURM_JOB_ID}

@@ -7,8 +7,8 @@
 #SBATCH --partition=amdgpufast
 #SBATCH --time=4:00:00
 #SBATCH --job-name=eval_ftr
-#SBATCH --output=/home/sargapav/robot_rodeo_gym_ws/logs/%x_%j/%x_%j.out
-#SBATCH --error=/home/sargapav/robot_rodeo_gym_ws/logs/%x_%j/%x_%j.err
+#SBATCH --output=/mnt/personal/sargapav/MARV_RL_ws/logs/%x_%j/%x_%j.out
+#SBATCH --error=/mnt/personal/sargapav/MARV_RL_ws/logs/%x_%j/%x_%j.err
 
 # Evaluate a trained FTR policy from a run directory.
 #
@@ -19,7 +19,7 @@
 # Paths under $WS are automatically rewritten to /ws/... inside the container.
 #
 # Examples:
-#   sbatch slurm/eval_ftr.sbatch --rundir /home/sargapav/robot_rodeo_gym_ws/experiments/my_run
+#   sbatch slurm/eval_ftr.sbatch --rundir /mnt/personal/sargapav/MARV_RL_ws/experiments/my_run
 #   sbatch slurm/eval_ftr.sbatch --rundir /ws/experiments/my_run --repeats 20
 #   sbatch slurm/eval_ftr.sbatch --rundir /ws/experiments/my_run --num_envs 256 --map cur_mixed
 #   sbatch slurm/eval_ftr.sbatch --rundir /ws/experiments/my_run log_raw_accel=true
@@ -42,7 +42,7 @@ echo "Running on node: $SLURMD_NODENAME"
 echo "Script arguments: $@"
 echo "########################################################################"
 
-WS=/home/sargapav/robot_rodeo_gym_ws
+WS=/mnt/personal/sargapav/MARV_RL_ws
 SIF=$WS/containers/isaaclab_optuna.sif
 
 LOGDIR=$WS/logs/${SLURM_JOB_NAME}_${SLURM_JOB_ID}

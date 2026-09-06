@@ -93,7 +93,20 @@ trap "echo 'Cleaning up node-local cache...'; rm -rf '${LOCAL_CACHE}'" EXIT
 # STALL_LIMIT is the safety net for a failure that recurs before any progress is made — without it
 # an unrecoverable crash would respawn for the rest of the SLURM allocation.
 source $WS/slurm/lib/respawn_common.sh
+
+# Cross-job resume. Continue a run that ended in another job (walltime, cancellation, node
+# failure) with optimizer, schedulers and frame counter intact:
+#     RESUME_FROM=$WS/logs/<old_job_name>_<old_job_id> sbatch ... slurm/train_diffusion.sbatch
+# Fails the job rather than silently restarting from scratch if the path is wrong.
+if [ -n "${RESUME_FROM:-}" ]; then
+    seed_resume_from "$RESUME_FROM" "$LOGDIR" || exit 1
+fi
+
 frame_budget_init "$WS/configs/$CONFIG"
+# Seed FRAMES_DONE from any linked attempts, so the budget accounts for work already done
+# and the trainer is asked only for what is missing. A no-op on a fresh run.
+attempt_record_progress "$LOGDIR"
+[ "${FRAMES_DONE:-0}" -gt 0 ] && echo "Resuming with $FRAMES_DONE frames already collected." 
 STALL_LIMIT=5
 STALLED=0
 RESPAWN_COUNT=0

@@ -192,6 +192,53 @@ attempt_record_progress() {
     return 0
 }
 
+# ── Cross-job resume ─────────────────────────────────────────────────────────
+# Continue a run that ended in a DIFFERENT SLURM job (walltime, cancellation, a node
+# failure) with its optimizer, LR/step-penalty/action-bonus schedules and frame counter
+# intact.
+#
+# Nothing in the trainer needs changing: FtrPPOTrainer/FtrDiffusionTrainer already restore
+# all of that from training_state.pth, via RunLogger.candidate_weight_dirs(). The single
+# thing that stops it working across jobs is that candidate_weight_dirs() only searches
+# sibling attempt_* directories inside the CURRENT job's log dir, and a new job id means a
+# new log dir. So: symlink the old job's attempts into the new job's dir, and the existing
+# respawn path treats them as earlier attempts of this job.
+#
+# Symlinks, not copies — attempt dirs hold checkpoints and (for C-TRAC) a ~21 GB replay
+# buffer. The new attempt is a real directory, so nothing writes back into the old job.
+#
+# Usage in an sbatch, after LOGDIR is known and before the execution loop:
+#     [ -n "${RESUME_FROM:-}" ] && seed_resume_from "$RESUME_FROM" "$LOGDIR"
+#     frame_budget_init "$WS/configs/$CONFIG"
+#     attempt_record_progress "$LOGDIR"   # seeds FRAMES_DONE from the linked attempts
+#
+# Note the trainer prefers the PREVIOUS attempt's config (RunLogger.latest_attempt_config),
+# so a resume reuses the original hyperparameters by design. CLI dotlist overrides are
+# merged on top, which is how you extend total_frames on a resume.
+seed_resume_from() {
+    local src="$1" dst="$2" n=0 d
+    if [ ! -d "$src" ]; then
+        echo "RESUME_FROM: '$src' does not exist — refusing to start a resume that would" >&2
+        echo "             silently begin from scratch instead." >&2
+        return 1
+    fi
+    mkdir -p "$dst"
+    for d in $(ls -d "$src"/attempt_* 2>/dev/null | sed 's#.*/attempt_##' | sort -n); do
+        if [ -e "$dst/attempt_$d" ] && [ ! -L "$dst/attempt_$d" ]; then
+            echo "RESUME_FROM: $dst/attempt_$d already exists and is not a link — aborting" >&2
+            return 1
+        fi
+        ln -sfn "$src/attempt_$d" "$dst/attempt_$d"
+        n=$((n + 1))
+    done
+    if [ "$n" -eq 0 ]; then
+        echo "RESUME_FROM: no attempt_* directories under '$src' — nothing to resume from" >&2
+        return 1
+    fi
+    echo "RESUME_FROM: linked $n attempt(s) from $src"
+    return 0
+}
+
 # An attempt that produced no weights at all never got past start-up; used to stop a respawn loop
 # that would otherwise spin on an unrecoverable failure for the rest of the SLURM allocation.
 attempt_wrote_weights() {

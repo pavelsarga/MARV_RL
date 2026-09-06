@@ -16,8 +16,8 @@
 #SBATCH --partition=amdgpu
 #SBATCH --time=02:00:00
 #SBATCH --job-name=optuna_rand
-#SBATCH --output=/home/sargapav/robot_rodeo_gym_ws/logs/%x_%A/%x_%A_%a/%x_%A_%a.out
-#SBATCH --error=/home/sargapav/robot_rodeo_gym_ws/logs/%x_%A/%x_%A_%a/%x_%A_%a.err
+#SBATCH --output=/mnt/personal/sargapav/MARV_RL_ws/logs/%x_%A/%x_%A_%a/%x_%A_%a.out
+#SBATCH --error=/mnt/personal/sargapav/MARV_RL_ws/logs/%x_%A/%x_%A_%a/%x_%A_%a.err
 
 echo "########################################################################"
 echo "Job array ID : $SLURM_ARRAY_JOB_ID"
@@ -28,7 +28,7 @@ echo "Submit host  : $SLURM_SUBMIT_HOST"
 echo "Restart count: ${SLURM_RESTART_COUNT:-0}"
 echo "########################################################################"
 
-WS=/home/sargapav/robot_rodeo_gym_ws
+WS=/mnt/personal/sargapav/MARV_RL_ws
 SIF=$WS/containers/isaaclab_optuna.sif
 
 EVAL_CONFIG=$WS/configs/random_policy/rand_policy_eval.yaml

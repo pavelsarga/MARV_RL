@@ -20,8 +20,8 @@
 #SBATCH --partition=amdgpu
 #SBATCH --time=10:00:00
 #SBATCH --job-name=recover_optuna
-#SBATCH --output=/home/sargapav/robot_rodeo_gym_ws/logs/%x_%A/%x_%A_%a/%x_%A_%a.out
-#SBATCH --error=/home/sargapav/robot_rodeo_gym_ws/logs/%x_%A/%x_%A_%a/%x_%A_%a.err
+#SBATCH --output=/mnt/personal/sargapav/MARV_RL_ws/logs/%x_%A/%x_%A_%a/%x_%A_%a.out
+#SBATCH --error=/mnt/personal/sargapav/MARV_RL_ws/logs/%x_%A/%x_%A_%a/%x_%A_%a.err
 
 echo "########################################################################"
 echo "Job array ID : $SLURM_ARRAY_JOB_ID"
@@ -35,7 +35,7 @@ echo "########################################################################"
 TRIAL_OFFSET=${TRIAL_OFFSET:-39}
 TRIAL_NUM=$((TRIAL_OFFSET + SLURM_ARRAY_TASK_ID))
 
-WS=/home/sargapav/robot_rodeo_gym_ws
+WS=/mnt/personal/sargapav/MARV_RL_ws
 SIF=$WS/containers/isaaclab_optuna.sif
 # Override without editing:  sbatch --export=ALL,OPTUNA_CONFIG=/ws/configs/optuna/optuna_ftr_smooth.yaml ...
 OPTUNA_CONFIG=${OPTUNA_CONFIG:-$WS/configs/optuna/optuna_ftr.yaml}
