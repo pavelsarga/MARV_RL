@@ -55,7 +55,32 @@ at each `k` on the **stored** `A^k` to get `mu_k`, sum `log N(A^{k-1}; mu_k, sig
 the chain, and ratio that against the stored `sample_log_prob`. Roughly 80 lines. GAE, the
 critic, the chunked env and the observation window are all untouched.
 
-**2B (only if 2A is unstable).** Per-denoising-step clipping, which is what DPPO actually
+**⚠ Measured before running anything: 2A will very likely saturate.** The chain log-prob
+sums `K x T_p x A = 8 x 4 x 6 = 192` Gaussian terms, so its sensitivity to eps_theta
+compounds. Perturbing eps_theta and re-scoring a stored chain
+(`training/test_dppo.py`, section 5):
+
+| perturbation | mean change in chain log-prob | vs clip threshold `log(1.2) = 0.182` |
+|---|---|---|
+| 1e-4 | 0.108 nats | inside the trust region |
+| 1e-3 | 3.22 nats | clips immediately |
+| 1e-2 | 12.17 nats | clips hard |
+
+The usable parameter-step budget is therefore around 1e-4, while Adam at `lr = 5e-4` takes
+per-parameter steps of roughly `lr` — already past it. Once every sample clips, `clamp` has
+zero gradient outside its bounds and the objective goes flat: observed directly, with
+eps_theta receiving a gradient norm of 8e-17 while the critic absorbed 12.5.
+
+(Caveat: the sweep perturbs with random noise, whereas a real gradient step is correlated,
+so treat this as an order of magnitude rather than an exact threshold.)
+
+**So start at 2B, not 2A.** Per-denoising-step clipping keeps each ratio over `T_p x A = 24`
+dims instead of 192, which is what DPPO advocates and why. 2A remains implemented and
+tested (`DPPOClipLoss`) and is worth one run as the ablation that demonstrates the problem,
+but it should not be the default. The alternative levers are the Phase 1 lesson applied
+again — fewer updates per iteration — and a much lower actor LR.
+
+**2B.** Per-denoising-step clipping, which is what DPPO actually
 advocates: treat each denoising transition as its own PPO sample with zero reward except
 at `k=0`, and clip each ratio separately. Needs a custom loss module. The trigger to
 escalate is `train/mean_kl_approx` blowing up or `mean_clip_fraction` pinning near 1.
