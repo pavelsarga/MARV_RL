@@ -10,7 +10,7 @@ output_path: experiments/diffusion/bc_pretrained_actor.pth
 # reproduces, which is the failure mode that cost C-TRAC its C-VAE.
 obs_dim: 966
 action_dim: 6
-prediction_horizon: 4
+prediction_horizon: 16
 history_len: 2
 
 # Must also match the Phase 2 policy_opts, or the checkpoint will not load into the actor.

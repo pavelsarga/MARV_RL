@@ -28,11 +28,25 @@ terrain: custom_mixed
 #   obstacles, so we start shorter. Open question 1.
 # history_len (T_o): observation frames stacked by CatFrames. The paper found >2 actively
 #   HURT their CNN variant.
-# T_p = T_a. Under pure RL a predicted step that is never executed is also never scored,
-# so it has no gradient at all — predicting past T_a buys nothing until Phase 2, where BC
-# gives the tail a regression signal. (Tested directly: T_p=16 and T_p=4 gave identical
-# clip_fraction curves, so the inert tail was not the cause of the divergence either.)
-prediction_horizon: 4
+# ⚠ Phase 2 uses T_p > T_a (16 vs 4), UNLIKE Phase 1. The distinction is BC.
+#
+# Under pure RL a predicted step that is never executed is never scored: its PPO gradient is
+# advantage x grad-log-pi_tail, and since the tail cannot affect reward the expectation
+# factorises to E[advantage] x E[grad-log-pi] = 0. Zero mean, non-zero variance — so it does
+# not merely sit idle, it injects noise into conv kernels shared with the executed prefix.
+# That is why Phase 1 sets T_p = T_a.
+#
+# BC changes this completely. Pretraining regresses the WHOLE T_p chunk against
+# demonstrations, so the tail has a real target and the paper's argument applies: more
+# supervision per sample, and an executed prefix trained as part of a coherent longer
+# trajectory rather than in isolation. The tail arrives already shaped, and the open question
+# becomes whether RL fine-tuning degrades it — not whether it was ever learned.
+#
+# Cost to watch: with per-step clipping each denoising ratio spans T_p x A dims, so 16 gives
+# 96 instead of 24 — roughly 4x more sensitive. Extrapolating the measured 0.039 nats puts it
+# near 0.16 against a 0.182 clip threshold. Tight; target_kl and per-step clipping are the
+# guards. If kl_approx runs hot, drop T_p to 8 before touching anything else.
+prediction_horizon: 16
 execution_horizon: 4
 history_len: 2
 

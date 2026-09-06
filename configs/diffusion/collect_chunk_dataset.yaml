@@ -18,7 +18,7 @@ output_path: experiments/diffusion/chunk_dataset
 
 # ⚠ Must match marv_config_diffusion_p2.yaml and bc_pretrain_p2.yaml. The pretrainer
 # asserts the dataset's shapes against its config and fails loudly on a mismatch.
-prediction_horizon: 4
+prediction_horizon: 16
 history_len: 2
 
 # Trained marv_rl demonstrator. experiments/baselines/marv_rl_pos/ is a POSITION-control
