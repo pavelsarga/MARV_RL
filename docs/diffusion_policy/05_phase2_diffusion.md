@@ -55,30 +55,35 @@ at each `k` on the **stored** `A^k` to get `mu_k`, sum `log N(A^{k-1}; mu_k, sig
 the chain, and ratio that against the stored `sample_log_prob`. Roughly 80 lines. GAE, the
 critic, the chunked env and the observation window are all untouched.
 
-**⚠ Measured before running anything: 2A will very likely saturate.** The chain log-prob
-sums `K x T_p x A = 8 x 4 x 6 = 192` Gaussian terms, so its sensitivity to eps_theta
-compounds. Perturbing eps_theta and re-scoring a stored chain
-(`training/test_dppo.py`, section 5):
+**Measured ratio sensitivity (`training/test_dppo.py`).** The chain log-prob sums
+`K x T_p x A = 192` Gaussian terms, so it was worth checking whether the chain-level ratio
+is usable at all before committing to it. Perturbing eps_theta and re-scoring a stored
+chain, against the clip threshold `log(1.2) = 0.182`:
 
-| perturbation | mean change in chain log-prob | vs clip threshold `log(1.2) = 0.182` |
+| perturbation of eps_theta | 2A chain-level | 2B per-step |
 |---|---|---|
-| 1e-4 | 0.108 nats | inside the trust region |
-| 1e-3 | 3.22 nats | clips immediately |
-| 1e-2 | 12.17 nats | clips hard |
+| 1e-4 | 0.016 nats | — |
+| **3e-4** (about one Adam step at lr 3e-4) | **0.039 nats, 0% clip** | **0.010 nats, 0% clip** |
+| 1e-3 | 0.232 nats — clips | — |
+| 1e-2 | 5.06 nats — clips hard | — |
 
-The usable parameter-step budget is therefore around 1e-4, while Adam at `lr = 5e-4` takes
-per-parameter steps of roughly `lr` — already past it. Once every sample clips, `clamp` has
-zero gradient outside its bounds and the objective goes flat: observed directly, with
-eps_theta receiving a gradient norm of 8e-17 while the critic absorbed 12.5.
+So **2A is usable**: at realistic step sizes it sits well inside the trust region, and only
+saturates once parameter steps exceed ~1e-3. 2B is a further ~4x less sensitive and remains
+the safety valve if the chain-level KL misbehaves in practice. Both are implemented
+(`DPPOClipLoss`, `DPPOPerStepClipLoss`) and tested; start at 2A as originally planned.
 
-(Caveat: the sweep perturbs with random noise, whereas a real gradient step is correlated,
-so treat this as an order of magnitude rather than an exact threshold.)
+⚠ An earlier revision of this document claimed the opposite — that 2A would "very likely
+saturate", citing 3.2 and 10.5 nats. Those figures were wrong. The test perturbed eps_theta
+and never restored it, so every later measurement compared against a log-prob captured
+under different parameters and reported the *setup* perturbation rather than the one under
+study. The test now restores state, and asserts that per-step log-probs sum to the chain
+log-prob, which is the invariant that would have caught it.
 
-**So start at 2B, not 2A.** Per-denoising-step clipping keeps each ratio over `T_p x A = 24`
-dims instead of 192, which is what DPPO advocates and why. 2A remains implemented and
-tested (`DPPOClipLoss`) and is worth one run as the ablation that demonstrates the problem,
-but it should not be the default. The alternative levers are the Phase 1 lesson applied
-again — fewer updates per iteration — and a much lower actor LR.
+**A hypothesis that did not survive either:** `min_sampling_std` was expected to be a strong
+lever, since `log N(x; mu, sigma)` sensitivity to a shift in `mu` scales as `1/sigma^2`.
+Sweeping it 0.02 -> 0.2 moved per-step sensitivity only 0.007 -> 0.004 nats, because DDIM's
+own `sigma_k` is above the floor for most of the chain and the floor rarely binds. Treat it
+as an exploration knob only, which is what DPPO uses it for.
 
 **2B.** Per-denoising-step clipping, which is what DPPO actually
 advocates: treat each denoising transition as its own PPO sample with zero reward except
