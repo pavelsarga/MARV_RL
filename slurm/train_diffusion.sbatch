@@ -18,7 +18,12 @@ echo "########################################################################"
 
 # --- Environment Setup ---
 echo "Setting up environment..."
-WS=/mnt/personal/sargapav/MARV_RL_ws
+# Workspace root. Overridable so the same script runs from a git clone as well as from the
+# rsync tree: MARV_WS=/path/to/clone sbatch ... (sbatch exports the submitting environment
+# by default). The #SBATCH --output directive above cannot expand variables, so when running
+# from a different workspace also pass --output/--error on the sbatch command line.
+WS=${MARV_WS:-/mnt/personal/sargapav/MARV_RL_ws}
+echo "Workspace   : $WS"
 SIF=$WS/containers/isaaclab_optuna.sif
 # Phase 1 of the receding-horizon (Diffusion-Policy-style) policy — action chunking with a
 # Gaussian head, trained by train_diffusion.py. See docs/diffusion_policy/.
