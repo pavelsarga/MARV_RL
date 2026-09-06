@@ -41,6 +41,13 @@ cp $WS/configs/$CONFIG $LOGDIR/
 
 export WANDB_INIT_TIMEOUT=1000
 export WANDB_HTTP_TIMEOUT=1000
+# W&B writes several things outside WANDB_DIR (a user log, a cache, a config dir) and falls
+# back to /tmp for them. On a shared node /tmp/wandb is often owned by another user, and the
+# resulting PermissionError kills the job during RunLogger construction, before training —
+# seen on job 11513379. Point all of them inside the workspace and make sure they exist.
+mkdir -p "$WS/logs/wandb" "$WS/.wandb_cache" "$WS/.wandb_config"
+export WANDB_CACHE_DIR="$WS/.wandb_cache"
+export WANDB_CONFIG_DIR="$WS/.wandb_config"
 
 cd $WS || {
     echo "Failed to cd into $WS"
@@ -130,6 +137,8 @@ while true; do
         --env WANDB_API_KEY=${WANDB_API_KEY} \
         --env WANDB_PROJECT=MARV_RL \
         --env WANDB_DIR=/ws/logs/wandb \
+        --env WANDB_CACHE_DIR=/ws/.wandb_cache \
+        --env WANDB_CONFIG_DIR=/ws/.wandb_config \
         --env SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt \
         --env REQUESTS_CA_BUNDLE=/etc/ssl/certs/ca-certificates.crt \
         --env CURL_CA_BUNDLE=/etc/ssl/certs/ca-certificates.crt \
