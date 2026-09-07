@@ -78,6 +78,13 @@ fi
 
 # Rewrite host-relative paths to the container mount point
 WS="$(cd "$(dirname "$0")/.." && pwd)"
+# Which eval entry point to run, as a filename, mirroring TRAIN_SCRIPT in scripts/train.sh.
+# It must match the run's trainer: eval_ftr.py parses the saved config into FtrPPOConfig and
+# dies at parse time on a receding-horizon config's prediction_horizon, so those runs need
+# EVAL_SCRIPT=eval_diffusion.py (see scripts/eval_diffusion.sh).
+EVAL_SCRIPT=${EVAL_SCRIPT:-eval_ftr.py}
+EVAL_MODULE=${EVAL_SCRIPT%.py}
+
 if [[ "$RUN_DIR" != /ws/* ]]; then
     # Strip leading workspace root if the user passed an absolute host path
     RUN_DIR="${RUN_DIR#${WS}/}"
@@ -228,7 +235,7 @@ apptainer exec --nv \
     $SIF \
     conda run -n isaaclab --no-capture-output \
     env PYTHONPATH=/ws/src/FTR-Benchmark:/ws/src/flipper_training \
-    python -m marv_rl_training.training.eval_ftr \
+    python -m marv_rl_training.training.${EVAL_MODULE} \
     --rundir "$RUN_DIR" \
     --max_steps 2000 \
     "$@"
