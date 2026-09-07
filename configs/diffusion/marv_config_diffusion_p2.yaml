@@ -204,7 +204,18 @@ policy_opts:
     # dropping the step size. An earlier sweep called it weak overall, but that used a
     # randomly initialised network, where predictions are diffuse and DDIM's own sigma_k
     # dominates the floor. Trained-network sensitivity is a different measurement.
-    lr: 0.00001
+    # 1e-4, raised from 1e-5. The 1e-5 emergency fix over-corrected: at 42M frames the run
+    # had gained only +0.04 success (0.63 -> 0.67) against the Phase 1 candidate's +0.47 over
+    # the same span, while every stability metric stayed healthy. Measured cause, from the
+    # updates_run counter: 32 of 64 possible updates per iteration at 1/50th the learning
+    # rate — roughly 1/100th the parameter movement per frame. Not a diffusion problem, an
+    # optimisation-budget one.
+    #
+    # 1e-4 sits at 17% single-step clipping in the sensitivity table (vs 59% at 5e-4, which
+    # destroyed the warm start). The within-epoch target_kl brake, which did not exist when
+    # 5e-4 failed, is what makes this safe: watch train/updates_run — if it falls below ~16
+    # the rate is too hot.
+    lr: 0.0001
     weight_decay: 0.0001
   value_optimizer_opts:
     lr: 0.001699179381874355
