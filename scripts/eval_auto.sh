@@ -1,13 +1,20 @@
 #!/bin/bash
-# Auto-dispatching eval wrapper: reads env_cfg_overrides.module_name from the run's saved
-# config.yaml and forwards to the matching eval_*.sh script, so the same command works for
-# any trained module without you having to remember/change which script it needs.
+# Auto-dispatching eval wrapper: reads the run's saved config.yaml and forwards to the
+# matching eval_*.sh script, so the same command works for any trained run without you
+# having to remember/change which script it needs.
 #
-# Module -> script mapping (rl_modules/registry.py):
-#   marv_rl, hfc, mitriakov  -> eval.sh       (eval_ftr.py, PPO)
-#   atd3qn, icmd3qn          -> eval_d3qn.sh  (eval_d3qn.py)
-#   creps                    -> eval_creps.sh (eval_creps.py)
-#   ctrac                    -> eval_sac.sh   (eval_sac.py)
+# Detection lives in scripts/lib/eval_target.sh (shared with slurm/eval_auto.sbatch):
+#   top-level prediction_horizon + execution_horizon  -> eval_diffusion.sh (eval_diffusion.py)
+#   else by env_cfg_overrides.module_name (rl_modules/registry.py):
+#     marv_rl, hfc, mitriakov  -> eval.sh       (eval_ftr.py, PPO)
+#     atd3qn, icmd3qn          -> eval_d3qn.sh  (eval_d3qn.py)
+#     creps                    -> eval_creps.sh (eval_creps.py)
+#     ctrac                    -> eval_sac.sh   (eval_sac.py)
+#
+# The horizon check comes first and wins: receding-horizon runs use module_name: marv_rl on
+# purpose (same obs/rewards as the baseline, so the comparison means something), but they are
+# trained by train_diffusion.py and parse into FtrDiffusionConfig. Routing them on module_name
+# alone sends them to eval_ftr.py, which dies on prediction_horizon at parse time.
 #
 # Usage:
 #   ./scripts/eval_auto.sh <run_dir> [extra eval args...]
@@ -52,47 +59,19 @@ if [ ! -f "$CONFIG_FILE" ]; then
     exit 1
 fi
 
-MODULE_NAME=""
-if command -v python3 >/dev/null 2>&1 && python3 -c "import yaml" >/dev/null 2>&1; then
-    MODULE_NAME=$(python3 - "$CONFIG_FILE" <<'PYEOF'
-import sys, yaml
-with open(sys.argv[1]) as f:
-    cfg = yaml.safe_load(f) or {}
-print((cfg.get("env_cfg_overrides") or {}).get("module_name", ""))
-PYEOF
-)
-else
-    # Fallback if python3/PyYAML isn't available on this host: grep the first non-comment
-    # "module_name: <value>" line (every config in this project indents it 2 spaces under
-    # env_cfg_overrides:).
-    MODULE_NAME=$(grep -E "^[[:space:]]*module_name:[[:space:]]*" "$CONFIG_FILE" \
-        | grep -v "^[[:space:]]*#" | head -1 \
-        | sed -E 's/^[[:space:]]*module_name:[[:space:]]*//' | tr -d '"'"'" | awk '{print $1}')
-fi
+source "$WS/scripts/lib/eval_target.sh"
+detect_eval_target "$CONFIG_FILE" || exit 1
 
-if [ -z "$MODULE_NAME" ]; then
-    echo "ERROR: could not determine env_cfg_overrides.module_name from $CONFIG_FILE"
-    exit 1
-fi
+echo "Detected module_name: $MODULE_NAME  (eval kind: $EVAL_KIND)"
 
-echo "Detected module_name: $MODULE_NAME"
-
-case "$MODULE_NAME" in
-    marv_rl|hfc|mitriakov)
-        TARGET_SCRIPT="$WS/scripts/eval.sh"
-        ;;
-    atd3qn|icmd3qn)
-        TARGET_SCRIPT="$WS/scripts/eval_d3qn.sh"
-        ;;
-    creps)
-        TARGET_SCRIPT="$WS/scripts/eval_creps.sh"
-        ;;
-    ctrac)
-        TARGET_SCRIPT="$WS/scripts/eval_sac.sh"
-        ;;
+case "$EVAL_KIND" in
+    ppo)       TARGET_SCRIPT="$WS/scripts/eval.sh" ;;
+    d3qn)      TARGET_SCRIPT="$WS/scripts/eval_d3qn.sh" ;;
+    creps)     TARGET_SCRIPT="$WS/scripts/eval_creps.sh" ;;
+    sac)       TARGET_SCRIPT="$WS/scripts/eval_sac.sh" ;;
+    diffusion) TARGET_SCRIPT="$WS/scripts/eval_diffusion.sh" ;;
     *)
-        echo "ERROR: unrecognized module_name '$MODULE_NAME' — no eval script mapping known for it."
-        echo "       Known: marv_rl, hfc, mitriakov -> eval.sh | atd3qn, icmd3qn -> eval_d3qn.sh | creps -> eval_creps.sh | ctrac -> eval_sac.sh"
+        echo "ERROR: detect_eval_target returned unknown kind '$EVAL_KIND'"
         exit 1
         ;;
 esac

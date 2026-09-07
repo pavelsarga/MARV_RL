@@ -10,7 +10,8 @@
 #SBATCH --output=/mnt/personal/sargapav/MARV_RL_ws/logs/%x_%j/%x_%j.out
 #SBATCH --error=/mnt/personal/sargapav/MARV_RL_ws/logs/%x_%j/%x_%j.err
 
-# Auto-dispatching eval job: reads env_cfg_overrides.module_name from the run's saved
+# Auto-dispatching eval job: reads the run's saved config.yaml (detection shared with
+# scripts/eval_auto.sh via scripts/lib/eval_target.sh) and dispatches from
 # config.yaml and runs the matching eval_*.py, so the same submit command works for any
 # trained module — no need to remember/pick eval_ftr.sbatch vs eval_d3qn.sbatch vs
 # eval_creps.sbatch vs eval_sac.sbatch by hand. Same underlying logic as scripts/eval_auto.sh
@@ -18,6 +19,9 @@
 # instead of chaining sbatch calls.
 #
 # Module -> eval script mapping (rl_modules/registry.py):
+#   top-level prediction_horizon + execution_horizon -> eval_diffusion.py
+#     (wins over module_name: these runs use module_name: marv_rl but parse into
+#      FtrDiffusionConfig, and eval_ftr.py dies on prediction_horizon at parse time)
 #   marv_rl, hfc, mitriakov  -> eval_ftr.py   (policy_final.pth / vecnorm_final.pth)
 #   atd3qn, icmd3qn          -> eval_d3qn.py  (policy_final.pth / vecnorm_final.pth)
 #   creps                    -> eval_creps.py (creps_state_final.pth, no vecnorm)
@@ -108,50 +112,44 @@ HOST_RUN_DIR="$WS/${RUN_DIR#/ws/}"
 CONFIG_FILE="$HOST_RUN_DIR/config.yaml"
 [ -f "$CONFIG_FILE" ] || { echo "ERROR: no config.yaml found at $CONFIG_FILE"; exit 1; }
 
-MODULE_NAME=""
-if command -v python3 >/dev/null 2>&1 && python3 -c "import yaml" >/dev/null 2>&1; then
-    MODULE_NAME=$(python3 - "$CONFIG_FILE" <<'PYEOF'
-import sys, yaml
-with open(sys.argv[1]) as f:
-    cfg = yaml.safe_load(f) or {}
-print((cfg.get("env_cfg_overrides") or {}).get("module_name", ""))
-PYEOF
-)
-else
-    MODULE_NAME=$(grep -E "^[[:space:]]*module_name:[[:space:]]*" "$CONFIG_FILE" \
-        | grep -v "^[[:space:]]*#" | head -1 \
-        | sed -E 's/^[[:space:]]*module_name:[[:space:]]*//' | tr -d '"'"'" | awk '{print $1}')
-fi
-[ -z "$MODULE_NAME" ] && { echo "ERROR: could not determine env_cfg_overrides.module_name from $CONFIG_FILE"; exit 1; }
-echo "Detected module_name: $MODULE_NAME"
+source "$WS/scripts/lib/eval_target.sh"
+detect_eval_target "$CONFIG_FILE" || exit 1
+echo "Detected module_name: $MODULE_NAME  (eval kind: $EVAL_KIND)"
 
-# ── Map module_name -> target eval script + checkpoint naming convention ────
+# ── Map the detected kind -> target eval script + checkpoint naming convention ────
 HAS_VECNORM=1
-case "$MODULE_NAME" in
-    marv_rl|hfc|mitriakov)
-        TARGET_PY=/ws/src/flipper_training/marv_rl_training/training/eval_ftr.py
+TRAINING=/ws/src/flipper_training/marv_rl_training/training
+case "$EVAL_KIND" in
+    ppo)
+        TARGET_PY=$TRAINING/eval_ftr.py
         FINAL_POLICY=policy_final.pth; FINAL_VECNORM=vecnorm_final.pth
         STEP_POLICY_GLOB="policy_step_*.pth"; STEP_VECNORM_GLOB="vecnorm_step_*.pth"
         ;;
-    atd3qn|icmd3qn)
-        TARGET_PY=/ws/src/flipper_training/marv_rl_training/training/eval_d3qn.py
+    d3qn)
+        TARGET_PY=$TRAINING/eval_d3qn.py
         FINAL_POLICY=policy_final.pth; FINAL_VECNORM=vecnorm_final.pth
         STEP_POLICY_GLOB="policy_step_*.pth"; STEP_VECNORM_GLOB="vecnorm_step_*.pth"
         ;;
     creps)
-        TARGET_PY=/ws/src/flipper_training/marv_rl_training/training/eval_creps.py
+        TARGET_PY=$TRAINING/eval_creps.py
         FINAL_POLICY=creps_state_final.pth
         STEP_POLICY_GLOB="creps_state_step_*.pth"
         HAS_VECNORM=0
         ;;
-    ctrac)
-        TARGET_PY=/ws/src/flipper_training/marv_rl_training/training/eval_sac.py
+    sac)
+        TARGET_PY=$TRAINING/eval_sac.py
+        FINAL_POLICY=policy_final.pth; FINAL_VECNORM=vecnorm_final.pth
+        STEP_POLICY_GLOB="policy_step_*.pth"; STEP_VECNORM_GLOB="vecnorm_step_*.pth"
+        ;;
+    diffusion)
+        # Same checkpoint naming as PPO — train_diffusion.py is a fork of train_ftr.py and
+        # writes policy_/vecnorm_ pairs identically; only the entry point differs.
+        TARGET_PY=$TRAINING/eval_diffusion.py
         FINAL_POLICY=policy_final.pth; FINAL_VECNORM=vecnorm_final.pth
         STEP_POLICY_GLOB="policy_step_*.pth"; STEP_VECNORM_GLOB="vecnorm_step_*.pth"
         ;;
     *)
-        echo "ERROR: unrecognized module_name '$MODULE_NAME' — no eval script mapping known for it."
-        echo "       Known: marv_rl, hfc, mitriakov -> eval_ftr.py | atd3qn, icmd3qn -> eval_d3qn.py | creps -> eval_creps.py | ctrac -> eval_sac.py"
+        echo "ERROR: detect_eval_target returned unknown kind '$EVAL_KIND'"
         exit 1
         ;;
 esac
