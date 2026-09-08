@@ -7,6 +7,10 @@
 # per-method size knobs differ; the rest (no W&B, no TensorBoard, single-repeat eval) is the
 # same everywhere and lives here.
 #
+# Only `use_wandb=false use_tensorboard=false` is genuinely universal and lives here — the
+# eval-repeat knobs are NOT, since FtrCREPSConfig has no eval_repeats field and rejects it
+# at parse time. Each wrapper passes the overrides its own config accepts.
+#
 # Usage from a wrapper:
 #
 #     WS="$(cd "$(dirname "$0")/.." && pwd)"
@@ -28,8 +32,6 @@ debug_train() {
     CONFIG="$config" TRAIN_SCRIPT="$train_script" \
     bash "$WS/scripts/train.sh" \
         "${overrides[@]}" \
-        eval_repeats=1 \
-        eval_repeats_after_training=1 \
         use_wandb=false \
         use_tensorboard=false \
         "${passthrough[@]}"

@@ -14,4 +14,6 @@ debug_train baselines/marv_config_icmd3qn.yaml train_icmd3qn.py \
     min_replay_size="${MIN_REPLAY_SIZE:-1000}" \
     updates_per_batch="${UPDATES_PER_BATCH:-4}" \
     eval_and_save_every="${EVAL_AND_SAVE_EVERY:-2}" \
+    eval_repeats=1 \
+    eval_repeats_after_training=1 \
     -- "$@"

@@ -13,4 +13,6 @@ debug_train baselines/marv_config_hfc.yaml train_ftr.py \
     --num_envs "${NUM_ENVS:-16}" \
     total_frames="${TOTAL_FRAMES:-8192}" \
     eval_and_save_every="${EVAL_AND_SAVE_EVERY:-2}" \
+    eval_repeats=1 \
+    eval_repeats_after_training=1 \
     -- "$@"

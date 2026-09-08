@@ -16,4 +16,6 @@ debug_train baselines/marv_config_ctrac.yaml train_sac.py \
     updates_per_batch="${UPDATES_PER_BATCH:-2}" \
     cvae_updates_per_sac_step="${CVAE_UPDATES_PER_SAC_STEP:-1}" \
     eval_and_save_every="${EVAL_AND_SAVE_EVERY:-2}" \
+    eval_repeats=1 \
+    eval_repeats_after_training=1 \
     -- "$@"
