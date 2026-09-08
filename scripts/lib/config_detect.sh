@@ -132,11 +132,18 @@ detect_eval_target() {
             echo "              (any config with top-level prediction_horizon+execution_horizon -> eval_diffusion.py)" >&2
             return 1 ;;
     esac
-    case "$EVAL_KIND" in
-        ppo)   EVAL_SCRIPT=eval_ftr.py ;;
-        d3qn)  EVAL_SCRIPT=eval_d3qn.py ;;
-        creps) EVAL_SCRIPT=eval_creps.py ;;
-        sac)   EVAL_SCRIPT=eval_sac.py ;;
+    eval_script_for_kind "$EVAL_KIND"
+}
+
+# eval_script_for_kind <eval_kind> -> sets EVAL_SCRIPT
+eval_script_for_kind() {
+    case "$1" in
+        ppo)       EVAL_SCRIPT=eval_ftr.py ;;
+        d3qn)      EVAL_SCRIPT=eval_d3qn.py ;;
+        creps)     EVAL_SCRIPT=eval_creps.py ;;
+        sac)       EVAL_SCRIPT=eval_sac.py ;;
+        diffusion) EVAL_SCRIPT=eval_diffusion.py ;;
+        *) echo "ERROR: unknown eval kind '$1'" >&2; return 1 ;;
     esac
     return 0
 }

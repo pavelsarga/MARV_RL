@@ -7,6 +7,13 @@ classify_trial()), so that notebook stays usable after cleanup. Never touches ac
 (--min-age-hours) or your most recent runs (--keep-last). Dry-run makes no changes at all,
 including to the audit log.
 
+Checkpoint pruning is trainer-agnostic: it groups every "<family>_step_<n>.pth" by step, so a
+kept/deleted slot takes all the files that step wrote with it, whichever rl_module produced
+them (policy/vecnorm for marv_rl/hfc/mitriakov/atd3qn, + icm for icmd3qn, + qvalue/cvae for
+ctrac, and creps_state alone for creps). Resume-only state -- training_state.pth,
+D3QN/ICM-D3QN's weights/replay_buffer.pt, and C-TRAC's job-level replay_buffer/ directory
+(~21 GB) -- is removed once the job that could have resumed from it is over.
+
 Optionally (--compact-raw-accel), also shrinks raw_accel.npz/raw_accel_eval.npz debug arrays
 from full per-sample dumps (up to ~200MB each) down to a fine-grained histogram + exact
 summary stats (a few KB), preserving what scripts/plot_shock_distribution.py actually needs.
@@ -49,7 +56,29 @@ try:
 except ImportError:
     np = None
 
-STEP_RE = re.compile(r"^(policy|vecnorm)_step_(\d+)\.pth$")
+# Any "<family>_step_<n>.pth" checkpoint, whatever the family is called. Deliberately not a
+# fixed (policy|vecnorm) alternation: each trainer saves a different SET of files at the same
+# step, and a hardcoded list silently leaks every family it doesn't name --
+#   train_ftr.py   (marv_rl/hfc/mitriakov)  policy, vecnorm
+#   train_d3qn.py  (atd3qn)                 policy, vecnorm
+#   train_icmd3qn.py (icmd3qn)              policy, vecnorm, icm
+#   train_sac.py   (ctrac)                  policy, vecnorm, qvalue, cvae
+#   train_creps.py (creps)                  creps_state          <- no policy/vecnorm AT ALL
+# so pruning by policy/vecnorm pairs left icm_/qvalue_/cvae_step_* accumulating for the whole
+# run and made pruning a complete no-op on CREPS. The prefix is non-greedy so that
+# "creps_state_step_12.pth" reads as family "creps_state", step 12.
+STEP_RE = re.compile(r"^(?P<family>[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*?)_step_(?P<step>\d+)\.pth$")
+
+# Files under weights/ that exist ONLY so a respawn inside the same SLURM job can resume.
+# Once the job is over nothing can read them again, and they are large: D3QN/ICM-D3QN write
+# replay_buffer.pt at replay_buffer_save_fraction x capacity (ICM's capacity is 8M
+# transitions), the same reason training_state.pth was already being removed here.
+RESUME_ONLY_WEIGHT_FILES = ("training_state.pth", "replay_buffer.pt", "replay_buffer.pt.tmp")
+
+# C-TRAC's SAC replay buffer, memmapped at the JOB root (shared by every attempt_N) rather
+# than under a single attempt -- see train_sac.py's scratch_dir comment. Tens of GB (~21 GB
+# at 500k transitions), and no attempt-level pruning can ever reach it.
+REPLAY_BUFFER_DIRNAME = "replay_buffer"
 STUDY_NAME_RE = re.compile(r"study_name:\s*['\"]?([\w.\-]+)['\"]?")
 REPEATS_RE = re.compile(r"--repeats\s+(\d+)")
 TARGET_REACHED_RE = re.compile(r"Target number of trials already reached")
@@ -103,6 +132,8 @@ class Stats:
     checkpoints_kept: int = 0
     bytes_freed: int = 0
     audit_records: int = 0
+    replay_buffers_removed: int = 0
+    replay_buffer_bytes_freed: int = 0
     raw_accel_compacted: int = 0
     raw_accel_bytes_freed: int = 0
     raw_accel_corrupted_deleted: int = 0
@@ -426,74 +457,129 @@ def compact_raw_accel_files(logs_dir: Path, bins: int, min_age_hours: float, now
             compact_raw_accel_file(f, bins, dry_run, log, stats)
 
 
-def parse_step_pairs(weights_dir: Path) -> dict[int, dict[str, Path]]:
-    policies, vecnorms = {}, {}
-    for f in weights_dir.glob("policy_step_*.pth"):
+def parse_step_slots(weights_dir: Path) -> dict[int, dict[str, Path]]:
+    """Group every "<family>_step_<n>.pth" under weights_dir by step, as {n: {family: path}}.
+
+    A "slot" is one training step with all the files that step wrote, whichever trainer
+    wrote it. Grouping by step rather than intersecting a fixed pair of families is what
+    keeps ctrac's qvalue_/cvae_, icmd3qn's icm_ and creps' creps_state_ checkpoints in the
+    same accounting as policy_/vecnorm_ -- and it also picks up a half-written slot from a
+    crash (policy_step_N with no vecnorm_step_N), which the old pairing dropped on the floor
+    and therefore never deleted.
+    """
+    slots: dict[int, dict[str, Path]] = {}
+    for f in weights_dir.glob("*_step_*.pth"):
         m = STEP_RE.match(f.name)
         if m:
-            policies[int(m.group(2))] = f
-    for f in weights_dir.glob("vecnorm_step_*.pth"):
-        m = STEP_RE.match(f.name)
-        if m:
-            vecnorms[int(m.group(2))] = f
-    return {n: {"policy": policies[n], "vecnorm": vecnorms[n]} for n in policies if n in vecnorms}
+            slots.setdefault(int(m.group("step")), {})[m.group("family")] = f
+    return slots
 
 
 def prune_weights(weights_dir: Path, keep_slots: int, logs_dir: Path, backup_root: Path | None,
                    dry_run: bool, log) -> tuple[int, int]:
-    pairs = parse_step_pairs(weights_dir)
-    all_ns = sorted(pairs)
+    slots = parse_step_slots(weights_dir)
+    all_ns = sorted(slots)
     target_max = all_ns[-1] if all_ns else 0
     kept = 0
     freed = 0
 
-    has_final = (weights_dir / "policy_final.pth").exists() and (weights_dir / "vecnorm_final.pth").exists()
-    has_crash = (weights_dir / "policy_crash.pth").exists() and (weights_dir / "vecnorm_crash.pth").exists()
+    # "This run already has a terminal checkpoint set" -- any family, not policy/vecnorm
+    # specifically, since CREPS only ever writes creps_state_final.pth. Matching on any
+    # rather than all is also what stops a partially-written set (policy_final.pth present,
+    # vecnorm_final.pth missing) from being silently overwritten by the rename below.
+    has_terminal = any(weights_dir.glob("*_final.pth")) or any(weights_dir.glob("*_crash.pth"))
 
-    if has_final or has_crash:
+    if has_terminal:
         kept += 1
     elif all_ns:
         max_n = all_ns[-1]
-        pair = pairs.pop(max_n)
-        log(f"  rename {pair['policy'].name} + {pair['vecnorm'].name} -> policy_final.pth/vecnorm_final.pth in {weights_dir}")
+        slot = slots.pop(max_n)
+        # Rename EVERY family saved at that step. Renaming only policy/vecnorm would strand
+        # the qvalue_/cvae_ (ctrac) or icm_ (icmd3qn) files that belong to the same
+        # checkpoint, leaving them to be deleted below as an ordinary step slot.
+        names = " + ".join(sorted(p.name for p in slot.values()))
+        log(f"  rename {names} -> *_final.pth in {weights_dir}")
         if not dry_run:
-            pair["policy"].rename(weights_dir / "policy_final.pth")
-            pair["vecnorm"].rename(weights_dir / "vecnorm_final.pth")
+            for family, path in slot.items():
+                path.rename(weights_dir / f"{family}_final.pth")
         kept += 1
 
     extra_slots = keep_slots - 1
-    remaining_ns = sorted(pairs)
+    remaining_ns = sorted(slots)
     chosen = set()
     if extra_slots > 0 and remaining_ns:
+        # Only slots that still carry the run's primary checkpoint are worth keeping. An
+        # earlier cleanup that understood policy/vecnorm but not qvalue/cvae/icm left orphan
+        # slots behind holding just the secondary families, and picking one of those as the
+        # 1/3 or 2/3 keep preserves a step that nothing can be evaluated from. Fall back to
+        # the full pool if no slot has the primary family (nothing better to choose from).
+        families = set().union(*slots.values())
+        primary = "policy" if "policy" in families else (sorted(families)[0] if len(families) == 1 else None)
+        candidates = [n for n in remaining_ns if primary in slots[n]] if primary else remaining_ns
+        candidates = candidates or remaining_ns
         for frac in (1 / 3, 2 / 3):
             target = target_max * frac
-            best = min(remaining_ns, key=lambda n: abs(n - target))
+            best = min(candidates, key=lambda n: abs(n - target))
             chosen.add(best)
 
     for n in remaining_ns:
-        pair = pairs[n]
+        slot = slots[n]
         if n in chosen:
             kept += 1
             continue
-        sz = pair["policy"].stat().st_size + pair["vecnorm"].stat().st_size
-        log(f"  delete {pair['policy'].name} + {pair['vecnorm'].name} in {weights_dir}")
-        backup_before_remove(pair["policy"], logs_dir, backup_root, dry_run, log)
-        backup_before_remove(pair["vecnorm"], logs_dir, backup_root, dry_run, log)
-        if not dry_run:
-            pair["policy"].unlink()
-            pair["vecnorm"].unlink()
-        freed += sz
+        for _family, path in sorted(slot.items()):
+            try:
+                sz = path.stat().st_size
+            except OSError:
+                continue
+            log(f"  delete {path.name} in {weights_dir}")
+            backup_before_remove(path, logs_dir, backup_root, dry_run, log)
+            if not dry_run:
+                path.unlink(missing_ok=True)
+            freed += sz
 
-    training_state = weights_dir / "training_state.pth"
-    if training_state.exists():
-        sz = training_state.stat().st_size
-        log(f"  delete training_state.pth in {weights_dir}")
-        backup_before_remove(training_state, logs_dir, backup_root, dry_run, log)
+    for fname in RESUME_ONLY_WEIGHT_FILES:
+        f = weights_dir / fname
+        if not f.exists():
+            continue
+        sz = f.stat().st_size
+        log(f"  delete {fname} in {weights_dir}")
+        backup_before_remove(f, logs_dir, backup_root, dry_run, log)
         if not dry_run:
-            training_state.unlink()
+            f.unlink()
         freed += sz
 
     return kept, freed
+
+
+def remove_stale_replay_buffer(top_dir: Path, min_age_hours: float, now: float, logs_dir: Path,
+                                backup_root: Path | None, dry_run: bool, log, stats: Stats):
+    """Delete <job_dir>/replay_buffer/ once the job that owned it is over.
+
+    This is C-TRAC's SAC buffer (train_sac.py): memmapped at the RUN root so that every
+    attempt_N of one SLURM job shares it, which is exactly why per-attempt pruning cannot
+    see it. It is tens of GB (~21 GB at 500k transitions x history_len 16) and its only
+    consumer is a respawn *within the same job id* -- once that job has exited, nothing can
+    ever read it again.
+
+    Guarded on the whole job dir being untouched for --min-age-hours rather than on
+    --keep-last: keep-last protects checkpoints for later analysis, whereas this is pure
+    resume state, and a finished run's newest attempt is usually keep-last-protected.
+    """
+    rb = top_dir / REPLAY_BUFFER_DIRNAME
+    if not rb.is_dir():
+        return
+    if is_recent(top_dir, min_age_hours, now):
+        log(f"SKIP replay buffer (job modified within {min_age_hours}h — may still be running) {rb}")
+        return
+    sz = dir_size(rb)
+    log(f"DELETE replay buffer ({sz / 1e9:.2f} GB of resume-only state, job has finished) {rb}")
+    backup_before_remove(rb, logs_dir, backup_root, dry_run, log)
+    if not dry_run:
+        shutil.rmtree(rb, ignore_errors=True)
+    stats.replay_buffers_removed += 1
+    stats.replay_buffer_bytes_freed += sz
+    stats.bytes_freed += sz
 
 
 def train_units(top_dir: Path) -> list[Path]:
@@ -697,6 +783,10 @@ def print_summary(stats: Stats, dry_run: bool, audit_path: Path):
     print(f"  failed units deleted:         {stats.units_deleted}")
     print(f"  now-empty top dirs removed:   {stats.top_dirs_removed}")
     print(f"  incomplete eval dirs deleted: {stats.eval_dirs_deleted}")
+    if stats.replay_buffers_removed:
+        verb = "would be removed" if dry_run else "removed"
+        print(f"  job replay buffers {verb}:   {stats.replay_buffers_removed}  "
+              f"(~{stats.replay_buffer_bytes_freed / 1e9:.2f} GB)")
     if stats.raw_accel_compacted:
         verb = "would be compacted" if dry_run else "compacted"
         print(f"  raw_accel*.npz {verb}:  {stats.raw_accel_compacted}  "
@@ -756,6 +846,14 @@ def build_parser() -> argparse.ArgumentParser:
         "--raw-accel-bins", type=int, default=RAW_ACCEL_DEFAULT_BINS, metavar="N",
         help=f"histogram bin count for --compact-raw-accel (default: {RAW_ACCEL_DEFAULT_BINS})",
     )
+    p.add_argument(
+        "--keep-replay-buffers", action="store_true",
+        help="do not delete <job_dir>/replay_buffer/ (C-TRAC's memmapped SAC buffer, ~21 GB per "
+             "job). By default a job untouched for --min-age-hours has it removed: it is "
+             "resume-only state that only a respawn within that same SLURM job could ever read. "
+             "D3QN/ICM-D3QN's per-attempt weights/replay_buffer.pt is removed with the rest of "
+             "the resume state and is not covered by this flag.",
+    )
     p.add_argument("-v", "--verbose", action="store_true", help="print per-directory reasoning, not just the summary")
     p.add_argument(
         "--exclude", action="append", default=[], metavar="NAME",
@@ -797,6 +895,17 @@ def main():
 
     train_top, optuna_top, recover_top, eval_top, oneshot_top = [], [], [], [], []
     for d in sorted(logs_dir.iterdir()):
+        if d.is_symlink():
+            # train_auto.sbatch renames the job to train_<module_name> once it has read
+            # module_name out of the config, and leaves logs/train_auto_<job_id> behind as a
+            # symlink to logs/train_<module>_<job_id>. Both names show up in this listing, so
+            # following the link would process the very same attempt dirs twice: two audit
+            # rows and two backup copytrees per unit, double-counted bytes_freed, and a bogus
+            # "removed top-level dir" (shutil.rmtree refuses to delete a symlink, and
+            # ignore_errors=True swallows the refusal). The real directory is handled on its
+            # own entry.
+            print(f"SKIP (symlink -> {d.readlink()}) {d}")
+            continue
         if not d.is_dir():
             continue
         name = d.name
@@ -841,6 +950,11 @@ def main():
     audit_fh = None if args.dry_run else open(audit_path, "a", encoding="utf-8")
     try:
         for d in train_top:
+            # Before the units, so the buffer's bytes are attributed here rather than being
+            # counted again inside dir_size(top_dir) if the whole run then gets removed.
+            if not args.keep_replay_buffers:
+                remove_stale_replay_buffer(d, args.min_age_hours, now, logs_dir, backup_root,
+                                           args.dry_run, log, stats)
             process_unit_group(d, train_units(d), 3, "train", "top_dir_only", protected,
                                 args.min_age_hours, now, logs_dir, backup_root, args.dry_run, log, stats, audit_fh)
         for d in recover_top:

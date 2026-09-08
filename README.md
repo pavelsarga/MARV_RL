@@ -224,10 +224,8 @@ the workspace root, not the working directory.
 ## Hyperparameter search ([Optuna](https://doi.org/10.1145/3292500.3330701))
 
 ```bash
-# Local Optuna run
-bash scripts/run_ftr_training.sh
-
-# SLURM Optuna run
+# SLURM Optuna run — one array task per trial
+bash scripts/setup_optuna_db.sh --write-yaml      # once, from the login node
 sbatch --array=0-99%10 slurm/optuna_ftr.sbatch
 ```
 

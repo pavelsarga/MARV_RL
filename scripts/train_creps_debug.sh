@@ -6,21 +6,12 @@
 # NUM_ENVS must be evenly divisible by NUM_EXECUTIONS (default 3 each, matching the
 # reference implementation's num_executions_with_same_omega).
 set -e
-
 WS="$(cd "$(dirname "$0")/.." && pwd)"
+source "$WS/scripts/lib/debug_train.sh"
 
-NUM_ENVS=${NUM_ENVS:-15}
-NUM_EXECUTIONS=${NUM_EXECUTIONS:-3}
-NUM_ITERATIONS=${NUM_ITERATIONS:-3}
-EVAL_AND_SAVE_EVERY=${EVAL_AND_SAVE_EVERY:-1}
-
-CONFIG=baselines/marv_config_creps.yaml \
-TRAIN_SCRIPT=train_creps.py \
-bash "$WS/scripts/train.sh" \
-    --num_envs "$NUM_ENVS" \
-    num_executions_with_same_omega="$NUM_EXECUTIONS" \
-    num_iterations="$NUM_ITERATIONS" \
-    eval_and_save_every="$EVAL_AND_SAVE_EVERY" \
-    use_wandb=false \
-    use_tensorboard=false \
-    "$@"
+debug_train baselines/marv_config_creps.yaml train_creps.py \
+    --num_envs "${NUM_ENVS:-15}" \
+    num_executions_with_same_omega="${NUM_EXECUTIONS:-3}" \
+    num_iterations="${NUM_ITERATIONS:-3}" \
+    eval_and_save_every="${EVAL_AND_SAVE_EVERY:-1}" \
+    -- "$@"

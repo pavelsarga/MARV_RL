@@ -38,7 +38,7 @@ echo "########################################################################"
 WS=/mnt/personal/sargapav/MARV_RL_ws
 SIF=$WS/containers/isaaclab_optuna.sif
 
-TRAIN_CONFIG=$WS/configs/main/ftr_config_A_new.yaml
+TRAIN_CONFIG=$WS/configs/thesis_main/ftr_config_A_new.yaml
 OPTUNA_CONFIG=$WS/configs/optuna/optuna_ftr_smooth.yaml
 
 PG_DATA_DIR="${HOME}/postgres_optuna"
