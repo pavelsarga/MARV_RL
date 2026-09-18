@@ -1,35 +1,38 @@
 # Receding-horizon grid for the Phase 1 (Gaussian-head) policy: which T_o / T_a / T_p
 # balance is best. Consumed by optuna_train_diffusion.py + slurm/optuna_diffusion.sbatch.
 #
-# This is a GRID, not a TPE search: three discrete axes with 2-3 levels each is 12 points, and
-# every point should be measured, not a model of them. One SLURM array task = one point, in
-# the order marv_rl_training/training/horizon_grid.py expands the axes below (history_len
-# slowest, prediction_horizon fastest). List them with:
+# This is a GRID, not a TPE search: three discrete axes should be measured at every point,
+# not modelled. One SLURM array task = one point, in the order
+# marv_rl_training/training/horizon_grid.py expands the axes below (history_len slowest,
+# prediction_horizon fastest), skipping infeasible combinations. List them with:
 #     python -m marv_rl_training.training.horizon_grid configs/optuna/optuna_diffusion_horizons.yaml
 #
 # DO NOT run this on a terrain the policy already saturates. On custom_mixed the T_a=1 arm
 # reached 0.955, so the grid would mostly be measuring noise at the ceiling. It is built for
 # the harder, wider-obstacle training env that replaces it -- point train_config at that
-# env's config (or override terrain: below) and re-check the axes then.
+# env's config (or override terrain: below).
 #
-# Axes and what is already known on custom_mixed:
-#   history_len (T_o)          {1, 2, 4}  untested; open question 3 in docs/diffusion_policy
-#   execution_horizon (T_a)    {1, 2}     T_a=1 beat T_a=4 by ~6 points, so 4 is dropped
-#   prediction_horizon (T_p)   {4, 8}     T_p=16 did not beat T_p=4 at T_a=4, so 16 is dropped
-# Constraints the grid must respect: T_p >= T_a, and T_p divisible by 2**(len(down_dims)-1)
-# (= 2 for the [64,128] U-Net). Both hold for every point here; horizon_grid.py does not
-# check them, so re-check by hand if the axes change.
+# Axes -- the full ranges on purpose. The custom_mixed runs (T_a=1 0.955 > T_a=4 0.894;
+# T_p=16 0.876 vs T_p=4 0.894) are NOT used to prune them: those numbers come from a terrain
+# the policy saturates, and whether a longer open-loop commitment or a longer plan pays off
+# on harder obstacles is precisely what this grid is for.
+#   history_len (T_o)          {1, 2, 4}          open question 3 in docs/diffusion_policy
+#   execution_horizon (T_a)    {1, 2, 4, 8}       8 = 0.8 s open-loop, the paper's setting
+#   prediction_horizon (T_p)   {4, 8, 16, 32}
+# 3 x 4 x 4 = 48 combinations; horizon_grid.feasible drops T_p < T_a (T_a=8 with T_p=4), so
+# 45 points. num_trials below must equal that count -- the runner refuses otherwise.
 #
-# Budget: each point is a full run of the base config (73.4M control frames, ~24h on an
-# A100 at T_a=4, longer at T_a=1 which does 4x the policy calls per frame). Prunable
-# points end early only if `pruning: true` below.
+# Budget: each point is a full run of the base config (73.4M control frames; ~24h on an A100
+# at T_a=4, ~2x longer at T_a=1 which makes 4x the policy calls per frame). 45 points at
+# 4 concurrent is roughly two weeks of wall clock. Prunable points end early only if
+# `pruning: true` below.
 
 study_name: "diffusion_horizons_v1"
 directions:
   - maximize
 metrics_to_optimize:
   - "eval/success_rate"          # the closing 20-eval average the trainer returns
-num_trials: 12                   # must equal the grid size; the runner checks
+num_trials: 45                   # must equal the FEASIBLE grid size; the runner checks
 gpu: 0
 
 # How the runner picks parameters. "grid" = the explicit task->point mapping above (the only
@@ -61,5 +64,5 @@ optuna_types:
   - "categorical"
 optuna_values:
   - [1, 2, 4]
-  - [1, 2]
-  - [4, 8]
+  - [1, 2, 4, 8]
+  - [4, 8, 16, 32]

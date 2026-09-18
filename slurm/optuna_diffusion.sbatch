@@ -3,7 +3,7 @@
 # grid point, each a full training run with crash respawn.
 #
 # Submit (from the git clone; the #SBATCH --output lines below cannot expand variables):
-#   MARV_WS=/mnt/personal/sargapav/MARV_RL_ws_git sbatch --array=0-11%4 \
+#   MARV_WS=/mnt/personal/sargapav/MARV_RL_ws_git sbatch --array=0-44%4 \
 #       --output=/mnt/personal/sargapav/MARV_RL_ws_git/logs/%x_%A/%x_%A_%a/%x_%A_%a.out \
 #       --error=/mnt/personal/sargapav/MARV_RL_ws_git/logs/%x_%A/%x_%A_%a/%x_%A_%a.err \
 #       slurm/optuna_diffusion.sbatch
@@ -27,7 +27,7 @@
 #
 # Prerequisite once, from the login node: bash scripts/setup_optuna_db.sh --write-yaml
 #
-#SBATCH --array=0-11%4
+#SBATCH --array=0-44%4
 #SBATCH --mem=40G
 #SBATCH --cpus-per-task=24
 #SBATCH --nodes=1
