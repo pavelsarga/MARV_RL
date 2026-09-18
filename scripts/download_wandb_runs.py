@@ -29,9 +29,7 @@ Usage examples:
 
 import argparse
 import csv
-import sys
 from collections import defaultdict
-from itertools import groupby
 from pathlib import Path
 
 import wandb
