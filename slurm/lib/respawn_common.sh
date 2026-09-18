@@ -78,7 +78,14 @@ frame_budget_init() {
     # transitions. total_frames stays in control steps, so the iteration count — and hence
     # every total_iters we pin below — has to divide by T_a as well. Configs without the key
     # are unaffected (chunk defaults to 1).
-    chunk=$(_yaml_top_int "$BUDGET_CONFIG" execution_horizon) || chunk=1
+    # BUDGET_CHUNK_OVERRIDE wins over the file: in the horizon grid (slurm/optuna_diffusion.sbatch)
+    # execution_horizon is a search axis, not a config value, so the file's T_a is wrong for
+    # every task but one. Unset for every other job, so nothing changes for them.
+    if [ -n "${BUDGET_CHUNK_OVERRIDE:-}" ]; then
+        chunk="$BUDGET_CHUNK_OVERRIDE"
+    else
+        chunk=$(_yaml_top_int "$BUDGET_CONFIG" execution_horizon) || chunk=1
+    fi
     [ -n "$chunk" ] && [ "$chunk" -gt 0 ] || chunk=1
     if [ -n "$FRAME_BUDGET" ] && [ -n "$steps" ] && [ -n "$robots" ] && [ "$((steps * robots))" -gt 0 ]; then
         BUDGET_ITER_SIZE=$((steps * robots * chunk))
