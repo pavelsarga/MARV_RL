@@ -197,11 +197,16 @@ run_local_eval() {
     echo "Extra args: $@"
     echo "========================================================================"
 
+    # The eval scripts all run with use_wandb=false; the credentials are sourced for parity
+    # with the training wrappers. Missing credentials are fatal unless the wrapper says
+    # otherwise (WANDB_OPTIONAL=1 — eval_creps.sh, which never had the requirement).
     local SECRETS_FILE="${WS}/secrets/wandb.env"
     if [[ -f "$SECRETS_FILE" ]]; then
         chmod 600 "$SECRETS_FILE"
         source "$SECRETS_FILE"
         echo "W&B project : ${WANDB_PROJECT}"
+    elif [ "${WANDB_OPTIONAL:-0}" = "1" ]; then
+        echo "WARNING: ${SECRETS_FILE} not found — continuing without it (eval doesn't use W&B)."
     else
         echo "ERROR: ${SECRETS_FILE} not found — create it with WANDB_API_KEY=..."
         exit 1

@@ -15,6 +15,7 @@
 
 WS="$(cd "$(dirname "$0")/.." && pwd)"
 EVAL_KIND=creps
+WANDB_OPTIONAL=1   # CREPS eval never needed secrets/wandb.env; keep that
 
 source "$WS/scripts/lib/eval_run.sh"
 run_local_eval "$@"
