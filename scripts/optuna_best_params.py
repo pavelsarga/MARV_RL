@@ -13,26 +13,9 @@ import sys
 from pathlib import Path
 
 import optuna
-from omegaconf import OmegaConf
 
-ROOT = Path(__file__).resolve().parent.parent
-
-
-def get_storage():
-    db_path = ROOT / "optuna_db.yaml"
-    if not db_path.exists():
-        print(f"ERROR: {db_path} not found.", file=sys.stderr)
-        sys.exit(1)
-    db_secret = OmegaConf.load(db_path)
-    if "url" in db_secret:
-        conn_str = db_secret["url"]
-    else:
-        sslmode = db_secret.get("sslmode", "require")
-        conn_str = (
-            f"postgresql+psycopg2://{db_secret['db_user']}:{db_secret['db_password']}"
-            f"@{db_secret['db_host']}:{db_secret['db_port']}/{db_secret['db_name']}?sslmode={sslmode}"
-        )
-    return optuna.storages.RDBStorage(conn_str)
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from lib.optuna_common import get_storage  # noqa: E402
 
 
 def main():

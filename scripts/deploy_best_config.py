@@ -11,7 +11,7 @@ Usage:
 Options:
     --study NAME        Optuna study name (default: most recent study in DB)
     --db PATH           SQLite DB path (default: <ws>/optuna/optuna.db)
-    --base-config PATH  Base config YAML (default: <ws>/configs/main/ftr_config_A_new.yaml)
+    --base-config PATH  Base config YAML (default: <ws>/configs/thesis_main/ftr_config_A_new.yaml)
     --out PATH          Output YAML path (default: auto-versioned in configs/)
     --top K             Print top K trials, write only the best (default: 1)
     --dry-run           Print config to stdout without writing any file
@@ -22,7 +22,6 @@ Examples:
     python scripts/deploy_best_config.py --out configs/my_best.yaml
 """
 import argparse
-import re
 import sys
 from pathlib import Path
 
@@ -31,29 +30,8 @@ from omegaconf import OmegaConf
 
 optuna.logging.set_verbosity(optuna.logging.WARNING)
 
-ROOT = Path(__file__).resolve().parent.parent
-
-
-def _latest_study_name(db_path: Path) -> str:
-    import sqlite3
-
-    con = sqlite3.connect(db_path)
-    row = con.execute("SELECT study_name FROM studies ORDER BY study_id DESC LIMIT 1").fetchone()
-    con.close()
-    if row is None:
-        raise RuntimeError(f"No studies found in {db_path}")
-    return row[0]
-
-
-def _next_version_path(configs_dir: Path) -> Path:
-    existing = list(configs_dir.glob("ftr_config_optuna_best_v*.yaml"))
-    nums = []
-    for p in existing:
-        m = re.search(r"_v(\d+)", p.stem)
-        if m:
-            nums.append(int(m.group(1)))
-    next_v = (max(nums) + 1) if nums else 1
-    return configs_dir / f"ftr_config_optuna_best_v{next_v}.yaml"
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from lib.optuna_common import DEFAULT_BASE_CONFIG, DEFAULT_SQLITE_DB, ROOT, latest_study_name, next_version_path  # noqa: E402
 
 
 def _best_trials(study: optuna.Study, top_k: int) -> list[optuna.Trial]:
@@ -87,8 +65,8 @@ def _metadata_comment(study: optuna.Study, trial: optuna.Trial) -> str:
 def main():
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("--study", default=None, help="Optuna study name (default: most recent)")
-    parser.add_argument("--db", type=Path, default=ROOT / "optuna" / "optuna.db")
-    parser.add_argument("--base-config", type=Path, default=ROOT / "configs" / "main" / "ftr_config_A_new.yaml")
+    parser.add_argument("--db", type=Path, default=DEFAULT_SQLITE_DB)
+    parser.add_argument("--base-config", type=Path, default=DEFAULT_BASE_CONFIG)
     parser.add_argument("--out", type=Path, default=None, help="Output YAML path (default: auto-versioned)")
     parser.add_argument("--top", type=int, default=1, help="Print top K trials (write only the best)")
     parser.add_argument("--dry-run", action="store_true", help="Print config without writing")
@@ -101,7 +79,7 @@ def main():
         print(f"ERROR: base config not found at {args.base_config}", file=sys.stderr)
         sys.exit(1)
 
-    study_name = args.study or _latest_study_name(args.db)
+    study_name = args.study or latest_study_name(args.db)
     storage = f"sqlite:///{args.db.resolve()}"
     study = optuna.load_study(study_name=study_name, storage=storage)
 
@@ -129,7 +107,7 @@ def main():
     comment = _metadata_comment(study, best)
     yaml_text = comment + OmegaConf.to_yaml(cfg, resolve=False)
 
-    out_path = args.out or _next_version_path(ROOT / "configs" / "optuna_best")
+    out_path = args.out or next_version_path(ROOT / "configs" / "optuna_best", "ftr_config_optuna_best")
 
     if args.dry_run:
         print("─" * 60)
