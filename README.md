@@ -39,7 +39,7 @@ configs/        Training and Optuna hyperparameter configs (YAML), grouped by pu
   thesis_main/    Main thesis run configs
   variants/       One-off experiment variants
   random_policy/  Random-policy baseline eval configs
-  templates/      Starting points for new configs
+  templates/      Env-type name overrides for the hand-authored cur_mixed course
 containers/     Apptainer definition + built .sif image
 experiments/    Saved policy checkpoints (.pth) and evaluation results:
   baselines/      One dir per RL module — the baseline comparison runs
@@ -49,12 +49,22 @@ logs/           Run logs and checkpoints written by training/eval jobs (gitignor
 notebooks/      Analysis notebooks (Optuna, weight evolution, shock distribution, eval, …)
 optuna/         Optuna study databases
 scripts/        Training, evaluation, and utility shell/Python scripts
+  lib/            Shared shell bodies: config_detect.sh (config -> trainer/evaluator),
+                  eval_run.sh (local eval), debug_train.sh, optuna_common.py
 secrets/        W&B credentials (gitignored)
 slurm/          SLURM batch scripts for HPC cluster jobs
+  lib/            Shared job bodies: train_common.sh, eval_common.sh, respawn_common.sh
 src/
-  flipper_training/   Core RL framework (PPO/SAC/D3QN/CREPS trainers, reward, environment)
-  FTR-Benchmark/      FTR-Bench IsaacLab environments + rl_modules/ (submodule)
+  flipper_training/   Trainers, evaluators, TorchRL env adapter, ROS2 nodes (submodule —
+                      see its CLAUDE.md for the package layout and entry-point structure)
+  FTR-Benchmark/      FTR-Bench IsaacLab environment + rl_modules/ (submodule)
+  FTR-Bench-terrain-gen/  Procedural terrain generator (submodule)
+optuna_db.yaml  Where the Optuna scripts find the study DB (SQLite by default)
 ```
+
+The per-method `scripts/*.sh` and `slurm/*.sbatch` files are thin: each is its usage notes,
+its `#SBATCH` header and the two or three variables that differ, on top of a body in the
+matching `lib/`. Fix a job-level problem in `lib/`, not in one wrapper.
 
 ---
 
@@ -154,12 +164,20 @@ This pulls Miniconda, installs the conda environment, and bakes Isaac Lab v1.2.0
 
 Run a command inside the container:
 ```bash
-apptainer exec --nv containers/isaaclab_optuna.sif python src/flipper_training/marv_rl_training/training/train_ftr.py --config configs/baselines/marv_config_marv_rl.yaml --headless
+apptainer exec --nv --bind $PWD:/ws containers/isaaclab_optuna.sif \
+    conda run -n isaaclab --no-capture-output \
+    env PYTHONPATH=/ws/src/FTR-Benchmark:/ws/src/flipper_training \
+    python /ws/src/flipper_training/marv_rl_training/training/train_ftr.py \
+    --config /ws/configs/baselines/marv_config_marv_rl.yaml --headless
 
-# Or use scripts that include the apptainer bind
-bash scripts/train.sh --config configs/baselines/marv_config_marv_rl.yaml --headless
+# The scripts/ wrappers do the binds, PYTHONPATH and W&B credentials for you
+CONFIG=baselines/marv_config_marv_rl.yaml bash scripts/train.sh
 ```
 The `--nv` flag passes through the host NVIDIA GPU. On SLURM clusters the SLURM scripts handle this automatically.
+
+To put a branch on the RCI cluster use `scripts/cluster_deploy.sh` — it pushes the submodule
+commits before the superrepo so the cluster never fetches a pointer to an object it cannot
+see.
 
 Place your Weights & Biases API key in `secrets/wandb.env`:
 ```bash
@@ -174,13 +192,21 @@ echo "WANDB_API_KEY=your_key_here" > secrets/wandb.env
 # Local training with the recommended config
 CONFIG=baselines/marv_config_marv_rl.yaml bash scripts/train.sh
 
-# Or on a SLURM cluster
+# Or on a SLURM cluster — either the per-method script, or train_auto, which reads the
+# config and picks the trainer itself
 sbatch slurm/train_marv_rl.sbatch
+sbatch slurm/train_auto.sbatch --config baselines/marv_config_marv_rl.yaml
 ```
 
-The config file is specified via the `CONFIG` environment variable. All configs live in `configs/`. The recommended starting point is `configs/baselines/marv_config_marv_rl.yaml` — the `marv_rl` module trained with PPO, which produced the results above.
+The config file is specified via the `CONFIG` environment variable (a path under `configs/`).
+The recommended starting point is `configs/baselines/marv_config_marv_rl.yaml` — the
+`marv_rl` module trained with PPO, which produced the results above. Anything after the
+script name that is not a flag is an OmegaConf override (`num_robots=64 total_frames=1e7`).
 
-Training logs and checkpoints are saved to `logs/<run_name>/`. W&B logging is enabled by default.
+Under SLURM, logs and checkpoints go to `logs/<job_name>_<job_id>/attempt_N/`; a respawn
+after a crash resumes from the previous attempt (see `slurm/lib/respawn_common.sh`). A local
+run writes its shell log to `logs/<script>_<timestamp>/` but its checkpoints to
+`runs/<category>/<run_name>/`. W&B logging is enabled by default.
 
 ### Training a baseline module
 
@@ -247,9 +273,8 @@ bash scripts/eval_auto.sh experiments/thesis/best_long/attempt_0\
     --eval_id best_long --headless # for visualization omit --headless
 
 # Or on a SLURM cluster
-sbatch slurm/eval_auto.sbatch experiments/thesis/best_long/attempt_0\
-    --num_envs 256 --repeats 30\
-    --eval_id best_long --headless
+sbatch slurm/eval_auto.sbatch --rundir /ws/experiments/thesis/best_long/attempt_0 \
+    --num_envs 256 --repeats 30 --eval_id best_long
 ```
 
 The evaluators are not interchangeable — each parses the saved config into its own dataclass,
@@ -261,6 +286,12 @@ so running the wrong one fails at parse time. `eval_auto.sh` exists to make that
 | `atd3qn`, `icmd3qn` | `eval_d3qn.sh` |
 | `creps` | `eval_creps.sh` |
 | `ctrac` | `eval_sac.sh` |
+| any config with top-level `prediction_horizon` + `execution_horizon` | `eval_diffusion.sh` |
+
+The mapping lives in `scripts/lib/config_detect.sh`, shared with `slurm/eval_auto.sbatch` and
+`slurm/train_auto.sbatch`. The last row is why it is not just `module_name`: receding-horizon
+runs keep `module_name: marv_rl` on purpose so their rewards stay comparable with PPO, but
+they are a different trainer.
 
 `--weights {step|final|latest}` selects the checkpoint; omitting it prefers `policy_final.pth`
 and falls back to the highest-numbered step checkpoint. Runs that hit a SLURM walltime often
@@ -288,7 +319,6 @@ merged into one comparison.
 | `optuna_best/ftr_config_optuna_best_v4.yaml` | Best config from the Optuna study |
 | `optuna/optuna_ftr_smooth.yaml` | Optuna study config |
 | `random_policy/rand_policy_eval.yaml` | Random policy eval config |
-| `templates/ftr_compat_config_template.yaml` | Starting point for a new config |
 
 Config filenames encode lineage informally (e.g. `..._v4` = 4th iteration); check
 `notebooks/optuna_analysis.ipynb` before assuming a given config is still the current best.
