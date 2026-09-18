@@ -23,7 +23,7 @@ echo "Job ID: $SLURM_JOB_ID"
 echo "Running on node: $SLURMD_NODENAME"
 echo "########################################################################"
 
-WS=/mnt/personal/sargapav/MARV_RL_ws
+WS=${MARV_WS:-/mnt/personal/sargapav/MARV_RL_ws}
 SIF=$WS/containers/isaaclab_optuna.sif
 CONFIG=baselines/marv_config_ctrac_cvae_pretrain.yaml
 LOGDIR=$WS/logs/${SLURM_JOB_NAME}_${SLURM_JOB_ID}

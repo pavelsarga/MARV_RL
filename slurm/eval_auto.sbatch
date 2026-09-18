@@ -29,7 +29,7 @@
 #   sbatch slurm/eval_auto.sbatch --rundir /ws/experiments/baselines/creps/train_marv_creps_.../attempt_0
 #   sbatch slurm/eval_auto.sbatch --rundir /ws/logs/train_ctrac_.../attempt_0 --output_dir /ws/logs/policy_eval
 
-WS=/mnt/personal/sargapav/MARV_RL_ws
+WS=${MARV_WS:-/mnt/personal/sargapav/MARV_RL_ws}
 
 source $WS/slurm/lib/eval_common.sh
 run_eval_job "$@"

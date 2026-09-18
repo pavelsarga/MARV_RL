@@ -38,7 +38,7 @@ echo "Running on node: $SLURMD_NODENAME"
 echo "Script arguments: $@"
 echo "########################################################################"
 
-WS=/mnt/personal/sargapav/MARV_RL_ws
+WS=${MARV_WS:-/mnt/personal/sargapav/MARV_RL_ws}
 
 LOGDIR=$WS/logs/${SLURM_JOB_NAME}_${SLURM_JOB_ID}
 mkdir -p "$LOGDIR"

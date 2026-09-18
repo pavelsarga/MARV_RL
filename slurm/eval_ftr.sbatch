@@ -34,7 +34,7 @@
 # The job body is slurm/lib/eval_common.sh, shared by every eval_*.sbatch. Use
 # slurm/eval_auto.sbatch to dispatch on the run's own config instead of pinning the method.
 
-WS=/mnt/personal/sargapav/MARV_RL_ws
+WS=${MARV_WS:-/mnt/personal/sargapav/MARV_RL_ws}
 FORCE_EVAL_KIND=ppo
 
 source $WS/slurm/lib/eval_common.sh

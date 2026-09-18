@@ -35,7 +35,7 @@ echo "########################################################################"
 TRIAL_OFFSET=${TRIAL_OFFSET:-39}
 TRIAL_NUM=$((TRIAL_OFFSET + SLURM_ARRAY_TASK_ID))
 
-WS=/mnt/personal/sargapav/MARV_RL_ws
+WS=${MARV_WS:-/mnt/personal/sargapav/MARV_RL_ws}
 SIF=$WS/containers/isaaclab_optuna.sif
 # Override without editing:  sbatch --export=ALL,OPTUNA_CONFIG=/ws/configs/optuna/optuna_ftr_smooth.yaml ...
 OPTUNA_CONFIG=${OPTUNA_CONFIG:-$WS/configs/optuna/optuna_ftr.yaml}

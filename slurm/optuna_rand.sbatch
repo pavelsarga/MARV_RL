@@ -28,7 +28,7 @@ echo "Submit host  : $SLURM_SUBMIT_HOST"
 echo "Restart count: ${SLURM_RESTART_COUNT:-0}"
 echo "########################################################################"
 
-WS=/mnt/personal/sargapav/MARV_RL_ws
+WS=${MARV_WS:-/mnt/personal/sargapav/MARV_RL_ws}
 SIF=$WS/containers/isaaclab_optuna.sif
 
 EVAL_CONFIG=$WS/configs/random_policy/rand_policy_eval.yaml

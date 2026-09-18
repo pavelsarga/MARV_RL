@@ -31,7 +31,7 @@
 #   sbatch --partition=amdgpufast slurm/train_auto.sbatch --config baselines/marv_config_creps.yaml
 #   sbatch slurm/train_auto.sbatch --config baselines/marv_config_icmd3qn_paper.yaml num_robots=64
 
-WS=/mnt/personal/sargapav/MARV_RL_ws
+WS=${MARV_WS:-/mnt/personal/sargapav/MARV_RL_ws}
 AUTO_JOB_RENAME=1
 
 source $WS/slurm/lib/train_common.sh

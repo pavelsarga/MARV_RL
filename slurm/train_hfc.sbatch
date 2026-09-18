@@ -17,7 +17,7 @@
 #   sbatch --job-name=my_variant slurm/train_hfc.sbatch --config ... num_robots=64
 # Anything that is not --config is forwarded to the trainer as an OmegaConf override.
 
-WS=/mnt/personal/sargapav/MARV_RL_ws
+WS=${MARV_WS:-/mnt/personal/sargapav/MARV_RL_ws}
 DEFAULT_CONFIG=baselines/marv_config_hfc.yaml
 EXPECT_MODULE=hfc
 

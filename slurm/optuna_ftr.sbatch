@@ -35,7 +35,7 @@ echo "########################################################################"
 # GPU infrastructure failures just exit — failed trials don't count toward
 # the Optuna budget, so remaining/new array tasks fill in naturally.
 
-WS=/mnt/personal/sargapav/MARV_RL_ws
+WS=${MARV_WS:-/mnt/personal/sargapav/MARV_RL_ws}
 SIF=$WS/containers/isaaclab_optuna.sif
 
 TRAIN_CONFIG=$WS/configs/thesis_main/ftr_config_A_new.yaml
