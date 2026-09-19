@@ -191,6 +191,13 @@ run_local_eval() {
     _resolve_weight_args "$HOST_RUN_DIR/weights" "$weights_step"
     set -- "${RESOLVED_WEIGHT_ARGS[@]}" "$@"
 
+    # GUI runs get the course's visual markings (tile lines, spawn/goal marks, paths — a
+    # separate collision-free USD the generator writes); headless runs never load it.
+    # Pass env_cfg_overrides.terrain_decor=false explicitly to opt out of a GUI run.
+    if ! printf '%s\n' "$@" | grep -qx -- "--headless" && ! printf '%s\n' "$@" | grep -q -- "terrain_decor="; then
+        set -- "$@" env_cfg_overrides.terrain_decor=true
+    fi
+
     echo "========================================================================"
     echo "$(basename "$0") — $eval_module"
     echo "Run directory (container path): $RUN_DIR"
