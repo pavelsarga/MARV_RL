@@ -142,6 +142,37 @@ a bad idea. Distinguish the two by looking at whether the reward curve has plate
 end; if it is still rising, raise `epochs_per_batch` before touching `total_frames`. Open
 question 14.
 
+## The unexecuted tail: what the T_p − T_a steps are trained by
+
+`ClipPPOLoss` scores the likelihood ratio of the **whole** flattened chunk, so the steps
+after the executed prefix are part of the ratio although they never touched the
+environment. Their sampled values are independent of the advantage: zero expected gradient,
+full variance. With T_p=16 / T_a=4 they are 72 of the 96 ratio dimensions — enough on their
+own to push a sample outside the clip band and zero the gradient of the 24 dimensions that
+mattered. This is the leading hypothesis for `Tp16` being the worst arm on every terrain.
+
+Three config switches (`train_diffusion.py`, all default off, so existing configs are
+bit-identical):
+
+| switch | effect |
+|---|---|
+| `logprob_prefix_only` | ratio and entropy over the executed prefix only (`PrefixMaskedClipPPOLoss`, `policies/chunk_ppo_loss.py`). Reproduces `ClipPPOLoss` exactly when the prefix is the whole chunk (unit-tested). |
+| `execution_horizon_random` (+ `execution_horizon_std`, default T_p − T_a) | during collection each macro step executes a prefix of random length drawn from a discretised Gaussian on {1..T_p} centred on T_a — one draw per macro step, shared by all envs because the sim steps them in lockstep; eval keeps T_a. Every chunk position is then sometimes executed and scored by real return. A semi-MDP with random option durations: GAE uses `control_gamma ** exec_len` per transition (`_variable_gamma_gae`, matches torchrl's `GAE` for a constant horizon), `total_frames` is divided by E[exec_len] for the collector and the checkpoints count the control steps actually run. Implies `logprob_prefix_only`. |
+| `tail_consistency_coef` | auxiliary MSE regressing the unexecuted tail of chunk t onto the rollout-time mean action of chunk t+1 for the same control steps (stop-gradient, masked across episode ends). Each output slice then has exactly one loss — PPO for the prefix, consistency for the tail — so they cannot fight. Makes the tail an unbiased forecast of the policy's own future, i.e. the thing to execute when a tick is missed on the robot. |
+
+Rejected: a plain smaller weight on the tail's share of the existing ratio (dilutes noise, no
+signal), a reward "for the tail" (there is none without a model of the environment), and a
+separate forecaster network (the tail is the policy's own commitment; a separate net would
+model the policy rather than be it). Literature: ACT's temporal ensembling and Bidirectional
+Decoding use the tail at inference only; DPPO's released configs mostly set
+act_steps = horizon_steps; Q-chunking executes full chunks. The consistency term is a
+self-predictive auxiliary loss (UNREAL / SPR lineage) applied to the action plan.
+
+Head-to-head configs on the TQ reward, T_a=2 / T_o=5 / T_p=8, `mixed_v2_straight`:
+`marv_config_diffusion_p1_tq.yaml` (A, full-chunk ratio), `_tq_prefix` (B), `_tq_randTa` (C),
+`_tq_tail` (D). Diagnostics: `train/mean_exec_len`, `train/mean_tail_mse`,
+`train/mean_tail_loss`.
+
 ## Supporting files
 
 - `scripts/train_diffusion_debug.sh` — few envs, a handful of iterations, no W&B. Pattern
