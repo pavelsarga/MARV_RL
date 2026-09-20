@@ -6,6 +6,8 @@
 #   CONFIG=teleop/teleop_marv.yaml bash scripts/teleop.sh
 #   CONFIG=teleop/teleop_ftr.yaml  bash scripts/teleop.sh
 #   bash scripts/teleop.sh --config configs/teleop/teleop_marv.yaml --js /dev/input/js1
+#   CONFIG=teleop/teleop_v2.yaml bash scripts/teleop.sh --spawn_row bumpy_hill --spawn_col 9
+#       (terrain v2 hand test: free drive, no episode resets; --list_rows shows the row names)
 #
 # CONFIG (or --config) selects a YAML file under configs/ with all teleop settings
 # (robot_type, terrain, sensitivities, episode_length_s override, wheel1 glitch

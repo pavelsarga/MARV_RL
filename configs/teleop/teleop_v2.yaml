@@ -1,0 +1,33 @@
+# Hand-testing the terrain v2 courses — load with CONFIG=teleop/teleop_v2.yaml bash scripts/teleop.sh
+#
+# Free drive: no goal / rollover / out-of-bounds / timeout resets — you just drive around the
+# arena. Start button = respawn at the current spawn, Back = next spawn point. Pick where to
+# start with --spawn_row NAME --spawn_col N [--reverse] (bash scripts/teleop.sh --list_rows).
+robot_type: marv
+terrain: mixed_v2_full
+train_config: terrain_v2/marv_config_marv_rl_v2_full.yaml   # its env_cfg_overrides: friction, flipper limits, velocity flipper mode
+free_drive: true
+decor: true
+num_envs: 1
+device: cuda:0
+js: /dev/input/js0
+
+spawn_row: steep_hill
+spawn_col: 9
+reverse: false
+
+v_sensitivity: 0.95
+w_sensitivity: 1.5
+flipper_sensitivity: 1.0
+dead_zone: 0.05
+
+track_wheel1_glitch: false
+
+# viewer: follow the robot (Isaac Lab viewer panel: Follow Mode = Robot, Eye / Target relative to it)
+camera_eye: [2.0, 1.5, 1.5]
+camera_target: [0.0, 0.0, 0.0]
+
+solver_position_iterations: 5
+solver_velocity_iterations: 2
+sim_dt: 0.005
+max_depenetration_velocity: 0.12354395702544713

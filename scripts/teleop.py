@@ -13,6 +13,18 @@ fixes/additions on top of the original:
      load. This script reads each wheel1 joint's velocity every step, flags anomalies,
      prints them live, and logs everything to a CSV for later analysis.
 
+  3. Free drive (`free_drive`, default on): the crossing task's episode mechanics —
+     success at the goal, rollover, out-of-bounds, timeout — all reset the robot to
+     the next spawn, which is useless for a hand test. In free-drive mode none of them
+     end the episode: you simply drive around the whole arena. Only a physics
+     explosion (NaN) still resets. The Start button respawns on demand, Back cycles
+     to the next spawn point.
+  4. `train_config`: apply a training config's `env_cfg_overrides` (friction, flipper
+     limits, control mode, module) so the hand test runs the robot the policy is
+     trained with, not the task's registered defaults.
+  5. `--spawn_row NAME --spawn_col N [--reverse]`: pick the spawn by obstacle name and
+     difficulty column (from the terrain's gen_config), instead of a raw birth index.
+
 All settings are driven by a YAML config (configs/teleop/teleop_marv.yaml,
 configs/teleop/teleop_ftr.yaml), loaded via --config or the CONFIG env var (see
 scripts/teleop.sh). Any CLI flag overrides the corresponding config value.
@@ -77,6 +89,42 @@ parser.add_argument("--spawn_index", type=int, default=_file_cfg.get("spawn_inde
                           "birth/spawn-point index instead of the env's normal round-robin "
                           "cycling through terrain_cfg.birth. Use --list_spawns to see the "
                           "available indices and their start/target points first.")
+parser.add_argument("--spawn_row", type=str, default=_file_cfg.get("spawn_row", None),
+                     help="Spawn on the tile of this env-type (row) name, e.g. steep_hill, "
+                          "resolved from the terrain's gen_config (see --list_rows). "
+                          "Combine with --spawn_col; overrides --spawn_index.")
+parser.add_argument("--spawn_col", type=int, default=_file_cfg.get("spawn_col", 0),
+                     help="Difficulty column for --spawn_row (0 = easiest).")
+parser.add_argument("--reverse", action="store_true", default=bool(_file_cfg.get("reverse", False)),
+                     help="With --spawn_row: use the reverse-direction spawn of that tile.")
+parser.add_argument("--list_rows", action="store_true", default=False,
+                     help="Print the env-type (row) names of --terrain and exit.")
+parser.add_argument("--free_drive", action=argparse.BooleanOptionalAction,
+                     default=_file_cfg.get("free_drive", True),
+                     help="No episode mechanics: reaching the goal, rolling over, leaving the "
+                          "tile or the time limit never reset the robot (only a physics "
+                          "explosion does). Start button = respawn, Back = next spawn.")
+parser.add_argument("--train_config", type=str, default=_file_cfg.get("train_config", None),
+                     help="Training config (path under configs/ or absolute) whose "
+                          "env_cfg_overrides (friction, flipper limits, control mode, ...) are "
+                          "applied to the env, and whose `terrain:` is used when --terrain is "
+                          "not given explicitly.")
+parser.add_argument("--decor", action=argparse.BooleanOptionalAction,
+                     default=_file_cfg.get("decor", True),
+                     help="Load the terrain's eval-only markings (usd/<name>_decor.usd).")
+parser.add_argument("--dry_run", type=int, default=0, metavar="STEPS",
+                     help="Smoke test without a gamepad: build the env exactly as configured, "
+                          "step it STEPS times with a zero action and exit.")
+parser.add_argument("--camera_eye", type=float, nargs=3, default=_file_cfg.get("camera_eye", [2.0, 1.5, 1.5]),
+                     metavar=("X", "Y", "Z"), help="Viewer eye relative to the robot (follow mode).")
+parser.add_argument("--camera_target", type=float, nargs=3, default=_file_cfg.get("camera_target", [0.0, 0.0, 0.0]),
+                     metavar=("X", "Y", "Z"), help="Viewer look-at point relative to the robot.")
+parser.add_argument("--dry_run_action", type=str, default=None, metavar="V,W,FL,FR,RL,RR",
+                     help="With --dry_run: apply this constant action instead of zeros and print "
+                          "position / yaw / yaw rate every 20 steps (open-loop drive probe).")
+parser.add_argument("--dry_run_action2", type=str, default=None, metavar="V,W,FL,FR,RL,RR",
+                     help="With --dry_run_action: switch to this action after --dry_run_switch steps.")
+parser.add_argument("--dry_run_switch", type=int, default=0)
 parser.add_argument("--list_spawns", action="store_true", default=False,
                      help="Print all available birth/spawn points for --terrain and exit "
                           "(no sim launched).")
@@ -124,6 +172,8 @@ parser.add_argument("--wheel_armature", type=float,
                           "sim_dt substep — a numerically stiff DOF that can fight the contact "
                           "solver every substep. Armature adds artificial inertia to damp this. "
                           "Try e.g. 0.01-0.1.")
+parser.add_argument("--wheel_damping", type=float, default=_file_cfg.get("wheel_damping", None),
+                     help="flipper_wheel actuator damping override (MARV_CFG default 100).")
 parser.add_argument("--wheel_stiffness", type=float,
                      default=_file_cfg.get("wheel_stiffness", None),
                      help="flipper_wheel actuator stiffness override (default in MARV_CFG/"
@@ -163,7 +213,55 @@ AppLauncher.add_app_launcher_args(parser)  # adds --device itself, with its own 
 # (AppLauncher owns --device, so we can't redeclare it with our own argparse default).
 if "device" in _file_cfg and not any(a == "--device" or a.startswith("--device=") for a in _remaining_argv):
     _remaining_argv = ["--device", str(_file_cfg["device"])] + _remaining_argv
-args_cli = parser.parse_args(_remaining_argv)
+args_cli, _extra_argv = parser.parse_known_args(_remaining_argv)
+# `env_cfg_overrides.KEY=VALUE` tokens (the eval scripts' convention) become extra env overrides,
+# applied after the train_config's; anything else left over is an error as before
+_cli_overrides: dict = {}
+for tok in _extra_argv:
+    if tok.startswith("env_cfg_overrides.") and "=" in tok:
+        k, v = tok[len("env_cfg_overrides."):].split("=", 1)
+        _cli_overrides[k] = yaml.safe_load(v)
+    else:
+        parser.error(f"unrecognized arguments: {tok}")
+if not args_cli.spawn_row:
+    args_cli.spawn_row = None
+
+def _load_train_config(path_str: str | None) -> dict:
+    if not path_str:
+        return {}
+    path = Path(path_str)
+    if not path.is_absolute() and not path.exists():
+        path = _WS_ROOT / "configs" / path_str
+    if not path.exists():
+        raise FileNotFoundError(f"--train_config not found: {path}")
+    with open(path) as f:
+        return yaml.safe_load(f) or {}
+
+
+_train_cfg = _load_train_config(args_cli.train_config)
+if _train_cfg.get("terrain") and not any(a == "--terrain" or a.startswith("--terrain=") for a in _remaining_argv) \
+        and "terrain" not in _file_cfg:
+    args_cli.terrain = _train_cfg["terrain"]
+
+
+def _terrain_layout(terrain: str):
+    _ft_root = str(_WS_ROOT / "src" / "flipper_training")
+    if _ft_root not in sys.path:
+        sys.path.insert(0, _ft_root)
+    from marv_rl_training.training.env_type_registry import get_terrain_layout
+
+    return get_terrain_layout(terrain)
+
+
+if args_cli.list_rows:
+    layout = _terrain_layout(args_cli.terrain)
+    if layout is None:
+        print(f"no layout known for terrain '{args_cli.terrain}'")
+    else:
+        for i, n in enumerate(layout.env_type_names):
+            print(f"  row {i:2d}: {n}")
+        print(f"{layout.num_depth_cols} difficulty columns (0 = easiest). Use --spawn_row NAME --spawn_col N.")
+    sys.exit(0)
 
 if args_cli.list_spawns:
     # Terrain/birth-point inspection needs no omni/Isaac Sim imports — skip launching
@@ -200,7 +298,11 @@ if _FTR_ROOT not in sys.path:
     sys.path.insert(0, _FTR_ROOT)
 
 import ftr_envs.tasks            # noqa: F401 — registers Ftr-Crossing-Direct-v0
-import ftr_envs.utils.omega_conf  # noqa: F401 — OmegaConf resolvers
+try:
+    import ftr_envs.utils.omega_conf  # noqa: F401 — OmegaConf resolvers
+except ValueError:
+    # marv_rl_training (imported for the terrain layout) registers the same resolvers already
+    pass
 
 
 # ---------- joystick reader ----------
@@ -287,7 +389,9 @@ class FtrGamepad:
     def advance(self) -> np.ndarray:
         """Return the 6-element FTR/MARV action [v, w, fl, fr, rl, rr]."""
         v = self._apply_dz(-self._js.axis(1)) * self.v_sensitivity
-        w = self._apply_dz(self._js.axis(0)) * self.w_sensitivity
+        # stick RIGHT = turn right: the env's w is ROS-style (positive = counter-clockwise =
+        # left turn, verified from yaw traces), so the stick axis is negated
+        w = self._apply_dz(-self._js.axis(0)) * self.w_sensitivity
         fv = self._apply_dz(-self._js.axis(4)) * self.flipper_sensitivity
 
         lb = self._js.button(4)
@@ -439,7 +543,9 @@ def print_controls() -> None:
     print("    RT  (> 50%)    : rear-right  flipper")
     print("    Right stick UP : positive delta (extends up)")
     print()
-    print("  Episode timeout disabled for this session (episode_length_s override).")
+    print("  Start          : respawn at the current spawn point")
+    print("  Back           : next spawn point")
+    print("  Free drive: no goal/rollover/out-of-bounds/timeout resets (--no-free_drive to restore).")
     print("  Status printed every ~1 s  |  Close viewport to quit")
     print("=" * 56)
     print()
@@ -502,6 +608,8 @@ def main() -> None:
     env_cfg.disable_flipper_arm_collision = not args_cli.no_disable_flipper_arm_collision
     if args_cli.wheel_armature != 0.0:
         env_cfg.robot.actuators["flipper_wheel"].armature = args_cli.wheel_armature
+    if args_cli.wheel_damping is not None:
+        env_cfg.robot.actuators["flipper_wheel"].damping = args_cli.wheel_damping
     if args_cli.wheel_stiffness is not None:
         env_cfg.robot.actuators["flipper_wheel"].stiffness = args_cli.wheel_stiffness
     if args_cli.wheel_friction is not None:
@@ -519,14 +627,75 @@ def main() -> None:
     env_cfg.sim.physx.min_position_iteration_count = args_cli.solver_position_iterations
     env_cfg.sim.physx.max_velocity_iteration_count = args_cli.solver_velocity_iterations
 
+    # Training-config env overrides (same setattr loop eval_ftr/eval_diffusion use), so the
+    # robot here has the trained policy's friction / flipper limits / control mode.
+    overrides = dict(_train_cfg.get("env_cfg_overrides") or {})
+    overrides.update(_cli_overrides)
+    for k, v in overrides.items():
+        if isinstance(v, str) and v.startswith("${"):
+            continue  # OmegaConf interpolation (e.g. shaping_gamma) — reward-only, irrelevant here
+        if not hasattr(env_cfg, k):
+            print(f"[WARN] env_cfg_overrides.{k} is not an env field — ignored", flush=True)
+            continue
+        setattr(env_cfg, k, v)
+    if overrides:
+        print(f"[INFO] applied {len(overrides)} env_cfg_overrides from {args_cli.train_config}", flush=True)
+    env_cfg.terrain_decor = bool(args_cli.decor)
+    # Viewer: follow the robot from 2 m behind-right, 1.5 m up (the "Robot" follow mode in the
+    # Isaac Lab viewer panel), instead of the world-frame default that looks at the arena origin.
+    env_cfg.viewer.origin_type = "asset_root"
+    env_cfg.viewer.asset_name = "robot"
+    env_cfg.viewer.env_index = 0
+    env_cfg.viewer.eye = tuple(args_cli.camera_eye)
+    env_cfg.viewer.lookat = tuple(args_cli.camera_target)
+
     env = gym.make(TASK, cfg=env_cfg)
+    unwrapped = env.unwrapped
+
+    if args_cli.free_drive:
+        # Free drive: keep _get_dones' bookkeeping (stats, extras) but never let a success,
+        # rollover, out-of-bounds or timeout terminate — only a physics explosion (NaN /
+        # runaway) still resets, because a NaN robot cannot be driven anyway.
+        _orig_get_dones = unwrapped._get_dones
+
+        def _free_drive_dones():
+            _orig_get_dones()
+            unwrapped.reset_terminated[:] = unwrapped._explosion_mask
+            unwrapped.reset_time_outs[:] = False
+            unwrapped.episode_length_buf[:] = 0  # never trip the task's max_episode_length
+            return unwrapped.reset_terminated[:], unwrapped.reset_time_outs[:]
+
+        unwrapped._get_dones = _free_drive_dones
+        print("[INFO] free drive: no goal/rollover/out-of-bounds/timeout resets "
+              "(Start = respawn, Back = next spawn point)", flush=True)
+
+    if args_cli.spawn_row is not None:
+        layout = _terrain_layout(args_cli.terrain)
+        if layout is None:
+            raise SystemExit(f"--spawn_row needs a terrain with a gen_config layout; none for '{args_cli.terrain}'")
+        names = list(layout.env_type_names)
+        if args_cli.spawn_row not in names:
+            raise SystemExit(f"unknown row '{args_cli.spawn_row}'; rows: {names}")
+        want = (names.index(args_cli.spawn_row), args_cli.spawn_col)
+        spawns = unwrapped._reset_info
+        for i, b in enumerate(spawns):
+            t, st = b["target_point"], b["start_point"]
+            if layout.locate(float(t[0]), float(t[1])) != want:
+                continue
+            forward = float(t[0]) < float(st[0])  # the generator's forward leg drives -X
+            if forward != args_cli.reverse:
+                args_cli.spawn_index = i
+                break
+        else:
+            raise SystemExit(f"no spawn found for row {args_cli.spawn_row} col {args_cli.spawn_col}")
+        print(f"[INFO] --spawn_row {args_cli.spawn_row} --spawn_col {args_cli.spawn_col}"
+              f"{' --reverse' if args_cli.reverse else ''} -> spawn_index {args_cli.spawn_index}", flush=True)
 
     if args_cli.spawn_index is not None:
         # Bypass the env's normal round-robin cycling through terrain_cfg.birth
         # (ftr_env.py's _prepare_reset_info/_reset_info_generate) and pin every reset —
         # initial and any mid-session respawn alike — to one fixed spawn point, so the
         # same obstacle/terrain section can be tested repeatably across runs.
-        unwrapped = env.unwrapped
         spawns = unwrapped._reset_info
         idx = args_cli.spawn_index % len(spawns)
         if args_cli.spawn_index != idx:
@@ -537,6 +706,42 @@ def main() -> None:
         print(f"[INFO] Pinned every reset to spawn_index {idx}: "
               f"start={spawns[idx]['start_point'].tolist()} "
               f"target={spawns[idx]['target_point'].tolist()}", flush=True)
+
+    if args_cli.dry_run > 0:
+        obs, _ = env.reset()
+        zero = torch.zeros((args_cli.num_envs, 6), dtype=torch.float32, device=args_cli.device)
+        if args_cli.dry_run_action:
+            vals = [float(v) for v in args_cli.dry_run_action.split(",")]
+            zero[:] = torch.tensor(vals, dtype=torch.float32, device=args_cli.device)
+            print(f"[dry_run] constant action {vals}", flush=True)
+        dt = unwrapped.physics_dt * unwrapped.cfg.decimation
+        for i in range(args_cli.dry_run):
+            if args_cli.dry_run_action2 and i == args_cli.dry_run_switch:
+                zero[:] = torch.tensor([float(v) for v in args_cli.dry_run_action2.split(",")],
+                                       dtype=torch.float32, device=args_cli.device)
+                print(f"[dry_run] step {i}: switching to action {zero[0].tolist()}", flush=True)
+            _, _, terminated, truncated, _ = env.step(zero)
+            if terminated.any() or truncated.any():
+                print(f"[dry_run] step {i}: episode ended (terminated={terminated.any().item()}, "
+                      f"truncated={truncated.any().item()})", flush=True)
+            if args_cli.dry_run_action and i % 20 == 0:
+                pos = unwrapped.positions[0]
+                yaw = float(unwrapped.orientations_3[0, 2])
+                wz = float(unwrapped.robot_ang_velocities[0, 2])
+                v = unwrapped.robot_lin_velocities[0]
+                robot = unwrapped._robot
+                jv = robot.data.joint_vel[0]
+                # surface speed each side's wheels are actually turning at (rad/s x radius)
+                sr = float((jv[robot.fr_indices] * robot.flipper_radius[: len(robot.fr_indices)]).mean())
+                sl = float((jv[robot.fl_indices] * robot.flipper_radius[: len(robot.fl_indices)]).mean())
+                flips = [round(float(np.degrees(f)), 1) for f in unwrapped.flipper_positions[0].tolist()]
+                print(f"[dry_run] t={i * dt:6.2f}s  xy=({pos[0]:+.2f},{pos[1]:+.2f})  yaw={np.degrees(yaw):+7.1f} deg  "
+                      f"yaw_rate={wz:+.2f} rad/s  v_body=({v[0]:+.2f},{v[1]:+.2f})  wheel_surf R/L=({sr:+.2f},{sl:+.2f}) m/s  "
+                      f"flippers={flips} deg", flush=True)
+        pos = unwrapped.positions[0].tolist()
+        print(f"[dry_run] {args_cli.dry_run} steps OK, robot at {[round(v, 2) for v in pos]}", flush=True)
+        env.close()
+        return
 
     try:
         gamepad = FtrGamepad(
@@ -558,6 +763,7 @@ def main() -> None:
     # reset(), so the env must be reset before the tracker can resolve joint indices.
     obs, _ = env.reset()
     step = 0
+    prev_buttons = (False, False)
 
     _print_live_wheel_geometry(env, args_cli.robot_type)
 
@@ -582,8 +788,27 @@ def main() -> None:
                 print(f"[{step:6d}] [WheelGlitch] {flagged}", file=sys.stderr, flush=True)
 
         if terminated.any() or truncated.any():
-            print("[INFO] Episode ended — resetting.", flush=True)
+            print("[INFO] Episode ended — resetting." if not args_cli.free_drive
+                  else "[INFO] physics explosion — resetting.", flush=True)
             obs, _ = env.reset()
+
+        # Start (button 7): respawn at the current spawn. Back (button 6): move the spawn
+        # pointer one tile on and respawn there (pinned spawns stay pinned).
+        js = gamepad._js
+        start_now, back_now = js.button(7), js.button(6)
+        if start_now and not prev_buttons[0]:
+            print("[INFO] Start pressed — respawn.", flush=True)
+            obs, _ = env.reset()
+        elif back_now and not prev_buttons[1]:
+            print("[INFO] Back pressed — next spawn point.", flush=True)
+            if args_cli.spawn_index is not None:
+                spawns = unwrapped._reset_info
+                args_cli.spawn_index = (args_cli.spawn_index + 1) % len(spawns)
+                idx = args_cli.spawn_index
+                unwrapped._reset_info_generate = lambda: spawns[idx]
+                print(f"[INFO] spawn_index -> {idx}: start={spawns[idx]['start_point'].tolist()}", flush=True)
+            obs, _ = env.reset()
+        prev_buttons = (start_now, back_now)
 
         step += 1
         if step % STATUS_STEPS == 0:
