@@ -28,6 +28,6 @@ camera_eye: [2.0, 1.5, 1.5]
 camera_target: [0.0, 0.0, 0.0]
 
 solver_position_iterations: 5
-solver_velocity_iterations: 2
+solver_velocity_iterations: 8
 sim_dt: 0.005
 max_depenetration_velocity: 0.12354395702544713

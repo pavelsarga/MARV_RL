@@ -289,12 +289,14 @@ correction (off/flipped: nothing). It is the **articulation solver not convergin
 wheel drives + contacts + a 3e4-stiffness joint drive at the Optuna-tuned 5 position / 1
 velocity iterations. Time for the loaded flippers to lift 45° (three step heights):
 
-| pos/vel iterations | 5/1 | 5/2 | 8/2 | 12/2 | 16/4 |
+| pos/vel iterations | 5/1 | 5/2 | 5/4 | 5/8 | 8/2 | 12/2 | 16/4 |
 |---|---|---|---|---|---|
-| lift time | 2.75–3.25 s | 1.25–1.75 s | 0.75–2.25 s | 1.25–1.75 s | 0.75–1.25 s |
+| lift time | 2.75–3.25 s | 1.25–1.75 s | 0.75–1.25 s | **0.75 s** | 0.75–2.25 s | 1.25–1.75 s | 0.75–1.25 s |
 
-Velocity iterations 1 → 2 is the lever; higher position counts buy little and have exploded
-PhysX in the past. The v2 configs and `teleop_v2.yaml` use **5 / 2**.
+Velocity iterations are the lever (16 is no better than 8; free lift ≈ 0.5 s); flipper drive
+gains (3e4/1000 → 1e4/500 → 3e3/300) and the joint armature (100 → 1) change nothing; higher
+position counts buy little and have exploded PhysX in the past. The v2 configs and
+`teleop_v2.yaml` use **5 / 8** (~15 % more wall time per step at 48 robots).
 
 ### Hand testing
 `CONFIG=teleop/teleop_v2.yaml bash scripts/teleop.sh --spawn_row NAME --spawn_col N [--reverse]`

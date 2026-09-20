@@ -172,6 +172,12 @@ parser.add_argument("--wheel_armature", type=float,
                           "sim_dt substep — a numerically stiff DOF that can fight the contact "
                           "solver every substep. Armature adds artificial inertia to damp this. "
                           "Try e.g. 0.01-0.1.")
+parser.add_argument("--flipper_stiffness", type=float, default=_file_cfg.get("flipper_stiffness", None),
+                     help="flipper_joint actuator stiffness override (MARV_CFG default 3e4).")
+parser.add_argument("--flipper_damping", type=float, default=_file_cfg.get("flipper_damping", None),
+                     help="flipper_joint actuator damping override (MARV_CFG default 1000).")
+parser.add_argument("--flipper_armature", type=float, default=_file_cfg.get("flipper_armature", None),
+                     help="flipper_joint actuator armature override (MARV_CFG default 100).")
 parser.add_argument("--wheel_damping", type=float, default=_file_cfg.get("wheel_damping", None),
                      help="flipper_wheel actuator damping override (MARV_CFG default 100).")
 parser.add_argument("--wheel_stiffness", type=float,
@@ -608,6 +614,10 @@ def main() -> None:
     env_cfg.disable_flipper_arm_collision = not args_cli.no_disable_flipper_arm_collision
     if args_cli.wheel_armature != 0.0:
         env_cfg.robot.actuators["flipper_wheel"].armature = args_cli.wheel_armature
+    for key in ("stiffness", "damping", "armature"):
+        val = getattr(args_cli, f"flipper_{key}")
+        if val is not None:
+            setattr(env_cfg.robot.actuators["flipper_joint"], key, val)
     if args_cli.wheel_damping is not None:
         env_cfg.robot.actuators["flipper_wheel"].damping = args_cli.wheel_damping
     if args_cli.wheel_stiffness is not None:
