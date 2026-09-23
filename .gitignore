@@ -5,6 +5,7 @@ log/
 
 # logs and runs (e.g. from wandb)
 logs/
+runs/
 
 secrets/
 wandb/
