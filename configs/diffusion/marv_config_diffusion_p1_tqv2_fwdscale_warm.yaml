@@ -107,14 +107,6 @@ forward_reward_scale_schedule:
   sr_floor: 0.5
   ramp_evals: 10
 
-# Validation eval on the eval-only holdout course, run by a separate process at every
-# in-training eval (val/* in val.csv, incl. val/success_rate_gap and val/tq_episode_gap).
-validation_eval:
-  terrain: mixed_v2_holdout
-  num_envs: 256
-  repeats: 1
-  timeout_s: 3600
-
 control_gamma: 0.9956304305372804
 
 gae_opts:

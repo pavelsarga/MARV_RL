@@ -1,15 +1,11 @@
-name: marv_diffusion_p1_tqv2_fwdscale_cold
+name: marv_diffusion_p1_tqv2_fwdscale_cold_T1
 comment: >-
-  SR-gated reduction of all forward-pushing rewards (shaping, action_bonus, goal reward),
-  tq_coef fixed at 2.5, descent gate off. Motivation: descent_gate (action_bonus zeroed on
-  flagged descent steps) did not stop the policy dropping off edges in visual eval; the
-  forward terms still outweigh TQ ~10x on every step. Here they are scaled down together
-  once the policy crosses reliably, so later training is dominated by TQ. Watch
-  train/forward_reward_scale, eval/success_rate, eval/tq_episode and descent/clearance.
-
-  Cold start: the forward rewards stay at full strength until the policy first reaches
-  SR 0.6, so the exploration phase that a global action_bonus reduction used to break is
-  untouched.
+  Horizon ablation of fwdscale_cold: T_o = T_p = T_a = 1, i.e. no observation history, no
+  action chunking and re-planning every control step -- plain PPO through the same
+  receding-horizon trainer, MLP head (the U-Net cannot downsample a length-1 horizon).
+  Everything else is identical to fwdscale_cold (tq_coef 2.5, SR-gated forward-reward scale
+  1.0 -> 0.2 from SR 0.6). One chunk step per control step means 2x the PPO iterations of
+  the T_a=2 run for the same frame budget (total_iters 560 vs 280): watch clip_fraction/KL.
 
 use_wandb: true
 use_tensorboard: false
@@ -27,13 +23,10 @@ terrain: mixed_v2_straight
 #   obstacles, so we start shorter. Open question 1.
 # history_len (T_o): observation frames stacked by CatFrames. The paper found >2 actively
 #   HURT their CNN variant.
-# T_p = T_a. Under pure RL a predicted step that is never executed is also never scored,
-# so it has no gradient at all — predicting past T_a buys nothing until Phase 2, where BC
-# gives the tail a regression signal. (Tested directly: T_p=16 and T_p=4 gave identical
-# clip_fraction curves, so the inert tail was not the cause of the divergence either.)
-prediction_horizon: 8
-execution_horizon: 2
-history_len: 5
+# Ablation: no history, no chunking.
+prediction_horizon: 1
+execution_horizon: 1
+history_len: 1
 logprob_prefix_only: true
 
 # total_frames counts CONTROL steps, not macro steps, so the frame axis stays comparable
