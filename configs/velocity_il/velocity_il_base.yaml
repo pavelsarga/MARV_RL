@@ -1,0 +1,33 @@
+# Velocity-controller imitation learning (marv_rl_training/training/train_velocity_il.py).
+# data_dirs: shards from misc/velocity_il/extract_velocity_il.py (Gazebo shared-control rides).
+name: velocity_il_base
+data_dirs: [misc/velocity_il/data]
+label_key: v_label          # the operator's throttle; v_cmd only to test the plumbing on sweep rides
+out_dir: experiments/velocity_il
+seed: 0
+device: cuda
+history: 5                  # control steps of 0.05 s, = FtrEnv velocity_controller.history
+v_max: 1.0                  # = joy_speed max_speed (eval_run JOY_MAX_SPEED) = auto_ride LINEAR_CAP
+hm_scale: 0.3               # heightmap metres -> network input
+channels: [16, 32, 32]
+proprio_hidden: 64
+head_hidden: 256
+head_layers: 2              # hidden layers after the CNN + proprio concat
+# proprio indices zeroed inside the net: 1 = the previous command. On smooth operator labels copying it
+# beats every net (val MAE 0.049 vs 0.08-0.10 on straight_r1) and in closed loop the net would hold its own speed
+drop_proprio: [1]
+mask_obstacles: [-2, -1]    # gap strips (forced stop for the map reset) and off-course ticks
+zone_exit_ticks: 20         # + the first 1 s after leaving one (the restart)
+keyframe:
+  lag: 10                   # ticks (0.5 s) over which a throttle change is measured
+  change_thresh: 0.1        # m/s: val ticks above it are reported separately ("on change ticks")
+  weight: 0.0               # loss weight 1 + weight * change / v_max; the previous command used in the loss only
+lr: 0.001
+weight_decay: 0.0001
+batch_size: 256
+steps: 20000
+eval_every: 1000
+val_fraction: 0.2
+augment:
+  hm_noise: 0.01            # m
+  mirror_prob: 0.5
