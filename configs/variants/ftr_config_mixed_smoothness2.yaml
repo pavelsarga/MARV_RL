@@ -96,8 +96,8 @@ vecnorm_on_reward: true
 extra_env_transforms: []
 
 # Weight loading (optional)
-policy_weights_path: /home/sargapav/robot_rodeo_gym_ws/runs/ppo/ftr_ppo_crossing_potential_2026-03-09_12-31-18_5733/weights/policy_step_7274496.pth
-vecnorm_weights_path: /home/sargapav/robot_rodeo_gym_ws/runs/ppo/ftr_ppo_crossing_potential_2026-03-09_12-31-18_5733/weights/vecnorm_step_7274496.pth
+policy_weights_path: /mnt/personal/sargapav/MARV_RL_ws/runs/ppo/ftr_ppo_crossing_potential_2026-03-09_12-31-18_5733/weights/policy_step_7274496.pth
+vecnorm_weights_path: /mnt/personal/sargapav/MARV_RL_ws/runs/ppo/ftr_ppo_crossing_potential_2026-03-09_12-31-18_5733/weights/vecnorm_step_7274496.pth
 
 # Physics safety limits (applied to env_cfg before env creation)
 robot_max_linear_velocity: 10.0   # m/s — allows terrain traversal, still catches explosions

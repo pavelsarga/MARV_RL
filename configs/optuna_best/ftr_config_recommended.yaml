@@ -105,8 +105,8 @@ vecnorm_on_reward: true
 extra_env_transforms: []
 
 # Weight loading (optional — set to load from best previous run)
-policy_weights_path: /home/sargapav/robot_rodeo_gym_ws/runs/ppo/ftr_ppo_crossing_potential_2026-03-09_16-06-28_15212/weights/policy_step_13500416.pth                                       
-vecnorm_weights_path: /home/sargapav/robot_rodeo_gym_ws/runs/ppo/ftr_ppo_crossing_potential_2026-03-09_16-06-28_15212/weights/vecnorm_step_13500416.pth   
+policy_weights_path: /mnt/personal/sargapav/MARV_RL_ws/runs/ppo/ftr_ppo_crossing_potential_2026-03-09_16-06-28_15212/weights/policy_step_13500416.pth                                       
+vecnorm_weights_path: /mnt/personal/sargapav/MARV_RL_ws/runs/ppo/ftr_ppo_crossing_potential_2026-03-09_16-06-28_15212/weights/vecnorm_step_13500416.pth   
 
 # Physics tuning
 sim_dt: 0.0025                         # 1/400 s — simulation timestep

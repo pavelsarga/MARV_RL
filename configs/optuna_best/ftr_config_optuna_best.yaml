@@ -101,8 +101,8 @@ vecnorm_on_reward: true
 extra_env_transforms: []
 
 # Weight loading
-policy_weights_path: null #/home/sargapav/robot_rodeo_gym_ws/runs/best_so_far/optuna_best_v1/weights/policy_final.pth
-vecnorm_weights_path: null #/home/sargapav/robot_rodeo_gym_ws/runs/best_so_far/optuna_best_v1/weights/vecnorm_final.pth
+policy_weights_path: null #/mnt/personal/sargapav/MARV_RL_ws/runs/best_so_far/optuna_best_v1/weights/policy_final.pth
+vecnorm_weights_path: null #/mnt/personal/sargapav/MARV_RL_ws/runs/best_so_far/optuna_best_v1/weights/vecnorm_final.pth
 
 # Physics safety limits
 robot_max_linear_velocity: 10.0       # m/s — allows terrain traversal, still catches explosions

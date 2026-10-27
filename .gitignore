@@ -12,6 +12,7 @@ wandb/
 reports/
 paper_repos/
 notebooks/images/
+misc/ 
 
 # Python
 __pycache__/
