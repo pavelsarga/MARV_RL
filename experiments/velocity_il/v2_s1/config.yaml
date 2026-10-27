@@ -1,0 +1,38 @@
+name: v2_s1
+data_dirs:
+- ../../misc/velocity_il/data/straight_r1
+- ../../misc/velocity_il/data/straight_r2
+- ../../misc/velocity_il/data/straight_r3
+label_key: v_label
+out_dir: ../../experiments/velocity_il
+seed: 1
+device: cuda
+history: 5
+v_max: 1.0
+hm_scale: 0.3
+channels:
+- 16
+- 32
+- 32
+proprio_hidden: 64
+head_hidden: 256
+head_layers: 2
+drop_proprio:
+- 1
+mask_obstacles:
+- -2
+- -1
+zone_exit_ticks: 20
+keyframe:
+  lag: 10
+  change_thresh: 0.1
+  weight: 0.0
+lr: 0.001
+weight_decay: 0.0001
+batch_size: 256
+steps: 20000
+eval_every: 500
+val_fraction: 0.2
+augment:
+  hm_noise: 0.01
+  mirror_prob: 0.5
