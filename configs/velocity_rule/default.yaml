@@ -1,0 +1,25 @@
+# Rule-based forward-speed controller (FTR-Benchmark ftr_envs/tasks/crossing/velocity_rules.py).
+# Gazebo: eval_run speed_source rule:default; Isaac: velocity_controller {type: rule, config: ...}.
+# Speed = v_default x prod(1 - weight * r) per criterion, not below v_min; `cap` (special case)
+# may go below it. mode linear: r = clip((m - lo) / (hi - lo)); mode bang: r = 1 above `trip`,
+# released once below `release` for hold_s. Lengths m, angles deg (tilt), rates rad/s.
+v_default: 0.8
+v_min: 0.05
+predictive: true              # false = mapless: the heightmap criteria are dropped
+distrust_map_at: 0.7          # map_mismatch ratio from which step / roughness are ignored
+footprint: {x: [-0.35, 0.35], half_width: 0.28}   # track contact area in the robot frame
+slew: {accel: 0.4, decel: 2.0}                    # m/s^2
+stall: {v: 0.05, after_s: 2.0, boost: 0.35, boost_s: 2.0}
+
+criteria:
+  # predictive (heightmap)
+  step_up:      {weight: 0.4, mode: bang, trip: 0.08, release: 0.05, hold_s: 0.5, lookahead: 1.0, behind: 0.10, baseline: 0.10}
+  step_down:    {weight: 0.5, mode: bang, trip: 0.06, release: 0.04, hold_s: 0.5, lookahead: 1.0, behind: 0.10, baseline: 0.10}
+  roughness:    {weight: 0.25, mode: linear, lo: 0.015, hi: 0.05, quantile: 0.5, x: [-0.35, 0.6],
+                 scales: [[1, 0.5], [2, 1.0], [4, 1.0]]}    # [scale cells, weight]: 5 / 10 / 20 cm
+  map_mismatch: {weight: 0.3, mode: linear, lo: 0.05, hi: 0.20}
+  # reactive (proprioception)
+  tilt:         {weight: 0.4, mode: linear, lo: 8.0, hi: 30.0, roll_k: 1.0, pitch_k: 0.5}
+  shake:        {weight: 0.4, mode: linear, lo: 0.3, hi: 1.5, tau: 0.3}
+  flippers:     {weight: 0.2, mode: bang, trip: 0.3, release: 0.1, hold_s: 0.5}
+  turning:      {weight: 0.4, mode: linear, lo: 0.2, hi: 1.0}

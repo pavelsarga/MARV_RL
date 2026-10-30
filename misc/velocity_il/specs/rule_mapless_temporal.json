@@ -1,0 +1,1 @@
+{"world": "straight_arena", "gt": 0, "speed_source": "rule:mapless", "policies": ["rl:smooth_ramp0_temporal"], "repeats": 1, "gui": true}

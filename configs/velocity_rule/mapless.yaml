@@ -1,0 +1,10 @@
+# default.yaml without a map: only the reactive criteria (tilt, shake, flippers, turning) act.
+# They are stronger here, so their compounded reduction roughly matches default's with the map rules:
+# +0.3 on tilt / flippers, +0.2 on shake, roll and pitch weighted alike, and shake held at its peak for
+# a moment (it is the only roughness signal left, and it only fires once the robot is already on it).
+extends: default.yaml
+predictive: false
+criteria:
+  tilt:     {weight: 0.7, pitch_k: 1.0}
+  shake:    {weight: 0.6, hold_s: 0.25}
+  flippers: {weight: 0.5}
