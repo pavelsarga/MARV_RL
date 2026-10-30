@@ -1,4 +1,5 @@
-# Rule-based forward-speed controller (FTR-Benchmark ftr_envs/tasks/crossing/velocity_rules.py).
+# V-Gov, the rule-based forward-speed governor (FTR-Benchmark ftr_envs/tasks/crossing/velocity_rules.py;
+# see README.md here).
 # Gazebo: eval_run speed_source rule:default; Isaac: velocity_controller {type: rule, config: ...}.
 # Speed = v_default x prod(1 - weight * r) per criterion, not below v_min; `cap` (special case)
 # may go below it. mode linear: r = clip((m - lo) / (hi - lo)); mode bang: r = 1 above `trip`,
