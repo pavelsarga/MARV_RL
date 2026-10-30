@@ -5,8 +5,9 @@
 # may go below it. mode linear: r = clip((m - lo) / (hi - lo)); mode bang: r = 1 above `trip`,
 # released once below `release` for hold_s. Lengths m, angles deg (tilt), rates rad/s.
 v_default: 0.8
-v_min: 0.05
+v_min: 0.2
 predictive: true              # false = mapless: the heightmap criteria are dropped
+predictive_combine: strongest # map criteria: only the strongest applies (product: they compound)
 distrust_map_at: 0.7          # map_mismatch ratio from which step / roughness are ignored
 footprint: {x: [-0.35, 0.35], half_width: 0.28}   # track contact area in the robot frame
 slew: {accel: 0.4, decel: 2.0}                    # m/s^2

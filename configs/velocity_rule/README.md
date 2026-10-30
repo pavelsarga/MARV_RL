@@ -15,6 +15,7 @@ triggered".
 
 ```
 v* = v_default · Π (1 − weight_i · r_i)        compounded, then not below v_min
+     predictive_combine: strongest → the map criteria contribute only their smallest factor, not their product
 stall guard: measured v < stall.v while commanded ≥ v_min for stall.after_s → v* ≥ stall.boost for boost_s
 slew:        v moves towards v* by at most accel·dt up, decel·dt down
 ```
@@ -45,8 +46,24 @@ How each criterion's ratio is set (`mode`):
 
 - `default.yaml`: map plus reactive criteria.
 - `mapless.yaml`: `extends: default.yaml` with `predictive: false`. Its reactive weights are
-  stronger, so the compounded effect is similar. Roll and pitch count alike, and shake has a short
-  peak hold.
+  stronger, so the compounded effect is similar, and shake has a short peak hold.
+
+In Isaac, deep stacked slowdowns made MARV time out on obstacles it climbs at speed. That is why
+the defaults use `v_min: 0.2`, `predictive_combine: strongest`, and pitch at half the weight of roll.
+
+Isaac results, Oct 2026: A0t on mixed_v2_straight, 16 envs × 10 repeats, `logs/policy_eval/rule_a0t/`.
+
+| A0t + … | success | failure |
+|---|---|---|
+| its own v / w | 0.844 | 0.054 |
+| constant 0.41 m/s + bearing law (the Gazebo loop) | 0.627 | 0.039 |
+| V-Gov default (v_min 0.05, compounding) | 0.487 | 0.040 |
+| V-Gov mapless (v_min 0.05, pitch = roll) | 0.439 | 0.005 |
+| V-Gov default (current) | 0.556 | 0.059 |
+| V-Gov mapless (current) | 0.554 | 0.009 |
+
+Compare V-Gov with the constant-speed run, since both use the same loop. Taking A0t's own v / w
+away costs most of the gap to native by itself.
 
 Unknown keys raise an error, so a typo cannot silently disable a rule.
 
