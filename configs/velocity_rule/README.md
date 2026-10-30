@@ -52,19 +52,29 @@ In Isaac, deep stacked slowdowns made MARV crawl over obstacles it climbs at spe
 the defaults use `v_min: 0.2`, `predictive_combine: strongest`, roughness weight 0.15, tilt from
 15°, and pitch at half the weight of roll.
 
-Isaac results, Oct 2026: A0t on mixed_v2_straight, 16 envs × 10 repeats, `logs/policy_eval/rule_a0t/`.
-Every row except native drives the Gazebo way (A0t's v / w replaced, bearing law steering).
+Isaac results, Oct 2026: A0t on mixed_v2_straight, 16 envs × 5 repeats, `logs/policy_eval/rule_a0t/*_w3000`.
+- Episodes have a 60 s timeout and the eval window is 3000 steps × 0.05 s = 150 s.
+- Only each robot's first episode per repeat is scored. Later episodes still running when the window
+  closes are never recorded, and scoring every episode biases the result toward fast controllers.
+- Each row counts the 21 obstacle types that every run drew.
+- Every row except native drives the Gazebo way: A0t's v / w are replaced, and the bearing law steers.
 
-| A0t + … | 30 s timeout: success / failure / timeout | 60 s timeout: success / failure |
-|---|---|---|
-| its own v / w | 0.854 / 0.050 / 0.095 | 0.822 / 0.178 |
-| constant 0.41 m/s | 0.642 / 0.038 / 0.319 | 0.864 / 0.136 |
-| V-Gov default | 0.563 / 0.059 / 0.378 (round 2) | **0.903 / 0.097** |
-| V-Gov mapless | 0.560 / 0.009 / 0.431 (round 2) | **0.916 / 0.084** |
+| A0t + … | success | failure | timeout |
+|---|---|---|---|
+| its own v / w | 0.886 | 0.068 | 0.045 |
+| constant 0.41 m/s | 0.607 | 0.082 | 0.311 |
+| V-Gov default | 0.593 | 0.130 | 0.278 |
+| V-Gov mapless | 0.597 | 0.042 | 0.361 |
+| V-Net (v2_s1, raw Isaac maps) | 0.325 | 0.013 | 0.662 |
 
-V-Gov is slower: mapless needs ~44 s per tile against native's ~29 s. At 30 s it lost to the clock,
-not to the terrain. Given 60 s, it has the highest success rate and the fewest failures. Steering
-helps: without the bearing law, constant speed fell from 0.627 to 0.576 and failures doubled.
+Reading:
+- The external speed / steering loop is the main cost. A0t stalls without its own v / w on stairs,
+  tilted pallets, waves, twisted / bumpy hills and logs.
+- Within that loop V-Gov matches a constant speed on success. Mapless fails least.
+- Steering helps: without the bearing law, constant speed fell from 0.627 to 0.576 at a 30 s timeout,
+  and failures doubled.
+- An eval window shorter than the timeout drops stuck episodes. An earlier 50 s-window table showed
+  V-Gov at ~0.9 that way, which was invalid.
 
 ## Running it
 
