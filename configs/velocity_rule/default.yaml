@@ -17,11 +17,11 @@ criteria:
   # predictive (heightmap)
   step_up:      {weight: 0.4, mode: bang, trip: 0.08, release: 0.05, hold_s: 0.5, lookahead: 1.0, behind: 0.10, baseline: 0.10}
   step_down:    {weight: 0.5, mode: bang, trip: 0.06, release: 0.04, hold_s: 0.5, lookahead: 1.0, behind: 0.10, baseline: 0.10}
-  roughness:    {weight: 0.25, mode: linear, lo: 0.015, hi: 0.05, quantile: 0.5, x: [-0.35, 0.6],
+  roughness:    {weight: 0.15, mode: linear, lo: 0.015, hi: 0.05, quantile: 0.5, x: [-0.35, 0.6],
                  scales: [[1, 0.5], [2, 1.0], [4, 1.0]]}    # [scale cells, weight]: 5 / 10 / 20 cm
   map_mismatch: {weight: 0.3, mode: linear, lo: 0.05, hi: 0.20}
   # reactive (proprioception)
-  tilt:         {weight: 0.4, mode: linear, lo: 8.0, hi: 30.0, roll_k: 1.0, pitch_k: 0.5}
+  tilt:         {weight: 0.4, mode: linear, lo: 15.0, hi: 30.0, roll_k: 1.0, pitch_k: 0.5}
   shake:        {weight: 0.4, mode: linear, lo: 0.3, hi: 1.5, tau: 0.3}
   flippers:     {weight: 0.2, mode: bang, trip: 0.3, release: 0.1, hold_s: 0.5}
   turning:      {weight: 0.4, mode: linear, lo: 0.2, hi: 1.0}

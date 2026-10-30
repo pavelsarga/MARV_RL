@@ -48,24 +48,23 @@ How each criterion's ratio is set (`mode`):
 - `mapless.yaml`: `extends: default.yaml` with `predictive: false`. Its reactive weights are
   stronger, so the compounded effect is similar, and shake has a short peak hold.
 
-In Isaac, deep stacked slowdowns made MARV time out on obstacles it climbs at speed. That is why
-the defaults use `v_min: 0.2`, `predictive_combine: strongest`, and pitch at half the weight of roll.
+In Isaac, deep stacked slowdowns made MARV crawl over obstacles it climbs at speed. That is why
+the defaults use `v_min: 0.2`, `predictive_combine: strongest`, roughness weight 0.15, tilt from
+15°, and pitch at half the weight of roll.
 
 Isaac results, Oct 2026: A0t on mixed_v2_straight, 16 envs × 10 repeats, `logs/policy_eval/rule_a0t/`.
+Every row except native drives the Gazebo way (A0t's v / w replaced, bearing law steering).
 
-| A0t + … | success | failure |
+| A0t + … | 30 s timeout: success / failure / timeout | 60 s timeout: success / failure |
 |---|---|---|
-| its own v / w | 0.844 | 0.054 |
-| constant 0.41 m/s + bearing law (the Gazebo loop) | 0.627 | 0.039 |
-| V-Gov default (v_min 0.05, compounding) | 0.487 | 0.040 |
-| V-Gov mapless (v_min 0.05, pitch = roll) | 0.439 | 0.005 |
-| V-Gov default (current) | 0.556 | 0.059 |
-| V-Gov mapless (current) | 0.554 | 0.009 |
+| its own v / w | 0.854 / 0.050 / 0.095 | 0.822 / 0.178 |
+| constant 0.41 m/s | 0.642 / 0.038 / 0.319 | 0.864 / 0.136 |
+| V-Gov default | 0.563 / 0.059 / 0.378 (round 2) | **0.903 / 0.097** |
+| V-Gov mapless | 0.560 / 0.009 / 0.431 (round 2) | **0.916 / 0.084** |
 
-Compare V-Gov with the constant-speed run, since both use the same loop. Taking A0t's own v / w
-away costs most of the gap to native by itself.
-
-Unknown keys raise an error, so a typo cannot silently disable a rule.
+V-Gov is slower: mapless needs ~44 s per tile against native's ~29 s. At 30 s it lost to the clock,
+not to the terrain. Given 60 s, it has the highest success rate and the fewest failures. Steering
+helps: without the bearing law, constant speed fell from 0.627 to 0.576 and failures doubled.
 
 ## Running it
 
