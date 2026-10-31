@@ -20,7 +20,9 @@
 #                         instead of being reported later at GpuArticulationView.cpp:749
 #   DIAG_RECORDER=64      FTR_CRASH_RECORDER: control steps of state dumped to
 #                         $LOGDIR/crash_recorder/ when the step raises (0 = off)
-#   DIAG_ENV="K=V ..."    extra environment for the trainer
+#   DIAG_ENV="K=V ..."    extra environment for the trainer (e.g. FTR_PHYSX_OVERRIDES=...)
+#   DIAG_SANITIZER=memcheck  run under compute-sanitizer (pair with DIAG_BLOCKING=0); reports
+#                         land in $LOGDIR/sanitizer/
 #
 #   WS=/mnt/personal/sargapav/MARV_RL_ws_git
 #   MARV_WS=$WS RESUME_FROM=$WS/logs/<run> sbatch --output=$WS/logs/%x_%j/%x_%j.out \
@@ -40,6 +42,25 @@ _respawn_loop() {
     for k in ${DIAG_ENV:-}; do export "$k"; done
     echo "Diag env    : CUDA_LAUNCH_BLOCKING=$CUDA_LAUNCH_BLOCKING FTR_CRASH_RECORDER=$FTR_CRASH_RECORDER ${DIAG_ENV:-}"
 
+    # DIAG_SANITIZER=memcheck|racecheck|synccheck|initcheck: run the trainer under the host's
+    # compute-sanitizer, from the CUDA module matching the node's driver. It reports every
+    # out-of-bounds access with the kernel name, including the ones that land in mapped memory
+    # and never fault — so it does not have to wait for a lucky crash.
+    local san_bind="" san_cmd=""
+    if [ -n "${DIAG_SANITIZER:-}" ]; then
+        local drv cuda_ver
+        drv=$(nvidia-smi --query-gpu=driver_version --format=csv,noheader | head -1 | cut -d. -f1)
+        if [ "$drv" -ge 575 ]; then cuda_ver=12.9.1; else cuda_ver=12.4.0; fi
+        source /etc/profile >/dev/null 2>&1; module load CUDA/$cuda_ver >/dev/null 2>&1
+        [ -x "$EBROOTCUDA/compute-sanitizer/compute-sanitizer" ] || { echo "ERROR: no compute-sanitizer in CUDA/$cuda_ver"; exit 1; }
+        mkdir -p "$LOGDIR/sanitizer"
+        san_bind="--bind $EBROOTCUDA/compute-sanitizer:/opt/compute-sanitizer"
+        san_cmd="/opt/compute-sanitizer/compute-sanitizer --tool $DIAG_SANITIZER --report-api-errors no --leak-check no \
+            --check-device-heap no --show-backtrace device --print-limit 100 --target-processes all \
+            --log-file /ws/logs/${SLURM_JOB_NAME}_${SLURM_JOB_ID}/sanitizer/${DIAG_SANITIZER}_%p.log"
+        echo "Sanitizer   : $DIAG_SANITIZER from CUDA/$cuda_ver (driver $drv)"
+    fi
+
     for i in $(seq 1 "$attempts"); do
         echo "########################################################################"
         echo "Diag attempt $i/$attempts ($frames frames) started $(date -Is)"
@@ -47,6 +68,7 @@ _respawn_loop() {
         srun apptainer exec --nv \
             --bind $WS:/ws \
             --bind ${LOCAL_CACHE}:${HOME}/.cache/ov \
+            $san_bind \
             --env OMNI_KIT_ACCEPT_EULA=Y \
             --env CUDA_VISIBLE_DEVICES=0 \
             --env SLURM_JOB_NAME=${SLURM_JOB_NAME} \
@@ -56,7 +78,7 @@ _respawn_loop() {
             $SIF \
             conda run -n isaaclab --no-capture-output \
             env PYTHONPATH=/ws/src/FTR-Benchmark:/ws/src/flipper_training \
-            python $TARGET_PY --config /ws/configs/$CONFIG --headless total_frames=$frames ${EXTRA_ARGS[*]}
+            $san_cmd python $TARGET_PY --config /ws/configs/$CONFIG --headless total_frames=$frames ${EXTRA_ARGS[*]}
         exit_status=$?
         echo "Diag attempt $i exited $exit_status at $(date -Is)"
         nvidia-smi --query-gpu=name,driver_version,ecc.errors.uncorrected.volatile.total,ecc.errors.corrected.volatile.total,retired_pages.pending --format=csv
