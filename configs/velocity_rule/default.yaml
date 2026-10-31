@@ -11,7 +11,9 @@ predictive_combine: strongest # map criteria: only the strongest applies (produc
 distrust_map_at: 0.7          # map_mismatch ratio from which step / roughness are ignored
 footprint: {x: [-0.35, 0.35], half_width: 0.28}   # track contact area in the robot frame
 slew: {accel: 0.4, decel: 2.0}                    # m/s^2
-stall: {v: 0.05, after_s: 2.0, boost: 0.35, boost_s: 2.0}
+# stall guard: < progress_m along the heading in window_s -> override at boost[level] until release_m of
+# progress or max_boost_s; a boost that runs out raises the next level
+stall: {window_s: 3.0, progress_m: 0.25, release_m: 0.4, max_boost_s: 4.0, boost: [0.4, 0.6, 0.8]}   # tile-sweep data: stuck rocking p99 0.20 m per 3 s
 
 criteria:
   # predictive (heightmap)

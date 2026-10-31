@@ -26,6 +26,16 @@ How each criterion's ratio is set (`mode`):
   before `r` follows the metric down again.
 - `bang`: `r = 1` once `m > trip`. It drops back once `m < release` has lasted `hold_s`
   (hysteresis plus hold).
+
+**Stall guard (`stall`).**
+- A ring of poses gives the progress along the heading over the last `window_s`. Less than
+  `progress_m` while commanding ≥ `v_min` is a stall.
+- The response overrides the rules at `boost[level]` until `release_m` of progress, or until
+  `max_boost_s` runs out. When a boost runs out, the next level starts at once. Past the top level
+  the guard waits a fresh window; getting through resets the level.
+- Thresholds come from the tile-sweep trajectories. Rocking in place covers ≤ 0.20 m per 3 s (p99),
+  so `progress_m: 0.25` and `release_m: 0.4`.
+- `max_roll_deg` (optional, off) keeps a rolled robot at the first level.
 - `tau`: optional EMA smoothing of the metric, in seconds.
 
 ## Criteria
@@ -52,33 +62,37 @@ In Isaac, deep stacked slowdowns made MARV crawl over obstacles it climbs at spe
 the defaults use `v_min: 0.2`, `predictive_combine: strongest`, roughness weight 0.15, tilt from
 15°, and pitch at half the weight of roll.
 
-Isaac results, Oct 2026, from `eval_diffusion.py --tile_sweep` (`logs/policy_eval/tile_sweep_a0t/`):
-- The A0t flipper policy at its trained 10 Hz, on all 350 tiles of mixed_v2_straight (35 obstacles
-  × 10 columns, forward, centre spawn).
-- Every controller drives exactly those tiles, one episode each, run to success, failure or a 120 s
-  timeout. Nothing is cut off and nothing is dropped.
+Isaac results, Nov 2026, from `eval_diffusion.py --tile_sweep` (`logs/policy_eval/tile_sweep_rect/`).
+
+Setup:
+- The A0t flippers at their trained 10 Hz, on all 350 tiles of mixed_v2_straight (35 obstacles × 10
+  columns, forward, centre spawn).
+- Each controller drives each tile once, run to success, failure or a 120 s timeout.
+- Success means the target line is reached anywhere across the spot (`success_shape: rectangle`,
+  ±1.67 m). Failures are split by `fail_reason`.
 - Every row except native drives the Gazebo way: A0t's v / w are replaced, and the bearing law steers.
 
-| A0t + … | success | failure | timeout | median success time |
-|---|---|---|---|---|
-| its own v / w | 0.746 | 0.226 | 0.029 | 13.0 s |
-| constant 0.41 m/s | 0.709 | 0.120 | 0.171 | 19.2 s |
-| V-Gov default | 0.654 | 0.097 | 0.249 | 16.4 s |
-| V-Gov mapless | 0.657 | 0.120 | 0.223 | 22.6 s |
-| V-Net (v2_s1, raw Isaac maps) | 0.546 | 0.100 | 0.354 | 16.6 s |
+| A0t + … | success | timeout | failure | rollover | out of range sideways | median success time |
+|---|---|---|---|---|---|---|
+| its own v / w | 0.977 | 0.006 | 0.017 | 0.006 | 0.011 | 13.8 s |
+| constant 0.41 m/s | 0.806 | 0.183 | 0.011 | 0 | 0.011 | 20.4 s |
+| V-Gov default | 0.943 | 0.040 | 0.017 | 0.003 | 0.014 | 19.4 s |
+| V-Gov default, `distance_ramp` steering | 0.937 | 0.037 | 0.026 | 0 | 0.026 | 19.8 s |
+| V-Gov mapless | 0.943 | 0.040 | 0.017 | 0.009 | 0.009 | 25.0 s |
 
 Reading:
-- The bearing law makes easy terrain safe. Flat ground, ramps, gaps and trenches go from 7–9/10 to
-  10/10.
-- Every loop stalls where A0t needs its own speed: stairs, log crossing, diagonal log / trunk /
-  pyramid, tilted pallet, wave, and the twisted / bumpy hills.
-- V-Gov has the fewest failures (default 9.7 %) but stalls more than a constant speed. On lowered /
-  steep stairs it makes 0/10 against 2/10, so its step rules take away momentum the climb needs.
-- It is better on steep hills (10/10) and fails less on the wave.
+- In the same loop V-Gov beats a constant speed by 14 points, almost all of it stalls: 18 % → 4 %,
+  from the progress stall guard (stairs 0–3/10 → 9–10/10). Failures stay as low as native's.
+- The remaining 3 points to native are the stalls A0t avoids by driving its own speed.
+- Mapless matches default but is slower.
+- Weaker steering while crossing (`heading_controller.distance_ramp`) doubles the sideways
+  out-of-range and gains nothing, so keep full steering.
 
-Earlier tables in this file's history are invalid. `eval_diffusion` ran diffusion policies at the
-env's default decimation, 4× their trained rate. Its fixed eval windows also cut episodes off and
-spread tiles unevenly across controllers.
+Earlier tables in this file's history are invalid:
+- `eval_diffusion` ran diffusion policies at 4× their trained rate.
+- Fixed eval windows cut episodes off and gave each controller different tiles.
+- The old 0.4 m success circle counted a robot that crossed but drifted half a metre sideways as a
+  failure. That was ~90 % of all failures, for every controller.
 
 ## Running it
 
