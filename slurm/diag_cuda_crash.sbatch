@@ -51,10 +51,11 @@ _respawn_loop() {
         local drv cuda_ver
         drv=$(nvidia-smi --query-gpu=driver_version --format=csv,noheader | head -1 | cut -d. -f1)
         if [ "$drv" -ge 575 ]; then cuda_ver=12.9.1; else cuda_ver=12.4.0; fi
-        source /etc/profile >/dev/null 2>&1; module load CUDA/$cuda_ver >/dev/null 2>&1
-        [ -x "$EBROOTCUDA/compute-sanitizer/compute-sanitizer" ] || { echo "ERROR: no compute-sanitizer in CUDA/$cuda_ver"; exit 1; }
+        # the module system is not initialised inside batch jobs; the installs are on shared storage
+        local cuda_root=/mnt/appl/software/CUDA/$cuda_ver
+        [ -x "$cuda_root/compute-sanitizer/compute-sanitizer" ] || { echo "ERROR: no compute-sanitizer in $cuda_root"; exit 1; }
         mkdir -p "$LOGDIR/sanitizer"
-        san_bind="--bind $EBROOTCUDA/compute-sanitizer:/opt/compute-sanitizer"
+        san_bind="--bind $cuda_root/compute-sanitizer:/opt/compute-sanitizer"
         san_cmd="/opt/compute-sanitizer/compute-sanitizer --tool $DIAG_SANITIZER --report-api-errors no --leak-check no \
             --check-device-heap no --show-backtrace device --print-limit 100 --target-processes all \
             --log-file /ws/logs/${SLURM_JOB_NAME}_${SLURM_JOB_ID}/sanitizer/${DIAG_SANITIZER}_%p.log"
