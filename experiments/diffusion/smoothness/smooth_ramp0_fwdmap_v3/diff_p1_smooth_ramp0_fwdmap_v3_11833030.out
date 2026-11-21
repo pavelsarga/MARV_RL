@@ -1,0 +1,200 @@
+########################################################################
+Job ID: 11833030
+Running on node: g08
+Script arguments received by sbatch script (/var/spool/slurm/d/job11833030/slurm_script): --config diffusion/marv_config_diffusion_p1_smooth_ramp0_fwdmap_v3.yaml
+Number of arguments: 2
+########################################################################
+Setting up environment...
+Workspace   : /mnt/personal/sargapav/MARV_RL_ws_git
+Config      : diffusion/marv_config_diffusion_p1_smooth_ramp0_fwdmap_v3.yaml (module_name: marv_rl)
+Changed directory to /mnt/personal/sargapav/MARV_RL_ws_git
+------------------------------------------------------------------------
+nvidia-smi output:
+Wed Oct 21 00:45:09 2026       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 550.54.14              Driver Version: 550.54.14      CUDA Version: 12.4     |
+|-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA A100-SXM4-40GB          On  |   00000000:41:00.0 Off |                    0 |
+| N/A   34C    P0             56W /  400W |       0MiB /  40960MiB |      0%      Default |
+|                                         |                        |             Disabled |
++-----------------------------------------+------------------------+----------------------+
+                                                                                         
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI        PID   Type   Process name                              GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|  No running processes found                                                             |
++-----------------------------------------------------------------------------------------+
+GPU is clear (no active CUDA contexts).
+------------------------------------------------------------------------
+W&B project : MARV_RL
+Copying Omniverse cache to node-local /tmp/omni_cache_11833030 ...
+RESUME_FROM: linked 9 attempt(s) from /mnt/personal/sargapav/MARV_RL_ws_git/logs/diff_p1_smooth_ramp0_fwdmap_v3_11824337
+Frame budget: 73400320 frames from /mnt/personal/sargapav/MARV_RL_ws_git/configs/diffusion/marv_config_diffusion_p1_smooth_ramp0_fwdmap_v3.yaml (iteration size 262144 frames, 280 iterations, execution_horizon 2)
+########################################################################
+Starting training (respawn #0 — 0/73400320 frames done, 73400320 to go)...
+########################################################################
+[Warning] [omni.isaac.kit.simulation_app] Modules: ['omni.kit_app'] were loaded before SimulationApp was started and might not be loaded correctly.
+[Warning] [omni.isaac.kit.simulation_app] Please check to make sure no extra omniverse or pxr modules are imported before the call to SimulationApp(...)
+[Info] [carb] Logging to file: /opt/conda/envs/isaaclab/lib/python3.10/site-packages/omni/logs/Kit/Isaac-Sim/4.2/kit_20261021_004512.log
+2026-10-20 22:45:12 [0ms] [Warning] [omni.kit.app.plugin] No crash reporter present, dumps uploading isn't available.
+2026-10-20 22:45:12 [4ms] [Warning] [omni.ext.plugin] [ext: .git] Extensions config 'extension.toml' doesn't exist '/mnt/personal/sargapav/MARV_RL_ws_git/.git' or '/mnt/personal/sargapav/MARV_RL_ws_git/.git/config'
+2026-10-20 22:45:12 [63ms] [Warning] [omni.ext.plugin] [ext: logs] Extensions config 'extension.toml' doesn't exist '/mnt/personal/sargapav/MARV_RL_ws_git/logs' or '/mnt/personal/sargapav/MARV_RL_ws_git/logs/config'
+2026-10-20 22:45:12 [63ms] [Warning] [omni.ext.plugin] [ext: notebooks] Extensions config 'extension.toml' doesn't exist '/mnt/personal/sargapav/MARV_RL_ws_git/notebooks' or '/mnt/personal/sargapav/MARV_RL_ws_git/notebooks/config'
+2026-10-20 22:45:12 [63ms] [Warning] [omni.ext.plugin] [ext: src] Extensions config 'extension.toml' doesn't exist '/mnt/personal/sargapav/MARV_RL_ws_git/src' or '/mnt/personal/sargapav/MARV_RL_ws_git/src/config'
+2026-10-20 22:45:12 [63ms] [Warning] [omni.ext.plugin] [ext: slurm] Extensions config 'extension.toml' doesn't exist '/mnt/personal/sargapav/MARV_RL_ws_git/slurm' or '/mnt/personal/sargapav/MARV_RL_ws_git/slurm/config'
+2026-10-20 22:45:12 [63ms] [Warning] [omni.ext.plugin] [ext: .wandb_cache] Extensions config 'extension.toml' doesn't exist '/mnt/personal/sargapav/MARV_RL_ws_git/.wandb_cache' or '/mnt/personal/sargapav/MARV_RL_ws_git/.wandb_cache/config'
+2026-10-20 22:45:12 [63ms] [Warning] [omni.ext.plugin] [ext: containers] Extensions config 'extension.toml' doesn't exist '/mnt/personal/sargapav/MARV_RL_ws_git/containers' or '/mnt/personal/sargapav/MARV_RL_ws_git/containers/config'
+2026-10-20 22:45:12 [63ms] [Warning] [omni.ext.plugin] [ext: docs] Extensions config 'extension.toml' doesn't exist '/mnt/personal/sargapav/MARV_RL_ws_git/docs' or '/mnt/personal/sargapav/MARV_RL_ws_git/docs/config'
+2026-10-20 22:45:12 [63ms] [Warning] [omni.ext.plugin] [ext: experiments] Extensions config 'extension.toml' doesn't exist '/mnt/personal/sargapav/MARV_RL_ws_git/experiments' or '/mnt/personal/sargapav/MARV_RL_ws_git/experiments/config'
+2026-10-20 22:45:12 [63ms] [Warning] [omni.ext.plugin] [ext: optuna] Extensions config 'extension.toml' doesn't exist '/mnt/personal/sargapav/MARV_RL_ws_git/optuna' or '/mnt/personal/sargapav/MARV_RL_ws_git/optuna/config'
+2026-10-20 22:45:12 [63ms] [Warning] [omni.ext.plugin] [ext: runs] Extensions config 'extension.toml' doesn't exist '/mnt/personal/sargapav/MARV_RL_ws_git/runs' or '/mnt/personal/sargapav/MARV_RL_ws_git/runs/config'
+2026-10-20 22:45:12 [63ms] [Warning] [omni.ext.plugin] [ext: scripts] Extensions config 'extension.toml' doesn't exist '/mnt/personal/sargapav/MARV_RL_ws_git/scripts' or '/mnt/personal/sargapav/MARV_RL_ws_git/scripts/config'
+2026-10-20 22:45:12 [63ms] [Warning] [omni.ext.plugin] [ext: secrets] Extensions config 'extension.toml' doesn't exist '/mnt/personal/sargapav/MARV_RL_ws_git/secrets' or '/mnt/personal/sargapav/MARV_RL_ws_git/secrets/config'
+2026-10-20 22:45:12 [63ms] [Warning] [omni.ext.plugin] [ext: configs] Extensions config 'extension.toml' doesn't exist '/mnt/personal/sargapav/MARV_RL_ws_git/configs' or '/mnt/personal/sargapav/MARV_RL_ws_git/configs/config'
+2026-10-20 22:45:12 [63ms] [Warning] [omni.ext.plugin] [ext: .wandb_config] Extensions config 'extension.toml' doesn't exist '/mnt/personal/sargapav/MARV_RL_ws_git/.wandb_config' or '/mnt/personal/sargapav/MARV_RL_ws_git/.wandb_config/config'
+2026-10-20 22:45:12 [64ms] [Warning] [omni.ext.plugin] [ext: images] Extensions config 'extension.toml' doesn't exist '/mnt/personal/sargapav/MARV_RL_ws_git/images' or '/mnt/personal/sargapav/MARV_RL_ws_git/images/config'
+[0.253s] [ext: omni.kit.async_engine-0.0.1] startup
+[0.488s] [ext: omni.stats-1.0.1] startup
+[0.492s] [ext: omni.client-1.2.0] startup
+[0.605s] [ext: omni.gpu_foundation.shadercache.vulkan-1.0.0] startup
+[0.611s] [ext: omni.assets.plugins-0.0.0] startup
+[0.621s] [ext: omni.gpu_foundation-0.0.0] startup
+[0.715s] [ext: omni.kit.pipapi-0.0.0] startup
+[0.717s] [ext: omni.materialx.libs-1.0.4] startup
+[0.736s] [ext: omni.kit.pip_archive-0.0.0] startup
+[0.737s] [ext: omni.usd.config-1.0.4] startup
+[0.745s] [ext: omni.gpucompute.plugins-0.0.0] startup
+[0.748s] [ext: omni.usd.libs-1.0.1] startup
+[1.035s] [ext: omni.kit.telemetry-0.5.0] startup
+[1.066s] [ext: omni.usd.schema.semantics-0.0.0] startup
+2026-10-20 22:45:13 [986ms] [Warning] [omni.platforminfo.plugin] failed to open the default display.  Can't verify X Server version.
+2026-10-20 22:45:13 [987ms] [Warning] [omni.platforminfo.plugin] failed to load XRAndR.
+[1.228s] [ext: omni.usd.schema.audio-0.0.0] startup
+[1.251s] [ext: omni.usd.schema.physx-106.1.9] startup
+[1.318s] [ext: carb.audio-0.1.0] startup
+[1.331s] [ext: omni.kvdb-106.1.9] startup
+[1.336s] [ext: omni.timeline-1.0.10] startup
+[1.340s] [ext: omni.kit.actions.core-1.0.0] startup
+[1.345s] [ext: omni.kit.audiodeviceenum-1.0.1] startup
+[1.348s] [ext: omni.localcache-106.1.9] startup
+[1.351s] [ext: omni.usd_resolver-1.0.0] startup
+[1.358s] [ext: omni.kit.commands-1.4.9] startup
+[1.365s] [ext: omni.graph.exec-0.9.4] startup
+[1.367s] [ext: omni.usd.core-1.4.1] startup
+[1.375s] [ext: omni.kit.usd_undo-0.1.8] startup
+[1.376s] [ext: omni.kit.exec.core-0.13.4] startup
+[1.382s] [ext: omni.convexdecomposition-106.1.9] startup
+[1.389s] [ext: omni.usd-1.12.2] startup
+[1.445s] [ext: omni.usdphysics-106.1.9] startup
+[1.448s] [ext: omni.physx.foundation-106.1.9] startup
+[1.457s] [ext: omni.kit.usd.layers-2.1.36] startup
+[1.471s] [ext: omni.physx.cooking-106.1.9] startup
+[1.483s] [ext: omni.blobkey-1.1.2] startup
+[1.486s] [ext: omni.datastore-0.0.0] startup
+[1.527s] [ext: omni.ujitso.default-1.0.0] startup
+[1.533s] [ext: omni.hsscclient-1.1.1] startup
+[1.543s] [ext: omni.kit.primitive.mesh-1.0.17] startup
+[1.547s] [ext: usdrt.scenegraph-7.5.0] startup
+[1.630s] [ext: omni.warp.core-1.2.1] startup
+[1.730s] [ext: omni.physx-106.1.9] startup
+[1.767s] [ext: omni.kit.stage_template.core-1.1.22] startup
+[1.769s] [ext: omni.physx.stageupdate-106.1.9] startup
+[1.773s] [ext: omni.kit.stage_templates-1.2.5] startup
+[1.775s] [ext: omni.physics.tensors-106.1.9] startup
+[1.784s] [ext: omni.isaac.version-1.1.0] startup
+[1.785s] [ext: omni.physx.tensors-106.1.9] startup
+[2.240s] [ext: omni.isaac.nucleus-0.3.1] startup
+[2.242s] [ext: omni.kit.loop-isaac-1.2.0] startup
+[2.245s] [ext: omni.isaac.core-3.19.5] startup
+[4.629s] [ext: omni.physx.fabric-106.1.9] startup
+[4.640s] [ext: omni.isaac.kit-1.13.2] startup
+[4.640s] [ext: omni.isaac.cloner-0.8.1] startup
+[4.641s] [ext: isaaclab.python.headless-1.2.0] startup
+[4.643s] Simulation App Starting
+2026-10-20 22:45:17 [4,628ms] [Warning] [gpu.foundation.plugin] [ShaderCache]: Creating driver shaderCache directory failed: /opt/conda/envs/isaaclab/lib/python3.10/site-packages/omni/cache/nv_shadercache
+
+|---------------------------------------------------------------------------------------------|
+| Driver Version: 0             | Graphics API: Vulkan
+|=============================================================================================|
+| GPU | Name                             | Active | LDA | GPU Memory | Vendor-ID | LUID       |
+|     |                                  |        |     |            | Device-ID | UUID       |
+|     |                                  |        |     |            | Bus-ID    |            |
+|=============================================================================================|
+| OS: 13 (trixie) debian, Version: 13.00.0, Kernel: 4.18.0-513.9.1.el8_9.x86_64
+| Processor: AMD EPYC 7543 32-Core Processor | Cores: 64 | Logical: 128
+|---------------------------------------------------------------------------------------------|
+| Total Memory (MB): 1031894 | Free Memory: 808361
+| Total Page/Swap (MB): 0 | Free Page/Swap: 0
+|---------------------------------------------------------------------------------------------|
+2026-10-20 22:45:17 [5,070ms] [Warning] [omni.physx.foundation.plugin] PhysXFoundation: Couldn't get driver version, failed to getDeviceInfo
+2026-10-20 22:45:17 [5,070ms] [Warning] [omni.physx.foundation.plugin] PhysXFoundation: Unable to get IGpuFoundation, GpuDevices or Graphics!
+2026-10-20 22:45:17 [5,070ms] [Warning] [carb.cudainterop.plugin] CUDA_VISIBLE_DEVICES environment variable is set.
+2026-10-20 22:45:17 [5,070ms] [Warning] [carb.cudainterop.plugin] Note CUDA device enumeration and Omniverse device enumeration are different.
+2026-10-20 22:45:17 [5,070ms] [Warning] [carb.cudainterop.plugin] Setting CUDA_VISIBLE_DEVICES can lead to undesired behavior or crashes.
+[5.887s] app ready
+[INFO][AppLauncher]: Loading experience file: /opt/IsaacLab/source/extensions/omni.isaac.lab/omni/isaac/lab/app/../../../../../../apps/isaaclab.python.headless.kit
+Starting kit application with the following args:  ['/opt/conda/envs/isaaclab/lib/python3.10/site-packages/isaacsim/exts/omni.isaac.kit/omni/isaac/kit/simulation_app.py', '/opt/IsaacLab/source/extensions/omni.isaac.lab/omni/isaac/lab/app/../../../../../../apps/isaaclab.python.headless.kit', '--/app/tokens/exe-path=/opt/conda/envs/isaaclab/lib/python3.10/site-packages/omni', '--/persistent/app/viewport/displayOptions=3094', '--/rtx/materialDb/syncLoads=True', '--/rtx/hydra/materialSyncLoads=True', '--/omni.kit.plugin/syncUsdLoads=True', '--/app/renderer/resolution/width=1280', '--/app/renderer/resolution/height=720', '--/app/window/width=1440', '--/app/window/height=900', '--/renderer/multiGpu/enabled=True', '--/app/fastShutdown=True', '--ext-folder', '/opt/conda/envs/isaaclab/lib/python3.10/site-packages/isaacsim/exts', '--ext-folder', '/opt/conda/envs/isaaclab/lib/python3.10/site-packages/isaacsim/apps', '--/renderer/activeGpu=0', '--/physics/cudaDevice=0', '--portable', '--no-window', '--/app/window/hideUi=True']
+Passing the following args to the base kit application:  ['--config', '/ws/configs/diffusion/marv_config_diffusion_p1_smooth_ramp0_fwdmap_v3.yaml', '--headless', 'total_frames=73400320', 'scheduler_opts.total_iters=280', 'step_penalty_scheduler.total_iters=280', 'action_bonus_coef_scheduler.total_iters=280']
+[INFO] Respawn detected — loading config from previous attempt: /ws/logs/diff_p1_smooth_ramp0_fwdmap_v3_11833030/attempt_8/config.yaml
+[6.046s] Simulation App Startup Complete
+2026-10-20 22:45:22 [9,693ms] [Warning] [pxr.Semantics] pxr.Semantics is deprecated - please use Semantics instead
+2026-10-20 22:45:22 [10,563ms] [Warning] [omni.isaac.lab.envs.direct_rl_env] Seed not set for the environment. The environment creation may not be deterministic.
+Warp 1.2.1 initialized:
+   CUDA Toolkit 11.8, Driver 12.4
+   Devices:
+     "cpu"      : "CPU"
+     "cuda:0"   : "NVIDIA A100-SXM4-40GB" (39 GiB, sm_80, mempool enabled)
+   Kernel cache:
+     /home/sargapav/.cache/warp/1.2.1
+[INFO]: Base environment:
+	Environment device    : cuda:0
+	Environment seed      : None
+	Physics step-size     : 0.005
+	Rendering step-size   : 0.025
+	Environment step-size : 0.1
+[FtrEnv] skid-steer: gauge=0.496 m, w_max=8.0 rad/s -> pivot track speed +-1.98 m/s, per-track limit=10.00
+2026-10-20 22:45:23 [10,600ms] [Warning] [omni.isaac.lab.envs.direct_rl_env] The render interval (5) is smaller than the decimation (20). Multiple multiple render calls will happen for each environment step.If this is not intended, set the render interval to be equal to the decimation.
+2026-10-20 22:45:31 [18,893ms] [Warning] [omni.physx.plugin] Detected an articulation at /World/envs/env_0/marv_description/base_link with more than 4 velocity iterations being added to a TGS scene.The related behavior changed recently, please consult the changelog. This warning will only print once.
+[INFO]: Time taken for scene creation : 0.971993 seconds
+[INFO]: Scene manager:  <class InteractiveScene>
+	Number of environments: 1024
+	Environment spacing   : 0.0
+	Source prim name      : /World/envs/env_0
+	Global prim paths     : ['/World/terrain']
+	Replicate physics     : True
+[INFO]: Starting the simulation. This may take a few seconds. Please wait...
+[INFO]: Time taken for simulation start : 17.267614 seconds
+[INFO]: Completed setting up the environment...
+[crossing_env] height map shifted 0.25 m forward: robot at row 27 of 45
+2026-10-21 00:45:42,080 [RunLogger][[92mINFO[00m]: RunLogger initialized for run diff_p1_smooth_ramp0_fwdmap_v3_11833030_attempt_9 at /ws/logs/diff_p1_smooth_ramp0_fwdmap_v3_11833030/attempt_9 (logutils.py:106)
+2026-10-21 00:45:51,255 [ftr_ppo_train][[92mINFO[00m]: Seed: 42  (random ✓  numpy ✓  torch ✓  cuda ✓) (train_diffusion.py:413)
+2026-10-21 00:45:51,284 [DiffusionPolicy][[92mINFO[00m]: Diffusion policy (Phase 1): head=mlp T_p=8 T_o=5 action_dim=6 actor_mlp_opts={'num_hidden': 2, 'hidden_dim': 128, 'layernorm': False} | actor 369,760 params (encoder 258,816, head 110,944), critic 489,985 params (diffusion_policy.py:467)
+2026-10-21 00:45:51,292 [ftr_ppo_train][[93mWARNING[00m]: Found step (attempt_7) checkpoint: policy_step_42205184.pth / vecnorm_step_42205184.pth (train_diffusion.py:694)
+2026-10-21 00:45:51,306 [ftr_ppo_train][[92mINFO[00m]: Loaded policy from step (attempt_7) checkpoint (train_diffusion.py:700)
+2026-10-21 00:45:51,308 [ftr_ppo_train][[92mINFO[00m]: Loaded vecnorm from step (attempt_7) checkpoint (train_diffusion.py:707)
+2026-10-21 00:45:51,308 [ftr_ppo_train][[93mWARNING[00m]: Resuming from step (attempt_7) checkpoint — training may have inconsistent metrics. (train_diffusion.py:712)
+2026-10-21 00:45:52,805 [ftr_ppo_train][[92mINFO[00m]: Prefix-masked PPO loss (random T_a: False, tail_consistency_coef: 0.0) (train_diffusion.py:554)
+2026-10-21 00:45:52,808 [ftr_ppo_train][[92mINFO[00m]: smooth_coef SR-gated schedule: 0.0 -> 0.15 ({'target_coef': 0.15, 'sr_threshold': 0.7, 'sr_floor': 0.6, 'ramp_evals': 10}) (train_diffusion.py:646)
+2026-10-21 00:45:52,843 [ftr_ppo_train][[92mINFO[00m]: Resume: config lr for policy_operator is 0.000503, checkpoint had 0.000487 — using the config value. (train_diffusion.py:798)
+2026-10-21 00:45:52,843 [ftr_ppo_train][[92mINFO[00m]: Resume: config lr for value_operator is 0.0017, checkpoint had 0.00164 — using the config value. (train_diffusion.py:798)
+2026-10-21 00:45:52,843 [ftr_ppo_train][[92mINFO[00m]: Loaded training checkpoint: resuming from iteration 160, total_collected_frames=42205184 (train_diffusion.py:818)
+2026-10-21 00:45:52,843 [ftr_ppo_train][[92mINFO[00m]: Initialized FtrDiffusionTrainer. (train_diffusion.py:657)
+2026-10-21 00:45:52,843 [ftr_ppo_train][[92mINFO[00m]: Iteration size: 131072, frames_per_sub_batch: 4096, optimisation steps per iter: 32 (train_diffusion.py:891)
+2026-10-21 00:45:52,845 [ftr_ppo_train][[92mINFO[00m]: Resuming training — progress bar starting at 42205184 frames (iter_offset=160) (train_diffusion.py:910)
+2026-10-20 22:45:51 [38,881ms] [Warning] [ftr_ppo_train] Found step (attempt_7) checkpoint: policy_step_42205184.pth / vecnorm_step_42205184.pth
+2026-10-20 22:45:51 [38,897ms] [Warning] [ftr_ppo_train] Resuming from step (attempt_7) checkpoint — training may have inconsistent metrics.
+########################################################################
+Python script finished with exit status: 75
+########################################################################
+Attempt collected 77856768 frames (job total: 77856768 / 73400320).
+Exit code 75 detected (CUDA/W&B error). Respawning (attempt 2)...
+########################################################################
+Frame budget reached: 77856768 / 73400320 frames collected. Done.
+########################################################################
+Cleaning up node-local cache...

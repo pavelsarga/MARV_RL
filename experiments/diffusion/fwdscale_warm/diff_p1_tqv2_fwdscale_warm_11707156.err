@@ -1,0 +1,967 @@
+WARNING: Environment variable WANDB_PROJECT already has value [MARV_RL], will not forward new value [optuna_ftr_smooth_v2] from parent process environment
+WARNING: Environment variable WANDB_CONFIG_DIR already has value [/ws/.wandb_config], will not forward new value [/mnt/personal/sargapav/MARV_RL_ws_git/.wandb_config] from parent process environment
+WARNING: Environment variable WANDB_CACHE_DIR already has value [/ws/.wandb_cache], will not forward new value [/mnt/personal/sargapav/MARV_RL_ws_git/.wandb_cache] from parent process environment
+INFO:    underlay of /usr/bin/nvidia-smi required more than 50 (375) bind mounts
+2026-09-25 22:34:15 [851ms] [Error] [omni.ext.plugin] Could not load the dynamic library from /opt/conda/envs/isaaclab/lib/python3.10/site-packages/isaacsim/extscache/omni.usd.libs-1.0.1+10a4b5c0.lx64.r.cp310/bin/libMaterialXRenderHw.so. Error: libXt.so.6: cannot open shared object file: No such file or directory (note that this may be caused by a dependent library)
+2026-09-25 22:34:15 [854ms] [Error] [omni.ext.plugin] Could not load the dynamic library from /opt/conda/envs/isaaclab/lib/python3.10/site-packages/isaacsim/extscache/omni.usd.libs-1.0.1+10a4b5c0.lx64.r.cp310/bin/libMaterialXRenderGlsl.so. Error: libXt.so.6: cannot open shared object file: No such file or directory (note that this may be caused by a dependent library)
+2026-09-25 22:34:15 [856ms] [Error] [omni.ext.plugin] Could not load the dynamic library from /opt/conda/envs/isaaclab/lib/python3.10/site-packages/isaacsim/extscache/omni.usd.libs-1.0.1+10a4b5c0.lx64.r.cp310/bin/libusdBakeMtlx.so. Error: libXt.so.6: cannot open shared object file: No such file or directory (note that this may be caused by a dependent library)
+2026-09-25 22:34:16 [1,538ms] [Error] [omni.datastore] Failed to acquire exclusive lock to data store (64>=64)
+2026-09-25 22:34:16 [1,538ms] [Error] [omni.datastore] Failed to create local file data store at '/opt/conda/envs/isaaclab/lib/python3.10/site-packages/omni/cache/Kit/106.1/10a4b5c0/PhysXLocalMeshCache/LocalDS0'
+2026-09-25 22:34:16 [1,792ms] [Error] [omni.kit.stage_templates.new_stage] Failed to create directory /opt/conda/envs/isaaclab/lib/python3.10/site-packages/omni/data/documents/Kit/apps/Isaac-Sim/scripts/new_stage
+2026-09-25 22:34:19 [4,949ms] [Error] [omni.kit.app.plugin] failed to open file '/opt/conda/envs/isaaclab/lib/python3.10/site-packages/omni/data/Kit/Isaac-Sim/4.2/user.config.json' - unable to save the dictionary
+2026-09-25 22:34:20 [5,529ms] [Error] [gpu.foundation.plugin] No device could be created. Some known system issues:
+- The driver is not installed properly and requires a clean re-install.
+- Your GPUs do not support RayTracing: DXR or Vulkan ray_tracing, or hardware is excluded due to performance.
+- The driver cannot enumerate any GPU: driver, display, TCC mode or a docker issue. For Vulkan, test it with Vulkaninfo tool from Vulkan SDK, instead of nvidia-smi.
+- For Ubuntu, it requires server-xorg-core 1.20.7+ and a display to work without --no-window.
+- For Linux dockers, the setup is not complete. Install the latest driver, xServer and NVIDIA container runtime.
+
+2026-09-25 22:34:20 [5,531ms] [Error] [gpu.foundation.plugin] Invalid getDeviceInfo parameters.
+2026-09-25 22:34:20 [6,206ms] [Error] [omni.kvdb.plugin] Unexpected key-value database error
+2026-09-25 22:34:20 [6,241ms] [Error] [omni.kit.app.plugin] failed to open file '/opt/conda/envs/isaaclab/lib/python3.10/site-packages/omni/data/Kit/Isaac-Sim/4.2/user.config.json' - unable to save the dictionary
+/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torchrl/data/replay_buffers/samplers.py:34: UserWarning: Failed to import torchrl C++ binaries. Some modules (eg, prioritized replay buffers) may not work with your installation. This is likely due to a discrepancy between your package version and the PyTorch version. Make sure both are compatible. Usually, torchrl majors follow the pytorch majors within a few days around the release. For instance, TorchRL 0.5 requires PyTorch 2.4.0, and TorchRL 0.6 requires PyTorch 2.5.0.
+  warnings.warn(EXTENSION_WARNING)
+/opt/conda/envs/isaaclab/lib/python3.10/site-packages/wandb/sdk/internal/internal_api.py:13: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import parse_version
+2026-09-25 22:34:25 [11,173ms] [Error] [omni.kit.app.plugin] failed to open file '/opt/conda/envs/isaaclab/lib/python3.10/site-packages/omni/data/Kit/Isaac-Sim/4.2/user.config.json' - unable to save the dictionary
+2026-09-25 22:34:41 [27,155ms] [Error] [omni.kvdb.plugin] Unexpected key-value database error
+2026-09-25 22:34:41 [27,171ms] [Error] [omni.kit.app.plugin] failed to open file '/opt/conda/envs/isaaclab/lib/python3.10/site-packages/omni/data/Kit/Isaac-Sim/4.2/user.config.json' - unable to save the dictionary
+wandb: Currently logged in as: sargapav (marv_flipper_training). Use `wandb login --relogin` to force relogin
+/opt/conda/envs/isaaclab/lib/python3.10/site-packages/wandb/sdk/internal/internal_api.py:13: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import parse_version
+wandb: wandb version 0.30.0 is available!  To upgrade, please run:
+wandb:  $ pip install wandb --upgrade
+wandb: Tracking run with wandb version 0.12.21
+wandb: Run data is saved locally in /ws/logs/wandb/wandb/run-20260926_003444-7ba7f25d08721444cf141efb47141e9db986cbac680515f144e1bd5fc7bcdb64
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run diff_p1_tqv2_fwdscale_warm_11707156_attempt_0
+wandb: ⭐️ View project at https://wandb.ai/marv_flipper_training/MARV_RL
+wandb: 🚀 View run at https://wandb.ai/marv_flipper_training/MARV_RL/runs/7ba7f25d08721444cf141efb47141e9db986cbac680515f144e1bd5fc7bcdb64
+/ws/src/flipper_training/marv_rl_training/policies/diffusion_policy.py:458: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  sd = torch.load(weights_path, map_location=device or "cpu")
+/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torchrl/envs/transforms/transforms.py:6557: FutureWarning: The VecNorm class is to be deprecated in favor of `torchrl.envs.VecNormV2` and will be replaced by that class in v0.10. You can adapt to these changes by using the `new_api` argument or importing the `VecNormV2` class from `torchrl.envs`.
+  warnings.warn(
+/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torchrl/envs/transforms/transforms.py:6648: FutureWarning: This class is to be deprecated in favor of :class:`~torchrl.envs.VecNormV2`.
+  warnings.warn(
+/ws/src/flipper_training/marv_rl_training/training/train_diffusion.py:467: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  torch.load(self.config.vecnorm_weights_path, map_location=self.device), strict=False
+/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torchrl/envs/transforms/transforms.py:7002: UserWarning: VecNorm wasn't initialized and the tensordict is not shared. In single process settings, this is ok, but if you need to share the statistics between workers this should require some attention. Make sure that the content of VecNorm is transmitted to the workers after calling load_state_dict and not before, as other workers may not have access to the loaded TensorDict.
+  warnings.warn(
+/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torchrl/objectives/common.py:330: UserWarning: The name actor_network wasn't part of the annotations (dict_keys([])). Make sure it is present in the definition class.
+  warnings.warn(
+/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torchrl/objectives/common.py:330: UserWarning: The name actor_network_params wasn't part of the annotations (dict_keys([])). Make sure it is present in the definition class.
+  warnings.warn(
+/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torchrl/objectives/common.py:330: UserWarning: The name target_actor_network_params wasn't part of the annotations (dict_keys([])). Make sure it is present in the definition class.
+  warnings.warn(
+/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torchrl/objectives/common.py:330: UserWarning: The name critic_network wasn't part of the annotations (dict_keys([])). Make sure it is present in the definition class.
+  warnings.warn(
+/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torchrl/objectives/common.py:330: UserWarning: The name critic_network_params wasn't part of the annotations (dict_keys([])). Make sure it is present in the definition class.
+  warnings.warn(
+/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torchrl/objectives/common.py:330: UserWarning: The name target_critic_network_params wasn't part of the annotations (dict_keys([])). Make sure it is present in the definition class.
+  warnings.warn(
+FTR receding-horizon training:   0% 0/73400320 [00:00<?, ?frames/s]FTR receding-horizon training:   0% 262144/73400320 [04:28<20:48:31, 976.32frames/s]FTR receding-horizon training:   0% 262144/73400320 [04:40<20:48:31, 976.32frames/s]FTR receding-horizon training:   1% 524288/73400320 [15:28<38:31:48, 525.39frames/s]FTR receding-horizon training:   1% 524288/73400320 [15:40<38:31:48, 525.39frames/s]FTR receding-horizon training:   1% 786432/73400320 [26:24<43:54:46, 459.33frames/s]FTR receding-horizon training:   1% 786432/73400320 [26:40<43:54:46, 459.33frames/s]FTR receding-horizon training:   1% 1048576/73400320 [37:18<46:15:57, 434.40frames/s]FTR receding-horizon training:   1% 1048576/73400320 [37:30<46:15:57, 434.40frames/s]FTR receding-horizon training:   2% 1310720/73400320 [48:19<47:40:46, 419.99frames/s]FTR receding-horizon training:   2% 1310720/73400320 [48:30<47:40:46, 419.99frames/s]FTR receding-horizon training:   2% 1572864/73400320 [59:13<48:16:33, 413.29frames/s]FTR receding-horizon training:   2% 1572864/73400320 [59:30<48:16:33, 413.29frames/s]FTR receding-horizon training:   2% 1835008/73400320 [1:10:08<48:36:18, 408.99frames/s]FTR receding-horizon training:   2% 1835008/73400320 [1:10:20<48:36:18, 408.99frames/s]FTR receding-horizon training:   3% 2097152/73400320 [1:21:01<48:44:13, 406.39frames/s]FTR receding-horizon training:   3% 2097152/73400320 [1:21:21<48:44:13, 406.39frames/s]FTR receding-horizon training:   3% 2359296/73400320 [1:32:02<48:55:48, 403.30frames/s]FTR receding-horizon training:   3% 2359296/73400320 [1:32:21<48:55:48, 403.30frames/s]FTR receding-horizon training:   4% 2621440/73400320 [2:03:19<77:08:42, 254.85frames/s]FTR receding-horizon training:   4% 2621440/73400320 [2:03:31<77:08:42, 254.85frames/s]FTR receding-horizon training:   4% 2883584/73400320 [2:14:11<68:15:48, 286.95frames/s]FTR receding-horizon training:   4% 2883584/73400320 [2:14:21<68:15:48, 286.95frames/s]FTR receding-horizon training:   4% 3145728/73400320 [2:25:06<62:08:57, 314.00frames/s]FTR receding-horizon training:   4% 3145728/73400320 [2:25:22<62:08:57, 314.00frames/s]FTR receding-horizon training:   5% 3407872/73400320 [2:35:59<57:49:18, 336.25frames/s]FTR receding-horizon training:   5% 3407872/73400320 [2:36:12<57:49:18, 336.25frames/s]FTR receding-horizon training:   5% 3670016/73400320 [2:46:54<54:49:21, 353.31frames/s]FTR receding-horizon training:   5% 3670016/73400320 [2:47:12<54:49:21, 353.31frames/s]FTR receding-horizon training:   5% 3932160/73400320 [2:57:48<52:40:04, 366.38frames/s]FTR receding-horizon training:   5% 3932160/73400320 [2:58:02<52:40:04, 366.38frames/s]FTR receding-horizon training:   6% 4194304/73400320 [3:08:43<51:07:46, 375.98frames/s]FTR receding-horizon training:   6% 4194304/73400320 [3:09:02<51:07:46, 375.98frames/s]FTR receding-horizon training:   6% 4456448/73400320 [3:19:42<50:06:50, 382.15frames/s]FTR receding-horizon training:   6% 4456448/73400320 [3:19:52<50:06:50, 382.15frames/s]FTR receding-horizon training:   6% 4718592/73400320 [3:50:55<75:52:18, 251.45frames/s]FTR receding-horizon training:   6% 4718592/73400320 [3:51:13<75:52:18, 251.45frames/s]FTR receding-horizon training:   7% 4980736/73400320 [4:01:55<67:15:01, 282.61frames/s]FTR receding-horizon training:   7% 4980736/73400320 [4:02:13<67:15:01, 282.61frames/s]FTR receding-horizon training:   7% 5242880/73400320 [4:12:49<61:03:19, 310.09frames/s]FTR receding-horizon training:   7% 5242880/73400320 [4:13:03<61:03:19, 310.09frames/s]FTR receding-horizon training:   8% 5505024/73400320 [4:23:38<56:35:42, 333.24frames/s]FTR receding-horizon training:   8% 5505024/73400320 [4:23:53<56:35:42, 333.24frames/s]FTR receding-horizon training:   8% 5767168/73400320 [4:34:30<53:28:20, 351.34frames/s]FTR receding-horizon training:   8% 5767168/73400320 [4:34:43<53:28:20, 351.34frames/s]FTR receding-horizon training:   8% 6029312/73400320 [4:45:20<51:12:28, 365.45frames/s]FTR receding-horizon training:   8% 6029312/73400320 [4:45:34<51:12:28, 365.45frames/s]FTR receding-horizon training:   9% 6291456/73400320 [4:56:14<49:39:36, 375.38frames/s]FTR receding-horizon training:   9% 6291456/73400320 [4:56:34<49:39:36, 375.38frames/s]FTR receding-horizon training:   9% 6553600/73400320 [5:07:06<48:28:54, 383.00frames/s]FTR receding-horizon training:   9% 6553600/73400320 [5:07:24<48:28:54, 383.00frames/s]FTR receding-horizon training:   9% 6815744/73400320 [5:38:23<73:32:32, 251.50frames/s]FTR receding-horizon training:   9% 6815744/73400320 [5:38:35<73:32:32, 251.50frames/s]FTR receding-horizon training:  10% 7077888/73400320 [5:49:19<65:05:24, 283.04frames/s]FTR receding-horizon training:  10% 7077888/73400320 [5:49:35<65:05:24, 283.04frames/s]FTR receding-horizon training:  10% 7340032/73400320 [6:00:19<59:15:04, 309.70frames/s]FTR receding-horizon training:  10% 7340032/73400320 [6:00:35<59:15:04, 309.70frames/s]FTR receding-horizon training:  10% 7602176/73400320 [6:11:14<55:01:21, 332.18frames/s]FTR receding-horizon training:  10% 7602176/73400320 [6:11:25<55:01:21, 332.18frames/s]FTR receding-horizon training:  11% 7864320/73400320 [6:22:12<52:03:47, 349.66frames/s]FTR receding-horizon training:  11% 7864320/73400320 [6:22:25<52:03:47, 349.66frames/s]FTR receding-horizon training:  11% 8126464/73400320 [6:33:10<49:57:26, 362.94frames/s]FTR receding-horizon training:  11% 8126464/73400320 [6:33:26<49:57:26, 362.94frames/s]FTR receding-horizon training:  11% 8388608/73400320 [6:44:02<48:17:10, 374.00frames/s]FTR receding-horizon training:  11% 8388608/73400320 [6:44:16<48:17:10, 374.00frames/s]FTR receding-horizon training:  12% 8650752/73400320 [6:54:55<47:06:57, 381.74frames/s]FTR receding-horizon training:  12% 8650752/73400320 [6:55:06<47:06:57, 381.74frames/s]FTR receding-horizon training:  12% 8912896/73400320 [7:26:10<71:17:01, 251.29frames/s]FTR receding-horizon training:  12% 8912896/73400320 [7:26:26<71:17:01, 251.29frames/s]FTR receding-horizon training:  12% 9175040/73400320 [7:37:02<63:00:29, 283.14frames/s]FTR receding-horizon training:  12% 9175040/73400320 [7:37:17<63:00:29, 283.14frames/s]FTR receding-horizon training:  13% 9437184/73400320 [7:47:57<57:15:10, 310.33frames/s]FTR receding-horizon training:  13% 9437184/73400320 [7:48:17<57:15:10, 310.33frames/s]FTR receding-horizon training:  13% 9699328/73400320 [7:58:50<53:07:53, 333.04frames/s]FTR receding-horizon training:  13% 9699328/73400320 [7:59:07<53:07:53, 333.04frames/s]FTR receding-horizon training:  14% 9961472/73400320 [8:09:41<50:09:48, 351.29frames/s]FTR receding-horizon training:  14% 9961472/73400320 [8:09:57<50:09:48, 351.29frames/s]FTR receding-horizon training:  14% 10223616/73400320 [8:20:32<48:02:53, 365.24frames/s]FTR receding-horizon training:  14% 10223616/73400320 [8:20:47<48:02:53, 365.24frames/s]FTR receding-horizon training:  14% 10485760/73400320 [8:31:29<46:37:10, 374.87frames/s]FTR receding-horizon training:  14% 10485760/73400320 [8:31:47<46:37:10, 374.87frames/s]FTR receding-horizon training:  15% 10747904/73400320 [8:42:25<45:34:07, 381.92frames/s]FTR receding-horizon training:  15% 10747904/73400320 [8:42:38<45:34:07, 381.92frames/s]FTR receding-horizon training:  15% 11010048/73400320 [9:13:29<68:44:19, 252.12frames/s]FTR receding-horizon training:  15% 11010048/73400320 [9:13:48<68:44:19, 252.12frames/s]FTR receding-horizon training:  15% 11272192/73400320 [9:24:22<60:48:44, 283.79frames/s]FTR receding-horizon training:  15% 11272192/73400320 [9:24:39<60:48:44, 283.79frames/s]FTR receding-horizon training:  16% 11534336/73400320 [9:35:32<55:34:05, 309.26frames/s]FTR receding-horizon training:  16% 11534336/73400320 [9:35:49<55:34:05, 309.26frames/s]FTR receding-horizon training:  16% 11796480/73400320 [9:46:49<51:59:07, 329.17frames/s]FTR receding-horizon training:  16% 11796480/73400320 [9:47:09<51:59:07, 329.17frames/s]FTR receding-horizon training:  16% 12058624/73400320 [9:58:09<49:29:19, 344.31frames/s]FTR receding-horizon training:  16% 12058624/73400320 [9:58:19<49:29:19, 344.31frames/s]FTR receding-horizon training:  17% 12320768/73400320 [10:09:16<47:27:33, 357.50frames/s]FTR receding-horizon training:  17% 12320768/73400320 [10:09:29<47:27:33, 357.50frames/s]FTR receding-horizon training:  17% 12582912/73400320 [10:20:13<45:46:19, 369.08frames/s]FTR receding-horizon training:  17% 12582912/73400320 [10:20:29<45:46:19, 369.08frames/s]FTR receding-horizon training:  18% 12845056/73400320 [10:31:06<44:28:48, 378.17frames/s]FTR receding-horizon training:  18% 12845056/73400320 [10:31:19<44:28:48, 378.17frames/s]FTR receding-horizon training:  18% 13107200/73400320 [11:02:47<67:26:02, 248.36frames/s]FTR receding-horizon training:  18% 13107200/73400320 [11:03:00<67:26:02, 248.36frames/s]FTR receding-horizon training:  18% 13369344/73400320 [11:13:47<59:35:23, 279.83frames/s]FTR receding-horizon training:  18% 13369344/73400320 [11:14:00<59:35:23, 279.83frames/s]FTR receding-horizon training:  19% 13631488/73400320 [11:24:48<54:05:18, 306.95frames/s]FTR receding-horizon training:  19% 13631488/73400320 [11:25:00<54:05:18, 306.95frames/s]FTR receding-horizon training:  19% 13893632/73400320 [11:35:48<50:10:28, 329.44frames/s]FTR receding-horizon training:  19% 13893632/73400320 [11:36:00<50:10:28, 329.44frames/s]FTR receding-horizon training:  19% 14155776/73400320 [11:46:50<47:26:29, 346.89frames/s]FTR receding-horizon training:  19% 14155776/73400320 [11:47:01<47:26:29, 346.89frames/s]FTR receding-horizon training:  20% 14417920/73400320 [11:57:57<45:34:20, 359.52frames/s]FTR receding-horizon training:  20% 14417920/73400320 [11:58:11<45:34:20, 359.52frames/s]FTR receding-horizon training:  20% 14680064/73400320 [12:09:00<44:07:56, 369.60frames/s]FTR receding-horizon training:  20% 14680064/73400320 [12:09:11<44:07:56, 369.60frames/s]FTR receding-horizon training:  20% 14942208/73400320 [12:20:03<43:04:30, 376.98frames/s]FTR receding-horizon training:  20% 14942208/73400320 [12:20:21<43:04:30, 376.98frames/s]FTR receding-horizon training:  21% 15204352/73400320 [12:51:20<64:44:29, 249.69frames/s]FTR receding-horizon training:  21% 15204352/73400320 [12:51:32<64:44:29, 249.69frames/s]FTR receding-horizon training:  21% 15466496/73400320 [13:02:15<57:10:45, 281.44frames/s]FTR receding-horizon training:  21% 15466496/73400320 [13:02:32<57:10:45, 281.44frames/s]FTR receding-horizon training:  21% 15728640/73400320 [13:13:06<51:47:13, 309.34frames/s]FTR receding-horizon training:  21% 15728640/73400320 [13:13:22<51:47:13, 309.34frames/s]FTR receding-horizon training:  22% 15990784/73400320 [13:23:57<47:57:45, 332.49frames/s]FTR receding-horizon training:  22% 15990784/73400320 [13:24:12<47:57:45, 332.49frames/s]FTR receding-horizon training:  22% 16252928/73400320 [13:34:50<45:16:52, 350.57frames/s]FTR receding-horizon training:  22% 16252928/73400320 [13:35:02<45:16:52, 350.57frames/s]FTR receding-horizon training:  22% 16515072/73400320 [13:45:43<43:21:33, 364.43frames/s]FTR receding-horizon training:  22% 16515072/73400320 [13:46:02<43:21:33, 364.43frames/s]FTR receding-horizon training:  23% 16777216/73400320 [13:56:33<41:55:12, 375.20frames/s]FTR receding-horizon training:  23% 16777216/73400320 [13:56:53<41:55:12, 375.20frames/s]FTR receding-horizon training:  23% 17039360/73400320 [14:07:31<40:58:48, 382.03frames/s]FTR receding-horizon training:  23% 17039360/73400320 [14:07:43<40:58:48, 382.03frames/s]FTR receding-horizon training:  24% 17301504/73400320 [14:38:37<61:50:47, 251.96frames/s]FTR receding-horizon training:  24% 17301504/73400320 [14:38:53<61:50:47, 251.96frames/s]FTR receding-horizon training:  24% 17563648/73400320 [14:49:32<54:42:17, 283.52frames/s]FTR receding-horizon training:  24% 17563648/73400320 [14:49:43<54:42:17, 283.52frames/s]FTR receding-horizon training:  24% 17825792/73400320 [15:00:24<49:38:08, 311.01frames/s]FTR receding-horizon training:  24% 17825792/73400320 [15:00:44<49:38:08, 311.01frames/s]FTR receding-horizon training:  25% 18087936/73400320 [15:11:16<46:02:21, 333.73frames/s]FTR receding-horizon training:  25% 18087936/73400320 [15:11:34<46:02:21, 333.73frames/s]FTR receding-horizon training:  25% 18350080/73400320 [15:22:14<43:35:31, 350.79frames/s]FTR receding-horizon training:  25% 18350080/73400320 [15:22:24<43:35:31, 350.79frames/s]FTR receding-horizon training:  25% 18612224/73400320 [15:33:09<41:46:37, 364.29frames/s]FTR receding-horizon training:  25% 18612224/73400320 [15:33:24<41:46:37, 364.29frames/s]FTR receding-horizon training:  26% 18874368/73400320 [15:44:06<40:30:04, 373.96frames/s]FTR receding-horizon training:  26% 18874368/73400320 [15:44:24<40:30:04, 373.96frames/s]FTR receding-horizon training:  26% 19136512/73400320 [15:54:58<39:26:54, 382.10frames/s]FTR receding-horizon training:  26% 19136512/73400320 [15:55:14<39:26:54, 382.10frames/s]FTR receding-horizon training:  26% 19398656/73400320 [16:26:03<59:30:09, 252.10frames/s]FTR receding-horizon training:  26% 19398656/73400320 [16:26:15<59:30:09, 252.10frames/s]FTR receding-horizon training:  27% 19660800/73400320 [16:36:55<52:35:41, 283.82frames/s]FTR receding-horizon training:  27% 19660800/73400320 [16:37:15<52:35:41, 283.82frames/s]FTR receding-horizon training:  27% 19922944/73400320 [16:47:53<47:48:47, 310.68frames/s]FTR receding-horizon training:  27% 19922944/73400320 [16:48:05<47:48:47, 310.68frames/s]FTR receding-horizon training:  28% 20185088/73400320 [16:59:01<44:36:32, 331.37frames/s]FTR receding-horizon training:  28% 20185088/73400320 [16:59:15<44:36:32, 331.37frames/s]FTR receding-horizon training:  28% 20447232/73400320 [17:10:03<42:12:51, 348.44frames/s]FTR receding-horizon training:  28% 20447232/73400320 [17:10:15<42:12:51, 348.44frames/s]FTR receding-horizon training:  28% 20709376/73400320 [17:21:09<40:34:02, 360.79frames/s]FTR receding-horizon training:  28% 20709376/73400320 [17:21:25<40:34:02, 360.79frames/s]FTR receding-horizon training:  29% 20971520/73400320 [17:32:11<39:16:50, 370.76frames/s]FTR receding-horizon training:  29% 20971520/73400320 [17:32:25<39:16:50, 370.76frames/s]FTR receding-horizon training:  29% 21233664/73400320 [17:43:12<38:19:17, 378.14frames/s]FTR receding-horizon training:  29% 21233664/73400320 [17:43:26<38:19:17, 378.14frames/s]FTR receding-horizon training:  29% 21495808/73400320 [18:14:40<57:50:39, 249.25frames/s]FTR receding-horizon training:  29% 21495808/73400320 [18:14:57<57:50:39, 249.25frames/s]FTR receding-horizon training:  30% 21757952/73400320 [18:25:40<51:06:56, 280.64frames/s]FTR receding-horizon training:  30% 21757952/73400320 [18:25:57<51:06:56, 280.64frames/s]FTR receding-horizon training:  30% 22020096/73400320 [18:36:35<46:18:36, 308.19frames/s]FTR receding-horizon training:  30% 22020096/73400320 [18:36:47<46:18:36, 308.19frames/s]2026-09-26 17:19:49 [67,534,517ms] [Error] [omni.physx.tensors.plugin] CUDA error: an illegal memory access was encountered: ../../../extensions/runtime/source/omni.physx.tensors/plugins/gpu/GpuArticulationView.cpp: 749
+2026-09-26 17:19:49 [67,534,579ms] [Error] [ftr_ppo_train] Training failed: CUDA error: an illegal memory access was encountered
+CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.
+For debugging consider passing CUDA_LAUNCH_BLOCKING=1
+Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
+
+Traceback (most recent call last):
+  File "/ws/src/flipper_training/marv_rl_training/training/train_diffusion.py", line 777, in train
+    self._train()
+  File "/ws/src/flipper_training/marv_rl_training/training/train_diffusion.py", line 847, in _train
+    for i, tensordict_data in enumerate(self.collector):
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torchrl/collectors/collectors.py", line 327, in __iter__
+    yield from self.iterator()
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torchrl/collectors/collectors.py", line 1206, in iterator
+    tensordict_out = self.rollout()
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torchrl/_utils.py", line 601, in unpack_rref_and_invoke_function
+    return func(self, *args, **kwargs)
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torch/utils/_contextlib.py", line 116, in decorate_context
+    return func(*args, **kwargs)
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torchrl/collectors/collectors.py", line 1458, in rollout
+    env_output, env_next_output = self.env.step_and_maybe_reset(env_input)
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torchrl/envs/common.py", line 3585, in step_and_maybe_reset
+    tensordict = self.step(tensordict)
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torchrl/envs/common.py", line 2031, in step
+    next_tensordict = self._step(tensordict)
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torchrl/envs/transforms/transforms.py", line 1129, in _step
+    next_tensordict = self.base_env._step(tensordict_in)
+  File "/ws/src/flipper_training/marv_rl_training/environment/chunked_env.py", line 209, in _step
+    sub = self.inner._step(
+  File "/ws/src/flipper_training/marv_rl_training/environment/ftr_env_adapter.py", line 168, in _step
+    obs_dict, reward, terminated, truncated, _info = self.ftr_env.step(action)
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/gymnasium/wrappers/order_enforcing.py", line 56, in step
+    return self.env.step(action)
+  File "/opt/IsaacLab/source/extensions/omni.isaac.lab/omni/isaac/lab/envs/direct_rl_env.py", line 322, in step
+    self.scene.write_data_to_sim()
+  File "/opt/IsaacLab/source/extensions/omni.isaac.lab/omni/isaac/lab/scene/interactive_scene.py", line 349, in write_data_to_sim
+    articulation.write_data_to_sim()
+  File "/opt/IsaacLab/source/extensions/omni.isaac.lab/omni/isaac/lab/assets/articulation/articulation.py", line 198, in write_data_to_sim
+    self.root_physx_view.set_dof_position_targets(self._joint_pos_target_sim, self._ALL_INDICES)
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/isaacsim/extsPhysics/omni.physics.tensors/omni/physics/tensors/impl/api.py", line 479, in set_dof_position_targets
+    indices = self._frontend.as_contiguous_uint32(indices)
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/isaacsim/extsPhysics/omni.physics.tensors/omni/physics/tensors/impl/frontend_torch.py", line 88, in as_contiguous_uint32
+    return tensor.to(torch.int32).contiguous()
+RuntimeError: CUDA error: an illegal memory access was encountered
+CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.
+For debugging consider passing CUDA_LAUNCH_BLOCKING=1
+Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
+
+ERROR conda.cli.main_run:execute(142): `conda run env PYTHONPATH=/ws/src/FTR-Benchmark:/ws/src/flipper_training python /ws/src/flipper_training/marv_rl_training/training/train_diffusion.py --config /ws/configs/diffusion/marv_config_diffusion_p1_tqv2_fwdscale_warm.yaml --headless total_frames=73400320 scheduler_opts.total_iters=280 step_penalty_scheduler.total_iters=280 action_bonus_coef_scheduler.total_iters=280` failed. (See above for error)
+/opt/conda/envs/isaaclab/lib/python3.10/multiprocessing/resource_tracker.py:224: UserWarning: resource_tracker: There appear to be 11 leaked semaphore objects to clean up at shutdown
+srun: error: g03: task 0: Exited with exit code 75
+WARNING: Environment variable WANDB_PROJECT already has value [MARV_RL], will not forward new value [optuna_ftr_smooth_v2] from parent process environment
+WARNING: Environment variable WANDB_CONFIG_DIR already has value [/ws/.wandb_config], will not forward new value [/mnt/personal/sargapav/MARV_RL_ws_git/.wandb_config] from parent process environment
+WARNING: Environment variable WANDB_CACHE_DIR already has value [/ws/.wandb_cache], will not forward new value [/mnt/personal/sargapav/MARV_RL_ws_git/.wandb_cache] from parent process environment
+INFO:    underlay of /usr/bin/nvidia-smi required more than 50 (375) bind mounts
+2026-09-26 17:20:06 [856ms] [Error] [omni.ext.plugin] Could not load the dynamic library from /opt/conda/envs/isaaclab/lib/python3.10/site-packages/isaacsim/extscache/omni.usd.libs-1.0.1+10a4b5c0.lx64.r.cp310/bin/libMaterialXRenderHw.so. Error: libXt.so.6: cannot open shared object file: No such file or directory (note that this may be caused by a dependent library)
+2026-09-26 17:20:06 [859ms] [Error] [omni.ext.plugin] Could not load the dynamic library from /opt/conda/envs/isaaclab/lib/python3.10/site-packages/isaacsim/extscache/omni.usd.libs-1.0.1+10a4b5c0.lx64.r.cp310/bin/libMaterialXRenderGlsl.so. Error: libXt.so.6: cannot open shared object file: No such file or directory (note that this may be caused by a dependent library)
+2026-09-26 17:20:06 [861ms] [Error] [omni.ext.plugin] Could not load the dynamic library from /opt/conda/envs/isaaclab/lib/python3.10/site-packages/isaacsim/extscache/omni.usd.libs-1.0.1+10a4b5c0.lx64.r.cp310/bin/libusdBakeMtlx.so. Error: libXt.so.6: cannot open shared object file: No such file or directory (note that this may be caused by a dependent library)
+2026-09-26 17:20:07 [1,547ms] [Error] [omni.datastore] Failed to acquire exclusive lock to data store (64>=64)
+2026-09-26 17:20:07 [1,547ms] [Error] [omni.datastore] Failed to create local file data store at '/opt/conda/envs/isaaclab/lib/python3.10/site-packages/omni/cache/Kit/106.1/10a4b5c0/PhysXLocalMeshCache/LocalDS0'
+2026-09-26 17:20:07 [1,802ms] [Error] [omni.kit.stage_templates.new_stage] Failed to create directory /opt/conda/envs/isaaclab/lib/python3.10/site-packages/omni/data/documents/Kit/apps/Isaac-Sim/scripts/new_stage
+2026-09-26 17:20:10 [4,930ms] [Error] [omni.kit.app.plugin] failed to open file '/opt/conda/envs/isaaclab/lib/python3.10/site-packages/omni/data/Kit/Isaac-Sim/4.2/user.config.json' - unable to save the dictionary
+2026-09-26 17:20:11 [5,505ms] [Error] [gpu.foundation.plugin] No device could be created. Some known system issues:
+- The driver is not installed properly and requires a clean re-install.
+- Your GPUs do not support RayTracing: DXR or Vulkan ray_tracing, or hardware is excluded due to performance.
+- The driver cannot enumerate any GPU: driver, display, TCC mode or a docker issue. For Vulkan, test it with Vulkaninfo tool from Vulkan SDK, instead of nvidia-smi.
+- For Ubuntu, it requires server-xorg-core 1.20.7+ and a display to work without --no-window.
+- For Linux dockers, the setup is not complete. Install the latest driver, xServer and NVIDIA container runtime.
+
+2026-09-26 17:20:11 [5,507ms] [Error] [gpu.foundation.plugin] Invalid getDeviceInfo parameters.
+2026-09-26 17:20:11 [6,182ms] [Error] [omni.kvdb.plugin] Unexpected key-value database error
+2026-09-26 17:20:11 [6,214ms] [Error] [omni.kit.app.plugin] failed to open file '/opt/conda/envs/isaaclab/lib/python3.10/site-packages/omni/data/Kit/Isaac-Sim/4.2/user.config.json' - unable to save the dictionary
+/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torchrl/data/replay_buffers/samplers.py:34: UserWarning: Failed to import torchrl C++ binaries. Some modules (eg, prioritized replay buffers) may not work with your installation. This is likely due to a discrepancy between your package version and the PyTorch version. Make sure both are compatible. Usually, torchrl majors follow the pytorch majors within a few days around the release. For instance, TorchRL 0.5 requires PyTorch 2.4.0, and TorchRL 0.6 requires PyTorch 2.5.0.
+  warnings.warn(EXTENSION_WARNING)
+/opt/conda/envs/isaaclab/lib/python3.10/site-packages/wandb/sdk/internal/internal_api.py:13: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import parse_version
+2026-09-26 17:20:16 [11,243ms] [Error] [omni.kit.app.plugin] failed to open file '/opt/conda/envs/isaaclab/lib/python3.10/site-packages/omni/data/Kit/Isaac-Sim/4.2/user.config.json' - unable to save the dictionary
+2026-09-26 17:20:33 [27,748ms] [Error] [omni.kvdb.plugin] Unexpected key-value database error
+2026-09-26 17:20:33 [27,769ms] [Error] [omni.kit.app.plugin] failed to open file '/opt/conda/envs/isaaclab/lib/python3.10/site-packages/omni/data/Kit/Isaac-Sim/4.2/user.config.json' - unable to save the dictionary
+wandb: Currently logged in as: sargapav (marv_flipper_training). Use `wandb login --relogin` to force relogin
+/opt/conda/envs/isaaclab/lib/python3.10/site-packages/wandb/sdk/internal/internal_api.py:13: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import parse_version
+wandb: wandb version 0.30.0 is available!  To upgrade, please run:
+wandb:  $ pip install wandb --upgrade
+wandb: Tracking run with wandb version 0.12.21
+wandb: Run data is saved locally in /ws/logs/wandb/wandb/run-20260926_192034-f58a77569c7cd92eb2fa9081514e84f4412edb2b1fbc267d3d2791895dffa725
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run diff_p1_tqv2_fwdscale_warm_11707156_attempt_1
+wandb: ⭐️ View project at https://wandb.ai/marv_flipper_training/MARV_RL
+wandb: 🚀 View run at https://wandb.ai/marv_flipper_training/MARV_RL/runs/f58a77569c7cd92eb2fa9081514e84f4412edb2b1fbc267d3d2791895dffa725
+/ws/src/flipper_training/marv_rl_training/policies/diffusion_policy.py:458: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  sd = torch.load(weights_path, map_location=device or "cpu")
+/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torchrl/envs/transforms/transforms.py:6557: FutureWarning: The VecNorm class is to be deprecated in favor of `torchrl.envs.VecNormV2` and will be replaced by that class in v0.10. You can adapt to these changes by using the `new_api` argument or importing the `VecNormV2` class from `torchrl.envs`.
+  warnings.warn(
+/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torchrl/envs/transforms/transforms.py:6648: FutureWarning: This class is to be deprecated in favor of :class:`~torchrl.envs.VecNormV2`.
+  warnings.warn(
+/ws/src/flipper_training/marv_rl_training/training/train_diffusion.py:467: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  torch.load(self.config.vecnorm_weights_path, map_location=self.device), strict=False
+/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torchrl/envs/transforms/transforms.py:7002: UserWarning: VecNorm wasn't initialized and the tensordict is not shared. In single process settings, this is ok, but if you need to share the statistics between workers this should require some attention. Make sure that the content of VecNorm is transmitted to the workers after calling load_state_dict and not before, as other workers may not have access to the loaded TensorDict.
+  warnings.warn(
+/ws/src/flipper_training/marv_rl_training/training/train_diffusion.py:649: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  policy_state = torch.load(policy_to_load, map_location=self.device)
+/ws/src/flipper_training/marv_rl_training/training/train_diffusion.py:656: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  vecnorm_state = torch.load(vecnorm_to_load, map_location=self.device)
+/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torchrl/objectives/common.py:330: UserWarning: The name actor_network wasn't part of the annotations (dict_keys([])). Make sure it is present in the definition class.
+  warnings.warn(
+/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torchrl/objectives/common.py:330: UserWarning: The name actor_network_params wasn't part of the annotations (dict_keys([])). Make sure it is present in the definition class.
+  warnings.warn(
+/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torchrl/objectives/common.py:330: UserWarning: The name target_actor_network_params wasn't part of the annotations (dict_keys([])). Make sure it is present in the definition class.
+  warnings.warn(
+/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torchrl/objectives/common.py:330: UserWarning: The name critic_network wasn't part of the annotations (dict_keys([])). Make sure it is present in the definition class.
+  warnings.warn(
+/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torchrl/objectives/common.py:330: UserWarning: The name critic_network_params wasn't part of the annotations (dict_keys([])). Make sure it is present in the definition class.
+  warnings.warn(
+/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torchrl/objectives/common.py:330: UserWarning: The name target_critic_network_params wasn't part of the annotations (dict_keys([])). Make sure it is present in the definition class.
+  warnings.warn(
+/ws/src/flipper_training/marv_rl_training/training/train_diffusion.py:720: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  checkpoint = torch.load(training_state_file, map_location=self.device)
+FTR receding-horizon training:   0% 0/73400320 [00:00<?, ?frames/s]FTR receding-horizon training:  29% 21495808/73400320 [04:26<10:43, 80631.66frames/s]FTR receding-horizon training:  29% 21495808/73400320 [04:40<10:43, 80631.66frames/s]FTR receding-horizon training:  30% 21757952/73400320 [36:04<1:57:11, 7344.46frames/s]FTR receding-horizon training:  30% 21757952/73400320 [36:20<1:57:11, 7344.46frames/s]FTR receding-horizon training:  30% 22020096/73400320 [47:10<2:45:43, 5167.06frames/s]FTR receding-horizon training:  30% 22020096/73400320 [47:20<2:45:43, 5167.06frames/s]FTR receding-horizon training:  30% 22282240/73400320 [58:17<3:50:58, 3688.69frames/s]FTR receding-horizon training:  30% 22282240/73400320 [58:30<3:50:58, 3688.69frames/s]FTR receding-horizon training:  31% 22544384/73400320 [1:09:21<5:16:03, 2681.80frames/s]FTR receding-horizon training:  31% 22544384/73400320 [1:09:41<5:16:03, 2681.80frames/s]FTR receding-horizon training:  31% 22806528/73400320 [1:20:18<7:03:06, 1992.92frames/s]FTR receding-horizon training:  31% 22806528/73400320 [1:20:31<7:03:06, 1992.92frames/s]FTR receding-horizon training:  31% 23068672/73400320 [1:31:10<9:13:18, 1516.08frames/s]FTR receding-horizon training:  31% 23068672/73400320 [1:31:21<9:13:18, 1516.08frames/s]FTR receding-horizon training:  32% 23330816/73400320 [1:42:10<11:48:32, 1177.75frames/s]FTR receding-horizon training:  32% 23330816/73400320 [1:42:21<11:48:32, 1177.75frames/s]FTR receding-horizon training:  32% 23592960/73400320 [1:52:59<14:36:24, 947.19frames/s] FTR receding-horizon training:  32% 23592960/73400320 [1:53:11<14:36:24, 947.19frames/s]FTR receding-horizon training:  32% 23855104/73400320 [2:24:09<27:23:03, 502.57frames/s]FTR receding-horizon training:  32% 23855104/73400320 [2:24:22<27:23:03, 502.57frames/s]FTR receding-horizon training:  33% 24117248/73400320 [2:35:06<28:30:42, 480.14frames/s]FTR receding-horizon training:  33% 24117248/73400320 [2:35:22<28:30:42, 480.14frames/s]FTR receding-horizon training:  33% 24379392/73400320 [2:46:00<29:30:19, 461.51frames/s]FTR receding-horizon training:  33% 24379392/73400320 [2:46:12<29:30:19, 461.51frames/s]FTR receding-horizon training:  34% 24641536/73400320 [2:56:55<30:21:43, 446.09frames/s]FTR receding-horizon training:  34% 24641536/73400320 [2:57:12<30:21:43, 446.09frames/s]FTR receding-horizon training:  34% 24903680/73400320 [3:07:55<31:06:28, 433.05frames/s]FTR receding-horizon training:  34% 24903680/73400320 [3:08:13<31:06:28, 433.05frames/s]FTR receding-horizon training:  34% 25165824/73400320 [3:18:54<31:38:27, 423.45frames/s]FTR receding-horizon training:  34% 25165824/73400320 [3:19:13<31:38:27, 423.45frames/s]FTR receding-horizon training:  35% 25427968/73400320 [3:29:47<31:56:41, 417.14frames/s]FTR receding-horizon training:  35% 25427968/73400320 [3:30:03<31:56:41, 417.14frames/s]FTR receding-horizon training:  35% 25690112/73400320 [3:40:41<32:07:34, 412.52frames/s]FTR receding-horizon training:  35% 25690112/73400320 [3:40:53<32:07:34, 412.52frames/s]FTR receding-horizon training:  35% 25952256/73400320 [4:11:52<49:36:58, 265.64frames/s]FTR receding-horizon training:  35% 25952256/73400320 [4:12:04<49:36:58, 265.64frames/s]FTR receding-horizon training:  36% 26214400/73400320 [4:22:41<44:27:48, 294.79frames/s]FTR receding-horizon training:  36% 26214400/73400320 [4:22:54<44:27:48, 294.79frames/s]FTR receding-horizon training:  36% 26476544/73400320 [4:33:35<40:47:37, 319.52frames/s]FTR receding-horizon training:  36% 26476544/73400320 [4:33:54<40:47:37, 319.52frames/s]FTR receding-horizon training:  36% 26738688/73400320 [4:44:30<38:09:17, 339.71frames/s]FTR receding-horizon training:  36% 26738688/73400320 [4:44:44<38:09:17, 339.71frames/s]FTR receding-horizon training:  37% 27000832/73400320 [4:55:22<36:12:28, 355.96frames/s]FTR receding-horizon training:  37% 27000832/73400320 [4:55:34<36:12:28, 355.96frames/s]FTR receding-horizon training:  37% 27262976/73400320 [5:06:11<34:44:01, 368.97frames/s]FTR receding-horizon training:  37% 27262976/73400320 [5:06:24<34:44:01, 368.97frames/s]FTR receding-horizon training:  38% 27525120/73400320 [5:17:01<33:39:08, 378.67frames/s]FTR receding-horizon training:  38% 27525120/73400320 [5:17:14<33:39:08, 378.67frames/s]FTR receding-horizon training:  38% 27787264/73400320 [5:27:52<32:52:08, 385.48frames/s]FTR receding-horizon training:  38% 27787264/73400320 [5:28:04<32:52:08, 385.48frames/s]FTR receding-horizon training:  38% 28049408/73400320 [5:58:40<49:27:39, 254.70frames/s]FTR receding-horizon training:  38% 28049408/73400320 [5:58:55<49:27:39, 254.70frames/s]FTR receding-horizon training:  39% 28311552/73400320 [6:09:27<43:42:56, 286.50frames/s]FTR receding-horizon training:  39% 28311552/73400320 [6:09:45<43:42:56, 286.50frames/s]FTR receding-horizon training:  39% 28573696/73400320 [6:20:13<39:37:32, 314.24frames/s]FTR receding-horizon training:  39% 28573696/73400320 [6:20:25<39:37:32, 314.24frames/s]FTR receding-horizon training:  39% 28835840/73400320 [6:31:00<36:45:14, 336.81frames/s]FTR receding-horizon training:  39% 28835840/73400320 [6:31:16<36:45:14, 336.81frames/s]FTR receding-horizon training:  40% 29097984/73400320 [6:41:52<34:45:33, 354.04frames/s]FTR receding-horizon training:  40% 29097984/73400320 [6:42:06<34:45:33, 354.04frames/s]FTR receding-horizon training:  40% 29360128/73400320 [6:52:41<33:15:56, 367.75frames/s]FTR receding-horizon training:  40% 29360128/73400320 [6:52:56<33:15:56, 367.75frames/s]FTR receding-horizon training:  40% 29622272/73400320 [7:03:25<32:06:57, 378.65frames/s]FTR receding-horizon training:  40% 29622272/73400320 [7:03:36<32:06:57, 378.65frames/s]FTR receding-horizon training:  41% 29884416/73400320 [7:14:14<31:19:22, 385.91frames/s]FTR receding-horizon training:  41% 29884416/73400320 [7:14:26<31:19:22, 385.91frames/s]FTR receding-horizon training:  41% 30146560/73400320 [7:45:06<47:15:21, 254.25frames/s]FTR receding-horizon training:  41% 30146560/73400320 [7:45:17<47:15:21, 254.25frames/s]FTR receding-horizon training:  41% 30408704/73400320 [7:55:57<41:46:17, 285.89frames/s]FTR receding-horizon training:  41% 30408704/73400320 [7:56:07<41:46:17, 285.89frames/s]FTR receding-horizon training:  42% 30670848/73400320 [8:06:50<37:56:10, 312.88frames/s]FTR receding-horizon training:  42% 30670848/73400320 [8:07:07<37:56:10, 312.88frames/s]FTR receding-horizon training:  42% 30932992/73400320 [8:17:40<35:10:01, 335.44frames/s]FTR receding-horizon training:  42% 30932992/73400320 [8:17:57<35:10:01, 335.44frames/s]FTR receding-horizon training:  42% 31195136/73400320 [8:28:30<33:10:50, 353.33frames/s]FTR receding-horizon training:  42% 31195136/73400320 [8:28:47<33:10:50, 353.33frames/s]FTR receding-horizon training:  43% 31457280/73400320 [8:39:17<31:43:02, 367.33frames/s]FTR receding-horizon training:  43% 31457280/73400320 [8:39:27<31:43:02, 367.33frames/s]FTR receding-horizon training:  43% 31719424/73400320 [8:50:03<30:37:23, 378.08frames/s]FTR receding-horizon training:  43% 31719424/73400320 [8:50:17<30:37:23, 378.08frames/s]FTR receding-horizon training:  44% 31981568/73400320 [9:00:49<29:48:29, 385.98frames/s]FTR receding-horizon training:  44% 31981568/73400320 [9:01:08<29:48:29, 385.98frames/s]FTR receding-horizon training:  44% 32243712/73400320 [9:31:47<45:02:05, 253.86frames/s]FTR receding-horizon training:  44% 32243712/73400320 [9:31:58<45:02:05, 253.86frames/s]FTR receding-horizon training:  44% 32505856/73400320 [9:42:36<39:45:58, 285.66frames/s]FTR receding-horizon training:  44% 32505856/73400320 [9:42:48<39:45:58, 285.66frames/s]FTR receding-horizon training:  45% 32768000/73400320 [9:53:21<35:58:56, 313.67frames/s]FTR receding-horizon training:  45% 32768000/73400320 [9:53:38<35:58:56, 313.67frames/s]FTR receding-horizon training:  45% 33030144/73400320 [10:04:08<33:20:15, 336.38frames/s]FTR receding-horizon training:  45% 33030144/73400320 [10:04:19<33:20:15, 336.38frames/s]FTR receding-horizon training:  45% 33292288/73400320 [10:14:53<31:24:35, 354.70frames/s]FTR receding-horizon training:  45% 33292288/73400320 [10:15:09<31:24:35, 354.70frames/s]FTR receding-horizon training:  46% 33554432/73400320 [10:25:39<30:00:57, 368.75frames/s]FTR receding-horizon training:  46% 33554432/73400320 [10:25:49<30:00:57, 368.75frames/s]FTR receding-horizon training:  46% 33816576/73400320 [10:36:29<29:03:39, 378.36frames/s]FTR receding-horizon training:  46% 33816576/73400320 [10:36:49<29:03:39, 378.36frames/s]FTR receding-horizon training:  46% 34078720/73400320 [10:47:22<28:21:46, 385.11frames/s]FTR receding-horizon training:  46% 34078720/73400320 [10:47:39<28:21:46, 385.11frames/s]FTR receding-horizon training:  47% 34340864/73400320 [11:18:16<42:44:26, 253.85frames/s]FTR receding-horizon training:  47% 34340864/73400320 [11:18:30<42:44:26, 253.85frames/s]FTR receding-horizon training:  47% 34603008/73400320 [11:29:09<37:46:18, 285.32frames/s]FTR receding-horizon training:  47% 34603008/73400320 [11:29:20<37:46:18, 285.32frames/s]FTR receding-horizon training:  48% 34865152/73400320 [11:40:00<34:14:23, 312.63frames/s]FTR receding-horizon training:  48% 34865152/73400320 [11:40:20<34:14:23, 312.63frames/s]FTR receding-horizon training:  48% 35127296/73400320 [11:50:44<31:38:31, 335.99frames/s]FTR receding-horizon training:  48% 35127296/73400320 [11:51:00<31:38:31, 335.99frames/s]FTR receding-horizon training:  48% 35389440/73400320 [12:01:28<29:46:28, 354.62frames/s]FTR receding-horizon training:  48% 35389440/73400320 [12:01:40<29:46:28, 354.62frames/s]FTR receding-horizon training:  49% 35651584/73400320 [12:12:13<28:26:48, 368.61frames/s]FTR receding-horizon training:  49% 35651584/73400320 [12:12:30<28:26:48, 368.61frames/s]FTR receding-horizon training:  49% 35913728/73400320 [12:23:00<27:29:00, 378.88frames/s]FTR receding-horizon training:  49% 35913728/73400320 [12:23:10<27:29:00, 378.88frames/s]FTR receding-horizon training:  49% 36175872/73400320 [12:33:47<26:45:39, 386.39frames/s]FTR receding-horizon training:  49% 36175872/73400320 [12:34:01<26:45:39, 386.39frames/s]FTR receding-horizon training:  50% 36438016/73400320 [13:04:40<40:22:01, 254.35frames/s]FTR receding-horizon training:  50% 36438016/73400320 [13:04:51<40:22:01, 254.35frames/s]FTR receding-horizon training:  50% 36700160/73400320 [13:15:26<35:35:51, 286.38frames/s]FTR receding-horizon training:  50% 36700160/73400320 [13:15:41<35:35:51, 286.38frames/s]FTR receding-horizon training:  50% 36962304/73400320 [13:26:12<32:12:58, 314.18frames/s]FTR receding-horizon training:  50% 36962304/73400320 [13:26:31<32:12:58, 314.18frames/s]FTR receding-horizon training:  51% 37224448/73400320 [13:37:00<29:50:38, 336.71frames/s]FTR receding-horizon training:  51% 37224448/73400320 [13:37:12<29:50:38, 336.71frames/s]FTR receding-horizon training:  51% 37486592/73400320 [13:47:48<28:08:30, 354.49frames/s]FTR receding-horizon training:  51% 37486592/73400320 [13:48:02<28:08:30, 354.49frames/s]FTR receding-horizon training:  51% 37748736/73400320 [13:58:44<26:58:55, 367.03frames/s]FTR receding-horizon training:  51% 37748736/73400320 [13:59:02<26:58:55, 367.03frames/s]FTR receding-horizon training:  52% 38010880/73400320 [14:09:31<26:01:59, 377.61frames/s]FTR receding-horizon training:  52% 38010880/73400320 [14:09:42<26:01:59, 377.61frames/s]FTR receding-horizon training:  52% 38273024/73400320 [14:20:14<25:16:21, 386.09frames/s]FTR receding-horizon training:  52% 38273024/73400320 [14:20:32<25:16:21, 386.09frames/s]FTR receding-horizon training:  52% 38535168/73400320 [14:51:07<38:05:20, 254.27frames/s]FTR receding-horizon training:  52% 38535168/73400320 [14:51:23<38:05:20, 254.27frames/s]FTR receding-horizon training:  53% 38797312/73400320 [15:01:53<33:34:06, 286.34frames/s]FTR receding-horizon training:  53% 38797312/73400320 [15:02:03<33:34:06, 286.34frames/s]FTR receding-horizon training:  53% 39059456/73400320 [15:12:39<30:22:31, 314.04frames/s]FTR receding-horizon training:  53% 39059456/73400320 [15:12:53<30:22:31, 314.04frames/s]FTR receding-horizon training:  54% 39321600/73400320 [15:23:23<28:04:39, 337.15frames/s]FTR receding-horizon training:  54% 39321600/73400320 [15:23:33<28:04:39, 337.15frames/s]FTR receding-horizon training:  54% 39583744/73400320 [15:34:11<26:28:04, 354.90frames/s]FTR receding-horizon training:  54% 39583744/73400320 [15:34:23<26:28:04, 354.90frames/s]FTR receding-horizon training:  54% 39845888/73400320 [15:44:59<25:17:47, 368.46frames/s]FTR receding-horizon training:  54% 39845888/73400320 [15:45:14<25:17:47, 368.46frames/s]2026-09-27 09:12:38 [57,153,118ms] [Error] [omni.physx.tensors.plugin] CUDA error: an illegal memory access was encountered: ../../../extensions/runtime/source/omni.physx.tensors/plugins/gpu/GpuArticulationView.cpp: 749
+2026-09-27 09:12:38 [57,153,179ms] [Error] [ftr_ppo_train] Training failed: CUDA error: an illegal memory access was encountered
+CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.
+For debugging consider passing CUDA_LAUNCH_BLOCKING=1
+Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
+
+Traceback (most recent call last):
+  File "/ws/src/flipper_training/marv_rl_training/training/train_diffusion.py", line 777, in train
+    self._train()
+  File "/ws/src/flipper_training/marv_rl_training/training/train_diffusion.py", line 847, in _train
+    for i, tensordict_data in enumerate(self.collector):
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torchrl/collectors/collectors.py", line 327, in __iter__
+    yield from self.iterator()
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torchrl/collectors/collectors.py", line 1206, in iterator
+    tensordict_out = self.rollout()
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torchrl/_utils.py", line 601, in unpack_rref_and_invoke_function
+    return func(self, *args, **kwargs)
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torch/utils/_contextlib.py", line 116, in decorate_context
+    return func(*args, **kwargs)
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torchrl/collectors/collectors.py", line 1458, in rollout
+    env_output, env_next_output = self.env.step_and_maybe_reset(env_input)
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torchrl/envs/common.py", line 3585, in step_and_maybe_reset
+    tensordict = self.step(tensordict)
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torchrl/envs/common.py", line 2031, in step
+    next_tensordict = self._step(tensordict)
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torchrl/envs/transforms/transforms.py", line 1129, in _step
+    next_tensordict = self.base_env._step(tensordict_in)
+  File "/ws/src/flipper_training/marv_rl_training/environment/chunked_env.py", line 209, in _step
+    sub = self.inner._step(
+  File "/ws/src/flipper_training/marv_rl_training/environment/ftr_env_adapter.py", line 168, in _step
+    obs_dict, reward, terminated, truncated, _info = self.ftr_env.step(action)
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/gymnasium/wrappers/order_enforcing.py", line 56, in step
+    return self.env.step(action)
+  File "/opt/IsaacLab/source/extensions/omni.isaac.lab/omni/isaac/lab/envs/direct_rl_env.py", line 322, in step
+    self.scene.write_data_to_sim()
+  File "/opt/IsaacLab/source/extensions/omni.isaac.lab/omni/isaac/lab/scene/interactive_scene.py", line 349, in write_data_to_sim
+    articulation.write_data_to_sim()
+  File "/opt/IsaacLab/source/extensions/omni.isaac.lab/omni/isaac/lab/assets/articulation/articulation.py", line 198, in write_data_to_sim
+    self.root_physx_view.set_dof_position_targets(self._joint_pos_target_sim, self._ALL_INDICES)
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/isaacsim/extsPhysics/omni.physics.tensors/omni/physics/tensors/impl/api.py", line 479, in set_dof_position_targets
+    indices = self._frontend.as_contiguous_uint32(indices)
+  File "/opt/conda/envs/isaaclab/lib/python3.10/site-packages/isaacsim/extsPhysics/omni.physics.tensors/omni/physics/tensors/impl/frontend_torch.py", line 88, in as_contiguous_uint32
+    return tensor.to(torch.int32).contiguous()
+RuntimeError: CUDA error: an illegal memory access was encountered
+CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.
+For debugging consider passing CUDA_LAUNCH_BLOCKING=1
+Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
+
+ERROR conda.cli.main_run:execute(142): `conda run env PYTHONPATH=/ws/src/FTR-Benchmark:/ws/src/flipper_training python /ws/src/flipper_training/marv_rl_training/training/train_diffusion.py --config /ws/configs/diffusion/marv_config_diffusion_p1_tqv2_fwdscale_warm.yaml --headless total_frames=52166656 scheduler_opts.total_iters=280 step_penalty_scheduler.total_iters=280 action_bonus_coef_scheduler.total_iters=280` failed. (See above for error)
+/opt/conda/envs/isaaclab/lib/python3.10/multiprocessing/resource_tracker.py:224: UserWarning: resource_tracker: There appear to be 11 leaked semaphore objects to clean up at shutdown
+srun: error: g03: task 0: Exited with exit code 75
+WARNING: Environment variable WANDB_PROJECT already has value [MARV_RL], will not forward new value [optuna_ftr_smooth_v2] from parent process environment
+WARNING: Environment variable WANDB_CONFIG_DIR already has value [/ws/.wandb_config], will not forward new value [/mnt/personal/sargapav/MARV_RL_ws_git/.wandb_config] from parent process environment
+WARNING: Environment variable WANDB_CACHE_DIR already has value [/ws/.wandb_cache], will not forward new value [/mnt/personal/sargapav/MARV_RL_ws_git/.wandb_cache] from parent process environment
+INFO:    underlay of /usr/bin/nvidia-smi required more than 50 (375) bind mounts
+2026-09-27 09:12:56 [879ms] [Error] [omni.ext.plugin] Could not load the dynamic library from /opt/conda/envs/isaaclab/lib/python3.10/site-packages/isaacsim/extscache/omni.usd.libs-1.0.1+10a4b5c0.lx64.r.cp310/bin/libMaterialXRenderHw.so. Error: libXt.so.6: cannot open shared object file: No such file or directory (note that this may be caused by a dependent library)
+2026-09-27 09:12:56 [882ms] [Error] [omni.ext.plugin] Could not load the dynamic library from /opt/conda/envs/isaaclab/lib/python3.10/site-packages/isaacsim/extscache/omni.usd.libs-1.0.1+10a4b5c0.lx64.r.cp310/bin/libMaterialXRenderGlsl.so. Error: libXt.so.6: cannot open shared object file: No such file or directory (note that this may be caused by a dependent library)
+2026-09-27 09:12:56 [885ms] [Error] [omni.ext.plugin] Could not load the dynamic library from /opt/conda/envs/isaaclab/lib/python3.10/site-packages/isaacsim/extscache/omni.usd.libs-1.0.1+10a4b5c0.lx64.r.cp310/bin/libusdBakeMtlx.so. Error: libXt.so.6: cannot open shared object file: No such file or directory (note that this may be caused by a dependent library)
+2026-09-27 09:12:56 [1,565ms] [Error] [omni.datastore] Failed to acquire exclusive lock to data store (64>=64)
+2026-09-27 09:12:56 [1,565ms] [Error] [omni.datastore] Failed to create local file data store at '/opt/conda/envs/isaaclab/lib/python3.10/site-packages/omni/cache/Kit/106.1/10a4b5c0/PhysXLocalMeshCache/LocalDS0'
+2026-09-27 09:12:57 [1,814ms] [Error] [omni.kit.stage_templates.new_stage] Failed to create directory /opt/conda/envs/isaaclab/lib/python3.10/site-packages/omni/data/documents/Kit/apps/Isaac-Sim/scripts/new_stage
+2026-09-27 09:13:00 [4,978ms] [Error] [omni.kit.app.plugin] failed to open file '/opt/conda/envs/isaaclab/lib/python3.10/site-packages/omni/data/Kit/Isaac-Sim/4.2/user.config.json' - unable to save the dictionary
+2026-09-27 09:13:00 [5,569ms] [Error] [gpu.foundation.plugin] No device could be created. Some known system issues:
+- The driver is not installed properly and requires a clean re-install.
+- Your GPUs do not support RayTracing: DXR or Vulkan ray_tracing, or hardware is excluded due to performance.
+- The driver cannot enumerate any GPU: driver, display, TCC mode or a docker issue. For Vulkan, test it with Vulkaninfo tool from Vulkan SDK, instead of nvidia-smi.
+- For Ubuntu, it requires server-xorg-core 1.20.7+ and a display to work without --no-window.
+- For Linux dockers, the setup is not complete. Install the latest driver, xServer and NVIDIA container runtime.
+
+2026-09-27 09:13:00 [5,571ms] [Error] [gpu.foundation.plugin] Invalid getDeviceInfo parameters.
+2026-09-27 09:13:01 [6,247ms] [Error] [omni.kvdb.plugin] Unexpected key-value database error
+2026-09-27 09:13:01 [6,282ms] [Error] [omni.kit.app.plugin] failed to open file '/opt/conda/envs/isaaclab/lib/python3.10/site-packages/omni/data/Kit/Isaac-Sim/4.2/user.config.json' - unable to save the dictionary
+/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torchrl/data/replay_buffers/samplers.py:34: UserWarning: Failed to import torchrl C++ binaries. Some modules (eg, prioritized replay buffers) may not work with your installation. This is likely due to a discrepancy between your package version and the PyTorch version. Make sure both are compatible. Usually, torchrl majors follow the pytorch majors within a few days around the release. For instance, TorchRL 0.5 requires PyTorch 2.4.0, and TorchRL 0.6 requires PyTorch 2.5.0.
+  warnings.warn(EXTENSION_WARNING)
+/opt/conda/envs/isaaclab/lib/python3.10/site-packages/wandb/sdk/internal/internal_api.py:13: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import parse_version
+2026-09-27 09:13:06 [11,370ms] [Error] [omni.kit.app.plugin] failed to open file '/opt/conda/envs/isaaclab/lib/python3.10/site-packages/omni/data/Kit/Isaac-Sim/4.2/user.config.json' - unable to save the dictionary
+2026-09-27 09:13:22 [27,506ms] [Error] [omni.kvdb.plugin] Unexpected key-value database error
+2026-09-27 09:13:22 [27,528ms] [Error] [omni.kit.app.plugin] failed to open file '/opt/conda/envs/isaaclab/lib/python3.10/site-packages/omni/data/Kit/Isaac-Sim/4.2/user.config.json' - unable to save the dictionary
+wandb: Currently logged in as: sargapav (marv_flipper_training). Use `wandb login --relogin` to force relogin
+/opt/conda/envs/isaaclab/lib/python3.10/site-packages/wandb/sdk/internal/internal_api.py:13: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import parse_version
+wandb: wandb version 0.30.0 is available!  To upgrade, please run:
+wandb:  $ pip install wandb --upgrade
+wandb: Tracking run with wandb version 0.12.21
+wandb: Run data is saved locally in /ws/logs/wandb/wandb/run-20260927_111323-efd189420e154eeb04e5a6c659059c96fbe48bde488e501c8fa4ae6e81d3bed7
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run diff_p1_tqv2_fwdscale_warm_11707156_attempt_2
+wandb: ⭐️ View project at https://wandb.ai/marv_flipper_training/MARV_RL
+wandb: 🚀 View run at https://wandb.ai/marv_flipper_training/MARV_RL/runs/efd189420e154eeb04e5a6c659059c96fbe48bde488e501c8fa4ae6e81d3bed7
+/ws/src/flipper_training/marv_rl_training/policies/diffusion_policy.py:458: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  sd = torch.load(weights_path, map_location=device or "cpu")
+/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torchrl/envs/transforms/transforms.py:6557: FutureWarning: The VecNorm class is to be deprecated in favor of `torchrl.envs.VecNormV2` and will be replaced by that class in v0.10. You can adapt to these changes by using the `new_api` argument or importing the `VecNormV2` class from `torchrl.envs`.
+  warnings.warn(
+/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torchrl/envs/transforms/transforms.py:6648: FutureWarning: This class is to be deprecated in favor of :class:`~torchrl.envs.VecNormV2`.
+  warnings.warn(
+/ws/src/flipper_training/marv_rl_training/training/train_diffusion.py:467: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  torch.load(self.config.vecnorm_weights_path, map_location=self.device), strict=False
+/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torchrl/envs/transforms/transforms.py:7002: UserWarning: VecNorm wasn't initialized and the tensordict is not shared. In single process settings, this is ok, but if you need to share the statistics between workers this should require some attention. Make sure that the content of VecNorm is transmitted to the workers after calling load_state_dict and not before, as other workers may not have access to the loaded TensorDict.
+  warnings.warn(
+/ws/src/flipper_training/marv_rl_training/training/train_diffusion.py:649: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  policy_state = torch.load(policy_to_load, map_location=self.device)
+/ws/src/flipper_training/marv_rl_training/training/train_diffusion.py:656: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  vecnorm_state = torch.load(vecnorm_to_load, map_location=self.device)
+/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torchrl/objectives/common.py:330: UserWarning: The name actor_network wasn't part of the annotations (dict_keys([])). Make sure it is present in the definition class.
+  warnings.warn(
+/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torchrl/objectives/common.py:330: UserWarning: The name actor_network_params wasn't part of the annotations (dict_keys([])). Make sure it is present in the definition class.
+  warnings.warn(
+/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torchrl/objectives/common.py:330: UserWarning: The name target_actor_network_params wasn't part of the annotations (dict_keys([])). Make sure it is present in the definition class.
+  warnings.warn(
+/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torchrl/objectives/common.py:330: UserWarning: The name critic_network wasn't part of the annotations (dict_keys([])). Make sure it is present in the definition class.
+  warnings.warn(
+/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torchrl/objectives/common.py:330: UserWarning: The name critic_network_params wasn't part of the annotations (dict_keys([])). Make sure it is present in the definition class.
+  warnings.warn(
+/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torchrl/objectives/common.py:330: UserWarning: The name target_critic_network_params wasn't part of the annotations (dict_keys([])). Make sure it is present in the definition class.
+  warnings.warn(
+/ws/src/flipper_training/marv_rl_training/training/train_diffusion.py:720: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  checkpoint = torch.load(training_state_file, map_location=self.device)
+FTR receding-horizon training:   0% 0/73400320 [00:00<?, ?frames/s]FTR receding-horizon training:  52% 38273024/73400320 [04:25<04:03, 143980.96frames/s]FTR receding-horizon training:  52% 38273024/73400320 [04:40<04:03, 143980.96frames/s]2026-09-27 09:31:16 [1,101,415ms] [Error] [omni.physx.tensors.plugin] CUDA error: an illegal memory access was encountered: ../../../extensions/runtime/source/omni.physx.tensors/plugins/gpu/GpuArticulationView.cpp: 749
+ERROR conda.cli.main_run:execute(142): `conda run env PYTHONPATH=/ws/src/FTR-Benchmark:/ws/src/flipper_training python /ws/src/flipper_training/marv_rl_training/training/train_diffusion.py --config /ws/configs/diffusion/marv_config_diffusion_p1_tqv2_fwdscale_warm.yaml --headless total_frames=35389440 scheduler_opts.total_iters=280 step_penalty_scheduler.total_iters=280 action_bonus_coef_scheduler.total_iters=280` failed. (See above for error)
+srun: error: g03: task 0: Exited with exit code 75
+WARNING: Environment variable WANDB_PROJECT already has value [MARV_RL], will not forward new value [optuna_ftr_smooth_v2] from parent process environment
+WARNING: Environment variable WANDB_CONFIG_DIR already has value [/ws/.wandb_config], will not forward new value [/mnt/personal/sargapav/MARV_RL_ws_git/.wandb_config] from parent process environment
+WARNING: Environment variable WANDB_CACHE_DIR already has value [/ws/.wandb_cache], will not forward new value [/mnt/personal/sargapav/MARV_RL_ws_git/.wandb_cache] from parent process environment
+INFO:    underlay of /usr/bin/nvidia-smi required more than 50 (375) bind mounts
+2026-09-27 09:31:35 [832ms] [Error] [omni.ext.plugin] Could not load the dynamic library from /opt/conda/envs/isaaclab/lib/python3.10/site-packages/isaacsim/extscache/omni.usd.libs-1.0.1+10a4b5c0.lx64.r.cp310/bin/libMaterialXRenderHw.so. Error: libXt.so.6: cannot open shared object file: No such file or directory (note that this may be caused by a dependent library)
+2026-09-27 09:31:35 [835ms] [Error] [omni.ext.plugin] Could not load the dynamic library from /opt/conda/envs/isaaclab/lib/python3.10/site-packages/isaacsim/extscache/omni.usd.libs-1.0.1+10a4b5c0.lx64.r.cp310/bin/libMaterialXRenderGlsl.so. Error: libXt.so.6: cannot open shared object file: No such file or directory (note that this may be caused by a dependent library)
+2026-09-27 09:31:35 [837ms] [Error] [omni.ext.plugin] Could not load the dynamic library from /opt/conda/envs/isaaclab/lib/python3.10/site-packages/isaacsim/extscache/omni.usd.libs-1.0.1+10a4b5c0.lx64.r.cp310/bin/libusdBakeMtlx.so. Error: libXt.so.6: cannot open shared object file: No such file or directory (note that this may be caused by a dependent library)
+2026-09-27 09:31:36 [1,512ms] [Error] [omni.datastore] Failed to acquire exclusive lock to data store (64>=64)
+2026-09-27 09:31:36 [1,512ms] [Error] [omni.datastore] Failed to create local file data store at '/opt/conda/envs/isaaclab/lib/python3.10/site-packages/omni/cache/Kit/106.1/10a4b5c0/PhysXLocalMeshCache/LocalDS0'
+2026-09-27 09:31:36 [1,763ms] [Error] [omni.kit.stage_templates.new_stage] Failed to create directory /opt/conda/envs/isaaclab/lib/python3.10/site-packages/omni/data/documents/Kit/apps/Isaac-Sim/scripts/new_stage
+2026-09-27 09:31:39 [4,803ms] [Error] [omni.kit.app.plugin] failed to open file '/opt/conda/envs/isaaclab/lib/python3.10/site-packages/omni/data/Kit/Isaac-Sim/4.2/user.config.json' - unable to save the dictionary
+2026-09-27 09:31:40 [5,387ms] [Error] [gpu.foundation.plugin] No device could be created. Some known system issues:
+- The driver is not installed properly and requires a clean re-install.
+- Your GPUs do not support RayTracing: DXR or Vulkan ray_tracing, or hardware is excluded due to performance.
+- The driver cannot enumerate any GPU: driver, display, TCC mode or a docker issue. For Vulkan, test it with Vulkaninfo tool from Vulkan SDK, instead of nvidia-smi.
+- For Ubuntu, it requires server-xorg-core 1.20.7+ and a display to work without --no-window.
+- For Linux dockers, the setup is not complete. Install the latest driver, xServer and NVIDIA container runtime.
+
+2026-09-27 09:31:40 [5,388ms] [Error] [gpu.foundation.plugin] Invalid getDeviceInfo parameters.
+2026-09-27 09:31:40 [6,034ms] [Error] [omni.kvdb.plugin] Unexpected key-value database error
+2026-09-27 09:31:40 [6,067ms] [Error] [omni.kit.app.plugin] failed to open file '/opt/conda/envs/isaaclab/lib/python3.10/site-packages/omni/data/Kit/Isaac-Sim/4.2/user.config.json' - unable to save the dictionary
+/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torchrl/data/replay_buffers/samplers.py:34: UserWarning: Failed to import torchrl C++ binaries. Some modules (eg, prioritized replay buffers) may not work with your installation. This is likely due to a discrepancy between your package version and the PyTorch version. Make sure both are compatible. Usually, torchrl majors follow the pytorch majors within a few days around the release. For instance, TorchRL 0.5 requires PyTorch 2.4.0, and TorchRL 0.6 requires PyTorch 2.5.0.
+  warnings.warn(EXTENSION_WARNING)
+/opt/conda/envs/isaaclab/lib/python3.10/site-packages/wandb/sdk/internal/internal_api.py:13: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import parse_version
+2026-09-27 09:31:45 [10,937ms] [Error] [omni.kit.app.plugin] failed to open file '/opt/conda/envs/isaaclab/lib/python3.10/site-packages/omni/data/Kit/Isaac-Sim/4.2/user.config.json' - unable to save the dictionary
+2026-09-27 09:32:01 [27,086ms] [Error] [omni.kvdb.plugin] Unexpected key-value database error
+2026-09-27 09:32:01 [27,105ms] [Error] [omni.kit.app.plugin] failed to open file '/opt/conda/envs/isaaclab/lib/python3.10/site-packages/omni/data/Kit/Isaac-Sim/4.2/user.config.json' - unable to save the dictionary
+wandb: Currently logged in as: sargapav (marv_flipper_training). Use `wandb login --relogin` to force relogin
+/opt/conda/envs/isaaclab/lib/python3.10/site-packages/wandb/sdk/internal/internal_api.py:13: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import parse_version
+wandb: wandb version 0.30.0 is available!  To upgrade, please run:
+wandb:  $ pip install wandb --upgrade
+wandb: Tracking run with wandb version 0.12.21
+wandb: Run data is saved locally in /ws/logs/wandb/wandb/run-20260927_113202-0cf8d6eef2654d737ee4b0a0a438b4cbd66c194e27ccdfc00b10b9f0d50bddc6
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run diff_p1_tqv2_fwdscale_warm_11707156_attempt_3
+wandb: ⭐️ View project at https://wandb.ai/marv_flipper_training/MARV_RL
+wandb: 🚀 View run at https://wandb.ai/marv_flipper_training/MARV_RL/runs/0cf8d6eef2654d737ee4b0a0a438b4cbd66c194e27ccdfc00b10b9f0d50bddc6
+/ws/src/flipper_training/marv_rl_training/policies/diffusion_policy.py:458: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  sd = torch.load(weights_path, map_location=device or "cpu")
+/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torchrl/envs/transforms/transforms.py:6557: FutureWarning: The VecNorm class is to be deprecated in favor of `torchrl.envs.VecNormV2` and will be replaced by that class in v0.10. You can adapt to these changes by using the `new_api` argument or importing the `VecNormV2` class from `torchrl.envs`.
+  warnings.warn(
+/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torchrl/envs/transforms/transforms.py:6648: FutureWarning: This class is to be deprecated in favor of :class:`~torchrl.envs.VecNormV2`.
+  warnings.warn(
+/ws/src/flipper_training/marv_rl_training/training/train_diffusion.py:467: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  torch.load(self.config.vecnorm_weights_path, map_location=self.device), strict=False
+/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torchrl/envs/transforms/transforms.py:7002: UserWarning: VecNorm wasn't initialized and the tensordict is not shared. In single process settings, this is ok, but if you need to share the statistics between workers this should require some attention. Make sure that the content of VecNorm is transmitted to the workers after calling load_state_dict and not before, as other workers may not have access to the loaded TensorDict.
+  warnings.warn(
+/ws/src/flipper_training/marv_rl_training/training/train_diffusion.py:649: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  policy_state = torch.load(policy_to_load, map_location=self.device)
+/ws/src/flipper_training/marv_rl_training/training/train_diffusion.py:656: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  vecnorm_state = torch.load(vecnorm_to_load, map_location=self.device)
+/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torchrl/objectives/common.py:330: UserWarning: The name actor_network wasn't part of the annotations (dict_keys([])). Make sure it is present in the definition class.
+  warnings.warn(
+/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torchrl/objectives/common.py:330: UserWarning: The name actor_network_params wasn't part of the annotations (dict_keys([])). Make sure it is present in the definition class.
+  warnings.warn(
+/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torchrl/objectives/common.py:330: UserWarning: The name target_actor_network_params wasn't part of the annotations (dict_keys([])). Make sure it is present in the definition class.
+  warnings.warn(
+/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torchrl/objectives/common.py:330: UserWarning: The name critic_network wasn't part of the annotations (dict_keys([])). Make sure it is present in the definition class.
+  warnings.warn(
+/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torchrl/objectives/common.py:330: UserWarning: The name critic_network_params wasn't part of the annotations (dict_keys([])). Make sure it is present in the definition class.
+  warnings.warn(
+/opt/conda/envs/isaaclab/lib/python3.10/site-packages/torchrl/objectives/common.py:330: UserWarning: The name target_critic_network_params wasn't part of the annotations (dict_keys([])). Make sure it is present in the definition class.
+  warnings.warn(
+/ws/src/flipper_training/marv_rl_training/training/train_diffusion.py:720: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  checkpoint = torch.load(training_state_file, map_location=self.device)
+FTR receding-horizon training:   0% 0/73400320 [00:00<?, ?frames/s]FTR receding-horizon training:  52% 38273024/73400320 [04:30<04:07, 141660.85frames/s]FTR receding-horizon training:  52% 38273024/73400320 [04:50<04:07, 141660.85frames/s]FTR receding-horizon training:  52% 38535168/73400320 [36:02<44:41, 13000.13frames/s] FTR receding-horizon training:  52% 38535168/73400320 [36:20<44:41, 13000.13frames/s]FTR receding-horizon training:  53% 38797312/73400320 [46:53<1:03:19, 9106.76frames/s]FTR receding-horizon training:  53% 38797312/73400320 [47:11<1:03:19, 9106.76frames/s]FTR receding-horizon training:  53% 39059456/73400320 [57:45<1:28:53, 6438.70frames/s]FTR receding-horizon training:  53% 39059456/73400320 [58:01<1:28:53, 6438.70frames/s]FTR receding-horizon training:  54% 39321600/73400320 [1:08:38<2:03:27, 4600.44frames/s]FTR receding-horizon training:  54% 39321600/73400320 [1:08:51<2:03:27, 4600.44frames/s]FTR receding-horizon training:  54% 39583744/73400320 [1:19:34<2:49:39, 3321.88frames/s]FTR receding-horizon training:  54% 39583744/73400320 [1:19:51<2:49:39, 3321.88frames/s]FTR receding-horizon training:  54% 39845888/73400320 [1:30:27<3:49:17, 2438.95frames/s]FTR receding-horizon training:  54% 39845888/73400320 [1:30:41<3:49:17, 2438.95frames/s]FTR receding-horizon training:  55% 40108032/73400320 [1:41:23<5:04:27, 1822.47frames/s]FTR receding-horizon training:  55% 40108032/73400320 [1:41:41<5:04:27, 1822.47frames/s]FTR receding-horizon training:  55% 40370176/73400320 [1:52:16<6:34:37, 1395.02frames/s]FTR receding-horizon training:  55% 40370176/73400320 [1:52:31<6:34:37, 1395.02frames/s]FTR receding-horizon training:  55% 40632320/73400320 [2:23:42<13:00:32, 699.69frames/s]FTR receding-horizon training:  55% 40632320/73400320 [2:23:52<13:00:32, 699.69frames/s]FTR receding-horizon training:  56% 40894464/73400320 [2:34:31<14:11:13, 636.45frames/s]FTR receding-horizon training:  56% 40894464/73400320 [2:34:42<14:11:13, 636.45frames/s]FTR receding-horizon training:  56% 41156608/73400320 [2:45:25<15:25:11, 580.84frames/s]FTR receding-horizon training:  56% 41156608/73400320 [2:45:42<15:25:11, 580.84frames/s]FTR receding-horizon training:  56% 41418752/73400320 [2:56:15<16:33:40, 536.42frames/s]FTR receding-horizon training:  56% 41418752/73400320 [2:56:32<16:33:40, 536.42frames/s]FTR receding-horizon training:  57% 41680896/73400320 [3:06:57<17:31:21, 502.84frames/s]FTR receding-horizon training:  57% 41680896/73400320 [3:07:13<17:31:21, 502.84frames/s]FTR receding-horizon training:  57% 41943040/73400320 [3:17:40<18:19:09, 476.99frames/s]FTR receding-horizon training:  57% 41943040/73400320 [3:17:53<18:19:09, 476.99frames/s]FTR receding-horizon training:  57% 42205184/73400320 [3:28:22<18:55:39, 457.81frames/s]FTR receding-horizon training:  57% 42205184/73400320 [3:28:33<18:55:39, 457.81frames/s]FTR receding-horizon training:  58% 42467328/73400320 [3:39:12<19:25:53, 442.19frames/s]FTR receding-horizon training:  58% 42467328/73400320 [3:39:23<19:25:53, 442.19frames/s]FTR receding-horizon training:  58% 42729472/73400320 [4:10:30<30:39:50, 277.84frames/s]FTR receding-horizon training:  58% 42729472/73400320 [4:10:44<30:39:50, 277.84frames/s]FTR receding-horizon training:  59% 42991616/73400320 [4:21:15<27:42:24, 304.87frames/s]FTR receding-horizon training:  59% 42991616/73400320 [4:21:34<27:42:24, 304.87frames/s]FTR receding-horizon training:  59% 43253760/73400320 [4:32:00<25:30:23, 328.31frames/s]FTR receding-horizon training:  59% 43253760/73400320 [4:32:14<25:30:23, 328.31frames/s]FTR receding-horizon training:  59% 43515904/73400320 [4:42:52<23:55:58, 346.86frames/s]FTR receding-horizon training:  59% 43515904/73400320 [4:43:04<23:55:58, 346.86frames/s]FTR receding-horizon training:  60% 43778048/73400320 [4:53:36<22:41:58, 362.49frames/s]FTR receding-horizon training:  60% 43778048/73400320 [4:53:54<22:41:58, 362.49frames/s]FTR receding-horizon training:  60% 44040192/73400320 [5:04:28<21:50:21, 373.43frames/s]FTR receding-horizon training:  60% 44040192/73400320 [5:04:44<21:50:21, 373.43frames/s]FTR receding-horizon training:  60% 44302336/73400320 [5:15:20<21:11:45, 381.34frames/s]FTR receding-horizon training:  60% 44302336/73400320 [5:15:35<21:11:45, 381.34frames/s]FTR receding-horizon training:  61% 44564480/73400320 [5:26:04<20:36:26, 388.69frames/s]FTR receding-horizon training:  61% 44564480/73400320 [5:26:15<20:36:26, 388.69frames/s]FTR receding-horizon training:  61% 44826624/73400320 [5:57:16<31:14:10, 254.10frames/s]FTR receding-horizon training:  61% 44826624/73400320 [5:57:35<31:14:10, 254.10frames/s]FTR receding-horizon training:  61% 45088768/73400320 [6:08:02<27:29:14, 286.11frames/s]FTR receding-horizon training:  61% 45088768/73400320 [6:08:15<27:29:14, 286.11frames/s]FTR receding-horizon training:  62% 45350912/73400320 [6:18:52<24:52:01, 313.33frames/s]FTR receding-horizon training:  62% 45350912/73400320 [6:19:06<24:52:01, 313.33frames/s]FTR receding-horizon training:  62% 45613056/73400320 [6:29:43<22:59:48, 335.64frames/s]FTR receding-horizon training:  62% 45613056/73400320 [6:29:56<22:59:48, 335.64frames/s]FTR receding-horizon training:  62% 45875200/73400320 [6:40:26<21:34:43, 354.32frames/s]FTR receding-horizon training:  62% 45875200/73400320 [6:40:46<21:34:43, 354.32frames/s]FTR receding-horizon training:  63% 46137344/73400320 [6:51:12<20:33:36, 368.34frames/s]FTR receding-horizon training:  63% 46137344/73400320 [6:51:26<20:33:36, 368.34frames/s]FTR receding-horizon training:  63% 46399488/73400320 [7:02:06<19:52:06, 377.49frames/s]FTR receding-horizon training:  63% 46399488/73400320 [7:02:26<19:52:06, 377.49frames/s]FTR receding-horizon training:  64% 46661632/73400320 [7:12:54<19:16:41, 385.28frames/s]FTR receding-horizon training:  64% 46661632/73400320 [7:13:06<19:16:41, 385.28frames/s]FTR receding-horizon training:  64% 46923776/73400320 [7:44:02<29:04:48, 252.91frames/s]FTR receding-horizon training:  64% 46923776/73400320 [7:44:17<29:04:48, 252.91frames/s]FTR receding-horizon training:  64% 47185920/73400320 [7:54:46<25:31:29, 285.28frames/s]FTR receding-horizon training:  64% 47185920/73400320 [7:54:57<25:31:29, 285.28frames/s]FTR receding-horizon training:  65% 47448064/73400320 [8:05:31<23:00:41, 313.27frames/s]FTR receding-horizon training:  65% 47448064/73400320 [8:05:47<23:00:41, 313.27frames/s]FTR receding-horizon training:  65% 47710208/73400320 [8:16:24<21:16:40, 335.38frames/s]FTR receding-horizon training:  65% 47710208/73400320 [8:16:37<21:16:40, 335.38frames/s]FTR receding-horizon training:  65% 47972352/73400320 [8:27:07<19:56:17, 354.26frames/s]FTR receding-horizon training:  65% 47972352/73400320 [8:27:18<19:56:17, 354.26frames/s]FTR receding-horizon training:  66% 48234496/73400320 [8:37:49<18:56:45, 368.97frames/s]FTR receding-horizon training:  66% 48234496/73400320 [8:38:08<18:56:45, 368.97frames/s]FTR receding-horizon training:  66% 48496640/73400320 [8:48:38<18:16:00, 378.70frames/s]FTR receding-horizon training:  66% 48496640/73400320 [8:48:58<18:16:00, 378.70frames/s]FTR receding-horizon training:  66% 48758784/73400320 [8:59:26<17:43:33, 386.15frames/s]FTR receding-horizon training:  66% 48758784/73400320 [8:59:38<17:43:33, 386.15frames/s]FTR receding-horizon training:  67% 49020928/73400320 [9:30:30<26:43:12, 253.44frames/s]FTR receding-horizon training:  67% 49020928/73400320 [9:30:49<26:43:12, 253.44frames/s]FTR receding-horizon training:  67% 49283072/73400320 [9:41:16<23:27:22, 285.61frames/s]FTR receding-horizon training:  67% 49283072/73400320 [9:41:29<23:27:22, 285.61frames/s]FTR receding-horizon training:  68% 49545216/73400320 [9:52:08<21:11:19, 312.73frames/s]FTR receding-horizon training:  68% 49545216/73400320 [9:52:19<21:11:19, 312.73frames/s]FTR receding-horizon training:  68% 49807360/73400320 [10:02:53<19:30:26, 335.96frames/s]FTR receding-horizon training:  68% 49807360/73400320 [10:03:09<19:30:26, 335.96frames/s]FTR receding-horizon training:  68% 50069504/73400320 [10:13:41<18:18:32, 353.97frames/s]FTR receding-horizon training:  68% 50069504/73400320 [10:13:59<18:18:32, 353.97frames/s]FTR receding-horizon training:  69% 50331648/73400320 [10:24:26<17:23:55, 368.30frames/s]FTR receding-horizon training:  69% 50331648/73400320 [10:24:39<17:23:55, 368.30frames/s]FTR receding-horizon training:  69% 50593792/73400320 [10:35:21<16:47:19, 377.35frames/s]FTR receding-horizon training:  69% 50593792/73400320 [10:35:39<16:47:19, 377.35frames/s]FTR receding-horizon training:  69% 50855936/73400320 [10:46:15<16:18:12, 384.11frames/s]FTR receding-horizon training:  69% 50855936/73400320 [10:46:29<16:18:12, 384.11frames/s]FTR receding-horizon training:  70% 51118080/73400320 [11:17:22<24:30:25, 252.56frames/s]FTR receding-horizon training:  70% 51118080/73400320 [11:17:40<24:30:25, 252.56frames/s]FTR receding-horizon training:  70% 51380224/73400320 [11:28:17<21:32:21, 283.98frames/s]FTR receding-horizon training:  70% 51380224/73400320 [11:28:30<21:32:21, 283.98frames/s]FTR receding-horizon training:  70% 51642368/73400320 [11:39:07<19:23:21, 311.71frames/s]FTR receding-horizon training:  70% 51642368/73400320 [11:39:20<19:23:21, 311.71frames/s]FTR receding-horizon training:  71% 51904512/73400320 [11:50:09<17:56:20, 332.85frames/s]FTR receding-horizon training:  71% 51904512/73400320 [11:50:20<17:56:20, 332.85frames/s]FTR receding-horizon training:  71% 52166656/73400320 [12:01:00<16:47:45, 351.17frames/s]FTR receding-horizon training:  71% 52166656/73400320 [12:01:11<16:47:45, 351.17frames/s]FTR receding-horizon training:  71% 52428800/73400320 [12:11:47<15:55:34, 365.77frames/s]FTR receding-horizon training:  71% 52428800/73400320 [12:12:01<15:55:34, 365.77frames/s]FTR receding-horizon training:  72% 52690944/73400320 [12:22:49<15:21:56, 374.38frames/s]FTR receding-horizon training:  72% 52690944/73400320 [12:23:01<15:21:56, 374.38frames/s]FTR receding-horizon training:  72% 52953088/73400320 [12:33:46<14:53:26, 381.43frames/s]FTR receding-horizon training:  72% 52953088/73400320 [12:34:01<14:53:26, 381.43frames/s]FTR receding-horizon training:  72% 53215232/73400320 [13:05:13<22:23:46, 250.35frames/s]FTR receding-horizon training:  72% 53215232/73400320 [13:05:32<22:23:46, 250.35frames/s]FTR receding-horizon training:  73% 53477376/73400320 [13:16:02<19:35:12, 282.54frames/s]FTR receding-horizon training:  73% 53477376/73400320 [13:16:22<19:35:12, 282.54frames/s]FTR receding-horizon training:  73% 53739520/73400320 [13:27:02<17:39:26, 309.29frames/s]FTR receding-horizon training:  73% 53739520/73400320 [13:27:22<17:39:26, 309.29frames/s]FTR receding-horizon training:  74% 54001664/73400320 [13:38:04<16:16:31, 331.08frames/s]FTR receding-horizon training:  74% 54001664/73400320 [13:38:22<16:16:31, 331.08frames/s]FTR receding-horizon training:  74% 54263808/73400320 [13:48:51<15:10:26, 350.32frames/s]FTR receding-horizon training:  74% 54263808/73400320 [13:49:02<15:10:26, 350.32frames/s]FTR receding-horizon training:  74% 54525952/73400320 [13:59:47<14:24:44, 363.78frames/s]FTR receding-horizon training:  74% 54525952/73400320 [14:00:02<14:24:44, 363.78frames/s]FTR receding-horizon training:  75% 54788096/73400320 [14:10:37<13:47:34, 374.83frames/s]FTR receding-horizon training:  75% 54788096/73400320 [14:10:53<13:47:34, 374.83frames/s]FTR receding-horizon training:  75% 55050240/73400320 [14:21:37<13:22:21, 381.17frames/s]FTR receding-horizon training:  75% 55050240/73400320 [14:21:53<13:22:21, 381.17frames/s]FTR receding-horizon training:  75% 55312384/73400320 [14:52:56<20:01:37, 250.88frames/s]FTR receding-horizon training:  75% 55312384/73400320 [14:53:13<20:01:37, 250.88frames/s]FTR receding-horizon training:  76% 55574528/73400320 [15:03:57<17:33:49, 281.92frames/s]FTR receding-horizon training:  76% 55574528/73400320 [15:04:13<17:33:49, 281.92frames/s]FTR receding-horizon training:  76% 55836672/73400320 [15:14:47<15:44:27, 309.94frames/s]FTR receding-horizon training:  76% 55836672/73400320 [15:15:04<15:44:27, 309.94frames/s]FTR receding-horizon training:  76% 56098816/73400320 [15:25:42<14:27:28, 332.41frames/s]FTR receding-horizon training:  76% 56098816/73400320 [15:25:54<14:27:28, 332.41frames/s]FTR receding-horizon training:  77% 56360960/73400320 [15:36:39<13:31:39, 349.89frames/s]FTR receding-horizon training:  77% 56360960/73400320 [15:36:54<13:31:39, 349.89frames/s]FTR receding-horizon training:  77% 56623104/73400320 [15:47:36<12:49:28, 363.39frames/s]FTR receding-horizon training:  77% 56623104/73400320 [15:47:54<12:49:28, 363.39frames/s]FTR receding-horizon training:  78% 56885248/73400320 [15:58:29<12:15:58, 374.00frames/s]FTR receding-horizon training:  78% 56885248/73400320 [15:58:44<12:15:58, 374.00frames/s]FTR receding-horizon training:  78% 57147392/73400320 [16:09:27<11:51:03, 380.95frames/s]FTR receding-horizon training:  78% 57147392/73400320 [16:09:44<11:51:03, 380.95frames/s]FTR receding-horizon training:  78% 57409536/73400320 [16:40:56<17:45:58, 250.02frames/s]FTR receding-horizon training:  78% 57409536/73400320 [16:41:15<17:45:58, 250.02frames/s]FTR receding-horizon training:  79% 57671680/73400320 [16:51:48<15:29:23, 282.06frames/s]FTR receding-horizon training:  79% 57671680/73400320 [16:52:05<15:29:23, 282.06frames/s]FTR receding-horizon training:  79% 57933824/73400320 [17:02:50<13:55:02, 308.70frames/s]FTR receding-horizon training:  79% 57933824/73400320 [17:03:05<13:55:02, 308.70frames/s]FTR receding-horizon training:  79% 58195968/73400320 [17:13:50<12:45:54, 330.86frames/s]FTR receding-horizon training:  79% 58195968/73400320 [17:14:05<12:45:54, 330.86frames/s]FTR receding-horizon training:  80% 58458112/73400320 [17:24:40<11:52:07, 349.71frames/s]FTR receding-horizon training:  80% 58458112/73400320 [17:24:55<11:52:07, 349.71frames/s]FTR receding-horizon training:  80% 58720256/73400320 [17:35:39<11:14:28, 362.75frames/s]FTR receding-horizon training:  80% 58720256/73400320 [17:35:56<11:14:28, 362.75frames/s]FTR receding-horizon training:  80% 58982400/73400320 [17:46:32<10:43:07, 373.64frames/s]FTR receding-horizon training:  80% 58982400/73400320 [17:46:46<10:43:07, 373.64frames/s]FTR receding-horizon training:  81% 59244544/73400320 [17:57:26<10:18:40, 381.34frames/s]FTR receding-horizon training:  81% 59244544/73400320 [17:57:46<10:18:40, 381.34frames/s]FTR receding-horizon training:  81% 59506688/73400320 [18:28:46<15:23:15, 250.81frames/s]FTR receding-horizon training:  81% 59506688/73400320 [18:28:56<15:23:15, 250.81frames/s]FTR receding-horizon training:  81% 59768832/73400320 [18:39:45<13:25:27, 282.06frames/s]FTR receding-horizon training:  81% 59768832/73400320 [18:39:57<13:25:27, 282.06frames/s]FTR receding-horizon training:  82% 60030976/73400320 [18:50:40<12:00:00, 309.47frames/s]FTR receding-horizon training:  82% 60030976/73400320 [18:50:57<12:00:00, 309.47frames/s]FTR receding-horizon training:  82% 60293120/73400320 [19:01:30<10:56:34, 332.72frames/s]FTR receding-horizon training:  82% 60293120/73400320 [19:01:47<10:56:34, 332.72frames/s]FTR receding-horizon training:  82% 60555264/73400320 [19:12:18<10:09:03, 351.50frames/s]FTR receding-horizon training:  82% 60555264/73400320 [19:12:37<10:09:03, 351.50frames/s]FTR receding-horizon training:  83% 60817408/73400320 [19:23:09<9:34:02, 365.33frames/s] FTR receding-horizon training:  83% 60817408/73400320 [19:23:27<9:34:02, 365.33frames/s]FTR receding-horizon training:  83% 61079552/73400320 [19:33:59<9:06:12, 375.95frames/s]FTR receding-horizon training:  83% 61079552/73400320 [19:34:18<9:06:12, 375.95frames/s]FTR receding-horizon training:  84% 61341696/73400320 [19:44:45<8:42:47, 384.43frames/s]FTR receding-horizon training:  84% 61341696/73400320 [19:44:58<8:42:47, 384.43frames/s]FTR receding-horizon training:  84% 61603840/73400320 [20:15:55<12:58:37, 252.51frames/s]FTR receding-horizon training:  84% 61603840/73400320 [20:16:08<12:58:37, 252.51frames/s]FTR receding-horizon training:  84% 61865984/73400320 [20:26:47<11:16:18, 284.24frames/s]FTR receding-horizon training:  84% 61865984/73400320 [20:26:59<11:16:18, 284.24frames/s]FTR receding-horizon training:  85% 62128128/73400320 [20:37:42<10:03:37, 311.23frames/s]FTR receding-horizon training:  85% 62128128/73400320 [20:37:59<10:03:37, 311.23frames/s]FTR receding-horizon training:  85% 62390272/73400320 [20:48:37<9:10:15, 333.48frames/s] FTR receding-horizon training:  85% 62390272/73400320 [20:48:49<9:10:15, 333.48frames/s]FTR receding-horizon training:  85% 62652416/73400320 [20:59:29<8:29:43, 351.43frames/s]FTR receding-horizon training:  85% 62652416/73400320 [20:59:49<8:29:43, 351.43frames/s]FTR receding-horizon training:  86% 62914560/73400320 [21:10:20<7:58:17, 365.39frames/s]FTR receding-horizon training:  86% 62914560/73400320 [21:10:39<7:58:17, 365.39frames/s]FTR receding-horizon training:  86% 63176704/73400320 [21:21:07<7:32:33, 376.51frames/s]FTR receding-horizon training:  86% 63176704/73400320 [21:21:19<7:32:33, 376.51frames/s]FTR receding-horizon training:  86% 63438848/73400320 [21:31:49<7:10:35, 385.57frames/s]FTR receding-horizon training:  86% 63438848/73400320 [21:31:59<7:10:35, 385.57frames/s]FTR receding-horizon training:  87% 63700992/73400320 [22:03:04<10:40:21, 252.44frames/s]FTR receding-horizon training:  87% 63700992/73400320 [22:03:20<10:40:21, 252.44frames/s]FTR receding-horizon training:  87% 63963136/73400320 [22:14:00<9:14:17, 283.76frames/s] FTR receding-horizon training:  87% 63963136/73400320 [22:14:10<9:14:17, 283.76frames/s]FTR receding-horizon training:  88% 64225280/73400320 [22:24:53<8:11:29, 311.13frames/s]FTR receding-horizon training:  88% 64225280/73400320 [22:25:10<8:11:29, 311.13frames/s]FTR receding-horizon training:  88% 64487424/73400320 [22:35:44<7:24:50, 333.94frames/s]FTR receding-horizon training:  88% 64487424/73400320 [22:36:01<7:24:50, 333.94frames/s]FTR receding-horizon training:  88% 64749568/73400320 [22:46:34<6:49:33, 352.03frames/s]FTR receding-horizon training:  88% 64749568/73400320 [22:46:51<6:49:33, 352.03frames/s]FTR receding-horizon training:  89% 65011712/73400320 [22:57:34<6:23:36, 364.46frames/s]FTR receding-horizon training:  89% 65011712/73400320 [22:57:51<6:23:36, 364.46frames/s]FTR receding-horizon training:  89% 65273856/73400320 [23:08:30<6:01:48, 374.34frames/s]FTR receding-horizon training:  89% 65273856/73400320 [23:08:41<6:01:48, 374.34frames/s]FTR receding-horizon training:  89% 65536000/73400320 [23:19:21<5:42:42, 382.46frames/s]FTR receding-horizon training:  89% 65536000/73400320 [23:19:41<5:42:42, 382.46frames/s]FTR receding-horizon training:  90% 65798144/73400320 [23:50:36<8:23:48, 251.49frames/s]FTR receding-horizon training:  90% 65798144/73400320 [23:50:52<8:23:48, 251.49frames/s]FTR receding-horizon training:  90% 66060288/73400320 [24:01:40<7:13:22, 282.29frames/s]FTR receding-horizon training:  90% 66060288/73400320 [24:01:52<7:13:22, 282.29frames/s]FTR receding-horizon training:  90% 66322432/73400320 [24:12:36<6:21:11, 309.46frames/s]FTR receding-horizon training:  90% 66322432/73400320 [24:12:52<6:21:11, 309.46frames/s]FTR receding-horizon training:  91% 66584576/73400320 [24:23:25<5:41:12, 332.92frames/s]FTR receding-horizon training:  91% 66584576/73400320 [24:23:42<5:41:12, 332.92frames/s]FTR receding-horizon training:  91% 66846720/73400320 [24:34:13<5:10:46, 351.47frames/s]FTR receding-horizon training:  91% 66846720/73400320 [24:34:32<5:10:46, 351.47frames/s]FTR receding-horizon training:  91% 67108864/73400320 [24:45:02<4:46:42, 365.72frames/s]FTR receding-horizon training:  91% 67108864/73400320 [24:45:22<4:46:42, 365.72frames/s]FTR receding-horizon training:  92% 67371008/73400320 [24:56:00<4:27:57, 375.01frames/s]FTR receding-horizon training:  92% 67371008/73400320 [24:56:12<4:27:57, 375.01frames/s]FTR receding-horizon training:  92% 67633152/73400320 [25:06:58<4:11:50, 381.67frames/s]FTR receding-horizon training:  92% 67633152/73400320 [25:07:12<4:11:50, 381.67frames/s]FTR receding-horizon training:  92% 67895296/73400320 [25:38:20<6:05:50, 250.79frames/s]FTR receding-horizon training:  92% 67895296/73400320 [25:38:33<6:05:50, 250.79frames/s]FTR receding-horizon training:  93% 68157440/73400320 [25:49:15<5:09:22, 282.44frames/s]FTR receding-horizon training:  93% 68157440/73400320 [25:49:34<5:09:22, 282.44frames/s]FTR receding-horizon training:  93% 68419584/73400320 [26:00:10<4:27:56, 309.81frames/s]FTR receding-horizon training:  93% 68419584/73400320 [26:00:24<4:27:56, 309.81frames/s]FTR receding-horizon training:  94% 68681728/73400320 [26:11:03<3:56:27, 332.59frames/s]FTR receding-horizon training:  94% 68681728/73400320 [26:11:14<3:56:27, 332.59frames/s]FTR receding-horizon training:  94% 68943872/73400320 [26:22:01<3:32:18, 349.84frames/s]FTR receding-horizon training:  94% 68943872/73400320 [26:22:14<3:32:18, 349.84frames/s]FTR receding-horizon training:  94% 69206016/73400320 [26:32:55<3:12:11, 363.71frames/s]FTR receding-horizon training:  94% 69206016/73400320 [26:33:14<3:12:11, 363.71frames/s]FTR receding-horizon training:  95% 69468160/73400320 [26:43:54<2:55:29, 373.43frames/s]FTR receding-horizon training:  95% 69468160/73400320 [26:44:04<2:55:29, 373.43frames/s]FTR receding-horizon training:  95% 69730304/73400320 [26:54:51<2:40:39, 380.75frames/s]FTR receding-horizon training:  95% 69730304/73400320 [26:55:04<2:40:39, 380.75frames/s]FTR receding-horizon training:  95% 69992448/73400320 [27:26:16<3:47:00, 250.21frames/s]FTR receding-horizon training:  95% 69992448/73400320 [27:26:35<3:47:00, 250.21frames/s]FTR receding-horizon training:  96% 70254592/73400320 [27:37:09<3:05:50, 282.11frames/s]FTR receding-horizon training:  96% 70254592/73400320 [27:37:25<3:05:50, 282.11frames/s]FTR receding-horizon training:  96% 70516736/73400320 [27:47:54<2:34:41, 310.68frames/s]FTR receding-horizon training:  96% 70516736/73400320 [27:48:05<2:34:41, 310.68frames/s]FTR receding-horizon training:  96% 70778880/73400320 [27:58:41<2:10:49, 333.97frames/s]FTR receding-horizon training:  96% 70778880/73400320 [27:58:55<2:10:49, 333.97frames/s]FTR receding-horizon training:  97% 71041024/73400320 [28:09:35<1:51:48, 351.66frames/s]FTR receding-horizon training:  97% 71041024/73400320 [28:09:46<1:51:48, 351.66frames/s]FTR receding-horizon training:  97% 71303168/73400320 [28:20:20<1:35:24, 366.34frames/s]FTR receding-horizon training:  97% 71303168/73400320 [28:20:36<1:35:24, 366.34frames/s]FTR receding-horizon training:  98% 71565312/73400320 [28:31:09<1:21:08, 376.89frames/s]FTR receding-horizon training:  98% 71565312/73400320 [28:31:26<1:21:08, 376.89frames/s]FTR receding-horizon training:  98% 71827456/73400320 [28:42:00<1:08:13, 384.23frames/s]FTR receding-horizon training:  98% 71827456/73400320 [28:42:16<1:08:13, 384.23frames/s]FTR receding-horizon training:  98% 72089600/73400320 [29:13:11<1:26:33, 252.37frames/s]FTR receding-horizon training:  98% 72089600/73400320 [29:13:27<1:26:33, 252.37frames/s]FTR receding-horizon training:  99% 72351744/73400320 [29:24:09<1:01:37, 283.59frames/s]FTR receding-horizon training:  99% 72351744/73400320 [29:24:27<1:01:37, 283.59frames/s]FTR receding-horizon training:  99% 72613888/73400320 [29:35:00<42:07, 311.17frames/s]  FTR receding-horizon training:  99% 72613888/73400320 [29:35:17<42:07, 311.17frames/s]FTR receding-horizon training:  99% 72876032/73400320 [29:45:47<26:07, 334.46frames/s]FTR receding-horizon training:  99% 72876032/73400320 [29:45:57<26:07, 334.46frames/s]FTR receding-horizon training: 100% 73138176/73400320 [29:56:38<12:24, 352.33frames/s]FTR receding-horizon training: 100% 73138176/73400320 [29:56:57<12:24, 352.33frames/s]FTR receding-horizon training: 100% 73400320/73400320 [30:07:24<00:00, 366.78frames/s]FTR receding-horizon training: 100% 73400320/73400320 [30:07:37<00:00, 366.78frames/s]                                                                                      wandb: Waiting for W&B process to finish... (success).
+wandb: - 69.633 MB of 69.633 MB uploaded (0.000 MB deduped)wandb: \ 69.633 MB of 69.633 MB uploaded (0.000 MB deduped)wandb: | 69.633 MB of 69.660 MB uploaded (0.000 MB deduped)wandb: / 63.020 MB of 69.696 MB uploaded (0.000 MB deduped)wandb: - 63.020 MB of 69.696 MB uploaded (0.000 MB deduped)wandb: \ 63.035 MB of 69.696 MB uploaded (0.000 MB deduped)wandb: | 63.974 MB of 69.696 MB uploaded (0.000 MB deduped)wandb: / 63.974 MB of 69.696 MB uploaded (0.000 MB deduped)wandb: - 63.974 MB of 69.696 MB uploaded (0.000 MB deduped)wandb: \ 63.974 MB of 69.696 MB uploaded (0.000 MB deduped)wandb: | 64.286 MB of 69.696 MB uploaded (0.000 MB deduped)wandb: / 64.286 MB of 69.696 MB uploaded (0.000 MB deduped)wandb: - 64.286 MB of 69.696 MB uploaded (0.000 MB deduped)wandb: \ 65.693 MB of 69.696 MB uploaded (0.000 MB deduped)wandb: | 66.005 MB of 69.696 MB uploaded (0.000 MB deduped)wandb: / 67.052 MB of 69.696 MB uploaded (0.000 MB deduped)wandb: - 68.708 MB of 69.696 MB uploaded (0.000 MB deduped)wandb: \ 69.696 MB of 69.696 MB uploaded (0.000 MB deduped)wandb: | 69.696 MB of 69.696 MB uploaded (0.000 MB deduped)wandb: / 69.696 MB of 69.696 MB uploaded (0.000 MB deduped)wandb: - 69.696 MB of 69.696 MB uploaded (0.000 MB deduped)wandb: \ 69.696 MB of 69.696 MB uploaded (0.000 MB deduped)wandb: | 69.696 MB of 69.696 MB uploaded (0.000 MB deduped)wandb: / 69.696 MB of 69.696 MB uploaded (0.000 MB deduped)wandb: - 69.696 MB of 69.696 MB uploaded (0.000 MB deduped)wandb:                                                                                
+wandb: 
+wandb: Run history:
+wandb:                                 action/abs_mean ▇▅▄▄▃▆▆▆▆▅▆▆▆▆▆▇▇█▇▇▇▅▆▆▇▇▅▃▄▂▁▂▁▂▄▃▄▂▄▃
+wandb:                         action/chunk_step_delta █▆▅▅▄▇▆▇▇▆▆▆▆▆▆▆▆▇▆▇▆▅▅▅▇▇▅▃▃▃▁▂▂▃▄▅▆▄▅▅
+wandb:                 action/chunk_step_delta_flipper █▅▆▅▄█▆▇█▇▇▇▇▇▆▅▅▇▅▆▅▅▅▆▇▆▄▃▃▃▁▂▂▂▄▄▅▃▄▄
+wandb:                     action/chunk_step_delta_max ▄▇▅▁▄▄▆▄▄▆▁█▁▆▅█▇▃▅█▇█▆▇▆▇▇▇▅▅▆▆▆▆▅▇▇▅▇▆
+wandb:                          action/flipper_fl_mean ▂▄▆▆▅▃▂▂▁▂▄▁▃▆█▇▇▇▅▂▃▃▄▇▅▃▄▅█▇▇▅█▇▇█▆▇▆▆
+wandb:                           action/flipper_fl_std ▇▅▅▅▄▇▆▇▅▆▆▇█▇▆▇▇█▇█▇▆▇▇▆▆▅▄▃▂▂▂▁▁▃▂▄▃▄▅
+wandb:                          action/flipper_fr_mean ▁▂▂▁▁▁▁▃▂▂▃▂▅▅▄▇▆▆▇▇▇▇████▇▆▆▅▅▅▄▄▅▅▅▄▄▆
+wandb:                           action/flipper_fr_std ██▇▇▆▇██▇▇█▇▆▇▇▆▆▇▆▆▆▅▄▅▅▅▄▄▃▃▂▂▂▂▂▂▂▁▃▃
+wandb:                          action/flipper_rl_mean ▇▆▇▇▆▄▅▅▆▅▄▃▄▆▅▆▆▆█▇▇█▆▆▅▅▆▅▅▃▄▅▄▅▄▅▅▄▂▁
+wandb:                           action/flipper_rl_std ▄▃▃▄▃▆▆▆▆▆▆▇▆▄▄▃▂▃▂▂▂▁▃▄▅▅▄▄▅▆▅▅▃▄▆▆█▆██
+wandb:                          action/flipper_rr_mean ▃▃▅▃▂▁▂▁▂▃▃▂▄▄▆▆▇▇▇▆▇███▇▇▆▆▄▄▅▅▅▆▅▆▆▆▃▃
+wandb:                           action/flipper_rr_std ▆▃▁▂▁▄▄▄▂▄▅▅▅▄▄▄▄▅▅▇▆▃▄▄▆▆▆▅▇▆▅▅▃▂▄▄▅▄██
+wandb:                             action/loc_abs_mean ▂▂▁▁▁▁▃▂▄▄▄▅▄▅▅▆▇▇█▇▇▇▇▇▇▇▆▅▅▄▅▅▃▄▅▄▄▅▄▃
+wandb:                           action/loc_step_delta ▃▂▂▁▁▂▃▃▆▅▄▄▄▆▆▇▇▇█▇███▇▇▇▆▅▄▄▄▄▄▅▅▆▇▇▅▅
+wandb:                   action/loc_step_delta_flipper ▃▁▁▁▁▂▂▂▆▅▄▃▅▆▆▆▇▇▇▇████▇▇▆▄▃▂▂▃▂▃▄▆▇▆▄▄
+wandb:                              action/sat_frac_09 ▇▅▄▄▃▆▆▇█▅▆▇▆▅▅▅▅▇▅▅▄▂▂▄▅▅▃▂▃▃▁▂▁▃▅▃▅▃▆▆
+wandb:                             action/sat_frac_099 ▂▁▁▁▁▂▃▄▄▂▃▄▂▂▃▄▄▅▄▄▆▆▆▇▇█▄▄▅▅▃▃▃▃▅▆▇▄▆█
+wandb:                               action/scale_mean █▆▅▆▅█▇█▇▆▆▇▆▅▅▅▅▆▄▅▅▄▄▅▆▇▄▂▄▃▁▁▁▂▄▃▅▃▆▆
+wandb:                                   action/v_mean ██▇▇▇▇▇▇█▅▆▇▇▅▅▅▅▅▄▄▄▃▁▂▂▂▄▄▃▆▄▆▅▆▆▅▅▅▆▇
+wandb:                                    action/v_std ▁▁▂▃▃▃▄▆▆▇▆▆▆█▆▆▅▅▄▄▅▄█▇▇▇▃▄▆▃▃▃▃▂▂▃▃▃▄▂
+wandb:                                   action/w_mean ▂▃▄▃▄▂▅▅▄▃▁▂▂▁▂▃▂▃▃▃▃▅▅▄▄▄▁▁▂▃▃▃▇█▇█▆▆▄▃
+wandb:                                    action/w_std ▂▂▁▁▁▅▆▇▆▆▆▆▆▅▃▅▅▄▄▆▇▃▅▅▇▇▃▆▇▆▄▅▅▁▅▄▅▃▇█
+wandb:                                clearance/height ▆▅▄▅▆▇▅▆▅▅▆▇▆▄▅▄▃▄▄▃▃▁▂▂▂▄▄▄▅█▆▄▄▃▅▂▄▅▇█
+wandb:                            clearance/height_max ▅█▆▅▄█▃▁▇▄▃▆▄▄▁▄▃▅▃▄▂▄▃▃▃▅▇▇▂▄▁▄▂▂▅▃▃▆▄▄
+wandb:                            clearance/height_min ▂▅▄▃▇▇▂▆▃▄▇▄▄▁▄▅▄▁▃▄▄▅▂▂▄▂▄▁▃▅▇▅▄▅▅▄▆█▃█
+wandb:                                collected_frames ▁▁▁▂▂▂▂▂▂▃▃▃▃▃▃▄▄▄▄▄▅▅▅▅▅▅▆▆▆▆▆▇▇▇▇▇▇███
+wandb:                               descent/clearance ▄▁▃▃▅▅▃▃▄▄▆▅▄▄▄▅▃▄▄▅▃▄▄▅▅▄▅▃▆▅▃▃▄▃▄▃█▆▅▅
+wandb:                     descent/clearance_elsewhere ▂▂▃▂▂▃▃▂▂▃▃▁▃▅▄▅▅▅▄▅▅▆▇▆▇▅▇▆▆▅▃▆▅█▆█▇▇▆▃
+wandb:                       descent/flipper_extension ▂▃▂▃▂▁▂▄▁▃▄▂▅▆▆██▆█▆▇▆▇█▇█▇▅▆▄▃▃▂▄▆▆▅▅▄▅
+wandb:             descent/flipper_extension_elsewhere ▃▄▄▃▂▁▂▂▁▂▃▂▃▅▆▇█▇█▇▇▇▇█▇▇▇▆▆▆▅▅▄▄▅▆▅▅▄▅
+wandb:                                     descent/gap ▅▁▁▄▅█▄▅▆▅▆▅▄▃▂▃▁▅▃▄▃▂▃▁▃▃▃▂▅▆▁▃▃▂▂▁▆▅▅▅
+wandb:                          descent/pct_descending ▆█▆▇▃▂▄▃▂▆▂▂▆▄▅▄▅▅▂▁▆▅▃▃▄▅▃▇▁▆▆▇▄▄▄█▁▂▄▃
+wandb:                               diff/logprob_mean ▂▃▃▃▃▁▂▂▃▃▃▄▃▄▅▆▇▆▇▆▇█▇▇▆▇▇▇▇▇▇▇▇▇▆▇▆▇▅▆
+wandb:                                diff/logprob_std ▁▂▃▄▅▃▅▆▅▅▅▆▅▇▆▇█▆▇▇█▇██▇▇▆▆▇▆▄▆▇▅▅▅▄▆▄▅
+wandb:                                env/failure_rate ▁▁▃▃▃▂▃▃▂▂▁▁▁▁▁▁▁▁▁▁▁▂▂▃▁▁▁▂▁▂▁▁▄█▄▆▂▄▁▂
+wandb:                                env/success_rate ██▆▆▆▇▆▅▇▇███████████▇█▆███▇████▅▁▅▄▇▅██
+wandb:                                  env/tq_episode ▄▂▄▂▃▄▂▁▁▂▄▁▅▄▅▅▆▇▅▇▅▅▆▇▇▆█▅▄▄▅▇▅▇▆▇█▆▇▄
+wandb:                                   env/tq_scored ▇▇▆▆▆▇▆▅▇▇▇▇██▇███▇██▇▇▆███▇█▇██▅▁▅▄▇▅█▇
+wandb:                                  env/tq_success ▄▂▄▃▃▄▂▁▁▁▄▁▅▃▅▅▆▇▅█▅▆▆▇█▆█▅▄▄▄▇▅▆▆▇█▇▇▄
+wandb:                            eval/accel_magnitude ▆▄██▅▄▃▂▂▁▁▃▅▂▁▁▆
+wandb:                                  eval/accel_p90 ▄▃▆▆▄▃▃▂▂▁▃▃▇▅▄▃█
+wandb:                                  eval/accel_p95 ▄▂▆▆▇▄▂▁▁▁▁▃▇▄▄▃█
+wandb:                                  eval/accel_p99 ▆▂▆▆▆▃▂▁▂▂▁▅▆▆▅▄█
+wandb:                             eval/explosion_rate ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                               eval/failure_rate ▁▂▂▂▂▂▂▂▂▂▂▁▁▁█▆▂
+wandb:                            eval/max_step_reward █▃▂▃▃▃▂▂▂▂▂▃▁▃▂▂▁
+wandb:                           eval/mean_step_reward ▅▄▄▅▃▂▂▃▂▂▄▃▁▂█▆▅
+wandb:                            eval/min_step_reward ▁▅▄▄▄▄▃▄▆▂▃▆▄▁█▅▄
+wandb:                             eval/pct_terminated ▃▁▄▁▂▂▁▄▅▃▄▆▃▄▂▆█
+wandb:                              eval/pct_truncated ▅▅▄▅▆▆█▅▆▅▅▆▆▄▅▁▃
+wandb:                              eval/rollout_steps ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                           eval/shock_normalised ▇▁▇▂▃▆▄▃▃▅▃▂▆▃▅█▂
+wandb:                               eval/success_rate █▇▇▇▇▇▆▇▇▇▇█▇█▁▄▇
+wandb:                                 eval/tq_episode ▂▃▁▁▂▄▅▆▆▆▇▆▄▆██▅
+wandb:                                  eval/tq_scored ▆▆▆▅▆▆▆▇▇███▇█▁▄▇
+wandb:                                 eval/tq_success ▂▄▁▁▃▄▅▆▆▆▇▆▄▆▇█▅
+wandb:            eval_per_env/bumpy_hill_success_rate █▄▆▇▄▆▅▅▄▁▃▆▆▇▄▆▆
+wandb:        eval_per_env/coarse_cobbles_success_rate █▇▇███▇██████▇▁▄▇
+wandb:          eval_per_env/cobblestones_success_rate ▇▇▇▇█▇▇▇▆█▇▇▇▇▁▅▇
+wandb:           eval_per_env/cross_slope_success_rate █▆█▁▆▆█▅████▆██▅▆
+wandb:        eval_per_env/crossing_ramps_success_rate ██████▇███▇███▁▃▇
+wandb:              eval_per_env/deep_gap_success_rate ██▁███▁█████▁▁█▁█
+wandb:          eval_per_env/diagonal_log_success_rate █▇▇▇██▇▇███▇▇▇▁▆▇
+wandb:      eval_per_env/diagonal_pyramid_success_rate ▅▆▄▄▆▇▄▆████▇▆▄▁█
+wandb:         eval_per_env/diagonal_ramp_success_rate █▇████████████▁██
+wandb:       eval_per_env/diagonal_stairs_success_rate ▇███▇█████████▁▄█
+wandb:        eval_per_env/diagonal_trunk_success_rate ▂▃▁▁▁▂▃▂▄▇▄██▇▄▄▃
+wandb:         eval_per_env/double_trench_success_rate ▄▅████▅█████▅█▁▁█
+wandb:          eval_per_env/drive_trench_success_rate ██████▆███████▁▆█
+wandb:            eval_per_env/flat_patch_success_rate ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:         eval_per_env/half_platform_success_rate █▄▅▂▃▇▆▄▆▇▆▆▁▆▇▆▆
+wandb:          eval_per_env/log_crossing_success_rate ▁▅▄▁▃▂▄▆▆▆█▆█▆▄▆▃
+wandb:         eval_per_env/log_then_step_success_rate █▆█▃████████▆█▁▆█
+wandb:        eval_per_env/lowered_stairs_success_rate ▁▁▁▅▁█▁██▁▅▅█▅▁▅▁
+wandb:                   eval_per_env/pit_success_rate █▆▇▄▆▅▁▅▇▆▅▇▇█▁▇█
+wandb:       eval_per_env/raised_platform_success_rate ██████████████▁██
+wandb:         eval_per_env/raised_stairs_success_rate █▄█▆▄█▃▃▁▆▆█▁▄▇▆▆
+wandb:            eval_per_env/ridge_ramp_success_rate ██████████████▁██
+wandb:        eval_per_env/rock_formation_success_rate ▆▅▆▆▇▆██▆▇▆▆▆▇▁▃▇
+wandb:             eval_per_env/round_log_success_rate ██████████████▁▆█
+wandb: eval_per_env/stairs_ascent_descent_success_rate ▇██▇▆▆▁▅▃▆▅▃▆▇▁▅▆
+wandb:            eval_per_env/steep_hill_success_rate ██████████████▁██
+wandb:          eval_per_env/steep_stairs_success_rate ██████▁███████▅▅█
+wandb:             eval_per_env/stepfield_success_rate ▇█▇▇▇▇▆▇▇▆▇▆▇█▁▅▇
+wandb:           eval_per_env/stump_field_success_rate █▇█▇█▇█▇██████▁▄█
+wandb:                 eval_per_env/stump_success_rate ▇▇▇▇▇▇██▇▇▆██▇▂▁▇
+wandb:         eval_per_env/tilted_pallet_success_rate ██▇▇▇▆▄▆▆▅▇▅▆█▁█▆
+wandb:            eval_per_env/twin_rails_success_rate ███▇▇█▆████▇▇█▁▃█
+wandb:          eval_per_env/twisted_hill_success_rate ▇▄▆▆▄▄▅█▆▅▆▅▇█▁▃▅
+wandb:           eval_per_env/valley_ramp_success_rate █▅█▄███▄▅▁█▅█▅▄██
+wandb:                  eval_per_env/wave_success_rate ▅▇▇▇▇▄▅▆▆█▆▆▅▅▃▁█
+wandb:                          explosion/pct_exploded ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                     explosion/post_ang_vel_high ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                      explosion/post_ang_vel_nan ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                     explosion/post_lin_vel_high ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                      explosion/post_lin_vel_nan ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                       explosion/post_orient_nan ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                          explosion/post_pos_nan ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                          explosion/post_pos_out ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                      explosion/pre_ang_vel_high ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                      explosion/pre_lin_vel_high ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                       explosion/pre_lin_vel_nan ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                           explosion/pre_obs_nan ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                           explosion/pre_pos_nan ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                           explosion/pre_pos_out ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                           explosions/dirty_envs ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                                 explosions/rate ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                      explosions/skipped_updates ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                 explosions/skipped_updates_frac ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                            failure/out_of_range ▁▁▃▃▃▁▃▃▂▂▁▁▁▁▁▁▁▁▁▁▁▂▂▃▁▁▁▂▁▂▁▁▄█▅▆▂▄▁▂
+wandb:                                failure/rollover ▃▇▃█▅▄▆█▆▅▄▆▃▄███▄▅▂▄▇▄▅▂▃▂▆▄▄▅▂▃▆▂▁▂▃▃▂
+wandb:                              failure/shock_high ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                       grad_contrib/action_bonus ▄▁▁▄▅▃▄▄▅▅▂█▃▅▇▅▃▂▄▃▅▄▃▄▂▄▂▃▆▂▅▃▅▇▄▃▅▂█▃
+wandb:                            grad_contrib/shaping ▂▁▁▃▂▃▅▅▅▅▄█▃▅▅▁▄▁▄▄▄▄▃▂▃▂▃▄▅▂▄▄▁█▅▄▄▃▂▄
+wandb:                     grad_contrib/terminal_bonus ▂▄▃▆▅▁▇██▆▆▆▆▇▆▃▇▄▆▁▂▇▆▂▂▆▅▆▇▅▆▁▄▇▇▆▅▁▃▆
+wandb:                  grad_contrib/traversal_quality ▃▄▂▆▄▄▄▆▅▇▄▇▅▆▇▆▆▃▇▃▁▆▆▃▃▅▃▆▃▆▄▂▃▅▆▄█▄▇▆
+wandb:                      observations/ang_vel_x_max ▁▁▃▁▂▂▂█▁▂▄▂▂▂▂▂▂
+wandb:                     observations/ang_vel_x_mean ▄▁▆▅▄▆▅▄▅▂▅█▂▄▇▃▇
+wandb:                      observations/ang_vel_x_min ▁█▆▇▆▆▇▆▇▅▇▇▇▇▇▆█
+wandb:                      observations/ang_vel_x_std ▁▆▂▄▁▇▇▇▂▆▅▇▇▆▇█▄
+wandb:                      observations/ang_vel_y_max ▂▃▁▂▃▆▃▅▆▃▅▆▅▇█▆▄
+wandb:                     observations/ang_vel_y_mean ▃▆▅▃▂▆▅▁▃▃▁▃▄▂▄█▂
+wandb:                      observations/ang_vel_y_min ▁▇▆▄█▇▆▄▆▇▆▄▇▆█▆▇
+wandb:                      observations/ang_vel_y_std ▁▆▃▄▂▄▅█▃▆█▅▁▂██▂
+wandb:                      observations/ang_vel_z_max ▃▂▂▂▄▁█▂▂▁▃▂▅▁▃▄▃
+wandb:                     observations/ang_vel_z_mean ▇▇▇▅▆▇█▇▇▂▅▅▁▇▃▄▄
+wandb:                      observations/ang_vel_z_min ▁▂▆▇▇▆▆██▆▇▄▅▆▅▆█
+wandb:                      observations/ang_vel_z_std ▆█▅▃▅▇▇█▁▇▄▇█▅▆▃▄
+wandb:                     observations/flipper_fl_max ▄▄▆▆▇█▆▁▃▇▂▃▅▆▅▆▄
+wandb:                    observations/flipper_fl_mean ▆▄▆▅█▆█▅▄▅▄▂▁▃▅▂▅
+wandb:                     observations/flipper_fl_min ▆▆▇▅▆▅▁▇█▆▆▆▅▄▅▄▆
+wandb:                     observations/flipper_fl_std ▁▃▂▄▃▄██▅▃▁▅█▄▆▅▇
+wandb:                     observations/flipper_fr_max ▄▇▆█▅▆▂▂▁▅▃▂▂█▆▇▅
+wandb:                    observations/flipper_fr_mean ▆█▆▁▃▄▅▄█▄▄▃▂▅▇▆█
+wandb:                     observations/flipper_fr_min █▇▆▅▄▄▅▄▃▁▃▃▅▁▂▂▃
+wandb:                     observations/flipper_fr_std ▇▄▃▄▂▃▄▇▇▆▅▅█▄▂▁▆
+wandb:                     observations/flipper_rl_max ▂▃▄█▂▃▅▁▃▄▄▄▃▃█▄▆
+wandb:                    observations/flipper_rl_mean ▇▆▂▇▆▄▆██▅▂▃▃▁▃▃▃
+wandb:                     observations/flipper_rl_min ▇▃▆▂█▄▆▆▅▄▄▄▇█▁▄▆
+wandb:                     observations/flipper_rl_std ▇▅▆▃▇▁▂▇▅▇▇█▆█▅▂▁
+wandb:                     observations/flipper_rr_max ▅▅▆█▆▆▄▂▃▂▁▂▅▃▂▁▃
+wandb:                    observations/flipper_rr_mean ▅▁▃▃▄▅▇▆▆▆▆▆▆▇▆█▆
+wandb:                     observations/flipper_rr_min ▂▂▄▃▃▁▅▂▄▂▄▆█▆▅▂▇
+wandb:                     observations/flipper_rr_std ▂▃▃▁▂▅▄▄▇██▆▆▇▇▆▄
+wandb:                         observations/goal_x_max █▅▅▁▁▃▅▅▄▆▆▄▆▇▂▃▅
+wandb:                        observations/goal_x_mean ▇▄▂▃▃▂▁▂▁▁▃▁▂▂█▄▄
+wandb:                         observations/goal_x_min █▁▄▂▅▃█▃▂▃▅▄▄▄▂▁▂
+wandb:                         observations/goal_x_std █▇▇▆▇▇▇▇▇▆▆▇▆▆▁▄▅
+wandb:                         observations/goal_y_max █▄▅▅▄▃▄▁▂▂▁▅▅▄▄▃▃
+wandb:                        observations/goal_y_mean ▂▂▂▃▂▂▂▂▁▁▃▃▃▃█▇█
+wandb:                         observations/goal_y_min ▆▇▅▅▄▇▅▅▇▅▆▅▁▂█▅▁
+wandb:                         observations/goal_y_std ▄▆█▄▇▅▆▄▆▅▁▆▆▄▁▃▃
+wandb:                         observations/goal_z_max ▁▅▅█▆▅▅▃▅▆▆█▅▃▇▅▆
+wandb:                        observations/goal_z_mean █▄▅▄▅▃▁▄▃▃▄▃▄▅▃▄▄
+wandb:                         observations/goal_z_min ▆▁███▂▇▇▁▆▇▆▆█▇▆▂
+wandb:                         observations/goal_z_std ▂▃▃▆▂▆█▃▅▇▃▆▅▁▇▄▅
+wandb:                      observations/heightmap_max ▂▁▆██▆▅▂▆▃▃▂▄▄▆▂▃
+wandb:                     observations/heightmap_mean █▄▅▃▅▃▃▃▄▂▃▂▂▃▁▃▄
+wandb:                      observations/heightmap_min ▃▃▄▂▂▇▆▆▂▂▇▅▁█▄▇▂
+wandb:                      observations/heightmap_std ▁▅▄▆▄▇▅▅▄▇▅▅▇▆█▆▆
+wandb:                      observations/lin_vel_x_max ▃▃▆▅█▄▃▇▅▃▆▄▁▃▃▆█
+wandb:                     observations/lin_vel_x_mean ▄▅▆▆▄▅▅▇▆▄▆▆▁▃▃█▅
+wandb:                      observations/lin_vel_x_min ▁▇▆▆▆▅▆▄▆▆▆▇▁█▇▁▆
+wandb:                      observations/lin_vel_x_std ▂▂▁▃▅▄▄▁▃▆▃▄█▄▅▂▄
+wandb:                      observations/lin_vel_y_max ▅▂▂▂▂▃▇▆▂▂▁▄█▃▂▅▁
+wandb:                     observations/lin_vel_y_mean ▃▅▁▃▆▄▅▆▄▇▂▆▇▇▃▃█
+wandb:                      observations/lin_vel_y_min ▃▄▄▅▆▁▅▅▅█▅▆█▇▆▃▂
+wandb:                      observations/lin_vel_y_std ▁▅▃▄▁▄█▄▁▆▅▆▇▅▄▄▁
+wandb:                      observations/lin_vel_z_max ▁▂▃▁█▂▅▄▁▂▁▄▃▂▂▆▁
+wandb:                     observations/lin_vel_z_mean ▃▇▇▄▆▇▃▆▃▂█▃▁▅▄▅▄
+wandb:                      observations/lin_vel_z_min ▁▇▆▄█▇▅▂▅▁▃▄▆▄█▇▃
+wandb:                      observations/lin_vel_z_std ▂▅▇▇▁▆▅▅▁▅█▄▄▂▄▅▂
+wandb:                          observations/pitch_max ▁▃▁▇▆▃▄▄▆▅▄█▄▃▄▅▄
+wandb:                         observations/pitch_mean ▇█▇▄▅▄▆▄▅▅█▅▁▄█▇▅
+wandb:                          observations/pitch_min ██▃▆█▇▇▇▇█▇▇▅▁▇▆▆
+wandb:                          observations/pitch_std ▂▃▃▃▅█▇▅▃█▄▄▆▅▅▂▁
+wandb:                           observations/roll_max ▁▄▄█▆▂▅▄▃█▅▇▆▅▅▃█
+wandb:                          observations/roll_mean ▂▂▄▃▅▅▅▂▂▁▃▅▃▂█▄▅
+wandb:                           observations/roll_min █▆▅▃▆▄▅▄▄▅▅▃▁▁█▃▂
+wandb:                           observations/roll_std ▁█▅▇▇▆▆▇▆▆▆▄▅▇▄▄▄
+wandb:                                rew/action_bonus ▅▄▄▃▄▅▄▁▂▂▃▂▂▂▁▃▂▄▄▃▄▄▂▂▃▁▅▅▅▆▄▅▆▇▅▇▅█▆▅
+wandb:                                     rew/shaping ▇▆▄▅▅▇▄▂▅▅▆▅▆▆▆▇▆▇▇▆▆▅▅▃▆▅█▇█▇▇▇▄▁▃▃▆▆▇▆
+wandb:                                rew/step_penalty ███▇▇▇▇▇▇▆▆▆▆▆▆▅▅▅▅▅▅▄▄▄▄▄▃▃▃▃▃▂▂▂▂▂▂▁▁▁
+wandb:                              rew/terminal_bonus █▇▆▆▆▇▅▅▇▇█▇██▇█▇█▇█▇▇▇▅███▇█▇▇█▅▁▄▃▇▅█▇
+wandb:                                rew/total_reward ██▆▆▆▇▅▅▆▆▇▆▇▇▇▇▇▇▇▇▇▆▆▄▇▆▇▆▇▆▆▆▄▁▃▃▆▄▆▄
+wandb:                           rew/traversal_quality ▁▂▂▂▂▂▂▁▂▃▃▂▃▅▄▅▅▅▄▅▅▆▆▆▆▅▆▅▆▅▄▆▆█▆█▇▇▆▄
+wandb:                           shock/accel_magnitude ▇▅▄▆▆█▇▇▆▇▇▇▅▄▄▃▂▃▃▃▂▁▂▁▃▃▃▄▄▅▄▄▄▂▂▂▃▄▆▅
+wandb:                       shock/accel_magnitude_max ▅▄▄▄▆▅▆▅▅▅▅▅▅▄▄▅▃▃▅▆▄▁▅▅▄▅▆▅█▆▇▇▄▄▄▅▅▃▄▆
+wandb:                       shock/accel_magnitude_min █▁▅▃▆▆▆▅▄▄▇█▇▄▄▇▄▆▃▅▆▄▇▅▆▄▄▄▇▅▅▆▅▃▅▃▇▅▄▆
+wandb:                                 shock/accel_p90 ▇▆▄▆▆█▇▇▇█▇▇▅▄▄▃▂▃▂▃▂▁▂▁▃▃▃▄▅▅▄▄▃▂▂▂▃▄▆▅
+wandb:                                 shock/accel_p95 ▇▅▄▆▅█▇▇▆▇▇▇▅▃▃▃▃▃▃▄▂▁▂▂▃▃▃▄▄▆▄▄▃▂▃▂▃▄▅▅
+wandb:                                 shock/accel_p99 █▅▃▅▄█▅▆▆▆▇▇▅▃▃▃▂▃▂▄▂▁▂▂▃▃▃▂▄▄▃▃▃▂▂▁▃▃▄▅
+wandb:                          shock/shock_normalised ▃▃▃▂▄▃▄▃▃▄▃▃▂▃▂▄▁▃▃▅▃▁▃▆▂▂▅▃█▄▄▇▂▄▃▄▄▁▂▃
+wandb:                      shock/shock_normalised_max ▃▃▃▂▄▃▄▃▃▄▃▃▃▃▂▄▁▃▃▅▃▁▃▆▂▂▅▃█▄▄▆▂▄▃▄▄▁▂▃
+wandb:                      shock/shock_normalised_min ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                               state/ang_vel_max ▃▁▁▃▄▂▄▃▂▃▃▃▃▅▃▅▅▄▅▃▄▅▄▄▄▅▄▄█▃▅▃▄▅▄▂▃▅▄▄
+wandb:                              state/ang_vel_mean ▃▆▆▇▆▄█▇▇█▃█▂▅▅▄▄▁▄▁▄▃▄▃▁▄▂▆▆▇▆▂▅▄▄▄▁▆▄▇
+wandb:                               state/ang_vel_min ▇▁▅▃▇▇▇▅▄▄█▇▇▄▄▇▅▇▃▆▇▅█▆▇▃▆▄█▅▅▇▄▂▃▃▅▆▅▆
+wandb:                              state/ang_velocity ▇▅▄▆▅█▇▇▆▇▆▇▄▄▃▂▂▃▂▃▃▁▂▁▂▂▄▅▅▆▅▄▄▂▃▂▃▄▆▆
+wandb:                          state/ang_velocity_max ▄▁▁▂▄▁▄▃▂▃▃▂▃▆▃▄▄▅▄▃▄▅▄▄▅▅▄▄█▂▅▄▄▄▄▃▃▄▃▄
+wandb:                          state/ang_velocity_min █▁▅▃▇▇▆▅▄▄▇▇▇▄▄▇▅▆▃▆▇▅▇▆▆▃▄▄█▅▅▇▄▂▃▃▇▆▄▆
+wandb:                             state/approach_frac ▇▄▃▃▃█▃▂▄▄▇▄▇▅▄▅▅█▅█▅▅▅▃█▄█▅▅▅▅█▃▁▃▂█▄█▄
+wandb:                             state/clearance_max ▃█▇▆▅▄▅▄▇▆▂▇▂▅▄▅▅▂▅▁▄▅▅▅▁▆▂█▄▆▄▃▄▄▆▅▂▇▂▆
+wandb:                            state/clearance_mean ▃▅▄▅▆▃▆▆▅▅▂▇▃▅▅▄▃▂▄▁▃▁▃▃▁▄▂▅▅█▆▃▄▃▅▃▂▅▄█
+wandb:                             state/clearance_min ▆▄▃▂▅█▂▄▂▃▆▃▇▁▃▃▃▇▂▆▃▄▁▁█▁▇▁▂▄▅▇▃▄▃▃█▅█▅
+wandb:                              state/dist_to_goal ▄▆▄▅▅▄▅▆▇▆▅█▅██▇▆▄▇▄▇▄▆▅▃█▃▅▇▆▇▃▃▁▂▁▂▄▄█
+wandb:                           state/heading_err_deg ▇▇▄▄▄▅▄▃▅▅▆▅▆▇▇▇▇▇▇▇▇▆▅▄▇▆████▇▆▃▁▃▂▆▄██
+wandb:                       state/heading_err_deg_max ▁▅███▂██▆▇▂▄▂▄▄▂▃▁▅▃▅▇▇█▂▄▂▆▄▆▄▁████▅█▂▆
+wandb:                      state/heading_err_deg_mean ▁▂▄▄▄▂▅▅▃▃▂▃▁▂▂▂▂▁▂▁▃▄▃▅▂▂▁▃▂▂▂▁▅█▅▆▂▅▁▂
+wandb:                       state/heading_err_deg_min ▆▆▁▁▁▃▁▁▃▂▆▅▇▅▆█▆▆▇▅▄▂▂▁▅▅▅▇▇██▆▁▁▁▁▃▁▆▅
+wandb:                               state/lin_vel_max ▂▆▅▆▂▃▆▂▆▄▃▃▂▅▄▃█▂▄▁▃▄▄▃▁▂▂▃▅▆▃▃▃▄▁▅▁▃▂▂
+wandb:                              state/lin_vel_mean ▇▂▂▂▂█▂▁▂▂▇▁▇▁▁▂▁▇▂▇▂▂▁▁▇▁█▂▂▂▂▇▂▂▂▂█▃█▂
+wandb:                               state/lin_vel_min █▁▃▂▃█▃▂▂▂▇▄▇▂▃▄▃█▂▇▃▃▄▃█▂▇▃▄▃▃▇▃▂▂▂▇▃▇▃
+wandb:                              state/lin_velocity ▆▄▄▅▅▆▄▂▃▄▄▃▃▃▃▃▃▅▅▃▃▄▂▁▂▁▆▆▆▇▅▅▆▇▄▇▄█▅▃
+wandb:                          state/lin_velocity_max ▄▅▅▆▂▇▆▂▅▄▅▂▂▅▄▃█▃▄▄▃▃▃▃▂▂▆▃▅▅▃▆▃▃▁▄▂▃▃▂
+wandb:                          state/lin_velocity_min ▇▁▄▃▆▇▆▄▄▄▆▇▆▄▅▇▅▇▄▆▆▄▇▅▆▃▄▄█▅▅▇▅▃▄▃▇▅▅▆
+wandb:                               state/pct_healthy ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                                     state/pitch ▂▂▁▂▂▅▄▃▃▄▅▄▅▄▃▃▃▄▂▂▃▂▂▂▄▂▄▅▆█▅▆▅▆▅▆▅▆█▆
+wandb:                             state/pitch_deg_max ▂▄▃▃▂▅▄▂▂▄▂▅▂▄▃▄▄▂█▄▃▃▃▃▃▄▃▄▄▄▄▅▅▃▃▂▁▂▂█
+wandb:                            state/pitch_deg_mean ▅▇▇█▇▅██▇▇▄▇▃▅▆▆▆▃▆▃▅▅▅▅▃▆▃▅▅▅▅▂▄▄▅▃▁▄▂▅
+wandb:                             state/pitch_deg_min ▆▂▄▃▆▇▅▃▅▁█▅▆▄▂▇▃▇▂▆▃▄▄▃▆▂▆▁█▃▅▆▂▂▁▄▅▃▅▃
+wandb:                                 state/pitch_max ▂▁▁▂▁▃▂▂▂▂▂▅▅▃▂▅▄▂█▂▂▃▄▃▃▃▄▃▃▂▃▂▂▃▃▂▃▃▃▇
+wandb:                                 state/pitch_min ▂▃▅▆▆▆▄█▆▄▅▄▇▃▆▆▅▄▂▃▆▆▇▆▅▂▃▄▄▅▄▆▂▇▆▆▅▇▅▁
+wandb:                           state/pitch_rate_mean ▅▆▅▇▇▇█▇▆█▄█▂▄▃▃▂▂▃▂▃▂▂▁▂▂▃▅▆█▆▃▄▃▄▃▂▅▅▇
+wandb:                                      state/roll ▃▅▁▁▂▃▃▁▂▄▄▆▆▇▆▆▆▆█▆▇▆▆▅▇▇▇▇▆▇▆▄▄▃▄▄▇▄█▇
+wandb:                              state/roll_deg_max ▂▄▃▄▄▂▄▄▄▃▂▄▂▄▄▄▄▂▃▁▃▃▂▃▂▄▁▃▃▃▃▁▂▃▃▂▁█▁▂
+wandb:                             state/roll_deg_mean ▇▇██▇▅▅▇▇▅▄▆▅▆▄▄▃▄▄▃▆▃▂▄▂▃▁▃▄▃▄▂▃▃▄▂▁▅▁▄
+wandb:                              state/roll_deg_min ▆▁▃▁▅▅▃▅▃▁▇▅▅▃▂▆▂▅▃▅▃▄▃▄▆▁▅▁█▆▆▇▂▁▂▂▅▄▄▅
+wandb:                                  state/roll_max ▇█▅▅▄█▆▆▄▄▅▅▇▄▆▇▄▆▇▄▇▇▃▄▅▄▃▃▅▁▆▄▃▄▃▁▅▃▃▄
+wandb:                                  state/roll_min ▆▆▇▇▆▆▇▆▆▇▆▇█▆▇▇▇▇▇▇▇██▇▇▆█▇▇▆█▇█▇▆▇█▁█▇
+wandb:                            state/roll_rate_mean ▃▆▆▇▆▄█▇▇█▃█▂▅▅▃▃▁▄▂▄▃▃▃▁▄▂▅▅▆▅▂▅▄▄▃▂▅▄▆
+wandb:                      state/success_lin_velocity ▇█▇███▇▇▇▇▆▇▆▆▆▅▅▅▄▃▄▂▂▂▃▄▄▄▄▄▃▃▂▁▁▂▂▂▃▄
+wandb:                             state/v_toward_mean ▇▃▂▂▂█▂▁▂▂▇▂▇▃▃▃▃█▃█▃▃▂▂▇▂█▃▃▃▃█▂▁▂▂█▃█▃
+wandb:                              state/vel_fwd_mean ▇▂▂▂▂█▂▁▁▂▇▁▇▂▁▂▂▇▂▇▂▂▁▁▇▁█▂▂▂▂█▂▃▂▃█▃█▁
+wandb:                          state/vel_lat_abs_mean ▂▆▆▇▆▃██▇█▂█▂▆▆▅▅▁▅▁▅▄▅▄▁▅▂▆▆▇▆▂▆▅▅▄▁▆▃▇
+wandb:                                  state/yaw_rate ▃▃▅▅▅▄▅▅▅▄▃▃▃▃▃▃▃▃▃▃▃▅▅▅▃▄▁▂▃▂▄▄▇█▆▇▅▆▃▂
+wandb:                              state/yaw_rate_max ▃▄▅▃▆▁▆▅▃▃▂▆▂▄▆▄▅▂▃▂▇▅▅▃▁▇▂█▅▃▄▂▄▄▃▄▂▅▂▄
+wandb:                             state/yaw_rate_mean ▂▇▇▇▇▂██▇█▂█▂▇▇▇▇▂▇▁█▆▇▇▁█▂▇█▇▇▂▇▆▇▆▁▇▂█
+wandb:                              state/yaw_rate_min ▅▅▃▅▅▃▃▃▆▅▅▂▃▇▅▇▂▄▅▄▅▄▄▇▇▅▂▂▅█▆▁▇█▅▆▇▄▃▄
+wandb:                        torque/flipper_torque_FL ▇▄▄▅▅█▇▆▇▆▇▇█▅▄▅▄▅▅▅▅▅▅▄▄▅▃▄▂▂▁▂▁▃▃▂▃▂▄▄
+wandb:                    torque/flipper_torque_FL_max ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                    torque/flipper_torque_FL_min ▇▄▅▅▅█▆▇█▅▄▅▅█▆▆▄▄▆▅▅▄▆▅▄▆▄▅▆▅▅▅▂▅▄▁▄▅▅▅
+wandb:                        torque/flipper_torque_FR █▇▇▇▇▇▇▇█▇█▇▆▆▅▅▅▅▃▄▄▄▂▃▄▃▃▂▂▂▁▃▁▃▃▂▂▂▃▂
+wandb:                    torque/flipper_torque_FR_max ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                    torque/flipper_torque_FR_min █▄▆▅▆▄▆▆▅▄▇▂▃▆▄▄▆▄▃▄▄▃▄▅▆▅▆▄▄▃▃▄▃▄▆▆▄▂▃▁
+wandb:                        torque/flipper_torque_RL ▅▅▅▆▆███▇▇▇█▆▄▅▅▃▃▂▂▂▁▁▂▄▃▃▄▅▅▅▄▄▄▄▅▆▅▇▇
+wandb:                    torque/flipper_torque_RL_max ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                    torque/flipper_torque_RL_min ▆▄▃▅▅▃▅▄▆▄██▃▁▄▄▂▁▄▂▄▃▃▂▂▄▃▅▃▄▃▄▆▁▃▃▆▄▅▄
+wandb:                        torque/flipper_torque_RR █▆▆▇▆▇▇▇▆▇▇▆▆▅▅▃▅▅▄▅▃▁▂▂▃▂▄▄▅▅▄▄▃▃▄▄▄▄▆▆
+wandb:                    torque/flipper_torque_RR_max ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                    torque/flipper_torque_RR_min ▆▅█▅▄▇▂▅▅▄▅▆▆▄▆▂▃▆▃▅▄▂▅▁▄▃▅▄▄▆▄▂▄▄▆▅▂▄▇▄
+wandb:                                    tq/clearance ▁▂▃▂▂▃▃▂▂▃▄▁▃▅▄▅▅▅▄▅▅▆▇▆▇▅▇▅▇▅▃▆▅█▆███▇▃
+wandb:                              tq/episode_quality ▄▂▄▂▂▄▂▁▂▂▄▁▅▄▅▅▅▇▅▇▅▅▆▆▇▆█▅▄▄▄▇▅▇▆▇█▆▇▅
+wandb:                                          tq/gap ▇▅▄▄▆▇▆▇▅▆▇▇▆▄▅▃▃▃▅▄▃▁▂▂▂▄▃▅▅█▆▄▄▃▃▂▃▅▇█
+wandb:                                      tq/gap_max ▄▅▃▃▂▄▇▄▄▃▇▆█▅▆▄▃▄▃▅▄▂▂▁▄▄▂▆▅▅▇▅▇▄▄▅▄▆▅▆
+wandb:                                      tq/gap_min ▆▆▇▅▁▆▆▆▆▆▆▆▅▇▅▇▆▅▆▆▇▂▅▆▄▆▆▆▅█▇▆▆▆▆▇▇▇▇▇
+wandb:                                        tq/shock ▂▄▅▃▃▁▂▂▃▂▂▂▄▅▅▆▇▆▆▆▇█▇█▆▆▆▅▅▄▅▅▅▇▇▇▆▅▃▄
+wandb:                                 tq/step_quality ▁▂▂▂▂▂▂▁▂▃▃▂▃▅▄▅▅▅▄▅▅▆▆▆▆▅▆▅▆▅▄▆▆█▆█▇▇▆▄
+wandb:                                         tq/tilt ▁▂▂▂▂▁▂▁▃▃▃▃▃▄▄▄▅▅▄▅▅▅▅▅▆▅▅▅▅▆▅▆▆▇▆█▆▇▆▅
+wandb:                                     tq/tilt_deg █▇▇▇▇▇▇█▆▆▆▆▆▅▅▅▄▄▅▄▄▄▄▄▃▄▄▄▄▃▄▃▃▂▃▁▃▃▃▄
+wandb:                         train/action_bonus_coef ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                                train/epochs_run ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                       train/final_clip_fraction ▄▃▂▄▂▃▃▂▂▃▃▃▃▃▃▂▂▃▁▂▂▃▂▂▃▃▃▂▃▃▃▂█▁▂▁▁▃▂▃
+wandb:                           train/final_kl_approx ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁█▁▁▁▁▁▁▁
+wandb:                      train/forward_reward_scale ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:               train/mean_action_sample_log_prob ▂▃▃▃▃▁▂▂▃▃▃▄▃▄▅▆▇▆▇▆▇█▇▇▆▇▇▇▇▇▇▇▇▇▆▇▆▇▅▆
+wandb:                            train/mean_advantage ▃█▅▇▆▂▆▆▇▅▂▇▃▇▆█▇▄█▃▇▆▇▅▁▇▄▇▇▇▆▃▄▆█▅▁▇▃▆
+wandb:                        train/mean_advantage_GAE ▃█▅▇▆▂▆▆▇▅▂▇▃▇▆█▇▄█▃▇▆▇▅▁▇▄▇▇▇▆▃▄▆█▅▁▇▃▆
+wandb:                        train/mean_clip_fraction ▂▄▂▄▄▃▄▂▄▄▃▄▃▄▄▃▄▂▄▃▃▅▃▄▃▄▅▄▄▄▃▂█▃▂▂▁▅▂▅
+wandb:                          train/mean_critic_loss ▆▃▅▅▅▆▄▅▃▃▃▂▃▂▂▁▃▄▂▄▃▂▂▅▄▃▂▁▁▂▂▃▅██▆█▄▄▂
+wandb:                              train/mean_entropy ▇▆▆▆▆█▇▇▆▆▆▆▆▄▄▃▂▃▂▃▂▁▂▂▃▂▂▂▂▂▂▁▁▂▂▂▃▁▄▃
+wandb:                         train/mean_entropy_loss ▂▃▂▃▃▁▁▃▃▂▂▃▂▄▄▆▆▄▇▆▇█▆▆▆▆▆▇▆▆▇▅▇▆▆▆▆▇▅▆
+wandb:                             train/mean_exec_len ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                            train/mean_kl_approx ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁█▁▁▁▁▂▁▂
+wandb:                        train/mean_kl_approx_raw ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                        train/mean_kl_step_first ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                         train/mean_kl_step_last ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                       train/mean_objective_loss ▁▁▁▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▂▁▂▁▁▂▁▁▁▁▁█▁▁▁▁▂▁▂
+wandb:                               train/mean_reward ▂▇▇▆▇▁▆▇▇▇▂▇▂█▇▇▇▂█▁▇▇▆▆▂▇▂▇█▇▇▂▆▇▆█▁█▁▇
+wandb:                          train/mean_state_value ▆▅▆▄▆▅▆▅▆█▇▇▆▇▇▆▆▅▇▆▆█▆▇▇▆▆▆█▇▇▆▇▃▁▆▆▅▆▇
+wandb:                        train/policy_operator_lr ███▇▇▇▇▇▇▆▆▆▆▆▆▅▅▅▅▅▄▄▄▄▄▄▃▃▃▃▃▂▂▂▂▂▂▁▁▁
+wandb:                             train/std_advantage ▇▂▄▄▄▆▃▄▃▃▃▂▄▃▂▁▄▅▃▅▃▂▁▄▄▄▃▁▂▂▂▄▄▅▆▄█▃▄▁
+wandb:                              train/step_penalty ███▇▇▇▇▇▇▆▆▆▆▆▆▅▅▅▅▅▄▄▄▄▄▄▃▃▃▃▃▂▂▂▂▂▂▁▁▁
+wandb:                             train/stopped_on_kl ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                           train/total_grad_norm ▂▃▆▃▄▁▅▂▅▁▆▃▄▄▄▆▆▂▅▃▁▂▄▄▃▄▄▃▂▃▄▄█▇▄▁▄▃▅▅
+wandb:                                   train/tq_coef ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                          train/updates_possible ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                               train/updates_run ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                        train/value_minus_reward ▇▅▆▄▆▅▆▅▆█▇▇▆▇▇▆▆▅▆▆▆█▆▇▇▆▆▆█▇▇▆▇▃▁▆▆▅▆█
+wandb:                         train/value_operator_lr ███▇▇▇▇▇▇▆▆▆▆▆▆▅▅▅▅▅▄▄▄▄▄▄▃▃▃▃▃▂▂▂▂▂▂▁▁▁
+wandb:                         var_decomp/action_bonus ▅▄▇▃▃▇▁▄▅▁▁▅▃▄▃▅▆▆▄▃▄▂▄▄▅▄▄▅▄▅▂▆▆▆▆▅▄▅█▄
+wandb:                              var_decomp/shaping ▇▅▇▄▆▇▂▅▆▃▁▅▃▄▃▇▅▅▃▅▅▃▄▇▆▄▆▅▅▆▃▇█▇▆▄▃▆█▄
+wandb:                       var_decomp/terminal_bonus ▃▆▆▇▆▄▇▆▅█▅▆▄▆█▅▆▄▇▄▇▇▇▅▄▆▄▄▆▇▆▄▆▅▆▇▅▇▁▇
+wandb:                    var_decomp/traversal_quality ▆▅▄▃▄▆▃▃▄▁▃▃▄▄▂▄▃▄▃▂▃▂▃▅▆▄▁▆▃▂▅█▄▄▄▂▅▂▇▃
+wandb: 
+wandb: Run summary:
+wandb:                                 action/abs_mean 0.55447
+wandb:                         action/chunk_step_delta 0.68515
+wandb:                 action/chunk_step_delta_flipper 0.69066
+wandb:                     action/chunk_step_delta_max 1.99971
+wandb:                          action/flipper_fl_mean 0.09648
+wandb:                           action/flipper_fl_std 0.58069
+wandb:                          action/flipper_fr_mean 0.10027
+wandb:                           action/flipper_fr_std 0.57527
+wandb:                          action/flipper_rl_mean 0.17037
+wandb:                           action/flipper_rl_std 0.57322
+wandb:                          action/flipper_rr_mean 0.19006
+wandb:                           action/flipper_rr_std 0.53411
+wandb:                             action/loc_abs_mean 0.35601
+wandb:                           action/loc_step_delta 0.41811
+wandb:                   action/loc_step_delta_flipper 0.36788
+wandb:                              action/sat_frac_09 0.15982
+wandb:                             action/sat_frac_099 0.01801
+wandb:                               action/scale_mean 0.89488
+wandb:                                   action/v_mean 0.83736
+wandb:                                    action/v_std 0.14714
+wandb:                                   action/w_mean 0.03863
+wandb:                                    action/w_std 0.26855
+wandb:                                clearance/height 0.03857
+wandb:                            clearance/height_max 0.52877
+wandb:                            clearance/height_min -0.06662
+wandb:                                collected_frames 73138176
+wandb:                               descent/clearance 0.72637
+wandb:                     descent/clearance_elsewhere 0.83732
+wandb:                       descent/flipper_extension 0.42432
+wandb:             descent/flipper_extension_elsewhere 0.40466
+wandb:                                     descent/gap 0.0633
+wandb:                          descent/pct_descending 0.09877
+wandb:                               diff/logprob_mean -18.311
+wandb:                                diff/logprob_std 5.02333
+wandb:                                env/failure_rate 0.03241
+wandb:                                env/success_rate 0.95023
+wandb:                                  env/tq_episode 0.83032
+wandb:                                   env/tq_scored 0.7921
+wandb:                                  env/tq_success 0.83358
+wandb:                            eval/accel_magnitude 1.27602
+wandb:                                  eval/accel_p90 1.45894
+wandb:                                  eval/accel_p95 1.51642
+wandb:                                  eval/accel_p99 1.63669
+wandb:                             eval/explosion_rate 0.0
+wandb:                               eval/failure_rate 0.00884
+wandb:                            eval/max_step_reward 9.96847
+wandb:                           eval/mean_step_reward 0.01513
+wandb:                            eval/min_step_reward -11.91983
+wandb:                             eval/pct_terminated 0.01351
+wandb:                              eval/pct_truncated 0.00011
+wandb:                              eval/rollout_steps 300.0
+wandb:                           eval/shock_normalised 0.0
+wandb:                               eval/success_rate 0.98327
+wandb:                                 eval/tq_episode 0.84779
+wandb:                                  eval/tq_scored 0.83483
+wandb:                                 eval/tq_success 0.84903
+wandb:            eval_per_env/bumpy_hill_success_rate 0.89954
+wandb:        eval_per_env/coarse_cobbles_success_rate 0.99152
+wandb:          eval_per_env/cobblestones_success_rate 0.96974
+wandb:           eval_per_env/cross_slope_success_rate 0.99597
+wandb:        eval_per_env/crossing_ramps_success_rate 0.9959
+wandb:              eval_per_env/deep_gap_success_rate 1.0
+wandb:          eval_per_env/diagonal_log_success_rate 0.99587
+wandb:      eval_per_env/diagonal_pyramid_success_rate 0.98238
+wandb:         eval_per_env/diagonal_ramp_success_rate 1.0
+wandb:       eval_per_env/diagonal_stairs_success_rate 1.0
+wandb:        eval_per_env/diagonal_trunk_success_rate 0.91554
+wandb:         eval_per_env/double_trench_success_rate 1.0
+wandb:          eval_per_env/drive_trench_success_rate 1.0
+wandb:            eval_per_env/flat_patch_success_rate 1.0
+wandb:         eval_per_env/half_platform_success_rate 0.93412
+wandb:          eval_per_env/log_crossing_success_rate 0.89193
+wandb:         eval_per_env/log_then_step_success_rate 1.0
+wandb:        eval_per_env/lowered_stairs_success_rate 0.99123
+wandb:                   eval_per_env/pit_success_rate 1.0
+wandb:       eval_per_env/raised_platform_success_rate 1.0
+wandb:         eval_per_env/raised_stairs_success_rate 0.99123
+wandb:            eval_per_env/ridge_ramp_success_rate 1.0
+wandb:        eval_per_env/rock_formation_success_rate 0.98294
+wandb:             eval_per_env/round_log_success_rate 1.0
+wandb: eval_per_env/stairs_ascent_descent_success_rate 0.9916
+wandb:            eval_per_env/steep_hill_success_rate 1.0
+wandb:          eval_per_env/steep_stairs_success_rate 1.0
+wandb:             eval_per_env/stepfield_success_rate 0.9829
+wandb:           eval_per_env/stump_field_success_rate 0.9919
+wandb:                 eval_per_env/stump_success_rate 0.9875
+wandb:         eval_per_env/tilted_pallet_success_rate 0.95833
+wandb:            eval_per_env/twin_rails_success_rate 0.99174
+wandb:          eval_per_env/twisted_hill_success_rate 0.97493
+wandb:           eval_per_env/valley_ramp_success_rate 1.0
+wandb:                  eval_per_env/wave_success_rate 0.98725
+wandb:                          explosion/pct_exploded 0.0
+wandb:                     explosion/post_ang_vel_high 0.0
+wandb:                      explosion/post_ang_vel_nan 0.0
+wandb:                     explosion/post_lin_vel_high 0.0
+wandb:                      explosion/post_lin_vel_nan 0.0
+wandb:                       explosion/post_orient_nan 0.0
+wandb:                          explosion/post_pos_nan 0.0
+wandb:                          explosion/post_pos_out 0.0
+wandb:                      explosion/pre_ang_vel_high 0.0
+wandb:                      explosion/pre_lin_vel_high 0.0
+wandb:                       explosion/pre_lin_vel_nan 0.0
+wandb:                           explosion/pre_obs_nan 0.0
+wandb:                           explosion/pre_pos_nan 0.0
+wandb:                           explosion/pre_pos_out 0.0
+wandb:                           explosions/dirty_envs 0
+wandb:                                 explosions/rate 0.0
+wandb:                      explosions/skipped_updates 0
+wandb:                 explosions/skipped_updates_frac 0.0
+wandb:                            failure/out_of_range 0.00016
+wandb:                                failure/rollover 6e-05
+wandb:                              failure/shock_high 0.0
+wandb:                       grad_contrib/action_bonus 0.04526
+wandb:                            grad_contrib/shaping 0.05932
+wandb:                     grad_contrib/terminal_bonus 0.71055
+wandb:                  grad_contrib/traversal_quality 0.18486
+wandb:                      observations/ang_vel_x_max 11.80673
+wandb:                     observations/ang_vel_x_mean 0.00119
+wandb:                      observations/ang_vel_x_min -10.41604
+wandb:                      observations/ang_vel_x_std 0.99664
+wandb:                      observations/ang_vel_y_max 9.27243
+wandb:                     observations/ang_vel_y_mean -0.00055
+wandb:                      observations/ang_vel_y_min -7.84115
+wandb:                      observations/ang_vel_y_std 1.00319
+wandb:                      observations/ang_vel_z_max 10.94808
+wandb:                     observations/ang_vel_z_mean -0.00117
+wandb:                      observations/ang_vel_z_min -9.0443
+wandb:                      observations/ang_vel_z_std 0.99295
+wandb:                     observations/flipper_fl_max 3.7157
+wandb:                    observations/flipper_fl_mean -0.00333
+wandb:                     observations/flipper_fl_min -4.53253
+wandb:                     observations/flipper_fl_std 0.96988
+wandb:                     observations/flipper_fr_max 3.35426
+wandb:                    observations/flipper_fr_mean 0.00216
+wandb:                     observations/flipper_fr_min -4.25394
+wandb:                     observations/flipper_fr_std 0.97774
+wandb:                     observations/flipper_rl_max 2.89412
+wandb:                    observations/flipper_rl_mean -0.00551
+wandb:                     observations/flipper_rl_min -4.4796
+wandb:                     observations/flipper_rl_std 0.97614
+wandb:                     observations/flipper_rr_max 2.69994
+wandb:                    observations/flipper_rr_mean -0.0007
+wandb:                     observations/flipper_rr_min -4.13748
+wandb:                     observations/flipper_rr_std 0.99083
+wandb:                         observations/goal_x_max 1.70971
+wandb:                        observations/goal_x_mean -0.01583
+wandb:                         observations/goal_x_min -2.78418
+wandb:                         observations/goal_x_std 0.99611
+wandb:                         observations/goal_y_max 9.98247
+wandb:                        observations/goal_y_mean 0.06852
+wandb:                         observations/goal_y_min -17.14161
+wandb:                         observations/goal_y_std 0.97264
+wandb:                         observations/goal_z_max 4.47077
+wandb:                        observations/goal_z_mean -0.00059
+wandb:                         observations/goal_z_min -5.94439
+wandb:                         observations/goal_z_std 1.00126
+wandb:                      observations/heightmap_max 5.88492
+wandb:                     observations/heightmap_mean 0.00261
+wandb:                      observations/heightmap_min -10.18026
+wandb:                      observations/heightmap_std 1.00078
+wandb:                      observations/lin_vel_x_max 5.52495
+wandb:                     observations/lin_vel_x_mean 0.03344
+wandb:                      observations/lin_vel_x_min -6.34605
+wandb:                      observations/lin_vel_x_std 0.99655
+wandb:                      observations/lin_vel_y_max 7.62657
+wandb:                     observations/lin_vel_y_mean 0.00019
+wandb:                      observations/lin_vel_y_min -10.30219
+wandb:                      observations/lin_vel_y_std 0.99607
+wandb:                      observations/lin_vel_z_max 7.10072
+wandb:                     observations/lin_vel_z_mean 0.00216
+wandb:                      observations/lin_vel_z_min -8.7023
+wandb:                      observations/lin_vel_z_std 0.99692
+wandb:                          observations/pitch_max 5.06563
+wandb:                         observations/pitch_mean 0.00555
+wandb:                          observations/pitch_min -4.40096
+wandb:                          observations/pitch_std 0.99542
+wandb:                           observations/roll_max 14.91122
+wandb:                          observations/roll_mean 0.00239
+wandb:                           observations/roll_min -14.44856
+wandb:                           observations/roll_std 0.99557
+wandb:                                rew/action_bonus 0.36538
+wandb:                                     rew/shaping 0.85095
+wandb:                                rew/step_penalty -0.3
+wandb:                              rew/terminal_bonus 0.15588
+wandb:                                rew/total_reward 0.74598
+wandb:                           rew/traversal_quality -0.3261
+wandb:                           shock/accel_magnitude 1.40059
+wandb:                       shock/accel_magnitude_max 9.40643
+wandb:                       shock/accel_magnitude_min 0.0374
+wandb:                                 shock/accel_p90 1.45491
+wandb:                                 shock/accel_p95 1.46469
+wandb:                                 shock/accel_p99 1.48911
+wandb:                          shock/shock_normalised 0.0
+wandb:                      shock/shock_normalised_max 0.00431
+wandb:                      shock/shock_normalised_min 0.0
+wandb:                               state/ang_vel_max 2.9968
+wandb:                              state/ang_vel_mean 0.36589
+wandb:                               state/ang_vel_min 0.0059
+wandb:                              state/ang_velocity 0.3658
+wandb:                          state/ang_velocity_max 2.97817
+wandb:                          state/ang_velocity_min 0.0059
+wandb:                             state/approach_frac 0.86188
+wandb:                             state/clearance_max 0.52877
+wandb:                            state/clearance_mean 0.03858
+wandb:                             state/clearance_min -0.06662
+wandb:                              state/dist_to_goal 3.90819
+wandb:                           state/heading_err_deg 0.43642
+wandb:                       state/heading_err_deg_max 145.33332
+wandb:                      state/heading_err_deg_mean 4.80184
+wandb:                       state/heading_err_deg_min -118.29977
+wandb:                               state/lin_vel_max 1.23604
+wandb:                              state/lin_vel_mean 0.45552
+wandb:                               state/lin_vel_min 0.00457
+wandb:                              state/lin_velocity 0.45548
+wandb:                          state/lin_velocity_max 1.23604
+wandb:                          state/lin_velocity_min 0.00457
+wandb:                               state/pct_healthy 1.0
+wandb:                                     state/pitch -0.02647
+wandb:                             state/pitch_deg_max 42.17728
+wandb:                            state/pitch_deg_mean 6.84803
+wandb:                             state/pitch_deg_min 4e-05
+wandb:                                 state/pitch_max 0.6755
+wandb:                                 state/pitch_min -0.71981
+wandb:                           state/pitch_rate_mean 0.25844
+wandb:                                      state/roll -0.00108
+wandb:                              state/roll_deg_max 46.47479
+wandb:                             state/roll_deg_mean 1.97731
+wandb:                              state/roll_deg_min 5e-05
+wandb:                                  state/roll_max 0.62007
+wandb:                                  state/roll_min -0.70268
+wandb:                            state/roll_rate_mean 0.16202
+wandb:                      state/success_lin_velocity 0.62686
+wandb:                             state/v_toward_mean 0.42248
+wandb:                              state/vel_fwd_mean 0.42974
+wandb:                          state/vel_lat_abs_mean 0.03487
+wandb:                                  state/yaw_rate 0.00176
+wandb:                              state/yaw_rate_max 1.15709
+wandb:                             state/yaw_rate_mean 0.07361
+wandb:                              state/yaw_rate_min -1.00976
+wandb:                        torque/flipper_torque_FL 961.61249
+wandb:                    torque/flipper_torque_FL_max 1000.0
+wandb:                    torque/flipper_torque_FL_min 11.44715
+wandb:                        torque/flipper_torque_FR 960.11071
+wandb:                    torque/flipper_torque_FR_max 1000.0
+wandb:                    torque/flipper_torque_FR_min 10.99481
+wandb:                        torque/flipper_torque_RL 957.4937
+wandb:                    torque/flipper_torque_RL_max 1000.0
+wandb:                    torque/flipper_torque_RL_min 10.92818
+wandb:                        torque/flipper_torque_RR 948.10267
+wandb:                    torque/flipper_torque_RR_max 1000.0
+wandb:                    torque/flipper_torque_RR_min 8.1494
+wandb:                                    tq/clearance 0.82638
+wandb:                              tq/episode_quality 0.83047
+wandb:                                          tq/gap 0.07716
+wandb:                                      tq/gap_max 0.29218
+wandb:                                      tq/gap_min -0.00146
+wandb:                                        tq/shock 0.93043
+wandb:                                 tq/step_quality 0.86956
+wandb:                                         tq/tilt 0.85187
+wandb:                                     tq/tilt_deg 7.84217
+wandb:                         train/action_bonus_coef 2.0
+wandb:                                train/epochs_run 2
+wandb:                       train/final_clip_fraction 0.38403
+wandb:                           train/final_kl_approx 0.04278
+wandb:                      train/forward_reward_scale 0.2
+wandb:               train/mean_action_sample_log_prob -18.311
+wandb:                            train/mean_advantage -0.67727
+wandb:                        train/mean_advantage_GAE -0.67727
+wandb:                        train/mean_clip_fraction 0.34223
+wandb:                          train/mean_critic_loss 2.47342
+wandb:                              train/mean_entropy -1.72448
+wandb:                         train/mean_entropy_loss 0.00253
+wandb:                             train/mean_exec_len 2.0
+wandb:                            train/mean_kl_approx 0.03453
+wandb:                        train/mean_kl_approx_raw 0.0
+wandb:                        train/mean_kl_step_first 0.0
+wandb:                         train/mean_kl_step_last 0.0
+wandb:                       train/mean_objective_loss 0.00418
+wandb:                               train/mean_reward 0.00039
+wandb:                          train/mean_state_value 1.36147
+wandb:                        train/policy_operator_lr 0.00045
+wandb:                             train/std_advantage 5.58019
+wandb:                              train/step_penalty -0.3
+wandb:                             train/stopped_on_kl 0.0
+wandb:                           train/total_grad_norm 3.81354
+wandb:                                   train/tq_coef 2.5
+wandb:                          train/updates_possible 64
+wandb:                               train/updates_run 64
+wandb:                        train/value_minus_reward 1.36108
+wandb:                         train/value_operator_lr 0.00152
+wandb:                         var_decomp/action_bonus 0.00854
+wandb:                              var_decomp/shaping 0.07913
+wandb:                       var_decomp/terminal_bonus 1.46772
+wandb:                    var_decomp/traversal_quality 0.04534
+wandb: 
+wandb: Synced diff_p1_tqv2_fwdscale_warm_11707156_attempt_3: https://wandb.ai/marv_flipper_training/MARV_RL/runs/0cf8d6eef2654d737ee4b0a0a438b4cbd66c194e27ccdfc00b10b9f0d50bddc6
+wandb: Synced 6 W&B file(s), 0 media file(s), 0 artifact file(s) and 39 other file(s)
+wandb: Find logs at: /ws/logs/wandb/wandb/run-20260927_113202-0cf8d6eef2654d737ee4b0a0a438b4cbd66c194e27ccdfc00b10b9f0d50bddc6/logs
+/opt/conda/envs/isaaclab/lib/python3.10/multiprocessing/resource_tracker.py:224: UserWarning: resource_tracker: There appear to be 11 leaked semaphore objects to clean up at shutdown
+  warnings.warn('resource_tracker: There appear to be %d '

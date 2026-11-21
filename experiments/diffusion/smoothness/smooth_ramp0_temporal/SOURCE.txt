@@ -1,0 +1,7 @@
+Run: diff_p1_smooth_ramp0_temporal_11829738 (finished 2026-10-23, 71.6M frames). CSVs cover the whole run.
+
+weights/             step 56885248 (56.9M frames, eval SR 0.903). Copied mid-run on 2026-10-22 as the
+                     newest checkpoint at the time (not chosen for performance); it is the checkpoint
+                     every Gazebo eval of rl:smooth_ramp0_temporal used, so it stays the deployable one.
+weights_end_of_run/  policy_final / vecnorm_final at 71.6M frames (eval SR 0.903). The run's SR peak was
+                     0.927 at 63.2M (policy_step_63176704 in the cluster logs, not copied here).
