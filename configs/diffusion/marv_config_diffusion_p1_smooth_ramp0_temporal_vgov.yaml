@@ -6,7 +6,8 @@ comment: >-
   the Gazebo velocity_rule_node runs) and w from auto_ride's bearing law. The observed heightmap
   goes through the Gazebo-fitted elevation-map emulator, so the policy and V-Gov both see
   Gazebo-like maps. Rewards and schedules are A0t's; episodes are 80 s (V-Gov's 0.1 m/s floor)
-  and success is the target-line rectangle.
+  and success is the target-line rectangle. Course: mixed_v3_straight (ten lowered rows,
+  +-0.5 m position jitter, sampled spacing), where A0t had mixed_v2_straight.
 
 use_wandb: true
 use_tensorboard: false
@@ -15,7 +16,7 @@ device: cuda
 training_dtype: ${dtype:float32}
 num_robots: 1024
 task: Ftr-Crossing-Direct-v0
-terrain: mixed_v2_straight
+terrain: mixed_v3_straight   # descent-rebalanced v3 (A0t trained on mixed_v2_straight)
 # ── Receding horizon ──────────────────────────────────────────────────────────
 # prediction_horizon (T_p): action steps the policy emits. Must be divisible by
 #   2 ** (len(down_dims) - 1) so the U-Net can downsample the horizon axis.
