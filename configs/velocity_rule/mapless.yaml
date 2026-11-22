@@ -1,11 +1,13 @@
 # default.yaml without a map: only the reactive criteria (tilt, shake, flippers, turning) act.
-# They are stronger here, so their compounded reduction roughly matches default's with the map rules:
-# +0.3 on tilt / flippers, +0.2 on shake, and shake held at its peak for a moment (it is the only
-# roughness signal left, and it only fires once the robot is already on it). Pitch stays at default's
-# 0.5: counted like roll, every 20-38 deg climb read as danger and the robot crawled up the hills.
+# They are stronger here, so the robot slows as much overall as default does with the map rules: on
+# three recorded Gazebo rides replayed through both configs, mean rule speed 0.189 m/s like default,
+# at the floor 24-25 % of the time (default 23-24 %), 0.158 m/s while pitched nose-down (default
+# 0.150). With no step ahead to see, moving flippers stand in for "on an obstacle" (0.7, default
+# 0.45); shake is the only roughness signal left and only fires once the robot is already on it, so
+# it is held at its peak for a moment. Tilt (1.0, nose-down pitch in full) and the stall guard come
+# from default unchanged.
 extends: default.yaml
 predictive: false
 criteria:
-  tilt:     {weight: 0.7}
-  shake:    {weight: 0.6, hold_s: 0.25}
-  flippers: {weight: 0.5}
+  shake:    {weight: 0.7, hold_s: 0.25}
+  flippers: {weight: 0.7}

@@ -4,26 +4,31 @@
 # Speed = v_default x prod(1 - weight * r) per criterion, not below v_min; `cap` (special case)
 # may go below it. mode linear: r = clip((m - lo) / (hi - lo)); mode bang: r = 1 above `trip`,
 # released once below `release` for hold_s. Lengths m, angles deg (tilt), rates rad/s.
-v_default: 0.8
-v_min: 0.2
+v_default: 0.4
+v_min: 0.1
 predictive: true              # false = mapless: the heightmap criteria are dropped
 predictive_combine: strongest # map criteria: only the strongest applies (product: they compound)
 distrust_map_at: 0.7          # map_mismatch ratio from which step / roughness are ignored
 footprint: {x: [-0.35, 0.35], half_width: 0.28}   # track contact area in the robot frame
-slew: {accel: 0.4, decel: 2.0}                    # m/s^2
+slew: {accel: 0.4, decel: 0.8}                    # m/s^2; decel 0.8: 0.4 -> 0.2 m/s in 0.25 s, not a jolt
 # stall guard: < progress_m along the heading in window_s -> override at boost[level] until release_m of
-# progress or max_boost_s; a boost that runs out raises the next level
-stall: {window_s: 3.0, progress_m: 0.25, release_m: 0.4, max_boost_s: 4.0, boost: [0.4, 0.6, 0.8]}   # tile-sweep data: stuck rocking p99 0.20 m per 3 s
+# progress or max_boost_s; a boost that runs out raises the next level. Rocking in place stays <= 0.20 m
+# (tile-sweep p99); window_s 5 lets a robot creeping at the 0.1 m/s floor make 0.5 m per window -- at 3 s
+# (0.3 m) it read as stalled and was boosted 32 % of a Gazebo ride. Pitched nose-down past
+# max_pitch_down_deg: first level only (creeping over a lip is deliberate, a boost there sped up descents).
+stall: {window_s: 5.0, progress_m: 0.25, release_m: 0.4, max_boost_s: 4.0, boost: [0.2, 0.3, 0.4], max_pitch_down_deg: 10.0}
 
 criteria:
   # predictive (heightmap)
-  step_up:      {weight: 0.4, mode: bang, trip: 0.08, release: 0.05, hold_s: 0.5, lookahead: 1.0, behind: 0.10, baseline: 0.10}
-  step_down:    {weight: 0.5, mode: bang, trip: 0.06, release: 0.04, hold_s: 0.5, lookahead: 1.0, behind: 0.10, baseline: 0.10}
-  roughness:    {weight: 0.15, mode: linear, lo: 0.015, hi: 0.05, quantile: 0.5, x: [-0.35, 0.6],
+  # steps: linear in the step height (5 cm -> nothing, 25 cm / 20 cm -> the full weight), from 0.5 m ahead
+  # (about 0.15 m before the track front reaches the edge) -- at 1.0 m and bang they slowed early and hard
+  step_up:      {weight: 0.5, mode: linear, lo: 0.05, hi: 0.25, hold_s: 0.5, lookahead: 0.5, behind: 0.10, baseline: 0.10}
+  step_down:    {weight: 0.5, mode: linear, lo: 0.04, hi: 0.20, hold_s: 0.5, lookahead: 0.5, behind: 0.45, baseline: 0.10}   # held until the rear is past the edge
+  roughness:    {weight: 0.5, mode: linear, lo: 0.015, hi: 0.05, quantile: 0.5, x: [-0.35, 0.6],
                  scales: [[1, 0.5], [2, 1.0], [4, 1.0]]}    # [scale cells, weight]: 5 / 10 / 20 cm
-  map_mismatch: {weight: 0.3, mode: linear, lo: 0.05, hi: 0.20}
+  map_mismatch: {weight: 0.5, mode: linear, lo: 0.05, hi: 0.20}
   # reactive (proprioception)
-  tilt:         {weight: 0.4, mode: linear, lo: 15.0, hi: 30.0, roll_k: 1.0, pitch_k: 0.5}
-  shake:        {weight: 0.4, mode: linear, lo: 0.3, hi: 1.5, tau: 0.3}
-  flippers:     {weight: 0.2, mode: bang, trip: 0.3, release: 0.1, hold_s: 0.5}
-  turning:      {weight: 0.4, mode: linear, lo: 0.2, hi: 1.0}
+  tilt:         {weight: 1.0, mode: linear, lo: 15.0, hi: 30.0, roll_k: 1.0, pitch_k: 0.5, pitch_down_k: 1.0}   # climbs at half, descents in full
+  shake:        {weight: 0.5, mode: linear, lo: 0.3, hi: 1.5, tau: 0.3}
+  flippers:     {weight: 0.45, mode: bang, trip: 0.3, release: 0.1, hold_s: 0.5}
+  turning:      {weight: 0.5, mode: linear, lo: 0.2, hi: 1.0}

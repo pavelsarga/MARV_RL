@@ -58,11 +58,32 @@ How each criterion's ratio is set (`mode`):
 - `mapless.yaml`: `extends: default.yaml` with `predictive: false`. Its reactive weights are
   stronger, so the compounded effect is similar, and shake has a short peak hold.
 
-In Isaac, deep stacked slowdowns made MARV crawl over obstacles it climbs at speed. That is why
-the defaults use `v_min: 0.2`, `predictive_combine: strongest`, roughness weight 0.15, tilt from
-15°, and pitch at half the weight of roll.
+Current defaults (Nov 2026): 0.1–0.4 m/s (`v_min` / `v_default`), stall boosts `[0.2, 0.3, 0.4]` (the
+top one = `v_default`).
+- **Weights.** They are the most conservative set that keeps the speed on the floor for at most 25 % of a
+  ride, picked for the slowest descents.
+- **How they were picked.** Three recorded Gazebo rides were replayed offline through the node's own
+  input path: the GT map gives the robot window and the odometry gives the attitude. The criteria's
+  ratios do not depend on the weights, so each candidate set is exact and costs nothing.
+- **Result on those rides.** Floor 23–24 %, mean 0.189 m/s, 0.150 m/s while pitched nose-down.
+- **Descents.**
+  - The robot used to speed up on descents. step_down released once the edge was 0.10 m behind the
+    centre, while the rear was still going down. Nose-down pitch counted at half weight, so a 30°
+    descent was below tilt's `lo`. And the stall guard boosted a robot creeping over the lip.
+  - Now step_down's `behind` is 0.45 m (past the rear of the footprint), and `pitch_down_k: 1.0` counts
+    descents in full; climbs stay at `pitch_k` 0.5.
+  - The stall guard's `window_s` is 5 s (at 3 s, floor-speed creeping read as a stall and was boosted
+    32 % of a ride; 8 % at 5 s). `max_pitch_down_deg: 10` keeps a nose-down robot at the first boost level.
+- **`flippers`** is latched about 63 % of the time (the policy moves its flippers almost constantly), so
+  its weight acts nearly everywhere.
+- **`mapless.yaml`** cannot see steps. It raises flippers and shake to 0.7 to match default's mean speed.
+- `predictive_combine: strongest`, tilt from 15° and pitch at half the weight of roll stay: in Isaac,
+  deep stacked slowdowns made MARV crawl over obstacles it climbs at speed.
 
-Isaac results, Nov 2026, from `eval_diffusion.py --tile_sweep` (`logs/policy_eval/tile_sweep_rect/`).
+Isaac training with V-Gov: `configs/diffusion/marv_config_diffusion_p1_flipperonly_vgov_ss_x3t.yaml`.
+
+Isaac results, Nov 2026, from `eval_diffusion.py --tile_sweep` (`logs/policy_eval/tile_sweep_rect/`), with the
+**previous** defaults (0.2–0.8 m/s, lighter weights, boosts `[0.4, 0.6, 0.8]`).
 
 Setup:
 - The A0t flippers at their trained 10 Hz, on all 350 tiles of mixed_v2_straight (35 obstacles × 10
