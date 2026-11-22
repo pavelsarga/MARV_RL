@@ -5,7 +5,8 @@ comment: >-
   flippers, v comes from the rule-based governor (configs/velocity_rule/default.yaml, the YAML
   the Gazebo velocity_rule_node runs) and w from auto_ride's bearing law. The observed heightmap
   goes through the Gazebo-fitted elevation-map emulator, so the policy and V-Gov both see
-  Gazebo-like maps. Rewards and schedules are A0t's.
+  Gazebo-like maps. Rewards and schedules are A0t's; episodes are 80 s (V-Gov's 0.1 m/s floor)
+  and success is the target-line rectangle.
 
 use_wandb: true
 use_tensorboard: false
@@ -206,6 +207,13 @@ env_cfg_overrides:
   velocity_controller: {type: rule, config: configs/velocity_rule/default.yaml, history: 1}
   heading_controller: {gain: 1.5, max_w: 1.0}
   heightmap_emulation: {k_dilate: 5, k_erode: 3, blur_sigma: 1.0, height_offset: 0.0047}
+  # 80 s (default 30): a crossing is 6.8 m and V-Gov's floor is 0.1 m/s (68 s if driven at the floor
+  # throughout); at 30 s it needs a 0.23 m/s average. The mid-training eval cap follows it
+  # (max_eval_steps 0 = 2 x max_episode_length).
+  episode_length_s: 80
+  # success = the target line crossed anywhere across the spot (the tile-sweep criterion), not the
+  # 0.4 m circle, under which most failures were crossings that drifted sideways
+  success_shape: rectangle
   goal_reached_reward: 129.53813225921667
   failed_reward: -29.94922004490214
   shaping_coef: 72.50368190480287
