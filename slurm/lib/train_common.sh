@@ -183,8 +183,17 @@ _respawn_loop() {
 
     local stalled=0 respawn_count=0 remaining frame_args exit_status
     local stall_limit=${STALL_LIMIT:-5}
+    # Terrain rotation (training/terrain_rotation.py): <job dir>/terrain_rotation/next_course.txt
+    # names the course every relaunch must start on. The trainer normally swaps courses in-process
+    # and rewrites it at each swap; exit 76 = "swap not possible in-process, relaunch on it". Read
+    # before EVERY launch (crash respawns too), so a respawn never falls back to the config's terrain.
+    local terrain_arg="" rotations=0
+    local course_file="$LOGDIR/terrain_rotation/next_course.txt"
 
     while true; do
+        if [ -s "$course_file" ]; then
+            terrain_arg="--terrain $(tr -d '[:space:]' < "$course_file")"
+        fi
         remaining=$(frames_remaining)
         if [ -n "$remaining" ] && [ "$remaining" -le 0 ]; then
             echo "########################################################################"
@@ -211,7 +220,7 @@ _respawn_loop() {
             env PYTHONPATH=/ws/src/FTR-Benchmark:/ws/src/flipper_training \
             python $TARGET_PY \
             --config /ws/configs/$CONFIG \
-            --headless $frame_args ${EXTRA_ARGS[*]}"
+            --headless $frame_args ${EXTRA_ARGS[*]} $terrain_arg"
 
         echo "########################################################################"
         if [ -n "$remaining" ]; then
@@ -230,6 +239,18 @@ _respawn_loop() {
 
         attempt_record_progress "$LOGDIR"
         echo "Attempt collected $ATTEMPT_PROGRESS frames (job total: $FRAMES_DONE${FRAME_BUDGET:+ / $FRAME_BUDGET})."
+
+        if [ "$exit_status" -eq 76 ]; then
+            if [ ! -s "$course_file" ]; then
+                echo "ERROR: exit 76 (terrain rotation) but $course_file is missing — cannot continue."
+                exit 1
+            fi
+            terrain_arg="--terrain $(tr -d '[:space:]' < "$course_file")"
+            rotations=$((rotations + 1))
+            stalled=0
+            echo "Terrain rotation #$rotations: relaunching with $terrain_arg"
+            continue
+        fi
 
         # Exit code 75 = CUDA/W&B error: transient, respawn and auto-resume from the checkpoint.
         if [ "$exit_status" -ne 75 ]; then
