@@ -215,8 +215,8 @@ env_cfg_overrides:
     com_offset_x_m: 0.04
     com_offset_z_m: 0.02
     friction_scale:
-      wheel: {range: [0.6, 1.6], log: true}
-      flipper: {range: [0.7, 1.4], log: true}
+      wheel: {range: [0.8, 2.5], log: true}    # was 0.6-1.6: Isaac grip is below the real robot's (stalls on hills it climbs) -- overshoot it; costs yaw authority
+      flipper: {range: [0.9, 2.5], log: true}  # was 0.7-1.4
     adr: {enabled: true, boundary_prob: 0.15, buffer: 48, expand_thr: 0.7, shrink_thr: 0.4, step: 0.05}
   # ROTATION: adaptive spawn sampler — the course-exhausted signal (spawn_sampler.py)
   spawn_sampler:
